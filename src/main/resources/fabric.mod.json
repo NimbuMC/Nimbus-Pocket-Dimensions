@@ -1,0 +1,37 @@
+{
+	"schemaVersion": 1,
+	"id": "thaumaturgy",
+	"version": "${version}",
+	"name": "Thaumaturgy",
+	"description": "This is a magic mod called Thaumaturgy.",
+	"authors": [
+		"Nimbu"
+	],
+	"contact": {
+		"homepage": "https://fabricmc.net/",
+		"sources": "https://github.com"
+	},
+	"license": "CC0-1.0",
+	"icon": "assets/thaumaturgy/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"net.nimbu.thaumaturgy.Thaumaturgy"
+		],
+		"fabric-datagen": [
+			"net.nimbu.thaumaturgy.ThaumaturgyDataGenerator"
+		],
+		"client": [
+			"net.nimbu.thaumaturgy.ThaumaturgyClient"
+		]
+	},
+	"mixins": [
+		"thaumaturgy.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.18.4",
+		"minecraft": "~1.21",
+		"java": ">=21",
+		"fabric-api": "*"
+	}
+}
