@@ -2,6 +2,7 @@ package net.nimbu.thaumaturgy;
 
 import net.fabricmc.api.ModInitializer;
 
+import net.nimbu.thaumaturgy.block.ModBlocks;
 import net.nimbu.thaumaturgy.item.ModItemGroups;
 import net.nimbu.thaumaturgy.item.ModItems;
 import org.slf4j.Logger;
@@ -17,5 +18,6 @@ public class Thaumaturgy implements ModInitializer {
 
 		ModItemGroups.registerItemGroups();
 		ModItems.registerModItems();
+		ModBlocks.registerModBlocks();
 	}
 }
