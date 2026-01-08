@@ -18,7 +18,7 @@ public class ModItems {
             .rarity(Rarity.RARE)
             .component(DataComponentTypes.ENCHANTMENT_GLINT_OVERRIDE, false))); //never show enchantment glint
 
-    public static final Item Staff = registerItem("staff", new Item(new Item.Settings()
+    public static final Item STAFF = registerItem("staff", new Item(new Item.Settings()
             .maxCount(1)
             .maxDamage(131)
             .rarity(Rarity.RARE)));
