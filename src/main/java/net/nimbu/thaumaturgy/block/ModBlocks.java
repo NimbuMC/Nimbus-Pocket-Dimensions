@@ -56,5 +56,5 @@ public class ModBlocks {
     }
 }
 // EnchantingTableBlock
-// Blocks
+//Blocks
 
