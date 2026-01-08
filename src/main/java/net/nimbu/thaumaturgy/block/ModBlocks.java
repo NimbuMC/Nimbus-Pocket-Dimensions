@@ -2,6 +2,7 @@ package net.nimbu.thaumaturgy.block;
 
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.block.*;
+import net.minecraft.block.enums.NoteBlockInstrument;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroups;
@@ -10,6 +11,7 @@ import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 import net.nimbu.thaumaturgy.Thaumaturgy;
 import net.nimbu.thaumaturgy.block.custom.RevisualisingTable;
+import net.nimbu.thaumaturgy.block.custom.Wellspring;
 
 public class ModBlocks {
 
@@ -21,12 +23,15 @@ public class ModBlocks {
     public static final Block REVISUALISING_TABLE = registerBlock("revisualising_table",
             new RevisualisingTable(AbstractBlock.Settings.create()
                     .mapColor(MapColor.BLUE)
+                    .instrument(NoteBlockInstrument.BASEDRUM)
                     .requiresTool()
                     .luminance(state -> 7)
                     .strength(3.0F, 1200.0F)));
 
 
-
+    public static final Block WELLSPRING = registerBlock("wellspring",
+            new Wellspring(AbstractBlock.Settings.create()
+                    .strength(2f).requiresTool().luminance(state -> state.get(Wellspring.CLICKED)? 15 : 0)));
 
 
 
@@ -51,4 +56,5 @@ public class ModBlocks {
     }
 }
 // EnchantingTableBlock
+//Blocks
 
