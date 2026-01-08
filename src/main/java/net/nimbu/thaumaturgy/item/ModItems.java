@@ -16,7 +16,12 @@ public class ModItems {
     public static final Item WAND = registerItem("wand", new WandItem(new Item.Settings()
             .maxCount(1).maxDamage(131)
             .rarity(Rarity.RARE)
-            .component(DataComponentTypes.ENCHANTMENT_GLINT_OVERRIDE, true)));
+            .component(DataComponentTypes.ENCHANTMENT_GLINT_OVERRIDE, false))); //never show enchantment glint
+
+    public static final Item Staff = registerItem("staff", new Item(new Item.Settings()
+            .maxCount(1)
+            .maxDamage(131)
+            .rarity(Rarity.RARE)));
 
 
     private static Item registerItem(String name, Item item){
@@ -28,4 +33,5 @@ public class ModItems {
 
         //ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS).re
     }
+
 }

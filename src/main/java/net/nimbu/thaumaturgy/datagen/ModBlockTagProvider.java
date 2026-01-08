@@ -4,7 +4,9 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.tag.BlockTags;
+import net.minecraft.registry.tag.ItemTags;
 import net.nimbu.thaumaturgy.block.ModBlocks;
+import net.nimbu.thaumaturgy.item.ModItems;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -17,5 +19,10 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
     protected void configure(RegistryWrapper.WrapperLookup wrapperLookup) {
         getOrCreateTagBuilder(BlockTags.PICKAXE_MINEABLE)
                 .add(ModBlocks.REVISUALISING_TABLE);
+
+        //getOrCreateTagBuilder(ItemTags.SWORD_ENCHANTABLE).
+        //        add(ModItems.WAND);
     }
+
+
 }

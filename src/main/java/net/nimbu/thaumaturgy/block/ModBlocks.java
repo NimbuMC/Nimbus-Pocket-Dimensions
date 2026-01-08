@@ -1,9 +1,7 @@
 package net.nimbu.thaumaturgy.block;
 
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.MapColor;
+import net.minecraft.block.*;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroups;
@@ -15,12 +13,24 @@ import net.nimbu.thaumaturgy.block.custom.RevisualisingTable;
 
 public class ModBlocks {
 
+
+
+    public static final Block PITCH_BLACK_BLOCK = registerBlock("pitch_black_block",
+            new Block(AbstractBlock.Settings.create().strength(0.2f)));
+
     public static final Block REVISUALISING_TABLE = registerBlock("revisualising_table",
             new RevisualisingTable(AbstractBlock.Settings.create()
                     .mapColor(MapColor.BLUE)
                     .requiresTool()
                     .luminance(state -> 7)
                     .strength(3.0F, 1200.0F)));
+
+
+
+
+
+
+
 
     private static Block registerBlock(String name, Block block){
         registerBlockItem(name, block);
@@ -39,5 +49,6 @@ public class ModBlocks {
 
         });
     }
-
 }
+// EnchantingTableBlock
+
