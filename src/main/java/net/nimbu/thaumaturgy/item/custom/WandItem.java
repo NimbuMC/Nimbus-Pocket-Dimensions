@@ -27,7 +27,7 @@ public class WandItem extends Item {
 
         if(!world.isClient()){
             context.getStack().set(ModDataComponentTypes.COORDINATES, context.getBlockPos());
-            context.getStack().set(DataComponentTypes.CUSTOM_NAME, null);
+            context.getStack().set(DataComponentTypes.CUSTOM_NAME, Text.literal("Test123"));
         }
 
         return ActionResult.SUCCESS;
