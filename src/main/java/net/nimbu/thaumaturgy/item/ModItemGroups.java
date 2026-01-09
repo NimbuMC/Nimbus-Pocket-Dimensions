@@ -22,6 +22,7 @@ public class ModItemGroups {
                         entries.add(ModItems.STAFF);
                         entries.add(ModBlocks.REVISUALISING_TABLE);
                         entries.add(ModBlocks.PITCH_BLACK_BLOCK);
+                        entries.add(ModBlocks.WELLSPRING);
                     }).build());
 
 
