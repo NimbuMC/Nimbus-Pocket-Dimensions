@@ -6,6 +6,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.enchantment.Enchantment;
+import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
@@ -21,6 +22,7 @@ import net.minecraft.util.BlockRotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.nimbu.thaumaturgy.component.ModDataComponentTypes;
+import net.nimbu.thaumaturgy.util.ModModelPredicates;
 import net.nimbu.thaumaturgy.worldgen.dimension.ModDimensions;
 
 import java.util.ArrayList;
@@ -28,15 +30,26 @@ import java.util.List;
 
 public class WandItem extends Item {
 
+
     public WandItem(Settings settings) {super(settings);}
 
 
+    @Override
+    public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
+        super.inventoryTick(stack, world, entity, slot, selected);
+
+        if (stack.get(ModDataComponentTypes.SPELL_FLASH_TIMER)!=null){
+            int spellFlashTimer=stack.get(ModDataComponentTypes.SPELL_FLASH_TIMER);
+            if (spellFlashTimer>0) {stack.set(ModDataComponentTypes.SPELL_FLASH_TIMER, spellFlashTimer-1);}
+            else {stack.set(ModDataComponentTypes.SPELL_FLASH_TIMER, null);}
+        }
+    }
 
     @Override
     public ActionResult useOnBlock(ItemUsageContext context) {
         World world = context.getWorld();
 
-
+        context.getStack().set(ModDataComponentTypes.SPELL_FLASH_TIMER, 10);
 
         if(!world.isClient() && context.getWorld().getRegistryKey() != ModDimensions.POCKET_DIM_LEVEL_KEY) {
             BlockPos sourceBlockPos = new BlockPos(context.getBlockPos().getX(), context.getBlockPos().getY() + 1, context.getBlockPos().getZ());
