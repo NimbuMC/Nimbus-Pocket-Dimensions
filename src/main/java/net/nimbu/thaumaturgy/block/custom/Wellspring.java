@@ -12,7 +12,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class Wellspring extends Block {
-
     //these below allow for properties of instances of blocks
     public static final BooleanProperty CLICKED = BooleanProperty.of("clicked");
 
