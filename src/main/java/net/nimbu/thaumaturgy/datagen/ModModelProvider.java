@@ -29,6 +29,13 @@ public class ModModelProvider extends FabricModelProvider {
 
     @Override
     public void generateItemModels(ItemModelGenerator itemModelGenerator) {
+
         itemModelGenerator.register(ModItems.WAND, Models.HANDHELD);
+
+        itemModelGenerator.register(ModItems.SPIRIT_SWORD, Models.HANDHELD);
+        itemModelGenerator.register(ModItems.SPIRIT_SHOVEL, Models.HANDHELD);
+        itemModelGenerator.register(ModItems.SPIRIT_PICKAXE, Models.HANDHELD);
+        itemModelGenerator.register(ModItems.SPIRIT_AXE, Models.HANDHELD);
+        itemModelGenerator.register(ModItems.SPIRIT_HOE, Models.HANDHELD);
     }
 }

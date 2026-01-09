@@ -7,6 +7,7 @@ import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.registry.tag.ItemTags;
 import net.nimbu.thaumaturgy.block.ModBlocks;
 import net.nimbu.thaumaturgy.item.ModItems;
+import net.nimbu.thaumaturgy.util.ModTags;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -20,8 +21,8 @@ public class ModBlockTagProvider extends FabricTagProvider.BlockTagProvider {
         getOrCreateTagBuilder(BlockTags.PICKAXE_MINEABLE)
                 .add(ModBlocks.REVISUALISING_TABLE);
 
-        //getOrCreateTagBuilder(ItemTags.SWORD_ENCHANTABLE).
-        //        add(ModItems.WAND);
+        //getOrCreateTagBuilder(ModTags.Blocks.NEEDS_SPIRIT_TOOL)
+        //        .addTag(BlockTags.NEEDS_IRON_TOOL); //everything iron tool can mine, spirit can too
     }
 
 

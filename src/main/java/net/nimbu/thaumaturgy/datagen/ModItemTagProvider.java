@@ -15,8 +15,19 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
 
     @Override
     protected void configure(RegistryWrapper.WrapperLookup wrapperLookup) {
-        getOrCreateTagBuilder(ItemTags.SWORDS).
-                add(ModItems.WAND);
+
+        getOrCreateTagBuilder(ItemTags.SWORDS) //enchantability tags are added to these automatically
+                .add(ModItems.SPIRIT_SWORD);
+        getOrCreateTagBuilder(ItemTags.SHOVELS)
+                .add(ModItems.SPIRIT_SHOVEL);
+        getOrCreateTagBuilder(ItemTags.PICKAXES)
+                .add(ModItems.SPIRIT_PICKAXE);
+        getOrCreateTagBuilder(ItemTags.AXES)
+                .add(ModItems.SPIRIT_AXE);
+        getOrCreateTagBuilder(ItemTags.HOES)
+                .add(ModItems.SPIRIT_HOE);
+
+
     }
 }
 
