@@ -2,8 +2,7 @@ package net.nimbu.thaumaturgy.item;
 
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.component.DataComponentTypes;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroups;
+import net.minecraft.item.*;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
@@ -23,6 +22,21 @@ public class ModItems {
             .maxDamage(131)
             .rarity(Rarity.RARE)));
 
+    public static final Item SPIRIT_SWORD = registerItem("spirit_sword",
+            new SwordItem(ModToolMaterials.SPIRIT, new Item.Settings()
+                    .attributeModifiers(SwordItem.createAttributeModifiers(ModToolMaterials.SPIRIT, 3, -2.4f)))); //default sword values
+    public static final Item SPIRIT_PICKAXE = registerItem("spirit_pickaxe",
+            new PickaxeItem(ModToolMaterials.SPIRIT, new Item.Settings()
+                    .attributeModifiers(PickaxeItem.createAttributeModifiers(ModToolMaterials.SPIRIT, 1, -2.8f))));
+    public static final Item SPIRIT_AXE = registerItem("spirit_axe",
+            new AxeItem(ModToolMaterials.SPIRIT, new Item.Settings()
+                    .attributeModifiers(AxeItem.createAttributeModifiers(ModToolMaterials.SPIRIT, 6, -3.2f))));
+    public static final Item SPIRIT_SHOVEL = registerItem("spirit_shovel",
+            new ShovelItem(ModToolMaterials.SPIRIT, new Item.Settings()
+                    .attributeModifiers(ShovelItem.createAttributeModifiers(ModToolMaterials.SPIRIT, 1.5f, -3.0f))));
+    public static final Item SPIRIT_HOE = registerItem("spirit_hoe",
+            new HoeItem(ModToolMaterials.SPIRIT, new Item.Settings()
+                    .attributeModifiers(HoeItem.createAttributeModifiers(ModToolMaterials.SPIRIT, 0, -3.0f))));
 
     private static Item registerItem(String name, Item item){
         return Registry.register(Registries.ITEM, Identifier.of(Thaumaturgy.MOD_ID, name), item);

@@ -20,6 +20,11 @@ public class ModItemGroups {
                     .entries((displayContext, entries) -> {
                         entries.add(ModItems.WAND);
                         entries.add(ModItems.STAFF);
+                        entries.add(ModItems.SPIRIT_SWORD);
+                        entries.add(ModItems.SPIRIT_SHOVEL);
+                        entries.add(ModItems.SPIRIT_PICKAXE);
+                        entries.add(ModItems.SPIRIT_AXE);
+                        entries.add(ModItems.SPIRIT_HOE);
                         entries.add(ModBlocks.REVISUALISING_TABLE);
                         entries.add(ModBlocks.PITCH_BLACK_BLOCK);
                         entries.add(ModBlocks.WELLSPRING);
