@@ -18,7 +18,6 @@ public class ModModelProvider extends FabricModelProvider {
     public void generateBlockStateModels(BlockStateModelGenerator blockStateModelGenerator) {
 
         //blockStateModelGenerator.registerStateWithModelReference(ModBlocks.REVISUALISING_TABLE, Blocks.ENCHANTING_TABLE);// SimpleState(ModBlocks.REVISUALISING_TABLE);
-
         blockStateModelGenerator.registerSimpleCubeAll(ModBlocks.PITCH_BLACK_BLOCK);
 
         Identifier wellspringOffIdentifier = TexturedModel.CUBE_ALL.upload(ModBlocks.WELLSPRING, blockStateModelGenerator.modelCollector);
@@ -30,12 +29,15 @@ public class ModModelProvider extends FabricModelProvider {
     @Override
     public void generateItemModels(ItemModelGenerator itemModelGenerator) {
 
-        itemModelGenerator.register(ModItems.WAND, Models.HANDHELD);
+        //itemModelGenerator.register(ModItems.WAND, Models.HANDHELD);
+        itemModelGenerator.register(ModItems.PORTAL_WAND, Models.HANDHELD);
 
         itemModelGenerator.register(ModItems.SPIRIT_SWORD, Models.HANDHELD);
         itemModelGenerator.register(ModItems.SPIRIT_SHOVEL, Models.HANDHELD);
         itemModelGenerator.register(ModItems.SPIRIT_PICKAXE, Models.HANDHELD);
         itemModelGenerator.register(ModItems.SPIRIT_AXE, Models.HANDHELD);
         itemModelGenerator.register(ModItems.SPIRIT_HOE, Models.HANDHELD);
+
+        itemModelGenerator.register(ModItems.HAMMER, Models.HANDHELD);
     }
 }

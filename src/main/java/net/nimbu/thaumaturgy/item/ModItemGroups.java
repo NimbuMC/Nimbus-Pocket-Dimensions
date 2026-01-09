@@ -25,6 +25,7 @@ public class ModItemGroups {
                         entries.add(ModItems.SPIRIT_PICKAXE);
                         entries.add(ModItems.SPIRIT_AXE);
                         entries.add(ModItems.SPIRIT_HOE);
+                        entries.add(ModItems.HAMMER);
                         entries.add(ModBlocks.REVISUALISING_TABLE);
                         entries.add(ModBlocks.PITCH_BLACK_BLOCK);
                         entries.add(ModBlocks.WELLSPRING);
