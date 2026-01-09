@@ -36,9 +36,9 @@ public class WandItem extends Item {
     public ActionResult useOnBlock(ItemUsageContext context) {
         World world = context.getWorld();
 
-        //if(context.getWorld().getRegistryKey()== RegistryKey.of(RegistryKeys.DIMENSION!= ModDimensions.POCKET_DIM_KEY))
 
-        if(!world.isClient()) {
+
+        if(!world.isClient() && context.getWorld().getRegistryKey() != ModDimensions.POCKET_DIM_LEVEL_KEY) {
             BlockPos sourceBlockPos = new BlockPos(context.getBlockPos().getX(), context.getBlockPos().getY() + 1, context.getBlockPos().getZ());
             List<BlockPos> positions = new ArrayList<>();
             positions.add(sourceBlockPos);
