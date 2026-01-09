@@ -25,10 +25,10 @@ public class Thaumaturgy implements ModInitializer {
 		ModBlocks.registerModBlocks();
 		ModDataComponentTypes.registerDataComponentTypes();
 		CustomPortalBuilder.beginPortal()
-				.frameBlock(Blocks.AMETHYST_BLOCK)
-				.lightWithItem(ModItems.WAND)
+				.frameBlock(ModBlocks.PITCH_BLACK_BLOCK)
+				.lightWithItem(ModItems.STAFF)
 				.destDimID(Identifier.tryParse(Thaumaturgy.MOD_ID, "pocket_dim"))
-				.tintColor(128,128,128)
+				.tintColor(0,0,139)
 				.registerPortal();
 	}
 }
