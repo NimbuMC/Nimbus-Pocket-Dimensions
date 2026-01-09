@@ -55,6 +55,6 @@ public class ModBlocks {
         });
     }
 }
-// EnchantingTableBlock
+//EnchantingTableBlock
 //Blocks
 
