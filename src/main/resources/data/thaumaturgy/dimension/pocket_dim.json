@@ -3,13 +3,13 @@
   "generator": {
     "type": "minecraft:flat",
     "settings": {
-      "biome": "minecraft:end_barrens",
+      "biome": "thaumaturgy:pocket_dim_biome",
       "lakes": false,
       "features": false,
       "layers": [
         {
-          "height": 1,
-          "block": "minecraft:glass"
+          "height": 0,
+          "block": "minecraft:air"
         }
       ]
     }
