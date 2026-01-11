@@ -1,0 +1,6 @@
+{
+  "parent": "thaumaturgy:item/wand_arrow",
+  "textures": {
+    "layer0": "thaumaturgy:item/wand_arrow_1"
+  }
+}

@@ -30,7 +30,6 @@ public class ModModelProvider extends FabricModelProvider {
     public void generateItemModels(ItemModelGenerator itemModelGenerator) {
 
         //itemModelGenerator.register(ModItems.WAND, Models.HANDHELD);
-        itemModelGenerator.register(ModItems.PORTAL_WAND, Models.HANDHELD);
 
         itemModelGenerator.register(ModItems.SPIRIT_SWORD, Models.HANDHELD);
         itemModelGenerator.register(ModItems.SPIRIT_SHOVEL, Models.HANDHELD);

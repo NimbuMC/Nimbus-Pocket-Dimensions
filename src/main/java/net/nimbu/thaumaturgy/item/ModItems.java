@@ -8,7 +8,6 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
 import net.nimbu.thaumaturgy.Thaumaturgy;
 import net.nimbu.thaumaturgy.item.custom.HammerItem;
-import net.nimbu.thaumaturgy.item.custom.PortalWandItem;
 import net.nimbu.thaumaturgy.item.custom.WandItem;
 
 public class ModItems {
@@ -21,10 +20,6 @@ public class ModItems {
     public static final Item STAFF = registerItem("staff", new Item(new Item.Settings()
             .maxCount(1)
             .maxDamage(131)
-            .rarity(Rarity.RARE)));
-
-    public static final Item PORTAL_WAND = registerItem("portal_wand", new PortalWandItem(new Item.Settings()
-            .maxCount(1)
             .rarity(Rarity.RARE)));
 
     public static final Item SPIRIT_SWORD = registerItem("spirit_sword",
@@ -46,6 +41,9 @@ public class ModItems {
     public static final Item HAMMER = registerItem("hammer",
             new HammerItem(ToolMaterials.DIAMOND, new Item.Settings()
                     .attributeModifiers(PickaxeItem.createAttributeModifiers(ModToolMaterials.SPIRIT,7, -3.4f))));
+
+    public static final Item WAND_ARROW = registerItem("wand_arrow",
+            new BowItem(new Item.Settings().maxDamage(500)));
 
     private static Item registerItem(String name, Item item){
         return Registry.register(Registries.ITEM, Identifier.of(Thaumaturgy.MOD_ID, name), item);
