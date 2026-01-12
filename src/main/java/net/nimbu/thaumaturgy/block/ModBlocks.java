@@ -17,8 +17,6 @@ import net.nimbu.thaumaturgy.block.custom.Wellspring;
 
 public class ModBlocks {
 
-
-
     public static final Block PITCH_BLACK_BLOCK = registerBlock("pitch_black_block",
             new Block(AbstractBlock.Settings.create().strength(0.2f)));
 
@@ -35,15 +33,14 @@ public class ModBlocks {
             new Wellspring(AbstractBlock.Settings.create()
                     .strength(2f).requiresTool().luminance(state -> state.get(Wellspring.CLICKED)? 15 : 0)));
 
-    public static final Block POCKET_DIMENSION_PORTAL = registerBlock( "pocket_dimension_portal",
-            new PocketDimensionPortal(AbstractBlock.Settings.create()
-                    .strength(-1f, 36000000)
-                    .dropsNothing()
-                    .luminance(state -> 15)
-                    .noBlockBreakParticles()
-                    .noCollision()
-                    .pistonBehavior(PistonBehavior.BLOCK)
-                    ));
+    public static final Block POCKET_DIMENSION_PORTAL =
+            Registry.register(
+                    Registries.BLOCK,
+                    Identifier.of("thaumaturgy", "pocket_dimension_portal"),
+                    new PocketDimensionPortal(
+                            AbstractBlock.Settings.copy(Blocks.END_GATEWAY)
+                    )
+            );
 
 
 

@@ -4,7 +4,6 @@ import net.fabricmc.api.ModInitializer;
 
 import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
-import net.kyrptonaught.customportalapi.api.CustomPortalBuilder;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.passive.SheepEntity;
@@ -12,6 +11,7 @@ import net.minecraft.item.Items;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Identifier;
+import net.nimbu.thaumaturgy.block.ModBlockEntityTypes;
 import net.nimbu.thaumaturgy.block.ModBlocks;
 import net.nimbu.thaumaturgy.component.ModDataComponentTypes;
 import net.nimbu.thaumaturgy.effect.ModEffects;
@@ -33,27 +33,17 @@ public class Thaumaturgy implements ModInitializer {
 		ModItemGroups.registerItemGroups();
 		ModItems.registerModItems();
 		ModBlocks.registerModBlocks();
+		ModBlockEntityTypes.register();
 		ModDataComponentTypes.registerDataComponentTypes();
-		ModSounds.registerSounds();
-		ModEffects.registerEffects();
-
-		CustomPortalBuilder.beginPortal()
-				.frameBlock(ModBlocks.PITCH_BLACK_BLOCK)
-				.lightWithItem(ModItems.STAFF)
-				.destDimID(Identifier.tryParse(Thaumaturgy.MOD_ID, "pocket_dim"))
-				.tintColor(0,0,139)
-				.registerPortal();
-
 
 		// Below are "events". These are general things that happen during gameplay that can have custom
 		// methods linked to them.
 		// Find events by clicking an example, and clicking "player" on the imported package.
 		// Client only events should be handled in the Thaumaturgy client class.
 		PlayerBlockBreakEvents.BEFORE.register(new HammerUsageEvent());
-
 		AttackEntityCallback.EVENT.register((playerEntity, world, hand, entity, entityHitResult) -> {
 			if(entity instanceof SheepEntity sheepEntity && !world.isClient()){
-				if(playerEntity.getMainHandStack().getItem()== Items.END_ROD){
+				if(playerEntity.getMainHandStack().getItem() == Items.END_ROD){
 					((SheepEntity) entity).headYaw=90;
 					playerEntity.sendMessage(Text.literal("The Player just hit a sheep with an end rod you sick fuck!"));
 					playerEntity.getMainHandStack().decrement(1);

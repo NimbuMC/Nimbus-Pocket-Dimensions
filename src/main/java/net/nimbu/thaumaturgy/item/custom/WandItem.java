@@ -21,6 +21,10 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.BlockRotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.nimbu.thaumaturgy.block.ModBlockEntityTypes;
+import net.nimbu.thaumaturgy.block.ModBlocks;
+import net.nimbu.thaumaturgy.block.custom.PocketDimensionPortal;
+import net.nimbu.thaumaturgy.block.custom.PocketDimensionPortalBlockEntity;
 import net.nimbu.thaumaturgy.component.ModDataComponentTypes;
 import net.nimbu.thaumaturgy.util.ModModelPredicates;
 import net.nimbu.thaumaturgy.worldgen.dimension.ModDimensions;
@@ -55,7 +59,7 @@ public class WandItem extends Item {
             BlockPos sourceBlockPos = new BlockPos(context.getBlockPos().getX(), context.getBlockPos().getY() + 1, context.getBlockPos().getZ());
             List<BlockPos> positions = new ArrayList<>();
             positions.add(sourceBlockPos);
-            positions.add(new BlockPos(sourceBlockPos.getX(), sourceBlockPos.getY()+1, sourceBlockPos.getZ()));
+            //positions.add(new BlockPos(sourceBlockPos.getX(), sourceBlockPos.getY()+1, sourceBlockPos.getZ()));
             /*positions.add(new BlockPos(sourceBlockPos.getX(), sourceBlockPos.getY(), sourceBlockPos.getZ()));
             positions.add(new BlockPos(sourceBlockPos.getX(), sourceBlockPos.getY(), sourceBlockPos.getZ()));
             positions.add(new BlockPos(sourceBlockPos.getX(), sourceBlockPos.getY(), sourceBlockPos.getZ()));
@@ -64,15 +68,23 @@ public class WandItem extends Item {
             BlockState netherPortalBlockState= Blocks.NETHER_PORTAL.getDefaultState();
             Float playerAbsoluteYaw = Math.abs(context.getPlayer().getYaw());
 
+            BlockState pocketDimPortalState = ModBlocks.POCKET_DIMENSION_PORTAL.getDefaultState();
+            //context.getPlayer().getGameProfile().getId();
+
+
 
             for(BlockPos pos : positions) {
-                if(world.getBlockState(pos).getBlock()==Blocks.AIR){
-                    if(135 > playerAbsoluteYaw && playerAbsoluteYaw > 45){
-                        world.setBlockState(pos, netherPortalBlockState.rotate(BlockRotation.CLOCKWISE_90));
-                    }
-                    else{
-                        world.setBlockState(pos, netherPortalBlockState);}
+                world.setBlockState(pos, pocketDimPortalState);
+                if(world.getBlockEntity(pos) instanceof PocketDimensionPortalBlockEntity portalData) {
+                    portalData.TriggerInitialIDUpdate(world, pos, 0);
                 }
+            //    if(world.getBlockState(pos).getBlock()==Blocks.AIR){
+            //        if(135 > playerAbsoluteYaw && playerAbsoluteYaw > 45){
+            //            world.setBlockState(pos, pocketDimPortalState.rotate(BlockRotation.CLOCKWISE_90));
+            //        }
+            //        else{
+            //            world.setBlockState(pos, pocketDimPortalState);}
+            //    }
             }
 
             world.playSound(null, context.getBlockPos(), SoundEvents.ENTITY_SHULKER_SHOOT, SoundCategory.BLOCKS);
