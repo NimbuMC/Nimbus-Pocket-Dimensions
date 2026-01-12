@@ -9,17 +9,40 @@ import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
 import net.minecraft.world.World;
+import net.nimbu.thaumaturgy.sound.ModSounds;
 
 import java.util.List;
+import java.util.Random;
 
 public class WandArrowItem extends BowItem {
     public WandArrowItem(Settings settings) {
         super(settings);
     }
 
+    @Override
+    public void usageTick(World world, LivingEntity user, ItemStack stack, int remainingUseTicks) {
+        super.usageTick(world, user, stack, remainingUseTicks);
 
+        Random random = new Random();
 
-
+        if (user instanceof PlayerEntity playerEntity) {
+            if (random.nextInt(5) == 0) {
+                world.playSound(
+                        playerEntity.getX(), playerEntity.getY(), playerEntity.getZ(), ModSounds.MAGIC_CHARGE, SoundCategory.PLAYERS, 0.5F, random.nextFloat() * 0.4F + 0.8F, false
+                );
+            }
+            /*world.playSound(
+                    null,
+                    playerEntity.getX(),
+                    playerEntity.getY(),
+                    playerEntity.getZ(),
+                    ModSounds.MAGIC_CHARGE,
+                    SoundCategory.PLAYERS,
+                    1.0F,
+                    1.0F
+            );*/
+        }
+    }
 
     @Override
     public void onStoppedUsing(ItemStack stack, World world, LivingEntity user, int remainingUseTicks) {
@@ -39,7 +62,7 @@ public class WandArrowItem extends BowItem {
                             playerEntity.getX(),
                             playerEntity.getY(),
                             playerEntity.getZ(),
-                            SoundEvents.BLOCK_AMETHYST_BLOCK_STEP,
+                            SoundEvents.ENTITY_SHULKER_SHOOT,
                             SoundCategory.PLAYERS,
                             1.0F,
                             1.0F / (world.getRandom().nextFloat() * 0.4F + 1.2F) + f * 0.5F

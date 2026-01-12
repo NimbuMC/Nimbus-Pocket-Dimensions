@@ -14,8 +14,10 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Identifier;
 import net.nimbu.thaumaturgy.block.ModBlocks;
 import net.nimbu.thaumaturgy.component.ModDataComponentTypes;
+import net.nimbu.thaumaturgy.effect.ModEffects;
 import net.nimbu.thaumaturgy.item.ModItemGroups;
 import net.nimbu.thaumaturgy.item.ModItems;
+import net.nimbu.thaumaturgy.sound.ModSounds;
 import net.nimbu.thaumaturgy.util.HammerUsageEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,6 +34,9 @@ public class Thaumaturgy implements ModInitializer {
 		ModItems.registerModItems();
 		ModBlocks.registerModBlocks();
 		ModDataComponentTypes.registerDataComponentTypes();
+		ModSounds.registerSounds();
+		ModEffects.registerEffects();
+
 		CustomPortalBuilder.beginPortal()
 				.frameBlock(ModBlocks.PITCH_BLACK_BLOCK)
 				.lightWithItem(ModItems.STAFF)
@@ -45,6 +50,7 @@ public class Thaumaturgy implements ModInitializer {
 		// Find events by clicking an example, and clicking "player" on the imported package.
 		// Client only events should be handled in the Thaumaturgy client class.
 		PlayerBlockBreakEvents.BEFORE.register(new HammerUsageEvent());
+
 		AttackEntityCallback.EVENT.register((playerEntity, world, hand, entity, entityHitResult) -> {
 			if(entity instanceof SheepEntity sheepEntity && !world.isClient()){
 				if(playerEntity.getMainHandStack().getItem()== Items.END_ROD){

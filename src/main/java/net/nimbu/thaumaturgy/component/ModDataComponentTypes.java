@@ -13,6 +13,8 @@ import java.util.function.UnaryOperator;
 
 public class ModDataComponentTypes {
 
+    //Allows for what are effectively variables to be added to instances of items
+
     public static final ComponentType<BlockPos> COORDINATES =
             register("coordinates", builder -> builder.codec(BlockPos.CODEC));
 

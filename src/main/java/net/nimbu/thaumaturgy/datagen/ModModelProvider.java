@@ -4,6 +4,7 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
 import net.minecraft.block.Blocks;
 import net.minecraft.data.client.*;
+import net.minecraft.item.ArmorItem;
 import net.minecraft.util.Identifier;
 import net.nimbu.thaumaturgy.block.ModBlocks;
 import net.nimbu.thaumaturgy.block.custom.Wellspring;
@@ -41,7 +42,15 @@ public class ModModelProvider extends FabricModelProvider {
 
         itemModelGenerator.register(ModItems.HAMMER, Models.HANDHELD);
 
-        // Resources
+        // Armour:
+        itemModelGenerator.registerArmor((ArmorItem) ModItems.INVISIBLE_HELMET);
+        itemModelGenerator.registerArmor((ArmorItem) ModItems.INVISIBLE_CHESTPLATE);
+        itemModelGenerator.registerArmor((ArmorItem) ModItems.INVISIBLE_LEGGINGS);
+        itemModelGenerator.registerArmor((ArmorItem) ModItems.INVISIBLE_BOOTS);
+
+        // Resources:
         itemModelGenerator.register(ModItems.PIXIE_DUST, Models.GENERATED);
+
+
     }
 }
