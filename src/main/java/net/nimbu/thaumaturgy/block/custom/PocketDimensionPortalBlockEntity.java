@@ -14,6 +14,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.*;
 import net.minecraft.world.World;
+import net.nimbu.thaumaturgy.Thaumaturgy;
 import net.nimbu.thaumaturgy.block.ModBlockEntityTypes;
 import net.nimbu.thaumaturgy.block.ModBlocks;
 import net.nimbu.thaumaturgy.worldgen.dimension.ModDimensions;
@@ -83,6 +84,7 @@ public class PocketDimensionPortalBlockEntity extends BlockEntity {
     public void TriggerInitialIDUpdate(World world, BlockPos entryPortalPosition, int PortalID)
     {
         if(world.getBlockEntity(entryPortalPosition) instanceof PocketDimensionPortalBlockEntity pocketDimensionPortalBlockEntity && !world.isClient) {
+            Thaumaturgy.LOGGER.info("Created with ID " + PortalID);
             pocketDimensionPortalBlockEntity.setPortalID(PortalID);
             BlockPos exitPosition = targetPortalFromID(PortalID);
             MinecraftServer server = world.getServer();
