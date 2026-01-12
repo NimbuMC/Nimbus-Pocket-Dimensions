@@ -29,6 +29,10 @@ public class ModItemGroups {
                         entries.add(ModBlocks.REVISUALISING_TABLE);
                         entries.add(ModBlocks.PITCH_BLACK_BLOCK);
                         entries.add(ModBlocks.WELLSPRING);
+                        entries.add(ModItems.INVISIBLE_HELMET);
+                        entries.add(ModItems.INVISIBLE_CHESTPLATE);
+                        entries.add(ModItems.INVISIBLE_LEGGINGS);
+                        entries.add(ModItems.INVISIBLE_BOOTS);
                     }).build());
 
 

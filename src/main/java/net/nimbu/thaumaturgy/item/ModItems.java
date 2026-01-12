@@ -7,6 +7,7 @@ import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
 import net.nimbu.thaumaturgy.Thaumaturgy;
+import net.nimbu.thaumaturgy.block.custom.ModArmorItem;
 import net.nimbu.thaumaturgy.item.custom.HammerItem;
 import net.nimbu.thaumaturgy.item.custom.WandArrowItem;
 import net.nimbu.thaumaturgy.item.custom.WandItem;
@@ -51,6 +52,22 @@ public class ModItems {
                     .maxCount(1)
                     .maxDamage(131)));
 
+
+    public static final Item INVISIBLE_HELMET = registerItem("invisible_helmet",
+            new ModArmorItem(ModArmorMaterials.INVISIBLE_ARMOR, ArmorItem.Type.HELMET, new Item.Settings()
+                    .maxDamage(ArmorItem.Type.HELMET.getMaxDamage(15))));
+    public static final Item INVISIBLE_CHESTPLATE = registerItem("invisible_chestplate",
+            new ModArmorItem(ModArmorMaterials.INVISIBLE_ARMOR, ArmorItem.Type.CHESTPLATE, new Item.Settings()
+                    .maxDamage(ArmorItem.Type.CHESTPLATE.getMaxDamage(15))));
+    public static final Item INVISIBLE_LEGGINGS = registerItem("invisible_leggings",
+            new ModArmorItem(ModArmorMaterials.INVISIBLE_ARMOR, ArmorItem.Type.LEGGINGS, new Item.Settings()
+                    .maxDamage(ArmorItem.Type.LEGGINGS.getMaxDamage(15))));
+    public static final Item INVISIBLE_BOOTS = registerItem("invisible_boots",
+            new ModArmorItem(ModArmorMaterials.INVISIBLE_ARMOR, ArmorItem.Type.BOOTS, new Item.Settings()
+                    .maxDamage(ArmorItem.Type.BOOTS.getMaxDamage(15))));
+    /*public static final Item INVISIBLE_BODY = registerItem("invisible_helmet",
+            new ArmorItem(ModArmourMaterials.INVISIBLE_ARMOR, ArmorItem.Type.HELMET, new Item.Settings()
+                    .maxDamage(ArmorItem.Type.HELMET.getMaxDamage(15))));*/
 
     //resources:
 

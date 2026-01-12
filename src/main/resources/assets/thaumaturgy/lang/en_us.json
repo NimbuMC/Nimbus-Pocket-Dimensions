@@ -10,11 +10,19 @@
   "item.thaumaturgy.hammer": "Hammer",
   "item.thaumaturgy.wand_arrow": "Arrow Wand",
 
+  "item.thaumaturgy.invisible_helmet": "Invisible Helmet",
+  "item.thaumaturgy.invisible_chestplate": "Invisible Chestplate",
+  "item.thaumaturgy.invisible_leggings": "Invisible Leggings",
+  "item.thaumaturgy.invisible_boots": "Invisible Boots",
+
   "item.thaumaturgy.pixie_dust": "Pixie Dust",
 
   "block.thaumaturgy.pitch_black_block": "Pitch Black Block",
   "block.thaumaturgy.revisualising_table": "Revisualising Table",
   "block.thaumaturgy.wellspring": "Wellspring",
 
-  "itemgroup.thaumaturgy.thaumaturgy_items": "Thaumaturgy"
+  "itemgroup.thaumaturgy.thaumaturgy_items": "Thaumaturgy",
+
+  "effect.thaumaturgy.slimey": "Slimey",
+  "effect.thaumaturgy.block_hop": "Block Hop"
 }
