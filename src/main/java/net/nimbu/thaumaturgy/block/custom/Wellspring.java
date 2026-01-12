@@ -16,7 +16,7 @@ public class Wellspring extends Block {
     public static final BooleanProperty CLICKED = BooleanProperty.of("clicked");
 
 
-    public Wellspring(Settings settings) {
+    public Wellspring(Settings  settings) {
         super(settings);
         setDefaultState(this.getDefaultState().with(CLICKED,false)); //makes clicked start as false
     }
