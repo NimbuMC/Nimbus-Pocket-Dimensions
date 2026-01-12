@@ -39,6 +39,7 @@ public class WandPortalItem extends Item implements ProjectileItem {
         ProjectileItem.super.initializeProjectile(entity, x, y, z, power, uncertainty);
     }
 
+    // IDK what these are lol
     @Override
     public boolean allowComponentsUpdateAnimation(PlayerEntity player, Hand hand, ItemStack oldStack, ItemStack newStack) {
         return super.allowComponentsUpdateAnimation(player, hand, oldStack, newStack);
