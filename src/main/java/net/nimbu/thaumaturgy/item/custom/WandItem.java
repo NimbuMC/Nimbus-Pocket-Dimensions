@@ -65,18 +65,24 @@ public class WandItem extends Item {
             positions.add(new BlockPos(sourceBlockPos.getX(), sourceBlockPos.getY(), sourceBlockPos.getZ()));
             positions.add(new BlockPos(sourceBlockPos.getX(), sourceBlockPos.getY(), sourceBlockPos.getZ()));*/
 
-            BlockState netherPortalBlockState= Blocks.NETHER_PORTAL.getDefaultState();
             Float playerAbsoluteYaw = Math.abs(context.getPlayer().getYaw());
 
+
+
+            BlockPos lastPos = context.getStack().get(ModDataComponentTypes.COORDINATES);
+            if(lastPos != null)
+            {
+                world.setBlockState(lastPos, Blocks.AIR.getDefaultState());
+            }
             BlockState pocketDimPortalState = ModBlocks.POCKET_DIMENSION_PORTAL.getDefaultState();
             //context.getPlayer().getGameProfile().getId();
 
 
-
             for(BlockPos pos : positions) {
+                context.getStack().set(ModDataComponentTypes.COORDINATES, pos);
                 world.setBlockState(pos, pocketDimPortalState);
                 if(world.getBlockEntity(pos) instanceof PocketDimensionPortalBlockEntity portalData) {
-                    portalData.TriggerInitialIDUpdate(world, pos, 0);
+                    portalData.TriggerInitialIDUpdate(world, pos, 3);
                 }
             //    if(world.getBlockState(pos).getBlock()==Blocks.AIR){
             //        if(135 > playerAbsoluteYaw && playerAbsoluteYaw > 45){
