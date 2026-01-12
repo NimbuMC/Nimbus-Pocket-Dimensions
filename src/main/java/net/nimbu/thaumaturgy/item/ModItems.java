@@ -13,8 +13,11 @@ import net.nimbu.thaumaturgy.item.custom.WandItem;
 
 public class ModItems {
 
+    //tools:
+
     public static final Item WAND = registerItem("wand", new WandItem(new Item.Settings()
-            .maxCount(1).maxDamage(131)
+            .maxCount(1)
+            .maxDamage(131)
             .rarity(Rarity.RARE)
             .component(DataComponentTypes.ENCHANTMENT_GLINT_OVERRIDE, false))); //never show enchantment glint
 
@@ -44,7 +47,16 @@ public class ModItems {
                     .attributeModifiers(PickaxeItem.createAttributeModifiers(ModToolMaterials.SPIRIT,7, -3.4f))));
 
     public static final Item WAND_ARROW = registerItem("wand_arrow",
-            new WandArrowItem(new Item.Settings().maxDamage(500)));
+            new WandArrowItem(new Item.Settings()
+                    .maxCount(1)
+                    .maxDamage(131)));
+
+
+    //resources:
+
+    public static final Item PIXIE_DUST = registerItem("pixie_dust",
+            new Item(new Item.Settings()
+                    .maxCount(900)));
 
     private static Item registerItem(String name, Item item){
         return Registry.register(Registries.ITEM, Identifier.of(Thaumaturgy.MOD_ID, name), item);

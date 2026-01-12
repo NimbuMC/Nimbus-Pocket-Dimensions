@@ -29,6 +29,8 @@ public class ModModelProvider extends FabricModelProvider {
     @Override
     public void generateItemModels(ItemModelGenerator itemModelGenerator) {
 
+        // Tools:
+
         //itemModelGenerator.register(ModItems.WAND, Models.HANDHELD);
 
         itemModelGenerator.register(ModItems.SPIRIT_SWORD, Models.HANDHELD);
@@ -38,5 +40,8 @@ public class ModModelProvider extends FabricModelProvider {
         itemModelGenerator.register(ModItems.SPIRIT_HOE, Models.HANDHELD);
 
         itemModelGenerator.register(ModItems.HAMMER, Models.HANDHELD);
+
+        // Resources
+        itemModelGenerator.register(ModItems.PIXIE_DUST, Models.GENERATED);
     }
 }

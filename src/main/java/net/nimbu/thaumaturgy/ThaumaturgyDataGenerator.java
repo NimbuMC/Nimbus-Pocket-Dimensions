@@ -2,10 +2,7 @@ package net.nimbu.thaumaturgy;
 
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
-import net.nimbu.thaumaturgy.datagen.ModBlockTagProvider;
-import net.nimbu.thaumaturgy.datagen.ModItemTagProvider;
-import net.nimbu.thaumaturgy.datagen.ModModelProvider;
-import net.nimbu.thaumaturgy.datagen.ModWorldGenerator;
+import net.nimbu.thaumaturgy.datagen.*;
 
 public class ThaumaturgyDataGenerator implements DataGeneratorEntrypoint {
 	@Override
@@ -17,5 +14,6 @@ public class ThaumaturgyDataGenerator implements DataGeneratorEntrypoint {
 		pack.addProvider(ModBlockTagProvider::new);
 		pack.addProvider(ModItemTagProvider::new);
 		pack.addProvider(ModWorldGenerator::new);
+		pack.addProvider(ModRecipeProvider::new);
 	}
 }
