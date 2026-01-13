@@ -70,6 +70,14 @@ public class ModItems {
             new ArmorItem(ModArmourMaterials.INVISIBLE_ARMOR, ArmorItem.Type.HELMET, new Item.Settings()
                     .maxDamage(ArmorItem.Type.HELMET.getMaxDamage(15))));*/
 
+    public static final Item TOME_OF_EXPANSION = registerItem("tome_of_expansion",
+            new Item(new Item.Settings()
+                    .maxCount(1)));
+    public static final Item TOME_OF_SKIES = registerItem("tome_of_skies",
+            new Item(new Item.Settings()
+                    .maxCount(1)));
+
+
     //resources:
 
     public static final Item PIXIE_DUST = registerItem("pixie_dust",

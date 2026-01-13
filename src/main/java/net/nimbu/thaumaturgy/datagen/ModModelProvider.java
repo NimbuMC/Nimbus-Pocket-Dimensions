@@ -45,11 +45,17 @@ public class ModModelProvider extends FabricModelProvider {
 
         itemModelGenerator.register(ModItems.HAMMER, Models.HANDHELD);
 
+
+
         // Armour:
         itemModelGenerator.registerArmor((ArmorItem) ModItems.INVISIBLE_HELMET);
         itemModelGenerator.registerArmor((ArmorItem) ModItems.INVISIBLE_CHESTPLATE);
         itemModelGenerator.registerArmor((ArmorItem) ModItems.INVISIBLE_LEGGINGS);
         itemModelGenerator.registerArmor((ArmorItem) ModItems.INVISIBLE_BOOTS);
+
+        // Tomes:
+        itemModelGenerator.register(ModItems.TOME_OF_EXPANSION, Models.GENERATED);
+        itemModelGenerator.register(ModItems.TOME_OF_SKIES, Models.GENERATED);
 
         // Resources:
         itemModelGenerator.register(ModItems.PIXIE_DUST, Models.GENERATED);
