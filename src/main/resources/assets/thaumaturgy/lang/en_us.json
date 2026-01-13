@@ -17,11 +17,15 @@
 
   "item.thaumaturgy.pixie_dust": "Pixie Dust",
 
+  "item.thaumaturgy.pixie_spawn_egg": "Pixie Spawn Egg",
+
   "block.thaumaturgy.pitch_black_block": "Pitch Black Block",
   "block.thaumaturgy.revisualising_table": "Revisualising Table",
   "block.thaumaturgy.wellspring": "Wellspring",
 
   "itemgroup.thaumaturgy.thaumaturgy_items": "Thaumaturgy",
+
+  "entity.thaumaturgy.pixie": "Pixie",
 
   "effect.thaumaturgy.slimey": "Slimey",
   "effect.thaumaturgy.block_hop": "Block Hop"

@@ -4,20 +4,20 @@ import net.fabricmc.api.ModInitializer;
 
 import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
+import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.passive.SheepEntity;
 import net.minecraft.item.Items;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.Identifier;
 import net.nimbu.thaumaturgy.block.ModBlockEntityTypes;
 import net.nimbu.thaumaturgy.block.ModBlocks;
 import net.nimbu.thaumaturgy.component.ModDataComponentTypes;
-import net.nimbu.thaumaturgy.effect.ModEffects;
+import net.nimbu.thaumaturgy.entity.ModEntities;
+import net.nimbu.thaumaturgy.entity.custom.PixieEntity;
 import net.nimbu.thaumaturgy.item.ModItemGroups;
 import net.nimbu.thaumaturgy.item.ModItems;
-import net.nimbu.thaumaturgy.sound.ModSounds;
 import net.nimbu.thaumaturgy.util.HammerUsageEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,6 +35,7 @@ public class Thaumaturgy implements ModInitializer {
 		ModBlocks.registerModBlocks();
 		ModBlockEntityTypes.register();
 		ModDataComponentTypes.registerDataComponentTypes();
+		ModEntities.registerModEntities();
 
 		// Below are "events". These are general things that happen during gameplay that can have custom
 		// methods linked to them.
@@ -52,5 +53,10 @@ public class Thaumaturgy implements ModInitializer {
 			}
 			return ActionResult.PASS; //signifies the code to continue on to the next step
 		});
+
+
+
+		//Entities
+		FabricDefaultAttributeRegistry.register(ModEntities.PIXIE, PixieEntity.createAttributes());
 	}
 }

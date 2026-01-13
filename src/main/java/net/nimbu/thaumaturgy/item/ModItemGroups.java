@@ -33,6 +33,7 @@ public class ModItemGroups {
                         entries.add(ModItems.INVISIBLE_CHESTPLATE);
                         entries.add(ModItems.INVISIBLE_LEGGINGS);
                         entries.add(ModItems.INVISIBLE_BOOTS);
+                        entries.add(ModItems.PIXIE_SPAWN_EGG);
                     }).build());
 
 
