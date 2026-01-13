@@ -8,6 +8,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
 import net.nimbu.thaumaturgy.Thaumaturgy;
 import net.nimbu.thaumaturgy.block.custom.ModArmorItem;
+import net.nimbu.thaumaturgy.entity.ModEntities;
 import net.nimbu.thaumaturgy.item.custom.HammerItem;
 import net.nimbu.thaumaturgy.item.custom.WandArrowItem;
 import net.nimbu.thaumaturgy.item.custom.WandItem;
@@ -74,6 +75,12 @@ public class ModItems {
     public static final Item PIXIE_DUST = registerItem("pixie_dust",
             new Item(new Item.Settings()
                     .maxCount(900)));
+
+
+    //spawn eggs:
+    public static final Item PIXIE_SPAWN_EGG = registerItem("pixie_spawn_egg",
+            new SpawnEggItem(ModEntities.PIXIE, 0x00d5ff, 0xFFFFFF, new Item.Settings()));
+
 
     private static Item registerItem(String name, Item item){
         return Registry.register(Registries.ITEM, Identifier.of(Thaumaturgy.MOD_ID, name), item);
