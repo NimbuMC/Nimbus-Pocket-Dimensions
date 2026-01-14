@@ -10,7 +10,7 @@ import net.nimbu.thaumaturgy.Thaumaturgy;
 import net.nimbu.thaumaturgy.entity.custom.PixieEntity;
 
 
-public class PixieModel<T extends PixieEntity> extends SinglePartEntityModel<T> {
+public class PixieEntityModel<T extends PixieEntity> extends SinglePartEntityModel<T> {
     //see "CamelEntity" for referencing
 
     public static final EntityModelLayer PIXIE = new EntityModelLayer(Identifier.of(Thaumaturgy.MOD_ID, "pixie"), "main");
@@ -18,7 +18,7 @@ public class PixieModel<T extends PixieEntity> extends SinglePartEntityModel<T> 
     private final ModelPart WingR;
     private final ModelPart WingL;
     private final ModelPart bb_main;
-    public PixieModel(ModelPart root) {
+    public PixieEntityModel(ModelPart root) {
         this.WingR = root.getChild("WingR");
         this.WingL = root.getChild("WingL");
         this.bb_main = root.getChild("bb_main");

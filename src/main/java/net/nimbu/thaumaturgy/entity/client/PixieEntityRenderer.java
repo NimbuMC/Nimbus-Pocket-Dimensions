@@ -3,16 +3,15 @@ package net.nimbu.thaumaturgy.entity.client;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
-import net.minecraft.client.render.entity.feature.SlimeOverlayFeatureRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import net.nimbu.thaumaturgy.Thaumaturgy;
 import net.nimbu.thaumaturgy.entity.custom.PixieEntity;
 
-public class PixieRenderer extends MobEntityRenderer<PixieEntity, PixieModel<PixieEntity>> {
+public class PixieEntityRenderer extends MobEntityRenderer<PixieEntity, PixieEntityModel<PixieEntity>> {
 
-    public PixieRenderer(EntityRendererFactory.Context context) {
-        super(context, new PixieModel<>(context.getPart(PixieModel.PIXIE)), 0.1f); //last val is shadow size
+    public PixieEntityRenderer(EntityRendererFactory.Context context) {
+        super(context, new PixieEntityModel<>(context.getPart(PixieEntityModel.PIXIE)), 0.1f); //last val is shadow size
         //this.addFeature(new SlimeOverlayFeatureRenderer<>(this, context.getModelLoader())); //this allows for transparent outer layer?
     }
 

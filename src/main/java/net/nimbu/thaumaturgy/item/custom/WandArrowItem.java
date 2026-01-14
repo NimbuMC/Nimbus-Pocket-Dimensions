@@ -28,7 +28,9 @@ public class WandArrowItem extends BowItem {
         if (user instanceof PlayerEntity playerEntity) {
             if (random.nextInt(5) == 0) {
                 world.playSound(
-                        playerEntity.getX(), playerEntity.getY(), playerEntity.getZ(), ModSounds.MAGIC_CHARGE, SoundCategory.PLAYERS, 0.5F, random.nextFloat() * 0.4F + 0.8F, false
+                        playerEntity.getX(), playerEntity.getY(), playerEntity.getZ(),
+                        SoundEvents.BLOCK_AMETHYST_BLOCK_CHIME, SoundCategory.PLAYERS,
+                        1.0F, random.nextFloat() * 0.8F + 1F, false
                 );
             }
             /*world.playSound(

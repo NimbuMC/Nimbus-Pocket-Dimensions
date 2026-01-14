@@ -6,6 +6,8 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 import net.nimbu.thaumaturgy.Thaumaturgy;
+import net.nimbu.thaumaturgy.entity.custom.SpellPortalEntity;
+import net.nimbu.thaumaturgy.entity.custom.SnowballCopyEntity;
 import net.nimbu.thaumaturgy.entity.custom.PixieEntity;
 
 public class ModEntities {
@@ -14,6 +16,16 @@ public class ModEntities {
             Identifier.of(Thaumaturgy.MOD_ID, "pixie"),
             EntityType.Builder.create(PixieEntity::new, SpawnGroup.CREATURE)
                     .dimensions(0.5f, 0.5f).maxTrackingRange(20).build()); //dimensions of hit-box
+
+    public static final EntityType<SnowballCopyEntity> SNOWBALL_COPY = Registry.register(Registries.ENTITY_TYPE,
+            Identifier.of(Thaumaturgy.MOD_ID, "snowball_copy"),
+            EntityType.Builder.<SnowballCopyEntity>create(SnowballCopyEntity::new, SpawnGroup.MISC)
+                    .dimensions(0.25f, 0.25f).maxTrackingRange(4).trackingTickInterval(10).build());
+
+    public static final EntityType<SpellPortalEntity> SPELL_PORTAL = Registry.register(Registries.ENTITY_TYPE,
+            Identifier.of(Thaumaturgy.MOD_ID, "spell_portal"),
+            EntityType.Builder.<SpellPortalEntity>create(SpellPortalEntity::new, SpawnGroup.MISC)
+                    .dimensions(0.25f, 0.25f).maxTrackingRange(4).trackingTickInterval(10).build());
 
 
     public static void registerModEntities(){

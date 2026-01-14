@@ -76,7 +76,9 @@ public class PixieEntity extends BeeEntity {
 
 
 
-//Below is the proper code i cant get to work
+//Below is the proper code I cant get to work (dont know what causes entities to fly).
+//Must find the code that applies movement to entities? maybe the flying code is there?
+
 
 
 

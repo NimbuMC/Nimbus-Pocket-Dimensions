@@ -9,6 +9,8 @@
 
   "item.thaumaturgy.hammer": "Hammer",
   "item.thaumaturgy.wand_arrow": "Arrow Wand",
+  "item.thaumaturgy.wand_shoot": "Shoot Wand",
+  "item.thaumaturgy.wand_portal": "Portal Wand",
 
   "item.thaumaturgy.invisible_helmet": "Invisible Helmet",
   "item.thaumaturgy.invisible_chestplate": "Invisible Chestplate",
@@ -26,6 +28,7 @@
   "itemgroup.thaumaturgy.thaumaturgy_items": "Thaumaturgy",
 
   "entity.thaumaturgy.pixie": "Pixie",
+  "entity.thaumaturgy.orb": "Magic Orb",
 
   "effect.thaumaturgy.slimey": "Slimey",
   "effect.thaumaturgy.block_hop": "Block Hop"
