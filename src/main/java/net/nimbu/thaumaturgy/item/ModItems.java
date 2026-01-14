@@ -12,6 +12,7 @@ import net.nimbu.thaumaturgy.entity.ModEntities;
 import net.nimbu.thaumaturgy.item.custom.HammerItem;
 import net.nimbu.thaumaturgy.item.custom.WandArrowItem;
 import net.nimbu.thaumaturgy.item.custom.WandItem;
+import net.nimbu.thaumaturgy.item.custom.WandPortalItem;
 
 public class ModItems {
 
@@ -53,6 +54,10 @@ public class ModItems {
                     .maxCount(1)
                     .maxDamage(131)));
 
+    public static final Item WAND_PORTAL = registerItem("wand_portal",
+            new WandPortalItem(new Item.Settings()
+                    .maxCount(1)
+                    .maxDamage(131)));
 
     public static final Item INVISIBLE_HELMET = registerItem("invisible_helmet",
             new ModArmorItem(ModArmorMaterials.INVISIBLE_ARMOR, ArmorItem.Type.HELMET, new Item.Settings()
