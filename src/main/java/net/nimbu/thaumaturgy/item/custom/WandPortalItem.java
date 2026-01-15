@@ -45,7 +45,7 @@ public class WandPortalItem extends Item {
 
         if(!world.isClient) {
             SpellPortalEntity spellPortal = new SpellPortalEntity(ModEntities.SPELL_PORTAL, world);
-            spellPortal.setPosition(new Vec3d(user.getX(), user.getY()+1.0, user.getZ()));
+            spellPortal.setPosition(new Vec3d(user.getX(), user.getY()+1.5, user.getZ()));
             spellPortal.setVelocity(user, user.getPitch()-30, user.getYaw(), 0.0f, 0.45f, 0f);
             world.spawnEntity(spellPortal);
         }

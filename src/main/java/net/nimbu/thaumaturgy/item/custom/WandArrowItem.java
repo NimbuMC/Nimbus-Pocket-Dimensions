@@ -9,7 +9,7 @@ import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
 import net.minecraft.world.World;
-import net.nimbu.thaumaturgy.sound.ModSounds;
+import net.nimbu.thaumaturgy.sound.ModSoundEvents;
 
 import java.util.List;
 import java.util.Random;
@@ -26,23 +26,14 @@ public class WandArrowItem extends BowItem {
         Random random = new Random();
 
         if (user instanceof PlayerEntity playerEntity) {
-            if (random.nextInt(5) == 0) {
+            if (random.nextInt(2) == 0) {
                 world.playSound(
                         playerEntity.getX(), playerEntity.getY(), playerEntity.getZ(),
-                        SoundEvents.BLOCK_AMETHYST_BLOCK_CHIME, SoundCategory.PLAYERS,
-                        1.0F, random.nextFloat() * 0.8F + 1F, false
+                        ModSoundEvents.MAGIC_CHIME, SoundCategory.PLAYERS,
+                        1.0F, random.nextFloat() * 0.6F + 1F,
+                        false
                 );
             }
-            /*world.playSound(
-                    null,
-                    playerEntity.getX(),
-                    playerEntity.getY(),
-                    playerEntity.getZ(),
-                    ModSounds.MAGIC_CHARGE,
-                    SoundCategory.PLAYERS,
-                    1.0F,
-                    1.0F
-            );*/
         }
     }
 

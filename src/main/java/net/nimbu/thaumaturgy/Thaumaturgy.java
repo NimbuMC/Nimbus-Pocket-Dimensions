@@ -19,6 +19,8 @@ import net.nimbu.thaumaturgy.entity.ModEntities;
 import net.nimbu.thaumaturgy.entity.custom.PixieEntity;
 import net.nimbu.thaumaturgy.item.ModItemGroups;
 import net.nimbu.thaumaturgy.item.ModItems;
+import net.nimbu.thaumaturgy.particle.ModParticles;
+import net.nimbu.thaumaturgy.sound.ModSoundEvents;
 import net.nimbu.thaumaturgy.util.HammerUsageEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,6 +40,8 @@ public class Thaumaturgy implements ModInitializer {
 		ModDataComponentTypes.registerDataComponentTypes();
 		ModEntities.registerModEntities();
 		ModEffects.registerEffects();
+		ModSoundEvents.registerSounds();
+		ModParticles.registerParticles();
 
 		// Below are "events". These are general things that happen during gameplay that can have custom
 		// methods linked to them.
