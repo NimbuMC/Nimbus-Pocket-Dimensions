@@ -28,6 +28,9 @@ public class ModModelProvider extends FabricModelProvider {
         Identifier wellspringOnIdentifier = blockStateModelGenerator.createSubModel(ModBlocks.WELLSPRING, "_on", Models.CUBE_ALL, TextureMap::all);
         blockStateModelGenerator.blockStateCollector.accept(VariantsBlockStateSupplier.create(ModBlocks.WELLSPRING)
                 .coordinate(BlockStateModelGenerator.createBooleanModelMap(Wellspring.CLICKED, wellspringOnIdentifier, wellspringOffIdentifier)));
+
+        blockStateModelGenerator.registerNorthDefaultHorizontalRotation(ModBlocks.DOORWAY_BOTTOM);
+        blockStateModelGenerator.registerNorthDefaultHorizontalRotation(ModBlocks.DOORWAY_TOP);
     }
 
     @Override
