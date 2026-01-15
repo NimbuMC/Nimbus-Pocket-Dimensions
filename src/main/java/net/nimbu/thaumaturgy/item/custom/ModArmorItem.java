@@ -1,4 +1,4 @@
-package net.nimbu.thaumaturgy.block.custom;
+package net.nimbu.thaumaturgy.item.custom;
 
 import com.google.common.collect.ImmutableMap;
 import net.nimbu.thaumaturgy.item.ModArmorMaterials;

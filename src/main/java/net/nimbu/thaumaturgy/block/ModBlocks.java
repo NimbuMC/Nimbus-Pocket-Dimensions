@@ -11,6 +11,7 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 import net.nimbu.thaumaturgy.Thaumaturgy;
+import net.nimbu.thaumaturgy.block.custom.DoorwayBlock;
 import net.nimbu.thaumaturgy.block.custom.PocketDimensionPortal;
 import net.nimbu.thaumaturgy.block.custom.RevisualisingTable;
 import net.nimbu.thaumaturgy.block.custom.Wellspring;
@@ -32,6 +33,12 @@ public class ModBlocks {
     public static final Block WELLSPRING = registerBlock("wellspring",
             new Wellspring(AbstractBlock.Settings.create()
                     .strength(2f).requiresTool().luminance(state -> state.get(Wellspring.CLICKED)? 15 : 0)));
+
+    public static final Block DOORWAY_BOTTOM = registerBlock("dark_oak_doorway_bottom",
+            new DoorwayBlock(AbstractBlock.Settings.create().nonOpaque()));
+    public static final Block DOORWAY_TOP = registerBlock("dark_oak_doorway_top",
+            new DoorwayBlock(AbstractBlock.Settings.create().nonOpaque()));
+
 
     public static final Block POCKET_DIMENSION_PORTAL =
             Registry.register(

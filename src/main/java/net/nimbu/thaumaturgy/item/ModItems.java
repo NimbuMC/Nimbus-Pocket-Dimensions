@@ -7,7 +7,7 @@ import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
 import net.nimbu.thaumaturgy.Thaumaturgy;
-import net.nimbu.thaumaturgy.block.custom.ModArmorItem;
+import net.nimbu.thaumaturgy.item.custom.ModArmorItem;
 import net.nimbu.thaumaturgy.entity.ModEntities;
 import net.nimbu.thaumaturgy.item.custom.HammerItem;
 import net.nimbu.thaumaturgy.item.custom.WandArrowItem;

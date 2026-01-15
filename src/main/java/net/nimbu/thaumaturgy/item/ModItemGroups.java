@@ -38,6 +38,8 @@ public class ModItemGroups {
                         entries.add(ModItems.TOME_OF_EXPANSION);
                         entries.add(ModItems.TOME_OF_SKIES);
                         entries.add(ModItems.PIXIE_SPAWN_EGG);
+                        entries.add(ModBlocks.DOORWAY_BOTTOM);
+                        entries.add(ModBlocks.DOORWAY_TOP);
                     }).build());
 
 
