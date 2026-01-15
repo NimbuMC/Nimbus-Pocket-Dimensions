@@ -29,8 +29,8 @@ public class ModModelProvider extends FabricModelProvider {
         blockStateModelGenerator.blockStateCollector.accept(VariantsBlockStateSupplier.create(ModBlocks.WELLSPRING)
                 .coordinate(BlockStateModelGenerator.createBooleanModelMap(Wellspring.CLICKED, wellspringOnIdentifier, wellspringOffIdentifier)));
 
-        blockStateModelGenerator.registerNorthDefaultHorizontalRotation(ModBlocks.DOORWAY_BOTTOM);
-        blockStateModelGenerator.registerNorthDefaultHorizontalRotation(ModBlocks.DOORWAY_TOP);
+        //blockStateModelGenerator.registerNorthDefaultHorizontalRotation(ModBlocks.DOORWAY_BOTTOM);
+        //blockStateModelGenerator.registerNorthDefaultHorizontalRotation(ModBlocks.DOORWAY_TOP);
     }
 
     @Override

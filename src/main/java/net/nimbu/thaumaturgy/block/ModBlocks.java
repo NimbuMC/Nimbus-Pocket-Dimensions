@@ -34,9 +34,7 @@ public class ModBlocks {
             new Wellspring(AbstractBlock.Settings.create()
                     .strength(2f).requiresTool().luminance(state -> state.get(Wellspring.CLICKED)? 15 : 0)));
 
-    public static final Block DOORWAY_BOTTOM = registerBlock("dark_oak_doorway_bottom",
-            new DoorwayBlock(AbstractBlock.Settings.create().nonOpaque()));
-    public static final Block DOORWAY_TOP = registerBlock("dark_oak_doorway_top",
+    public static final Block DOORWAY = registerBlock("dark_oak_doorway",
             new DoorwayBlock(AbstractBlock.Settings.create().nonOpaque()));
 
 
