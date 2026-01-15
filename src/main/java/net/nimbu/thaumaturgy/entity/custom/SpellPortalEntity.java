@@ -9,15 +9,18 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.entity.projectile.ProjectileUtil;
 import net.minecraft.item.ItemStack;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Position;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.nimbu.thaumaturgy.entity.ModEntities;
 import net.nimbu.thaumaturgy.item.ModItems;
+import net.nimbu.thaumaturgy.particle.ModParticles;
 import net.nimbu.thaumaturgy.worldgen.dimension.ModDimensions;
 
 import java.util.ArrayList;
@@ -82,6 +85,14 @@ public class SpellPortalEntity extends ProjectileEntity {
             this.applyGravity();
             this.setPosition(d, e, f);
         }
+
+        World world = this.getWorld();
+        if (!world.isClient()){
+            Position pos = this.getPos();
+            ((ServerWorld) world).spawnParticles(ModParticles.MAGIC_PARTICLE,
+                   pos.getX(), pos.getY()+0.25, pos.getZ(), 5, 0, 0, 0, 0);
+        }
+        //Can alternatively use "world.addParticle();" for clientside?
     }
 
     @Override

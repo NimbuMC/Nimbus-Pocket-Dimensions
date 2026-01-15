@@ -6,9 +6,10 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
 import net.nimbu.thaumaturgy.Thaumaturgy;
 
-public class ModSounds {
+public class ModSoundEvents {
 
     public static final SoundEvent MAGIC_CHARGE = registerSoundEvent("magic_charge");
+    public static final SoundEvent MAGIC_CHIME = registerSoundEvent("magic_chime");
 
     /*
     BLOCK SOUND GROUP TEMPLATE:

@@ -4,5 +4,11 @@
     "sounds": [
       "thaumaturgy:magic_charge"
     ]
+  },
+  "magic_chime": {
+    "subtitle": "sounds.thaumaturgy.magic_chime",
+    "sounds": [
+      "thaumaturgy:magic_chime"
+    ]
   }
 }

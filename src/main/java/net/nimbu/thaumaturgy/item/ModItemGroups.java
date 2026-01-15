@@ -19,6 +19,8 @@ public class ModItemGroups {
                     .displayName(Text.translatable("itemgroup.thaumaturgy.thaumaturgy_items"))
                     .entries((displayContext, entries) -> {
                         entries.add(ModItems.WAND);
+                        entries.add(ModItems.WAND_ARROW);
+                        entries.add(ModItems.WAND_PORTAL);
                         entries.add(ModItems.STAFF);
                         entries.add(ModItems.SPIRIT_SWORD);
                         entries.add(ModItems.SPIRIT_SHOVEL);
