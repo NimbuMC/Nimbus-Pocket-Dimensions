@@ -11,10 +11,7 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 import net.nimbu.thaumaturgy.Thaumaturgy;
-import net.nimbu.thaumaturgy.block.custom.DoorwayBlock;
-import net.nimbu.thaumaturgy.block.custom.PocketDimensionPortal;
-import net.nimbu.thaumaturgy.block.custom.RevisualisingTable;
-import net.nimbu.thaumaturgy.block.custom.Wellspring;
+import net.nimbu.thaumaturgy.block.custom.*;
 
 public class ModBlocks {
 
@@ -37,6 +34,11 @@ public class ModBlocks {
     public static final Block DOORWAY = registerBlock("dark_oak_doorway",
             new DoorwayBlock(AbstractBlock.Settings.create().nonOpaque()));
 
+    public static final Block PEDESTAL = registerBlock("pedestal",
+            new PedestalBlock(AbstractBlock.Settings.create().nonOpaque()));
+
+    //public static final Block POCKET_DIMENSION_PORTAL = registerBlock("pocket_dimension_portal",
+    //        new PocketDimensionPortal(AbstractBlock.Settings.copy(Blocks.END_GATEWAY)));
 
     public static final Block POCKET_DIMENSION_PORTAL =
             Registry.register(
