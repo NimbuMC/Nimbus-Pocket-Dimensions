@@ -3,6 +3,7 @@ package net.nimbu.thaumaturgy.entity.custom;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.enums.DoubleBlockHalf;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.player.PlayerEntity;
@@ -12,12 +13,16 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.state.property.EnumProperty;
+import net.minecraft.text.Text;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Position;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.nimbu.thaumaturgy.block.ModBlocks;
 import net.nimbu.thaumaturgy.entity.ModEntities;
 import net.nimbu.thaumaturgy.item.ModItems;
 import net.nimbu.thaumaturgy.particle.ModParticles;
@@ -25,6 +30,9 @@ import net.nimbu.thaumaturgy.worldgen.dimension.ModDimensions;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static net.minecraft.block.HorizontalFacingBlock.FACING;
+import static net.nimbu.thaumaturgy.block.custom.DoorwayBlock.HALF;
 
 public class SpellPortalEntity extends ProjectileEntity {
     public SpellPortalEntity(EntityType<? extends ProjectileEntity> entityType, World world) {
@@ -40,27 +48,36 @@ public class SpellPortalEntity extends ProjectileEntity {
 
         if(!world.isClient() && world.getRegistryKey() != ModDimensions.POCKET_DIM_LEVEL_KEY) {
 
-            List<BlockPos> positions = new ArrayList<>();
-            BlockPos sourceBlockPos = this.getBlockPos();
-            positions.add(sourceBlockPos);
-            positions.add(new BlockPos(sourceBlockPos.getX(), sourceBlockPos.getY()+1, sourceBlockPos.getZ()));
+            //create door halves (THIS CURRENTLY FLIPS INCORRECTLY IN WEST/EAST?? WHAT?) also erases blocks oops lol
+            BlockPos bottomHalf = this.getBlockPos();
+            BlockPos topHalf = bottomHalf.up();
 
-            //Need to acquire spell direction
-            //Float playerAbsoluteYaw = Math.abs(context.getPlayer().getYaw());
+            float yaw = this.getYaw();
+            Direction direction = null;
+            if(45<yaw && yaw<135){
+                direction = Direction.WEST;
+            }
+            else if (-45<yaw && yaw<45){
+                direction = Direction.NORTH;
+            }
+            else if (-135<yaw && yaw<-45){
+                direction = Direction.EAST;
+            }
+            else {
+                direction = Direction.SOUTH;
+            }
+            world.setBlockState(bottomHalf, ModBlocks.DOORWAY.getDefaultState().with(FACING, direction));
+            world.setBlockState(topHalf, ModBlocks.DOORWAY.getDefaultState().with(HALF, DoubleBlockHalf.UPPER).with(FACING, direction));
 
-            //BlockState pocketDimPortalState = ModBlocks.POCKET_DIMENSION_PORTAL.getDefaultState();
+            //horizontal facing appears to be broken for projectile entities??
+            //world.setBlockState(bottomHalf, ModBlocks.DOORWAY.getDefaultState().with(FACING, this.getHorizontalFacing().getOpposite()));
+            //world.setBlockState(topHalf, ModBlocks.DOORWAY.getDefaultState().with(HALF, DoubleBlockHalf.UPPER).with(FACING, this.getHorizontalFacing().getOpposite()));//ctx.getHorizontalPlayerFacing().getOpposite()));
 
-            for(BlockPos pos : positions) {
-                //world.setBlockState(pos, pocketDimPortalState);
-                //if(world.getBlockEntity(pos) instanceof PocketDimensionPortalBlockEntity portalData) {
-                //    portalData.TriggerInitialIDUpdate(world, pos, 3);
-                //}
-                if(world.getBlockState(pos).getBlock()== Blocks.AIR){
-                    // if(135 > playerAbsoluteYaw && playerAbsoluteYaw > 45){
-                    //    world.setBlockState(pos, pocketDimPortalState.rotate(BlockRotation.CLOCKWISE_90));
-                    // }
-                    //else{
-                    world.setBlockState(pos, Blocks.NETHER_PORTAL.getDefaultState());}
+            //create particle effect
+            if (!world.isClient()){
+                Position pos = this.getPos();
+                ((ServerWorld) world).spawnParticles(ModParticles.MAGIC_PARTICLE,
+                        pos.getX(), pos.getY(), pos.getZ(), 50, 0.5, 1, 0.5, 0.5);
             }
         }
     }

@@ -11,7 +11,7 @@ import net.minecraft.entity.passive.SheepEntity;
 import net.minecraft.item.Items;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
-import net.nimbu.thaumaturgy.block.ModBlockEntityTypes;
+import net.nimbu.thaumaturgy.block.entity.ModBlockEntityTypes;
 import net.nimbu.thaumaturgy.block.ModBlocks;
 import net.nimbu.thaumaturgy.component.ModDataComponentTypes;
 import net.nimbu.thaumaturgy.effect.ModEffects;
@@ -36,7 +36,7 @@ public class Thaumaturgy implements ModInitializer {
 		ModItemGroups.registerItemGroups();
 		ModItems.registerModItems();
 		ModBlocks.registerModBlocks();
-		ModBlockEntityTypes.register();
+		ModBlockEntityTypes.registerBlockEntities();
 		ModDataComponentTypes.registerDataComponentTypes();
 		ModEntities.registerModEntities();
 		ModEffects.registerEffects();

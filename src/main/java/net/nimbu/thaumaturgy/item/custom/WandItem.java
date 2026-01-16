@@ -1,32 +1,19 @@
 package net.nimbu.thaumaturgy.item.custom;
 
-import net.fabricmc.fabric.api.item.v1.EnchantingContext;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
-import net.minecraft.item.tooltip.TooltipType;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.BlockRotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.nimbu.thaumaturgy.block.ModBlockEntityTypes;
 import net.nimbu.thaumaturgy.block.ModBlocks;
-import net.nimbu.thaumaturgy.block.custom.PocketDimensionPortal;
-import net.nimbu.thaumaturgy.block.custom.PocketDimensionPortalBlockEntity;
+import net.nimbu.thaumaturgy.block.entity.custom.PocketDimensionPortalBlockEntity;
 import net.nimbu.thaumaturgy.component.ModDataComponentTypes;
-import net.nimbu.thaumaturgy.util.ModModelPredicates;
 import net.nimbu.thaumaturgy.worldgen.dimension.ModDimensions;
 
 import java.util.ArrayList;

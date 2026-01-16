@@ -39,6 +39,7 @@ public class ModItemGroups {
                         entries.add(ModItems.TOME_OF_SKIES);
                         entries.add(ModItems.PIXIE_SPAWN_EGG);
                         entries.add(ModBlocks.DOORWAY);
+                        entries.add(ModBlocks.PEDESTAL);
                     }).build());
 
 
