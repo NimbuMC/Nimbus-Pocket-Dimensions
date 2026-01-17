@@ -3,7 +3,6 @@ package net.nimbu.thaumaturgy.block;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.block.*;
 import net.minecraft.block.enums.NoteBlockInstrument;
-import net.minecraft.block.piston.PistonBehavior;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroups;
@@ -19,7 +18,7 @@ public class ModBlocks {
             new Block(AbstractBlock.Settings.create().strength(0.2f)));
 
     public static final Block REVISUALISING_TABLE = registerBlock("revisualising_table",
-            new RevisualisingTable(AbstractBlock.Settings.create()
+            new RevisualisingTableBlock(AbstractBlock.Settings.create()
                     .mapColor(MapColor.BLUE)
                     .instrument(NoteBlockInstrument.BASEDRUM)
                     .requiresTool()
@@ -34,12 +33,10 @@ public class ModBlocks {
     public static final Block DOORWAY = registerBlock("dark_oak_doorway",
             new DoorwayBlock(AbstractBlock.Settings.create().nonOpaque()));
 
-    public static final Block PEDESTAL = registerBlock("pedestal",
-            new PedestalBlock(AbstractBlock.Settings.create().nonOpaque()));
+    public static final Block POCKET_DIMENSION_PORTAL = registerBlock("pocket_dimension_portal",
+            new PocketDimensionPortal(AbstractBlock.Settings.copy(Blocks.END_GATEWAY)));
 
-    //public static final Block POCKET_DIMENSION_PORTAL = registerBlock("pocket_dimension_portal",
-    //        new PocketDimensionPortal(AbstractBlock.Settings.copy(Blocks.END_GATEWAY)));
-
+    /*
     public static final Block POCKET_DIMENSION_PORTAL =
             Registry.register(
                     Registries.BLOCK,
@@ -47,7 +44,7 @@ public class ModBlocks {
                     new PocketDimensionPortal(
                             AbstractBlock.Settings.copy(Blocks.END_GATEWAY)
                     )
-            );
+            );*/
 
 
 

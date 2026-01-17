@@ -6,30 +6,26 @@ import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 import net.nimbu.thaumaturgy.Thaumaturgy;
 import net.nimbu.thaumaturgy.block.ModBlocks;
-import net.nimbu.thaumaturgy.block.entity.custom.PedestalBlockEntity;
 import net.nimbu.thaumaturgy.block.entity.custom.PocketDimensionPortalBlockEntity;
+import net.nimbu.thaumaturgy.block.entity.custom.RevisualisingTableBlockEntity;
 
 public class ModBlockEntityTypes {
 
-    public static final BlockEntityType<PedestalBlockEntity> PEDESTAL_BLOCK_ENTITY =
-            Registry.register(Registries.BLOCK_ENTITY_TYPE, Identifier.of(Thaumaturgy.MOD_ID, "pedestal_block_entity"),
+    public static BlockEntityType<PocketDimensionPortalBlockEntity> POCKET_DIMENSION_PORTAL  =
+            Registry.register(Registries.BLOCK_ENTITY_TYPE, Identifier.of(Thaumaturgy.MOD_ID, "pocket_dimension_portal"),
                     BlockEntityType.Builder.create(
-                            PedestalBlockEntity::new,
-                            ModBlocks.PEDESTAL
-                    ).build(null));
+                            PocketDimensionPortalBlockEntity::new,
+                            ModBlocks.POCKET_DIMENSION_PORTAL
+                    ).build());
 
-    public static BlockEntityType<PocketDimensionPortalBlockEntity> POCKET_DIMENSION_PORTAL;
+    public static final BlockEntityType<RevisualisingTableBlockEntity> REVISUALISING_TABLE_BLOCK_ENTITY =
+            Registry.register(Registries.BLOCK_ENTITY_TYPE, Identifier.of(Thaumaturgy.MOD_ID, "revisualising_table_block_entity"),
+                    BlockEntityType.Builder.create(
+                            RevisualisingTableBlockEntity::new,
+                            ModBlocks.REVISUALISING_TABLE
+                    ).build(null));
 
     public static void registerBlockEntities() {
         Thaumaturgy.LOGGER.info("Registering block entities for "+Thaumaturgy.MOD_ID);
-
-
-        //Please change this to format in the same way as the above example/s. i'd do it myself but idk what's breaking your code lols
-        POCKET_DIMENSION_PORTAL =
-        Registry.register(Registries.BLOCK_ENTITY_TYPE, Identifier.of(Thaumaturgy.MOD_ID, "pocket_dimension_portal"),
-                BlockEntityType.Builder.create(
-                        PocketDimensionPortalBlockEntity::new,
-                        ModBlocks.POCKET_DIMENSION_PORTAL
-                ).build());;
     }
 }
