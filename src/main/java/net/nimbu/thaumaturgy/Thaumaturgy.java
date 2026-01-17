@@ -48,7 +48,7 @@ public class Thaumaturgy implements ModInitializer {
 		// Find events by clicking an example, and clicking "player" on the imported package.
 		// Client only events should be handled in the Thaumaturgy client class.
 		PlayerBlockBreakEvents.BEFORE.register(new HammerUsageEvent());
-		AttackEntityCallback.EVENT.register((playerEntity, world, hand, entity, entityHitResult) -> {
+		/*AttackEntityCallback.EVENT.register((playerEntity, world, hand, entity, entityHitResult) -> {
 			if(entity instanceof SheepEntity sheepEntity && !world.isClient()){
 				if(playerEntity.getMainHandStack().getItem() == Items.END_ROD){
 					((SheepEntity) entity).headYaw=90;
@@ -58,7 +58,7 @@ public class Thaumaturgy implements ModInitializer {
 				}
 			}
 			return ActionResult.PASS; //signifies the code to continue on to the next step
-		});
+		});*/
 
 
 
