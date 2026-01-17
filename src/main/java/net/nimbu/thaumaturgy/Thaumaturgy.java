@@ -15,6 +15,8 @@ import net.nimbu.thaumaturgy.block.entity.ModBlockEntityTypes;
 import net.nimbu.thaumaturgy.block.ModBlocks;
 import net.nimbu.thaumaturgy.component.ModDataComponentTypes;
 import net.nimbu.thaumaturgy.effect.ModEffects;
+import net.nimbu.thaumaturgy.enchantment.ModEnchantmentEffects;
+import net.nimbu.thaumaturgy.enchantment.ModEnchantments;
 import net.nimbu.thaumaturgy.entity.ModEntities;
 import net.nimbu.thaumaturgy.entity.custom.PixieEntity;
 import net.nimbu.thaumaturgy.item.ModItemGroups;
@@ -42,6 +44,7 @@ public class Thaumaturgy implements ModInitializer {
 		ModEffects.registerEffects();
 		ModSoundEvents.registerSounds();
 		ModParticles.registerParticles();
+		ModEnchantmentEffects.registerEnchantmentEffects();
 
 		// Below are "events". These are general things that happen during gameplay that can have custom
 		// methods linked to them.

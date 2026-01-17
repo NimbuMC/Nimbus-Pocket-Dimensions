@@ -33,5 +33,7 @@
   "entity.thaumaturgy.orb": "Magic Orb",
 
   "effect.thaumaturgy.slimey": "Slimey",
-  "effect.thaumaturgy.block_hop": "Block Hop"
+  "effect.thaumaturgy.block_hop": "Block Hop",
+
+  "enchantment.thaumaturgy.thundercall": "Thundercall"
 }
