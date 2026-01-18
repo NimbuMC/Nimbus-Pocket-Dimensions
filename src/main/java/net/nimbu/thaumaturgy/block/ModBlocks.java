@@ -36,17 +36,8 @@ public class ModBlocks {
     public static final Block POCKET_DIMENSION_PORTAL = registerBlock("pocket_dimension_portal",
             new PocketDimensionPortal(AbstractBlock.Settings.copy(Blocks.END_GATEWAY)));
 
-    /*
-    public static final Block POCKET_DIMENSION_PORTAL =
-            Registry.register(
-                    Registries.BLOCK,
-                    Identifier.of("thaumaturgy", "pocket_dimension_portal"),
-                    new PocketDimensionPortal(
-                            AbstractBlock.Settings.copy(Blocks.END_GATEWAY)
-                    )
-            );*/
-
-
+    public static final Block POCKET_DIMENSION_BORDER = registerBlock("pocket_dimension_border",
+            new PocketDimensionBorderBlock(AbstractBlock.Settings.create()));
 
 
 
