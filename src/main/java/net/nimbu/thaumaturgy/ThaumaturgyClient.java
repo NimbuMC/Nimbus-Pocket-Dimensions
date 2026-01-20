@@ -15,6 +15,7 @@ import net.nimbu.thaumaturgy.entity.client.PixieEntityRenderer;
 import net.nimbu.thaumaturgy.entity.client.SpellEntityRenderer;
 import net.nimbu.thaumaturgy.particle.MagicParticle;
 import net.nimbu.thaumaturgy.particle.ModParticles;
+import net.nimbu.thaumaturgy.renderer.PocketDimensionBorderRenderer;
 import net.nimbu.thaumaturgy.screen.ModScreenHanders;
 import net.nimbu.thaumaturgy.screen.custom.RevisualisingTableScreen;
 import net.nimbu.thaumaturgy.util.ModModelPredicates;
@@ -23,6 +24,11 @@ public class ThaumaturgyClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         ModModelPredicates.registerModelPredicates();
+        BlockEntityRendererFactories.register(
+                ModBlockEntityTypes.POCKET_DIMENSION_BORDER_BLOCK,
+                PocketDimensionBorderRenderer::new
+        );
+        PocketDimensionBorderRenderer.register();
 
         EntityModelLayerRegistry.registerModelLayer(PixieEntityModel.PIXIE, PixieEntityModel::getTexturedModelData);
         EntityRendererRegistry.register(ModEntities.PIXIE, PixieEntityRenderer::new);
@@ -35,6 +41,7 @@ public class ThaumaturgyClient implements ClientModInitializer {
 
         BlockEntityRendererFactories.register(ModBlockEntityTypes.REVISUALISING_TABLE_BLOCK_ENTITY, RevisualisingTableBlockEntityRenderer::new);
         HandledScreens.register(ModScreenHanders.REVISUALISING_TABLE_SCREEN_HANDLER, RevisualisingTableScreen::new);
+
     }
 
 }
