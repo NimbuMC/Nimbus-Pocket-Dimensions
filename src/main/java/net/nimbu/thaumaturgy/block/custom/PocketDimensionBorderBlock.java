@@ -15,8 +15,8 @@ public class PocketDimensionBorderBlock extends BlockWithEntity {
     }
 
     @Override
-    protected MapCodec<? extends BlockWithEntity> getCodec() {
-        return null;
+    protected MapCodec<? extends PocketDimensionBorderBlock> getCodec() {
+        return createCodec(PocketDimensionBorderBlock::new);
     }
 
     @Override
