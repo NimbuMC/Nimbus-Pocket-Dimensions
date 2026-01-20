@@ -17,7 +17,7 @@
         "gui": {
             "rotation": [ 0, 0, 0 ],
             "translation": [ 0, 0, 0],
-            "scale":[ 2, 2, 0.625 ]
+            "scale":[ 2, 2, 1 ]
         },
         "thirdperson_righthand": {
             "rotation": [ 0, -90, 55 ],
