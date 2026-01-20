@@ -56,7 +56,7 @@ public class RevisualisingTableBlockEntityRenderer implements BlockEntityRendere
         float itemHeightModifier = (float) itemHeight/32; //divided by 16 then 2 as drawn from centre
 
         matrices.translate(0.5f,1.0+itemHeightModifier,0.5f);
-        matrices.scale(1f, 1f, 1f);
+        matrices.scale(1f, 1f, 1f); //z values seems to scale incorrectly for larger items
         matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(entity.getRenderingRotation()));
 
 
