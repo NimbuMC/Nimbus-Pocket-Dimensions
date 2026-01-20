@@ -3,11 +3,14 @@ package net.nimbu.thaumaturgy.renderer;
 import net.fabricmc.fabric.api.client.rendering.v1.CoreShaderRegistrationCallback;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gl.ShaderProgram;
+import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.render.*;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.nimbu.thaumaturgy.Thaumaturgy;
 import net.nimbu.thaumaturgy.block.entity.custom.PocketDimensionBorderBlockEntity;
@@ -62,14 +65,52 @@ public class PocketDimensionBorderRenderer implements BlockEntityRenderer<Pocket
         matrices.push();
         VertexConsumer vc = consumers.getBuffer(BORDER_RENDER_LAYER);
         Matrix4f mat = matrices.peek().getPositionMatrix();
-        ShaderProgram shaderProgram = BORDER_SHADER;
-        Vector3f playerPos = MinecraftClient.getInstance().player.getPos().toVector3f();
-        if(shaderProgram != null)
-        {
-           //shaderProgram.getUniform("playerPositionX").set(playerPos.x);
-           //shaderProgram.getUniform("playerPositionY").set(playerPos.y);
-           //shaderProgram.getUniform("playerPositionZ").set(playerPos.z);
+        AbstractClientPlayerEntity player = MinecraftClient.getInstance().player;
+
+        if (BORDER_SHADER != null && player != null) {
+            Vector3f cam = MinecraftClient.getInstance().gameRenderer.getCamera().getPos().toVector3f();
+            BORDER_SHADER.getUniform("cameraPosition").set(
+                    cam.x,
+                    cam.y,
+                    cam.z);
+            var world = MinecraftClient.getInstance().world;
+
+            if (world != null) {
+                var players = world.getPlayers();
+                int count = Math.min(players.size(), 8);
+
+                BORDER_SHADER.getUniform("playerCount").set(count);
+
+                float[] data = new float[8 * 3]; // 8 vec3
+                if (count > 0) {
+                    Vector3f playerPos = player.getPos().toVector3f();
+                    data[0] = playerPos.x;
+                    data[1] = playerPos.y;
+                    data[2] = playerPos.z;
+                }
+
+                if (count > 1) {
+                    for (int i = 1; i < count; i++) {
+                        Vec3d p = players.get(i).getPos();
+                        int base = i * 3;
+                        data[base] = (float) p.x;
+                        data[base + 1] = (float) p.y;
+                        data[base + 2] = (float) p.z;
+                    }
+                }
+
+                for (int i = count; i < 8; i++) {
+                    int base = i * 3;
+                    data[base] = data[base + 1] = data[base + 2] = 0.0f;
+                }
+
+                BORDER_SHADER.getUniform("playerPositions").set(data);
+            }
+            float t = MinecraftClient.getInstance().world.getTime() + tickDelta;
+            BORDER_SHADER.getUniform("time").set(t);
         }
+
+
         /*
         // +X
         renderFace(vc, mat, matrices.peek(), 0,
