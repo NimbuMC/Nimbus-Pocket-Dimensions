@@ -38,28 +38,13 @@ public abstract class ItemRendererMixin {
         if (!glint || !solid) {
             return; // let vanilla handle non-glint rendering
         }
-        //Identifier.of("minecraft", "textures/misc/white.png");
-        //Identifier.of("thaumaturgy", "textures/item/pixie_dust.png")
+
         //this changes the return of the function getDirectItemGlintConsumer, ending the function immediately
-        //cir.setReturnValue(VertexConsumers.union(provider.getBuffer( RenderLayer.getDebugFilledBox() ), provider.getBuffer(layer)));
-        cir.setReturnValue(VertexConsumers.union(provider.getBuffer(ModRenderLayer.MOD_GLINT), provider.getBuffer(layer)));
 
 
-        /*
-        cir.setReturnValue(VertexConsumers.union(provider.getBuffer( RenderLayer.of(
-                "water_mask",
-                VertexFormats.POSITION,
-                VertexFormat.DrawMode.QUADS,
-                1536,
-                RenderLayer.MultiPhaseParameters.builder().program(RenderPhase.WATER_MASK_PROGRAM).texture(RenderPhase.NO_TEXTURE).writeMaskState(RenderPhase.DEPTH_MASK).build(false)
-        ) ), provider.getBuffer(layer)));*/
-//.layering?
+        cir.setReturnValue(VertexConsumers.union(provider.getBuffer(RenderLayer.getGlint()), provider.getBuffer(layer)));
 
 
-
-        //attempted to add the end portal render layer - did not cover the item sprite once again. reoccurring issue?
-        //RenderLayer.getDebugFilledBox() managed to cover some of the sprite - in a very weird way albeit
-        //getEntityCutoutNoCullZOffset() set entire sprite white with white texture, as did getOutline
     }
 
 
@@ -89,6 +74,23 @@ public abstract class ItemRendererMixin {
 
 
 
+
+
+     /*
+        cir.setReturnValue(VertexConsumers.union(provider.getBuffer( RenderLayer.of(
+                "water_mask",
+                VertexFormats.POSITION,
+                VertexFormat.DrawMode.QUADS,
+                1536,
+                RenderLayer.MultiPhaseParameters.builder().program(RenderPhase.WATER_MASK_PROGRAM).texture(RenderPhase.NO_TEXTURE).writeMaskState(RenderPhase.DEPTH_MASK).build(false)
+        ) ), provider.getBuffer(layer)));*/
+//.layering?
+
+
+
+    //attempted to add the end portal render layer - did not cover the item sprite once again. reoccurring issue?
+    //RenderLayer.getDebugFilledBox() managed to cover some of the sprite - in a very weird way albeit
+    //getEntityCutoutNoCullZOffset() set entire sprite white with white texture, as did getOutline
 
 
     //Below is useful example code
