@@ -28,7 +28,7 @@ public final class ModRenderLayer {
             256,
             RenderLayer.MultiPhaseParameters.builder()
                     .program(RenderPhase.ENTITY_TRANSLUCENT_PROGRAM)
-                    .texture(new RenderPhase.Texture(ENERGY_TEXTURE,false,false))
+                    .texture(new RenderPhase.Texture(ENERGY_TEXTURE, false, false))
                     //.transparency(RenderPhase.TRANSLUCENT_TRANSPARENCY) // Bright translucent blending
                     .cull(RenderPhase.DISABLE_CULLING) // No culling, always visible
                     .depthTest(RenderPhase.ALWAYS_DEPTH_TEST)
@@ -36,7 +36,7 @@ public final class ModRenderLayer {
                     //.writeMaskState(RenderPhase.COLOR_MASK)
                     .build(false)
     );
-
+/*
     public static final RenderLayer.MultiPhase DEBUG_FILLED_BOX = RenderLayer.of(
             "debug_filled_box",
             VertexFormats.POSITION_COLOR,
@@ -65,7 +65,9 @@ public final class ModRenderLayer {
 
 
         RenderSystem.setTextureMatrix(matrix4f);
-    }
+    }*/
+
+    private static ShaderProgram MOD_GLINT_SHADER;
 
 
     public static final RenderLayer MOD_GLINT = RenderLayer.of(
@@ -78,19 +80,9 @@ public final class ModRenderLayer {
                     .texture(new RenderPhase.Texture(ItemRenderer.ITEM_ENCHANTMENT_GLINT, true, false))
                     .writeMaskState(RenderPhase.COLOR_MASK)
                     .cull(RenderPhase.DISABLE_CULLING)
-                    .depthTest(new RenderPhase.DepthTest("pain", 2013))
-                    //.transparency(RenderPhase.GLINT_TRANSPARENCY)
-                    .texturing(GLINT_TEXTURING) //handles how glints animated and the texture scaled
-                    .layering(new RenderPhase.Layering("view_offset_z_layering", () -> {
-                            Matrix4fStack matrix4fStack = RenderSystem.getModelViewStack();
-                            matrix4fStack.pushMatrix();
-                            matrix4fStack.scale(1.1F, 1.1F, 0.5F);
-                            RenderSystem.applyModelViewMatrix();
-                        }, () -> {
-                            Matrix4fStack matrix4fStack = RenderSystem.getModelViewStack();
-                            matrix4fStack.popMatrix();
-                            RenderSystem.applyModelViewMatrix();
-                        }))
+                    .depthTest(RenderPhase.EQUAL_DEPTH_TEST)
+                    .transparency(RenderPhase.GLINT_TRANSPARENCY)
+                    .texturing(RenderPhase.GLINT_TEXTURING)
                     .build(false)
     );
 }
