@@ -57,9 +57,11 @@ public class RevisualisingTableScreenHandler extends ScreenHandler {
     public ItemStack quickMove(PlayerEntity player, int slotPosition) { //handles shift clicking to place an item in slot
         //============================================================
         //testing purposes only
-        inventory.getStack(0).set(DataComponentTypes.CUSTOM_NAME, Text.literal("Revisualised"));
-        inventory.getStack(0).set(DataComponentTypes.ENCHANTMENT_GLINT_OVERRIDE, false);
+        //inventory.getStack(0).set(DataComponentTypes.CUSTOM_NAME, Text.literal("Revisualised"));
+        //inventory.getStack(0).set(DataComponentTypes.ENCHANTMENT_GLINT_OVERRIDE, false);
         inventory.getStack(0).set(ModDataComponentTypes.REVISUALISED, true);
+        inventory.getStack(0).set(ModDataComponentTypes.REPLACE_MODEL_NAMESPACE, "minecraft");
+        inventory.getStack(0).set(ModDataComponentTypes.REPLACE_MODEL_PATH, "diamond_sword");
         //============================================================
         ItemStack newStack = ItemStack.EMPTY;
         Slot slot2 = this.slots.get(slotPosition);

@@ -75,7 +75,7 @@ public class RevisualisingTableBlockEntityRenderer implements BlockEntityRendere
 
 
 
-        itemRenderer.renderItem(stack, ModelTransformationMode.GUI, getLightLevel(entity.getWorld(),
+        itemRenderer.renderItem(stack, ModelTransformationMode.THIRD_PERSON_RIGHT_HAND, getLightLevel(entity.getWorld(),
                 entity.getPos()), OverlayTexture.DEFAULT_UV, matrixStack, vertexConsumerProvider, entity.getWorld(), 1);
 
 
