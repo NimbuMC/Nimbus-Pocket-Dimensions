@@ -35,5 +35,9 @@
   "effect.thaumaturgy.slimey": "Slimey",
   "effect.thaumaturgy.block_hop": "Block Hop",
 
-  "enchantment.thaumaturgy.thundercall": "Thundercall"
+  "enchantment.thaumaturgy.thundercall": "Thundercall",
+
+
+  "tooltip.modid.revisualised_item": "%s %s %s",
+  "tooltip.thaumaturgy.arrow":  "→"
 }

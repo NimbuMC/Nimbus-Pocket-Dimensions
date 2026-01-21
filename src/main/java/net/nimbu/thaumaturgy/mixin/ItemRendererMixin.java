@@ -29,6 +29,33 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(ItemRenderer.class)
 public abstract class ItemRendererMixin {
 
+
+
+
+    //Changing item sprites
+    @Shadow
+    @Final
+    private ItemModels models;
+
+    @Shadow
+    public abstract ItemModels getModels();
+
+    @ModifyVariable(
+            method = "renderItem(Lnet/minecraft/item/ItemStack;Lnet/minecraft/client/renderItem/model/json/ModelTransformationMode;ZLnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/renderItem/VertexConsumerProvider;IILnet/minecraft/client/renderItem/model/BakedModel;)V",
+            at = @At(value = "HEAD"),
+            argsOnly = true
+    )
+    public BakedModel renderItemMixin(BakedModel bakedModel, @Local(argsOnly = true) ItemStack stack, @Local(argsOnly = true) ModelTransformationMode renderMode) {
+        /*
+        if (stack.get(ModDataComponentTypes.REPLACE_MODEL_NAMESPACE)!=null && stack.get(ModDataComponentTypes.REPLACE_MODEL_PATH)!=null){
+            return getModels().getModelManager().getModel(ModelIdentifier.ofInventoryVariant(
+                    Identifier.of(stack.get(ModDataComponentTypes.REPLACE_MODEL_NAMESPACE), stack.get(ModDataComponentTypes.REPLACE_MODEL_PATH))));
+        }*/
+        return bakedModel;
+    }
+
+
+
     //Adding addition effects
 
     @Inject(
@@ -58,31 +85,6 @@ public abstract class ItemRendererMixin {
         RevisualisedItemRenderer.renderItem(
                 stack, renderMode, leftHanded, matrices, vertexConsumers, light, overlay, model
         );
-        //ci.cancel(); // stop vanilla renderer
-    }
-
-
-    //Changing item sprites
-
-    @Shadow
-    @Final
-    private ItemModels models;
-
-    @Shadow
-    public abstract ItemModels getModels();
-
-    @ModifyVariable(
-            method = "renderItem(Lnet/minecraft/item/ItemStack;Lnet/minecraft/client/renderItem/model/json/ModelTransformationMode;ZLnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/renderItem/VertexConsumerProvider;IILnet/minecraft/client/renderItem/model/BakedModel;)V",
-            at = @At(value = "HEAD"),
-            argsOnly = true
-    )
-    public BakedModel renderItemMixin(BakedModel bakedModel, @Local(argsOnly = true) ItemStack stack, @Local(argsOnly = true) ModelTransformationMode renderMode) {
-
-        if (stack.get(ModDataComponentTypes.REPLACE_MODEL_NAMESPACE)!=null && stack.get(ModDataComponentTypes.REPLACE_MODEL_PATH)!=null){
-            return getModels().getModelManager().getModel(ModelIdentifier.ofInventoryVariant(
-                    Identifier.of(stack.get(ModDataComponentTypes.REPLACE_MODEL_NAMESPACE), stack.get(ModDataComponentTypes.REPLACE_MODEL_PATH))));
-        }
-        return bakedModel;
     }
 }
 

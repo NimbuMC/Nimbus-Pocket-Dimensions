@@ -14,6 +14,7 @@ import net.minecraft.client.render.model.BakedQuad;
 import net.minecraft.client.render.model.json.ModelTransformationMode;
 import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.texture.SpriteAtlasTexture;
+import net.minecraft.client.util.ModelIdentifier;
 import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.Item;
@@ -25,6 +26,7 @@ import net.minecraft.util.math.RotationAxis;
 import net.minecraft.world.LightType;
 import net.minecraft.world.World;
 import net.nimbu.thaumaturgy.block.entity.custom.RevisualisingTableBlockEntity;
+import net.nimbu.thaumaturgy.component.ModDataComponentTypes;
 
 public class RevisualisingTableBlockEntityRenderer implements BlockEntityRenderer<RevisualisingTableBlockEntity> {
 
@@ -64,6 +66,13 @@ public class RevisualisingTableBlockEntityRenderer implements BlockEntityRendere
 
         ItemRenderer itemRenderer = MinecraftClient.getInstance().getItemRenderer();
         ItemStack stack = entity.getStack(entity.INPUT_TOOL_SLOT);
+
+        //MAKE SO THAT IT WORKS FOR THE CHANGED ITEM SIZE
+        //if (stack.get(ModDataComponentTypes.REPLACE_MODEL_NAMESPACE)!=null && stack.get(ModDataComponentTypes.REPLACE_MODEL_PATH)!=null){
+        //
+        //}
+
+
         matrixStack.push();
 
         int itemHeight = getRenderedItemTextureHeight(stack.getItem());
