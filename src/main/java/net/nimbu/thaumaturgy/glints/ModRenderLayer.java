@@ -1,4 +1,4 @@
-package net.nimbu.thaumaturgy.glints;
+/*package net.nimbu.thaumaturgy.glints;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.api.EnvType;
@@ -66,7 +66,7 @@ public final class ModRenderLayer {
 
         RenderSystem.setTextureMatrix(matrix4f);
     }*/
-
+/*
     private static ShaderProgram MOD_GLINT_SHADER;
 
 

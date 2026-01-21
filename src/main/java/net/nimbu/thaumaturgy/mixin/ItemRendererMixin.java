@@ -11,24 +11,85 @@ import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.render.model.BakedModel;
 import net.minecraft.client.render.model.json.ModelTransformationMode;
 import net.minecraft.client.util.ModelIdentifier;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
+import net.minecraft.world.World;
 import net.nimbu.thaumaturgy.Thaumaturgy;
-import net.nimbu.thaumaturgy.glints.ModRenderLayer;
+import net.nimbu.thaumaturgy.component.ModDataComponentTypes;
 import net.nimbu.thaumaturgy.item.ModItems;
+import net.nimbu.thaumaturgy.item.RevisualisedItemRenderer;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(ItemRenderer.class)
 public abstract class ItemRendererMixin {
 
 
+    @Inject(
+            method = "renderItem(Lnet/minecraft/item/ItemStack;" +
+                    "Lnet/minecraft/client/render/model/json/ModelTransformationMode;" +
+                    "ZLnet/minecraft/client/util/math/MatrixStack;" +
+                    "Lnet/minecraft/client/render/VertexConsumerProvider;" +
+                    "IILnet/minecraft/client/render/model/BakedModel;)V",
+            at = @At("HEAD")
+    )
+    private void thaumaturgy$renderItemWithModel(
+            ItemStack stack,
+            ModelTransformationMode renderMode,
+            boolean leftHanded,
+            MatrixStack matrices,
+            VertexConsumerProvider vertexConsumers,
+            int light,
+            int overlay,
+            BakedModel model,
+            CallbackInfo ci
+    ) {
 
+
+        if (!stack.getOrDefault(ModDataComponentTypes.REVISUALISED, false)) {
+            return; // let vanilla render
+        }
+
+        RevisualisedItemRenderer.render(
+                stack, renderMode, light, overlay, matrices, vertexConsumers
+        );
+        //ci.cancel(); // stop vanilla renderer
+    }
+}
+
+
+
+
+
+
+
+
+
+//below is code hell dw about it
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
     @Inject(method = "getDirectItemGlintConsumer", at = @At(value = "HEAD"), cancellable = true)
     private static void getItemGlintConsumerMixin(VertexConsumerProvider provider,
                                                   RenderLayer layer,
@@ -45,30 +106,12 @@ public abstract class ItemRendererMixin {
         cir.setReturnValue(VertexConsumers.union(provider.getBuffer(RenderLayer.getGlint()), provider.getBuffer(layer)));
 
 
-    }
+    }*/
 
 
-    @Shadow
-    @Final
-    private ItemModels models;
 
-    @Shadow
-    public abstract ItemModels getModels();
 
-    @ModifyVariable(
-            method = "renderItem(Lnet/minecraft/item/ItemStack;Lnet/minecraft/client/render/model/json/ModelTransformationMode;ZLnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;IILnet/minecraft/client/render/model/BakedModel;)V",
-            at = @At(value = "HEAD"),
-            argsOnly = true
-    )
-    public BakedModel renderItemMixin(BakedModel bakedModel, @Local(argsOnly = true) ItemStack stack, @Local(argsOnly = true) ModelTransformationMode renderMode) {
-        // (stack.getItem() == ModItems.SPECTRE_STAFF && (renderMode == ModelTransformationMode.GUI || renderMode == ModelTransformationMode.GROUND || renderMode == ModelTransformationMode.FIXED)) {
-        //    return getModels().getModelManager().getModel(ModelIdentifier.ofInventoryVariant(Identifier.of(TutorialMod.MOD_ID, "spectre_staff")));
-        //}
-        if (stack.getItem() == ModItems.SPIRIT_AXE){
-            return getModels().getModelManager().getModel(ModelIdentifier.ofInventoryVariant(Identifier.of(Thaumaturgy.MOD_ID, "spirit_sword")));
-        }
-        return bakedModel;
-    }
+
 
 
 
@@ -173,7 +216,7 @@ public abstract class ItemRendererMixin {
 
         return bakedModel;
     }*/
-}
+
 
 
 

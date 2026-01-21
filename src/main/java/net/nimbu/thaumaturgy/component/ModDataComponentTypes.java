@@ -15,9 +15,6 @@ public class ModDataComponentTypes {
 
     //Allows for what are effectively variables to be added to instances of items
 
-    public static final ComponentType<BlockPos> COORDINATES =
-            register("coordinates", builder -> builder.codec(BlockPos.CODEC));
-
     public static final ComponentType<Integer> SPELL_FLASH_TIMER =
             register("spell_flash_timer", builder ->  builder.codec(Codec.INT));
 
@@ -25,6 +22,9 @@ public class ModDataComponentTypes {
         return Registry.register(Registries.DATA_COMPONENT_TYPE, Identifier.of(Thaumaturgy.MOD_ID, name),
                 builderOperator.apply(ComponentType.builder()).build());
     }
+
+    public static final ComponentType<Boolean> REVISUALISED =
+            register("revisualised", booleanBuilder -> booleanBuilder.codec(Codec.BOOL));
 
     public static void registerDataComponentTypes(){
         Thaumaturgy.LOGGER.info("Registering data component types for "+Thaumaturgy.MOD_ID);
