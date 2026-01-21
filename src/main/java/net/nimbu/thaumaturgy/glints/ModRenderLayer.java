@@ -3,7 +3,9 @@
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.client.rendering.v1.CoreShaderRegistrationCallback;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gl.ShaderProgram;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.RenderPhase;
 import net.minecraft.client.render.VertexFormat;
@@ -11,6 +13,8 @@ import net.minecraft.client.render.VertexFormats;
 import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
+import net.nimbu.thaumaturgy.Thaumaturgy;
+import net.nimbu.thaumaturgy.renderer.PocketDimensionBorderRenderer;
 import org.joml.Matrix4f;
 import org.joml.Matrix4fStack;
 
@@ -76,7 +80,7 @@ public final class ModRenderLayer {
             VertexFormat.DrawMode.QUADS,
             1536,
             RenderLayer.MultiPhaseParameters.builder()
-                    .program(RenderPhase.GLINT_PROGRAM)
+                    .program(new RenderPhase.ShaderProgram(ModRenderLayer::getGlint))
                     .texture(new RenderPhase.Texture(ItemRenderer.ITEM_ENCHANTMENT_GLINT, true, false))
                     .writeMaskState(RenderPhase.COLOR_MASK)
                     .cull(RenderPhase.DISABLE_CULLING)
@@ -85,6 +89,26 @@ public final class ModRenderLayer {
                     .texturing(RenderPhase.GLINT_TEXTURING)
                     .build(false)
     );
+
+
+    public static ShaderProgram getGlint() {
+        return MOD_GLINT_SHADER;
+    }
+
+    public static void register() {
+        CoreShaderRegistrationCallback.EVENT.register(ctx -> {
+            ctx.register(
+                    Identifier.of(Thaumaturgy.MOD_ID, "mod_glint"),
+                    VertexFormats.POSITION_TEXTURE,
+                    shader -> MOD_GLINT_SHADER = shader
+            );
+        });
+    }
+
+
+
+
+
 }
 
 
