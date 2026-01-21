@@ -1,10 +1,7 @@
 package net.nimbu.thaumaturgy.item;
 
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.RenderLayers;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.*;
 import net.minecraft.client.render.item.ItemModels;
 import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.render.model.BakedModel;
@@ -17,16 +14,16 @@ import net.minecraft.item.Items;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.util.Colors;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.ColorHelper;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.random.Random;
+
 import org.joml.Quaternionf;
 
 import java.util.List;
 
 public class RevisualisedItemRenderer {
-
-    //private final ItemModels models = new ItemModels();
 
     public static void renderItem(
             ItemStack stack,
@@ -38,11 +35,10 @@ public class RevisualisedItemRenderer {
             int overlay,
             BakedModel model
     ) {
-        /*System.out.println("Custom renderer active for: " + stack);
         matrices.push();
 
         ItemRenderer itemRenderer = MinecraftClient.getInstance().getItemRenderer();
-        model = itemRenderer.getModel(Items.DIAMOND_SWORD.getDefaultStack(), null,null,0);
+        //model = itemRenderer.getModel(ModItems.STAFF.getDefaultStack(), null,null,0);
 
         boolean bl = renderMode == ModelTransformationMode.GUI || renderMode == ModelTransformationMode.GROUND || renderMode == ModelTransformationMode.FIXED;
         boolean bl2 = true;
@@ -60,8 +56,12 @@ public class RevisualisedItemRenderer {
         renderBakedItemModel(model, stack, 255, overlay, matrices, vertexConsumer);
 
 
-        matrices.pop();*/
+        matrices.pop();
     }
+
+
+
+
 
     private static void renderBakedItemModel(BakedModel model, ItemStack stack, int light, int overlay, MatrixStack matrices, VertexConsumer vertices) {
         Random random = Random.create();
@@ -81,15 +81,13 @@ public class RevisualisedItemRenderer {
         MatrixStack.Entry entry = matrices.peek();
 
         for (BakedQuad bakedQuad : quads) {
-            int i = Colors.WHITE;
-            //if (bl && bakedQuad.hasColor()) {
-            //    i = this.colors.getColor(stack, bakedQuad.getColorIndex());
-            //}
+            //int i = Colors.RED;
 
-            float f = ColorHelper.Argb.getAlpha(i) / 255.0F;
-            float g = ColorHelper.Argb.getRed(i) / 255.0F;
-            float h = ColorHelper.Argb.getGreen(i) / 255.0F;
-            float j = ColorHelper.Argb.getBlue(i) / 255.0F;
+            float f = 0.5f;//ColorHelper.Argb.getAlpha(i) / 255.0F;
+            float g = 1.0f;////0.2f;//ColorHelper.Argb.getRed(i) / 255.0F;
+            float h = 0.0f;//0.0f;//ColorHelper.Argb.getGreen(i) / 255.0F;
+            float j = 1.0f;//1.0f;//ColorHelper.Argb.getBlue(i) / 255.0F;
+
             vertices.quad(entry, bakedQuad, g, h, j, f, light, overlay);
         }
     }
