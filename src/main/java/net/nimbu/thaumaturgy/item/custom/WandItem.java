@@ -56,17 +56,17 @@ public class WandItem extends Item {
 
 
 
-            BlockPos lastPos = context.getStack().get(ModDataComponentTypes.COORDINATES);
-            if(lastPos != null)
-            {
-                world.setBlockState(lastPos, Blocks.AIR.getDefaultState());
-            }
+            //BlockPos lastPos = context.getStack().get(ModDataComponentTypes.COORDINATES);
+            //if(lastPos != null)
+           // {
+            //    world.setBlockState(lastPos, Blocks.AIR.getDefaultState());
+            //}
             BlockState pocketDimPortalState = ModBlocks.POCKET_DIMENSION_PORTAL.getDefaultState();
             //context.getPlayer().getGameProfile().getId();
 
 
             for(BlockPos pos : positions) {
-                context.getStack().set(ModDataComponentTypes.COORDINATES, pos);
+                //context.getStack().set(ModDataComponentTypes.COORDINATES, pos);
                 world.setBlockState(pos, pocketDimPortalState);
                 if(world.getBlockEntity(pos) instanceof PocketDimensionPortalBlockEntity portalData) {
                     portalData.TriggerInitialIDUpdate(world, pos, 3);

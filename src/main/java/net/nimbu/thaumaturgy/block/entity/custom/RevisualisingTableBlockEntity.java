@@ -4,6 +4,7 @@ import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.EnchantingTableBlockEntity;
+import net.minecraft.component.DataComponentTypes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventories;
@@ -24,6 +25,8 @@ import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 import net.nimbu.thaumaturgy.block.entity.ImplementedInventory;
 import net.nimbu.thaumaturgy.block.entity.ModBlockEntityTypes;
+import net.nimbu.thaumaturgy.component.ModDataComponentTypes;
+import net.nimbu.thaumaturgy.item.ModItems;
 import net.nimbu.thaumaturgy.screen.custom.RevisualisingTableScreenHandler;
 import org.jetbrains.annotations.Nullable;
 
@@ -57,6 +60,7 @@ public class RevisualisingTableBlockEntity extends BlockEntity implements Implem
     }
 
     public static void tick(World world, BlockPos blockPos, BlockState blockState, RevisualisingTableBlockEntity blockEntity){
+
 
         BlockPos pos = blockEntity.getPos();
 
@@ -130,6 +134,18 @@ public class RevisualisingTableBlockEntity extends BlockEntity implements Implem
 
 
     }
+
+    //Applies revisualisation. DOES NOT EFFECT ACTUAL STORED ITEM - ONLY VISUAL. DO NOT USE
+    public void displayRevisualisedItem(ItemStack itemStack){
+
+        //THESE ARE ONLY APPLYING TO THE DISPLAYED ITEM, AND NOT THE ITEM THAT GETS RETURNED TO THE PLAYER!!!
+
+        itemStack.set(ModDataComponentTypes.REVISUALISED, true);
+        itemStack.set(DataComponentTypes.ENCHANTMENT_GLINT_OVERRIDE, false);
+        itemStack.set(DataComponentTypes.CUSTOM_NAME, Text.literal("Revisualised"));
+        //itemStack.hasGlint()
+    }
+
 
     @Override
     protected void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
