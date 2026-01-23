@@ -67,7 +67,7 @@ public final class ModRenderLayer {
 
 
         RenderSystem.setTextureMatrix(matrix4f);
-    }*/
+    }
 
     private static ShaderProgram MOD_GLINT_SHADER;
 
@@ -87,7 +87,7 @@ public final class ModRenderLayer {
                     .texturing(RenderPhase.GLINT_TEXTURING)
                     .build(false)
     )
-
+*/
 }
 
 
