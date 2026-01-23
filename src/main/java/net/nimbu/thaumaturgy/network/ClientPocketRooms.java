@@ -21,8 +21,9 @@ public final class ClientPocketRooms {
 
     public static void addRoom(BlockPos room)
     {
-        ROOMS.add(room);
-        Thaumaturgy.LOGGER.info("Client received room {}", room);
+        if(ROOMS.add(room)) Thaumaturgy.LOGGER.info("Client received room {}", room);
+
+        Thaumaturgy.LOGGER.info("Rooms are now {}", ROOMS);
     }
 
     public static boolean hasRoom(BlockPos pos) {

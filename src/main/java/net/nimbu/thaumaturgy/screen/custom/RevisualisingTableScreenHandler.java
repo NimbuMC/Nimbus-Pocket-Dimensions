@@ -2,7 +2,6 @@ package net.nimbu.thaumaturgy.screen.custom;
 
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.component.DataComponentTypes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
@@ -10,10 +9,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.screen.*;
 import net.minecraft.screen.slot.Slot;
-import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
-import net.nimbu.thaumaturgy.component.ModDataComponentTypes;
 import net.nimbu.thaumaturgy.item.ModItems;
 import net.nimbu.thaumaturgy.screen.ModScreenHanders;
 
@@ -56,14 +53,6 @@ public class RevisualisingTableScreenHandler extends ScreenHandler {
 
     @Override
     public ItemStack quickMove(PlayerEntity player, int slotPosition) { //handles shift clicking to place an item in slot
-        //============================================================
-        //testing purposes only
-        //inventory.getStack(0).set(DataComponentTypes.CUSTOM_NAME, Text.literal("Revisualised"));
-        //inventory.getStack(0).set(DataComponentTypes.ENCHANTMENT_GLINT_OVERRIDE, false);
-        inventory.getStack(0).set(ModDataComponentTypes.REVISUALISED, true);
-        inventory.getStack(0).set(ModDataComponentTypes.REPLACE_MODEL_NAMESPACE, "minecraft");
-        inventory.getStack(0).set(ModDataComponentTypes.REPLACE_MODEL_PATH, "diamond_sword");
-        //============================================================
         ItemStack newStack = ItemStack.EMPTY;
         Slot slot2 = this.slots.get(slotPosition);
         //System.out.println(!EnchantmentHelper.getEnchantments(slot2.getStack()).isEmpty()); CHECK ENCHANTMENTS EXIST

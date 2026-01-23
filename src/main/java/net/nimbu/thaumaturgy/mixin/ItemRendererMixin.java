@@ -11,109 +11,24 @@ import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.render.model.BakedModel;
 import net.minecraft.client.render.model.json.ModelTransformationMode;
 import net.minecraft.client.util.ModelIdentifier;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 import net.nimbu.thaumaturgy.Thaumaturgy;
-import net.nimbu.thaumaturgy.component.ModDataComponentTypes;
+import net.nimbu.thaumaturgy.glints.ModRenderLayer;
 import net.nimbu.thaumaturgy.item.ModItems;
-import net.nimbu.thaumaturgy.item.RevisualisedItemRenderer;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(ItemRenderer.class)
 public abstract class ItemRendererMixin {
 
 
 
-
-    //Changing item sprites
-    @Shadow
-    @Final
-    private ItemModels models;
-
-    @Shadow
-    public abstract ItemModels getModels();
-
-    @ModifyVariable(
-            method = "renderItem(Lnet/minecraft/item/ItemStack;Lnet/minecraft/client/renderItem/model/json/ModelTransformationMode;ZLnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/renderItem/VertexConsumerProvider;IILnet/minecraft/client/renderItem/model/BakedModel;)V",
-            at = @At(value = "HEAD"),
-            argsOnly = true
-    )
-    public BakedModel renderItemMixin(BakedModel bakedModel, @Local(argsOnly = true) ItemStack stack, @Local(argsOnly = true) ModelTransformationMode renderMode) {
-        /*
-        if (stack.get(ModDataComponentTypes.REPLACE_MODEL_NAMESPACE)!=null && stack.get(ModDataComponentTypes.REPLACE_MODEL_PATH)!=null){
-            return getModels().getModelManager().getModel(ModelIdentifier.ofInventoryVariant(
-                    Identifier.of(stack.get(ModDataComponentTypes.REPLACE_MODEL_NAMESPACE), stack.get(ModDataComponentTypes.REPLACE_MODEL_PATH))));
-        }*/
-        return bakedModel;
-    }
-
-
-
-    //Adding addition effects
-
-    @Inject(
-            method = "renderItem(Lnet/minecraft/item/ItemStack;" +
-                    "Lnet/minecraft/client/renderItem/model/json/ModelTransformationMode;" +
-                    "ZLnet/minecraft/client/util/math/MatrixStack;" +
-                    "Lnet/minecraft/client/renderItem/VertexConsumerProvider;" +
-                    "IILnet/minecraft/client/renderItem/model/BakedModel;)V",
-            at = @At("TAIL")
-    )
-    private void renderItemMixin(
-            ItemStack stack,
-            ModelTransformationMode renderMode,
-            boolean leftHanded,
-            MatrixStack matrices,
-            VertexConsumerProvider vertexConsumers,
-            int light,
-            int overlay,
-            BakedModel model,
-            CallbackInfo ci
-    ) {
-
-
-        if (!stack.getOrDefault(ModDataComponentTypes.REVISUALISED, false)) {
-            return; // let vanilla renderItem
-        }
-        RevisualisedItemRenderer.renderItem(
-                stack, renderMode, leftHanded, matrices, vertexConsumers, light, overlay, model
-        );
-    }
-}
-
-
-
-
-
-
-
-
-
-//below is code hell dw about it
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
     @Inject(method = "getDirectItemGlintConsumer", at = @At(value = "HEAD"), cancellable = true)
     private static void getItemGlintConsumerMixin(VertexConsumerProvider provider,
                                                   RenderLayer layer,
@@ -130,12 +45,30 @@ public abstract class ItemRendererMixin {
         cir.setReturnValue(VertexConsumers.union(provider.getBuffer(RenderLayer.getGlint()), provider.getBuffer(layer)));
 
 
-    }*/
+    }
 
 
+    @Shadow
+    @Final
+    private ItemModels models;
 
+    @Shadow
+    public abstract ItemModels getModels();
 
-
+    @ModifyVariable(
+            method = "renderItem(Lnet/minecraft/item/ItemStack;Lnet/minecraft/client/render/model/json/ModelTransformationMode;ZLnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;IILnet/minecraft/client/render/model/BakedModel;)V",
+            at = @At(value = "HEAD"),
+            argsOnly = true
+    )
+    public BakedModel renderItemMixin(BakedModel bakedModel, @Local(argsOnly = true) ItemStack stack, @Local(argsOnly = true) ModelTransformationMode renderMode) {
+        // (stack.getItem() == ModItems.SPECTRE_STAFF && (renderMode == ModelTransformationMode.GUI || renderMode == ModelTransformationMode.GROUND || renderMode == ModelTransformationMode.FIXED)) {
+        //    return getModels().getModelManager().getModel(ModelIdentifier.ofInventoryVariant(Identifier.of(TutorialMod.MOD_ID, "spectre_staff")));
+        //}
+        if (stack.getItem() == ModItems.SPIRIT_AXE){
+            return getModels().getModelManager().getModel(ModelIdentifier.ofInventoryVariant(Identifier.of(Thaumaturgy.MOD_ID, "spirit_sword")));
+        }
+        return bakedModel;
+    }
 
 
 
@@ -155,7 +88,7 @@ public abstract class ItemRendererMixin {
 
 
 
-    //attempted to add the end portal renderItem layer - did not cover the item sprite once again. reoccurring issue?
+    //attempted to add the end portal render layer - did not cover the item sprite once again. reoccurring issue?
     //RenderLayer.getDebugFilledBox() managed to cover some of the sprite - in a very weird way albeit
     //getEntityCutoutNoCullZOffset() set entire sprite white with white texture, as did getOutline
 
@@ -172,7 +105,7 @@ public abstract class ItemRendererMixin {
     public abstract ItemModels getModels();
 
     @ModifyVariable(
-            method = "renderItem(Lnet/minecraft/item/ItemStack;Lnet/minecraft/client/renderItem/model/json/ModelTransformationMode;ZLnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/renderItem/VertexConsumerProvider;IILnet/minecraft/client/renderItem/model/BakedModel;)V",
+            method = "renderItem(Lnet/minecraft/item/ItemStack;Lnet/minecraft/client/render/model/json/ModelTransformationMode;ZLnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;IILnet/minecraft/client/render/model/BakedModel;)V",
             at = @At(value = "HEAD"),
             argsOnly = true
     )
@@ -240,16 +173,16 @@ public abstract class ItemRendererMixin {
 
         return bakedModel;
     }*/
-
+}
 
 
 
 
 /*
-import net.minecraft.client.renderItem.RenderLayer;
-import net.minecraft.client.renderItem.VertexConsumer;
-import net.minecraft.client.renderItem.VertexConsumerProvider;
-import net.minecraft.client.renderItem.item.ItemRenderer;
+import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.render.VertexConsumer;
+import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.resource.SynchronousResourceReloader;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
