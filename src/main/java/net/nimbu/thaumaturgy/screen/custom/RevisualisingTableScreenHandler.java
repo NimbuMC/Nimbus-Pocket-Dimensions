@@ -20,6 +20,7 @@ import net.nimbu.thaumaturgy.screen.ModScreenHanders;
 public class RevisualisingTableScreenHandler extends ScreenHandler {
     private final Inventory inventory;
     private final PropertyDelegate propertyDelegate;
+    //private final List<>
 
     public RevisualisingTableScreenHandler(int syncId, PlayerInventory playerInventory, BlockPos pos) {
         this(syncId, playerInventory, playerInventory.player.getWorld().getBlockEntity(pos), new ArrayPropertyDelegate(2));

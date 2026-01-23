@@ -3,6 +3,7 @@ package net.nimbu.thaumaturgy.entity.client;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.MobEntityRenderer;
+import net.minecraft.client.render.entity.model.BeeEntityModel;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import net.nimbu.thaumaturgy.Thaumaturgy;
@@ -12,7 +13,7 @@ public class PixieEntityRenderer extends MobEntityRenderer<PixieEntity, PixieEnt
 
     public PixieEntityRenderer(EntityRendererFactory.Context context) {
         super(context, new PixieEntityModel<>(context.getPart(PixieEntityModel.PIXIE)), 0.1f); //last val is shadow size
-        //this.addFeature(new SlimeOverlayFeatureRenderer<>(this, context.getModelLoader())); //this allows for transparent outer layer?
+        //this.addFeature(new PixieOverlayFeatureRenderer<>(this, context.getModelLoader())); //this allows for transparent outer layer?
     }
 
     @Override
@@ -28,7 +29,6 @@ public class PixieEntityRenderer extends MobEntityRenderer<PixieEntity, PixieEnt
         } else {
             matrixStack.scale(1f,1f,1f);
         }
-
         super.render(livingEntity, f, g, matrixStack, vertexConsumerProvider, i);
     }
 }

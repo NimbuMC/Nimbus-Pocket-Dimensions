@@ -46,6 +46,7 @@ public class ThaumaturgyClient implements ClientModInitializer {
 
 
         EntityModelLayerRegistry.registerModelLayer(PixieEntityModel.PIXIE, PixieEntityModel::getTexturedModelData);
+        //EntityModelLayerRegistry.registerModelLayer(PixieEntityModel.PIXIE_TRANSPARENT, PixieEntityModel::getTexturedModelDataTransparent);
         EntityRendererRegistry.register(ModEntities.PIXIE, PixieEntityRenderer::new);
 
         EntityRendererRegistry.register(ModEntities.SNOWBALL_COPY, FlyingItemEntityRenderer::new);

@@ -60,7 +60,9 @@ public class RevisualisedItemRenderer {
     }
 
 
-
+//-----------------------------------------------------------------------------
+// in the pixie feature thing, Entity Model Layers are used. this may helpful
+// -------------------------------------------------------------------------
 
 
     private static void renderBakedItemModel(BakedModel model, ItemStack stack, int light, int overlay, MatrixStack matrices, VertexConsumer vertices) {
