@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "item": "thaumaturgy:pitch_black_block"
+    }
+  ],
+  "result": {
+    "count": 9,
+    "id": "minecraft:black_dye"
+  }
+}

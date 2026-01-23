@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "thaumaturgy:block/magenta_magic_mushroom"
+  }
+}

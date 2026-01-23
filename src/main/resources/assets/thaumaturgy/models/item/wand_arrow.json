@@ -1,0 +1,66 @@
+{
+    "parent": "item/generated",
+    "textures": {
+        "layer0": "thaumaturgy:item/wand"
+    },
+    "display": {
+        "thirdperson_righthand": {
+            "rotation": [ -80, -90, 55 ],
+            "translation": [ 0, -1, -3 ],
+            "scale": [ 0.85, 0.85, 0.85 ]
+        },
+        "thirdperson_lefthand": {
+            "rotation": [ -90, 90, -55 ],
+            "translation": [ 0, 4.0, 0.5 ],
+            "scale": [ 0.85, 0.85, 0.85 ]
+        },
+        "firstperson_righthand": {
+            "rotation": [ -90, -90, 25 ],
+            "translation": [ 1.13, 3.2, 1.13 ],
+            "scale": [ 0.68, 0.68, 0.68 ]
+        },
+        "firstperson_lefthand": {
+            "rotation": [ -90, 90, -25 ],
+            "translation": [ 1.13, 3.2, 1.13 ],
+            "scale": [ 0.68, 0.68, 0.68 ]
+        }
+    },
+    "overrides": [
+        {
+            "predicate": {
+                "pulling": 0
+            },
+            "textures": {
+                "layer0": "thaumaturgy:item/wand"
+            },
+            "model": "thaumaturgy:item/wand"
+        },
+        {
+            "predicate": {
+                "pulling": 1
+            },
+            "model": "thaumaturgy:item/wand_arrow_0"
+        },
+        {
+            "predicate": {
+                "pulling": 1,
+                "pull": 0.4
+            },
+            "model": "thaumaturgy:item/wand_arrow_1"
+        },
+        {
+            "predicate": {
+                "pulling": 1,
+                "pull": 0.65
+            },
+            "model": "thaumaturgy:item/wand_arrow_2"
+        },
+        {
+            "predicate": {
+                "pulling": 1,
+                "pull": 0.9
+            },
+            "model": "thaumaturgy:item/wand_arrow_3"
+        }
+    ]
+}

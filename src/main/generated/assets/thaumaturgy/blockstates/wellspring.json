@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "clicked=false": {
+      "model": "thaumaturgy:block/wellspring"
+    },
+    "clicked=true": {
+      "model": "thaumaturgy:block/wellspring_on"
+    }
+  }
+}
