@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "thaumaturgy:block/magenta_magic_mushroom"
+  }
+}
