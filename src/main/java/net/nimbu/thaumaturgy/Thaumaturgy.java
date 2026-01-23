@@ -2,26 +2,30 @@ package net.nimbu.thaumaturgy;
 
 import net.fabricmc.api.ModInitializer;
 
-import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
+import net.fabricmc.fabric.api.entity.event.v1.ServerEntityWorldChangeEvents;
 import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
+import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.entity.passive.SheepEntity;
-import net.minecraft.item.Items;
-import net.minecraft.text.Text;
-import net.minecraft.util.ActionResult;
+import net.minecraft.block.Blocks;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
 import net.nimbu.thaumaturgy.block.entity.ModBlockEntityTypes;
 import net.nimbu.thaumaturgy.block.ModBlocks;
 import net.nimbu.thaumaturgy.component.ModDataComponentTypes;
 import net.nimbu.thaumaturgy.effect.ModEffects;
 import net.nimbu.thaumaturgy.enchantment.ModEnchantmentEffects;
-import net.nimbu.thaumaturgy.enchantment.ModEnchantments;
 import net.nimbu.thaumaturgy.entity.ModEntities;
 import net.nimbu.thaumaturgy.entity.custom.PixieEntity;
 import net.nimbu.thaumaturgy.item.ModItemGroups;
 import net.nimbu.thaumaturgy.item.ModItems;
+import net.nimbu.thaumaturgy.network.RoomSyncPayload;
+import net.nimbu.thaumaturgy.network.SingularRoomPayload;
 import net.nimbu.thaumaturgy.particle.ModParticles;
+import net.nimbu.thaumaturgy.network.PocketDimRoomSync;
+import net.nimbu.thaumaturgy.persistentstates.PocketDimRoomsHelper;
 import net.nimbu.thaumaturgy.sound.ModSoundEvents;
 import net.nimbu.thaumaturgy.util.HammerUsageEvent;
 import org.slf4j.Logger;
@@ -34,7 +38,14 @@ public class Thaumaturgy implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
-
+		PayloadTypeRegistry.playS2C().register(
+				RoomSyncPayload.ID,
+				RoomSyncPayload.CODEC
+		);
+		PayloadTypeRegistry.playS2C().register(
+				SingularRoomPayload.ID,
+				SingularRoomPayload.CODEC
+		);
 		ModItemGroups.registerItemGroups();
 		ModItems.registerModItems();
 		ModBlocks.registerModBlocks();
@@ -67,5 +78,35 @@ public class Thaumaturgy implements ModInitializer {
 
 		//Entities
 		FabricDefaultAttributeRegistry.register(ModEntities.PIXIE, PixieEntity.createAttributes());
+
+
+
+		ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {
+			ServerPlayerEntity player = handler.getPlayer();
+			server.execute(() -> {
+				PocketDimRoomSync.sync(player.getServerWorld(), player);
+			});
+		});
+
+		ServerEntityWorldChangeEvents.AFTER_PLAYER_CHANGE_WORLD.register(
+				(player, origin, destination) -> {
+					PocketDimRoomSync.sync(destination, player);
+				}
+		);
+
+		PlayerBlockBreakEvents.AFTER.register((world, player, pos, state, entity) -> {
+			if (!world.isClient && state.getBlock() == Blocks.DIRT) {
+
+				BlockPos roomPos = new BlockPos(
+						Math.floorDiv(pos.getX(), 16),
+						Math.floorDiv(pos.getY(), 12),
+						Math.floorDiv(pos.getZ(), 16)
+				);
+
+				PocketDimRoomsHelper.addRoom((ServerWorld) world, roomPos);
+			}
+		});
+
+
 	}
 }

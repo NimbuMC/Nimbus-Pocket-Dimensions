@@ -6,7 +6,7 @@ import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 import net.nimbu.thaumaturgy.Thaumaturgy;
 import net.nimbu.thaumaturgy.block.ModBlocks;
-import net.nimbu.thaumaturgy.block.entity.custom.PocketDimensionBorderBlockEntity;
+import net.nimbu.thaumaturgy.block.entity.custom.PocketDimensionBorderControllerBlockEntity;
 import net.nimbu.thaumaturgy.block.entity.custom.PocketDimensionPortalBlockEntity;
 import net.nimbu.thaumaturgy.block.entity.custom.RevisualisingTableBlockEntity;
 
@@ -26,11 +26,11 @@ public class ModBlockEntityTypes {
                             ModBlocks.REVISUALISING_TABLE
                     ).build(null));
 
-    public static final BlockEntityType<PocketDimensionBorderBlockEntity> POCKET_DIMENSION_BORDER_BLOCK =
+    public static final BlockEntityType<PocketDimensionBorderControllerBlockEntity> POCKET_DIMENSION_BORDER_CONTROLLER =
             Registry.register(Registries.BLOCK_ENTITY_TYPE, Identifier.of(Thaumaturgy.MOD_ID, "pocket_dimension_border"),
                     BlockEntityType.Builder.create(
-                            PocketDimensionBorderBlockEntity::new,
-                            ModBlocks.POCKET_DIMENSION_BORDER
+                            PocketDimensionBorderControllerBlockEntity::new,
+                            ModBlocks.POCKET_DIMENSION_BORDER_CONTROLLER
                     ).build());
 
     public static void registerBlockEntities() {
