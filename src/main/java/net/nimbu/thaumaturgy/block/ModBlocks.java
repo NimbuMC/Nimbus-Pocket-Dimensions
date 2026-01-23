@@ -3,50 +3,16 @@ package net.nimbu.thaumaturgy.block;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.block.*;
 import net.minecraft.block.enums.NoteBlockInstrument;
-import net.minecraft.block.piston.PistonBehavior;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroups;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
-import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
-import net.minecraft.world.gen.feature.TreeConfiguredFeatures;
 import net.nimbu.thaumaturgy.Thaumaturgy;
 import net.nimbu.thaumaturgy.block.custom.*;
 
 public class ModBlocks {
-
-    public static final Block PURPLE_MAGIC_MUSHROOM = registerBlock("purple_magic_mushroom",
-            new MushroomPlantBlock(
-                            TreeConfiguredFeatures.HUGE_BROWN_MUSHROOM,
-                            AbstractBlock.Settings.create()
-                                    .mapColor(MapColor.PURPLE)
-                                    .noCollision()
-                                    .ticksRandomly()
-                                    .breakInstantly()
-                                    .sounds(BlockSoundGroup.GRASS)
-                                    .luminance(state -> 5)
-                                    .postProcess(Blocks::always)
-                                    .pistonBehavior(PistonBehavior.DESTROY)
-
-                    )
-            );
-    public static final Block MAGENTA_MAGIC_MUSHROOM = registerBlock("magenta_magic_mushroom",
-            new MushroomPlantBlock(
-                    TreeConfiguredFeatures.HUGE_RED_MUSHROOM,
-                    AbstractBlock.Settings.create()
-                            .mapColor(MapColor.MAGENTA)
-                            .noCollision()
-                            .ticksRandomly()
-                            .breakInstantly()
-                            .sounds(BlockSoundGroup.GRASS)
-                            .luminance(state -> 5)
-                            .postProcess(Blocks::always)
-                            .pistonBehavior(PistonBehavior.DESTROY)
-
-            )
-    );
 
     public static final Block PITCH_BLACK_BLOCK = registerBlock("pitch_black_block",
             new Block(AbstractBlock.Settings.create().strength(0.2f)));

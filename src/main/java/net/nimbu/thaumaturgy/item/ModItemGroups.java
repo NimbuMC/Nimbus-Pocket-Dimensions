@@ -40,10 +40,6 @@ public class ModItemGroups {
                         entries.add(ModItems.TOME_OF_SKIES);
                         entries.add(ModItems.PIXIE_SPAWN_EGG);
                         entries.add(ModBlocks.DOORWAY);
-                        entries.add(ModBlocks.PURPLE_MAGIC_MUSHROOM);
-                        entries.add(ModBlocks.MAGENTA_MAGIC_MUSHROOM);
-                        entries.add(ModItems.MAGIC_MUSHROOM_STEW);
-
                     }).build());
 
 
