@@ -6,22 +6,22 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.BlockWithEntity;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.util.math.BlockPos;
-import net.nimbu.thaumaturgy.block.entity.custom.PocketDimensionBorderBlockEntity;
+import net.nimbu.thaumaturgy.block.entity.custom.PocketDimensionBorderControllerBlockEntity;
 import org.jetbrains.annotations.Nullable;
 
-public class PocketDimensionBorderBlock extends BlockWithEntity {
-    public PocketDimensionBorderBlock(Settings settings) {
+public class PocketDimensionBorderControllerBlock extends BlockWithEntity {
+    public PocketDimensionBorderControllerBlock(Settings settings) {
         super(settings);
     }
 
     @Override
-    protected MapCodec<? extends PocketDimensionBorderBlock> getCodec() {
-        return createCodec(PocketDimensionBorderBlock::new);
+    protected MapCodec<? extends PocketDimensionBorderControllerBlock> getCodec() {
+        return createCodec(PocketDimensionBorderControllerBlock::new);
     }
 
     @Override
     public @Nullable BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
-        return new PocketDimensionBorderBlockEntity(pos, state);
+        return new PocketDimensionBorderControllerBlockEntity(pos, state);
     }
 
     @Override

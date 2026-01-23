@@ -108,6 +108,8 @@ void main() {
     // Glow band near fade edge
     float glow = 1.0 - abs(fade - 0.5) * 2.0;
     glow = pow(clamp(glow, 0.0, 1.0), 2.0);
+    float alpha = clamp(tex.a + glow,0,1);
+    if(alpha < 0.01) discard;
 
     // Twinkle: occasionally push color toward white based on noise + time
     float twinkle = noise(pixelWorld * 45.67 + slowTime * 0.1);
@@ -116,6 +118,5 @@ void main() {
 
     // Combine texture, vertex color, light, emissive
     vec3 color = tex.rgb * vColor.rgb * light.rgb + emissive;
-
-    fragColor = vec4(color, tex.a);
+    fragColor = vec4(color, alpha);
 }
