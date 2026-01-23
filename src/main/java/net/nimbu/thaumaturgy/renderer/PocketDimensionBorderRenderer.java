@@ -168,26 +168,22 @@ public class PocketDimensionBorderRenderer {
             BORDER_SHADER.getUniform("time").set(t);
         }
         matrices.pop();
-        PocketDimensionBorderControllerBlockEntity entity = (PocketDimensionBorderControllerBlockEntity)currentWorld.getBlockEntity(BlockPos.ORIGIN);
-        if(entity != null) {
-            BlockPos relativePosition = new BlockPos((int) Math.floor(cam.x / 16), (int) Math.floor(cam.y / 12), (int) Math.floor(cam.z / 16));
-            entity.roomStatus.put(relativePosition, true);
-            final int renderRadius = 2;
-            for (int x = -renderRadius; x <= renderRadius; x++) {
-                for (int y = -renderRadius; y <= renderRadius; y++) {
-                    for (int z = -renderRadius; z <= renderRadius; z++) {
-                        boolean[] adj = PocketDimRoomsHelper.getAdjacents(new BlockPos(
+        BlockPos relativePosition = new BlockPos((int) Math.floor(cam.x / 16), (int) Math.floor(cam.y / 12), (int) Math.floor(cam.z / 16));
+        final int renderRadius = 2;
+        for (int x = -renderRadius; x <= renderRadius; x++) {
+            for (int y = -renderRadius; y <= renderRadius; y++) {
+                for (int z = -renderRadius; z <= renderRadius; z++) {
+                    boolean[] adj = PocketDimRoomsHelper.getAdjacents(new BlockPos(
+                            relativePosition.getX() + x,
+                            relativePosition.getY() + y,
+                            relativePosition.getZ() + z));
+                    for (int i = 0; i < 6; i++) {
+                        if (adj[i]) renderFace(vc, matrices, i,
                                 relativePosition.getX() + x,
                                 relativePosition.getY() + y,
-                                relativePosition.getZ() + z));
-                        for (int i = 0; i < 6; i++) {
-                            if (adj[i]) renderFace(vc, matrices, i,
-                                    relativePosition.getX() + x,
-                                    relativePosition.getY() + y,
-                                    relativePosition.getZ() + z);
-                        }
-
+                                relativePosition.getZ() + z);
                     }
+
                 }
             }
         }

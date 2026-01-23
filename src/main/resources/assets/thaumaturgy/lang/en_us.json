@@ -18,12 +18,15 @@
   "item.thaumaturgy.invisible_boots": "Invisible Boots",
 
   "item.thaumaturgy.pixie_dust": "Pixie Dust",
+  "item.thaumaturgy.magic_mushroom_stew": "Magic Mushroom Stew",
 
   "item.thaumaturgy.pixie_spawn_egg": "Pixie Spawn Egg",
 
   "block.thaumaturgy.pitch_black_block": "Pitch Black Block",
   "block.thaumaturgy.revisualising_table": "Revisualising Table",
   "block.thaumaturgy.wellspring": "Wellspring",
+  "block.thaumaturgy.purple_magic_mushroom": "Purple Magic Mushroom",
+  "block.thaumaturgy.magenta_magic_mushroom": "Magenta Magic Mushroom",
 
   "block.thaumaturgy.dark_oak_doorway": "Dark Oak Doorway",
 
@@ -35,5 +38,9 @@
   "effect.thaumaturgy.slimey": "Slimey",
   "effect.thaumaturgy.block_hop": "Block Hop",
 
-  "enchantment.thaumaturgy.thundercall": "Thundercall"
+  "enchantment.thaumaturgy.thundercall": "Thundercall",
+
+
+  "tooltip.modid.revisualised_item": "%s %s %s",
+  "tooltip.thaumaturgy.arrow":  "→"
 }
