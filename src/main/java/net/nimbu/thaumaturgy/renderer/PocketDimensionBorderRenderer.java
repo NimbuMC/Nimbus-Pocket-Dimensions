@@ -39,14 +39,6 @@ public class PocketDimensionBorderRenderer {
         WorldRenderEvents.BEFORE_ENTITIES.register(PocketDimensionBorderRenderer::render);
     }
 
-    private static void setLoadedChunk()
-    {
-        if(MinecraftClient.getInstance().world != null)
-        {
-            MinecraftClient.getInstance().world.getWorldChunk(new BlockPos(0,0,0)).setLoadedToWorld(true);
-        }
-    }
-
     public static final Identifier BORDER_TEXTURE = Identifier.of(Thaumaturgy.MOD_ID, "textures/block/near_border.png");
     private static ShaderProgram BORDER_SHADER;
     private static final RenderLayer BORDER_RENDER_LAYER = RenderLayer.of(
@@ -58,7 +50,7 @@ public class PocketDimensionBorderRenderer {
             true,
             RenderLayer.MultiPhaseParameters.builder()
                     .program(new RenderPhase.ShaderProgram(PocketDimensionBorderRenderer::getShader))
-                    .texture(new RenderPhase.Texture(BORDER_TEXTURE,false,false))
+                    .texture(new RenderPhase.Texture(BORDER_TEXTURE, false, false))
                     .transparency(RenderPhase.Transparency.TRANSLUCENT_TRANSPARENCY)
                     .depthTest(RenderPhase.DepthTest.LEQUAL_DEPTH_TEST)
                     .writeMaskState(RenderPhase.ALL_MASK)
@@ -76,47 +68,46 @@ public class PocketDimensionBorderRenderer {
     // [face][vertex][x, y, z, u, v]
     private static final float[][][] FACE_VERTICES = {
             { // +X (Z × Y = 16 × 12)
-                    {16, 12, 16,  0, 12},
-                    {16, 12, 0,  16, 12},
-                    {16, 0, 0,   16, 0},
-                    {16, 0, 16,  0, 0}
+                    {16, 12, 16, 0, 12},
+                    {16, 12, 0, 16, 12},
+                    {16, 0, 0, 16, 0},
+                    {16, 0, 16, 0, 0}
             },
             { // -X (Z × Y = 16 × 12)
-                    {0, 12, 0,   0, 12},
-                    {0, 12, 16,  16, 12},
-                    {0, 0, 16,   16, 0},
-                    {0, 0, 0,    0, 0}
+                    {0, 12, 0, 0, 12},
+                    {0, 12, 16, 16, 12},
+                    {0, 0, 16, 16, 0},
+                    {0, 0, 0, 0, 0}
             },
             { // +Y (X × Z = 16 × 16)
-                    {0, 12, 16,   0, 16},
-                    {16, 12, 16,  16, 16},
-                    {16, 12, 0,   16, 0},
-                    {0, 12, 0,    0, 0}
+                    {0, 12, 16, 0, 16},
+                    {16, 12, 16, 16, 16},
+                    {16, 12, 0, 16, 0},
+                    {0, 12, 0, 0, 0}
             },
             { // -Y (X × Z = 16 × 16)
-                    {0, 0, 0,     0, 0},
-                    {16, 0, 0,    16, 0},
-                    {16, 0, 16,   16, 16},
-                    {0, 0, 16,    0, 16}
+                    {0, 0, 0, 0, 0},
+                    {16, 0, 0, 16, 0},
+                    {16, 0, 16, 16, 16},
+                    {0, 0, 16, 0, 16}
             },
             { // +Z (X × Y = 16 × 12)
-                    {0, 0, 16,    0, 0},
-                    {16, 0, 16,   16, 0},
-                    {16, 12, 16,  16, 12},
-                    {0, 12, 16,   0, 12}
+                    {0, 0, 16, 0, 0},
+                    {16, 0, 16, 16, 0},
+                    {16, 12, 16, 16, 12},
+                    {0, 12, 16, 0, 12}
             },
             { // -Z (X × Y = 16 × 12)
-                    {16, 0, 0,    0, 0},
-                    {0, 0, 0,     16, 0},
-                    {0, 12, 0,    16, 12},
-                    {16, 12, 0,   0, 12}
+                    {16, 0, 0, 0, 0},
+                    {0, 0, 0, 16, 0},
+                    {0, 12, 0, 16, 12},
+                    {16, 12, 0, 0, 12}
             }
     };
 
     public static void render(WorldRenderContext context) {
 
         World currentWorld = context.world();
-        MinecraftServer server = currentWorld.getServer();
         //if(currentWorld.getRegistryKey().getValue().toString().startsWith("thaumaturgy:pocket_dim")) return;
         MatrixStack matrices = new MatrixStack();
         Vector3f cam = MinecraftClient.getInstance().gameRenderer.getCamera().getPos().toVector3f();
@@ -189,16 +180,17 @@ public class PocketDimensionBorderRenderer {
         }
     }
 
-    private static void renderFace(VertexConsumer vc, MatrixStack matrix, int index, int x, int y, int z)
-    {
+    private static void renderFace(VertexConsumer vc, MatrixStack matrix, int index, int x, int y, int z) {
         Matrix4f mat = matrix.peek().getPositionMatrix();
-        x *= 16; y *= 12; z *= 16;
+        x *= 16;
+        y *= 12;
+        z *= 16;
         for (int i = 0; i < 4; i++) {
             vc.vertex(mat, FACE_VERTICES[index][i][0] + x, FACE_VERTICES[index][i][1] + y, FACE_VERTICES[index][i][2] + z)
                     .color(255, 255, 255, 255)
                     .normal(matrix.peek(), FACE_NORMALS[index][0], FACE_NORMALS[index][1], FACE_NORMALS[index][2])
                     .light(LightmapTextureManager.MAX_LIGHT_COORDINATE)
-                    .texture(FACE_VERTICES[index][i][3],FACE_VERTICES[index][i][4]);
+                    .texture(FACE_VERTICES[index][i][3], FACE_VERTICES[index][i][4]);
         }
     }
 }

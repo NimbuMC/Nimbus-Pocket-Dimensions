@@ -18,13 +18,11 @@ public class ModEffects {
                             Identifier.of(Thaumaturgy.MOD_ID, "slimey"), -0.25f,
                             EntityAttributeModifier.Operation.ADD_MULTIPLIED_TOTAL));
 
-
-    public static final RegistryEntry<StatusEffect> MAGICAL = registerStatusEffect("magical",
-            new MagicalEffect(StatusEffectCategory.NEUTRAL, 0xbf00ff));
-
-
-
-
+    public static final RegistryEntry<StatusEffect> REVERSE_VELOCITY = registerStatusEffect("block_hop",
+            new BlockHopEffect(StatusEffectCategory.NEUTRAL, 0x0c1f0c)
+                    .addAttributeModifier(EntityAttributes.GENERIC_STEP_HEIGHT,
+                            Identifier.of(Thaumaturgy.MOD_ID, "block_hop"), 0.5f,
+                            EntityAttributeModifier.Operation.ADD_VALUE));
 
     private static RegistryEntry<StatusEffect> registerStatusEffect(String name, StatusEffect statusEffect){
         return Registry.registerReference(Registries.STATUS_EFFECT, Identifier.of(Thaumaturgy.MOD_ID, name), statusEffect);

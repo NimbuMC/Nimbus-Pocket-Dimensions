@@ -62,7 +62,6 @@ public class ModModelProvider extends FabricModelProvider {
 
         // Resources:
         itemModelGenerator.register(ModItems.PIXIE_DUST, Models.GENERATED);
-        itemModelGenerator.register(ModItems.MAGIC_MUSHROOM_STEW, Models.GENERATED);
 
         // Spawn eggs:
         itemModelGenerator.register(ModItems.PIXIE_SPAWN_EGG,

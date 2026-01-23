@@ -42,7 +42,6 @@ public class PocketDimensionPersistentState extends PersistentState {
 
     public static PocketDimensionPersistentState fromNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
         PocketDimensionPersistentState state = new PocketDimensionPersistentState();
-
         for (String key : nbt.getKeys()) {
             int[] arr = nbt.getIntArray(key);
             if (arr.length == 3) state.unlockedRooms.add(new BlockPos(arr[0], arr[1], arr[2]));
@@ -62,5 +61,3 @@ public class PocketDimensionPersistentState extends PersistentState {
         return world.getPersistentStateManager().getOrCreate(TYPE, "pocket_dimension_rooms");
     }
 }
-
-
