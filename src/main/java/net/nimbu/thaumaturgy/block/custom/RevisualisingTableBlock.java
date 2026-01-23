@@ -3,9 +3,6 @@ package net.nimbu.thaumaturgy.block.custom;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.BlockEntityTicker;
-import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.block.entity.EnchantingTableBlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.ItemScatterer;
@@ -14,8 +11,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
-import net.nimbu.thaumaturgy.Thaumaturgy;
-import net.nimbu.thaumaturgy.block.entity.ModBlockEntityTypes;
 import net.nimbu.thaumaturgy.block.entity.custom.RevisualisingTableBlockEntity;
 import org.jetbrains.annotations.Nullable;
 
@@ -36,14 +31,6 @@ public class RevisualisingTableBlock extends BlockWithEntity {
     protected VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
         return SHAPE;
     }
-
-    @Nullable
-    @Override
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
-        return world.isClient ? validateTicker(type, ModBlockEntityTypes.REVISUALISING_TABLE_BLOCK_ENTITY, RevisualisingTableBlockEntity::tick) : null;
-    }
-
-
 
     @Override
     protected BlockRenderType getRenderType(BlockState state) {
