@@ -19,6 +19,12 @@ public class ModBlockEntityTypes {
                             ModBlocks.POCKET_DIMENSION_PORTAL
                     ).build());
 
+    public static final BlockEntityType<RevisualisingTableBlockEntity> REVISUALISING_TABLE_BLOCK_ENTITY =
+            Registry.register(Registries.BLOCK_ENTITY_TYPE, Identifier.of(Thaumaturgy.MOD_ID, "revisualising_table_block_entity"),
+                    BlockEntityType.Builder.create(
+                            RevisualisingTableBlockEntity::new,
+                            ModBlocks.REVISUALISING_TABLE
+                    ).build(null));
 
     public static final BlockEntityType<PocketDimensionBorderControllerBlockEntity> POCKET_DIMENSION_BORDER_CONTROLLER =
             Registry.register(Registries.BLOCK_ENTITY_TYPE, Identifier.of(Thaumaturgy.MOD_ID, "pocket_dimension_border"),
@@ -26,13 +32,6 @@ public class ModBlockEntityTypes {
                             PocketDimensionBorderControllerBlockEntity::new,
                             ModBlocks.POCKET_DIMENSION_BORDER_CONTROLLER
                     ).build());
-
-    public static final BlockEntityType<RevisualisingTableBlockEntity> REVISUALISING_TABLE_BLOCK_ENTITY =
-            Registry.register(Registries.BLOCK_ENTITY_TYPE, Identifier.of(Thaumaturgy.MOD_ID, "revisualising_table_block_entity"),
-                    BlockEntityType.Builder.create(
-                            RevisualisingTableBlockEntity::new,
-                            ModBlocks.REVISUALISING_TABLE
-                    ).build(null));
 
     public static void registerBlockEntities() {
         Thaumaturgy.LOGGER.info("Registering block entities for "+Thaumaturgy.MOD_ID);

@@ -11,8 +11,7 @@ import java.util.Set;
 
 public class PocketDimRoomsHelper {
     public static void addRoom(ServerWorld world, BlockPos pos) {
-        PocketDimensionPersistentState state =
-                PocketDimensionPersistentState.get(world);
+        PocketDimensionPersistentState state = PocketDimensionPersistentState.get(world);
 
         // Avoid resending if already unlocked
         if (state.isRoomUnlocked(pos)) return;

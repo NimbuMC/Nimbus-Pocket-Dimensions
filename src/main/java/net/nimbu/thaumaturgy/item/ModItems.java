@@ -1,7 +1,6 @@
 package net.nimbu.thaumaturgy.item;
 
 import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.FoodComponents;
 import net.minecraft.item.*;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -87,12 +86,8 @@ public class ModItems {
     //resources:
 
     public static final Item PIXIE_DUST = registerItem("pixie_dust",
-            new Item(new Item.Settings()));
-
-    public static final Item MAGIC_MUSHROOM_STEW = registerItem("magic_mushroom_stew",
             new Item(new Item.Settings()
-                    .maxCount(1)
-                    .food(ModFoodComponents.MAGIC_MUSHROOM_STEW)));
+                    .maxCount(900)));
 
 
     //spawn eggs:

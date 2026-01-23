@@ -6,10 +6,8 @@ import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
-import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -58,17 +56,17 @@ public class WandItem extends Item {
 
 
 
-            //BlockPos lastPos = context.getStack().get(ModDataComponentTypes.COORDINATES);
-            //if(lastPos != null)
-           // {
-            //    world.setBlockState(lastPos, Blocks.AIR.getDefaultState());
-            //}
+            BlockPos lastPos = context.getStack().get(ModDataComponentTypes.COORDINATES);
+            if(lastPos != null)
+            {
+                world.setBlockState(lastPos, Blocks.AIR.getDefaultState());
+            }
             BlockState pocketDimPortalState = ModBlocks.POCKET_DIMENSION_PORTAL.getDefaultState();
             //context.getPlayer().getGameProfile().getId();
 
 
             for(BlockPos pos : positions) {
-                //context.getStack().set(ModDataComponentTypes.COORDINATES, pos);
+                context.getStack().set(ModDataComponentTypes.COORDINATES, pos);
                 world.setBlockState(pos, pocketDimPortalState);
                 if(world.getBlockEntity(pos) instanceof PocketDimensionPortalBlockEntity portalData) {
                     portalData.TriggerInitialIDUpdate(world, pos, 3);
@@ -88,7 +86,7 @@ public class WandItem extends Item {
     }
 
 
-/*
+    /*
 
     @Override
     public ActionResult useOnBlock(ItemUsageContext context) {
