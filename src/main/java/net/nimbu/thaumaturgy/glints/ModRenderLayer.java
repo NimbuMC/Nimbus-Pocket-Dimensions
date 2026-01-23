@@ -1,20 +1,12 @@
 package net.nimbu.thaumaturgy.glints;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.RenderPhase;
 import net.minecraft.client.render.VertexFormat;
 import net.minecraft.client.render.VertexFormats;
-import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.Util;
-import net.nimbu.thaumaturgy.Thaumaturgy;
-import net.nimbu.thaumaturgy.renderer.PocketDimensionBorderRenderer;
-import org.joml.Matrix4f;
-import org.joml.Matrix4fStack;
 
 
 @Environment(EnvType.CLIENT)
@@ -38,6 +30,7 @@ public final class ModRenderLayer {
                     //.writeMaskState(RenderPhase.COLOR_MASK)
                     .build(false)
     );
+}
 /*
     public static final RenderLayer.MultiPhase DEBUG_FILLED_BOX = RenderLayer.of(
             "debug_filled_box",
@@ -67,10 +60,6 @@ public final class ModRenderLayer {
 
 
         RenderSystem.setTextureMatrix(matrix4f);
-    }*/
-
-    private static ShaderProgram MOD_GLINT_SHADER;
-
 
     public static final RenderLayer MOD_GLINT = RenderLayer.of(
             "mod_glint",
@@ -86,8 +75,7 @@ public final class ModRenderLayer {
                     .transparency(RenderPhase.GLINT_TRANSPARENCY)
                     .texturing(RenderPhase.GLINT_TEXTURING)
                     .build(false)
-    )
-
+    );
 }
 
 

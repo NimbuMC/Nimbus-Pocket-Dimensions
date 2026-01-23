@@ -1,9 +1,12 @@
 package net.nimbu.thaumaturgy;
 
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
+import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
 import net.minecraft.client.render.entity.FlyingItemEntityRenderer;
@@ -13,14 +16,16 @@ import net.nimbu.thaumaturgy.entity.ModEntities;
 import net.nimbu.thaumaturgy.entity.client.PixieEntityModel;
 import net.nimbu.thaumaturgy.entity.client.PixieEntityRenderer;
 import net.nimbu.thaumaturgy.entity.client.SpellEntityRenderer;
+import net.nimbu.thaumaturgy.network.ClientPocketRooms;
+import net.nimbu.thaumaturgy.network.PocketDimClientNetworking;
+import net.nimbu.thaumaturgy.network.RoomSyncPayload;
+import net.nimbu.thaumaturgy.network.SingularRoomPayload;
 import net.nimbu.thaumaturgy.particle.MagicParticle;
 import net.nimbu.thaumaturgy.particle.ModParticles;
 import net.nimbu.thaumaturgy.renderer.PocketDimensionBorderRenderer;
 import net.nimbu.thaumaturgy.screen.ModScreenHanders;
 import net.nimbu.thaumaturgy.screen.custom.RevisualisingTableScreen;
 import net.nimbu.thaumaturgy.util.ModModelPredicates;
-
-import java.awt.*;
 
 public class ThaumaturgyClient implements ClientModInitializer {
     @Override
@@ -42,64 +47,6 @@ public class ThaumaturgyClient implements ClientModInitializer {
 
         BlockEntityRendererFactories.register(ModBlockEntityTypes.REVISUALISING_TABLE_BLOCK_ENTITY, RevisualisingTableBlockEntityRenderer::new);
         HandledScreens.register(ModScreenHanders.REVISUALISING_TABLE_SCREEN_HANDLER, RevisualisingTableScreen::new);
-
-        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.PURPLE_MAGIC_MUSHROOM, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.MAGENTA_MAGIC_MUSHROOM, RenderLayer.getCutout());
-
-
-        ItemTooltipCallback.EVENT.register((stack, context, type, lines) -> {
-            if (stack.getOrDefault(ModDataComponentTypes.REVISUALISED,false)) {
-                lines.add(Text.literal(""));
-                lines.add(
-                        Text.literal("Revisualised: ")
-                                .formatted(Formatting.DARK_PURPLE)
-                );
-                lines.add(
-                        Text.translatable(
-                                "tooltip.modid.revisualised_item",
-                                Text.translatable(stack.getItem().getTranslationKey()),
-                                Text.translatable("tooltip.thaumaturgy.arrow"),
-                                Text.translatable("item." + stack.get(ModDataComponentTypes.REPLACE_MODEL_NAMESPACE) + "." + stack.get(ModDataComponentTypes.REPLACE_MODEL_PATH))
-                        ).formatted(Formatting.GRAY)
-                );
-            }
-        });
-
-        ItemTooltipCallback.EVENT.register((stack, context, type, lines) -> {
-            if (stack.isOf(ModItems.MAGIC_MUSHROOM_STEW)) {
-                lines.add(
-                        Text.literal("EPILEPSY WARNING: ")
-                                .formatted(Formatting.RED)
-                );
-                lines.add(Text.literal("WARNING: This content contains flashing lights").formatted(Formatting.GRAY));
-                lines.add(Text.literal("and high-contrast patterns that may trigger").formatted(Formatting.GRAY));
-                lines.add(Text.literal("seizures in people with photosensitive epilepsy.").formatted(Formatting.GRAY));
-                lines.add(Text.literal("Viewer discretion is advised.").formatted(Formatting.GRAY));
-            }
-        });
-
-        HudRenderCallback.EVENT.register((DrawContext context, RenderTickCounter renderTickCounter) -> {
-            MinecraftClient client = MinecraftClient.getInstance();
-
-            if(client.player==null) return;
-
-            if(client.player.hasStatusEffect(ModEffects.MAGICAL)) {
-
-                float time = renderTickCounter.getTickDelta(true);
-                float hue = (MinecraftClient.getInstance().world.getTime() + time) * 0.03f % 1.0f;
-
-                int rgb = Color.HSBtoRGB(hue, 1.0f, 1.0f) | 0xFF000000;
-
-                int alpha = 50;
-                int argb = (alpha << 24) | (rgb & 0x00FFFFFF);
-
-                context.fill(
-                        0, 0,
-                        context.getScaledWindowWidth(),
-                        context.getScaledWindowHeight(),
-                        argb);
-            }
-        });
     }
 
 }
