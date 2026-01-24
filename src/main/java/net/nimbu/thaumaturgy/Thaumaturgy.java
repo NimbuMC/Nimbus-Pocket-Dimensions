@@ -57,6 +57,9 @@ public class Thaumaturgy implements ModInitializer {
 		ModParticles.registerParticles();
 		ModEnchantmentEffects.registerEnchantmentEffects();
 
+
+
+
 		// Below are "events". These are general things that happen during gameplay that can have custom
 		// methods linked to them.
 		// Find events by clicking an example, and clicking "player" on the imported package.
