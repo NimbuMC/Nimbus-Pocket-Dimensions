@@ -21,21 +21,16 @@ public class PixieEntityModel extends SinglePartEntityModel<PixieEntity> {
     private final ModelPart root;
 
     public PixieEntityModel(ModelPart root) {
-
         this.root = root;
     }
     public static TexturedModelData getTexturedModelData() {
         ModelData modelData = new ModelData();
         ModelPartData modelPartData = modelData.getRoot();
-        ModelPartData wingR = modelPartData.addChild("wingR", ModelPartBuilder.create(), ModelTransform.pivot(-2.0F, 18.0F, 2.0F));
+        ModelPartData wing_left = modelPartData.addChild("wing_left", ModelPartBuilder.create().uv(0, 8).cuboid(0.0F, -4.0F, 0.0F, 0.0F, 10.0F, 4.0F, new Dilation(0.0F)), ModelTransform.pivot(1.3F, 20.0F, 1.4F));
 
-        ModelPartData cube_r1 = wingR.addChild("cube_r1", ModelPartBuilder.create().uv(0, 10).cuboid(0.0F, -4.0F, -2.0F, 0.0F, 4.0F, 7.0F, new Dilation(0.0F)), ModelTransform.of(0.5004F, 0.8291F, 0.0F, 0.0F, 0.3491F, -1.5708F));
+        ModelPartData wing_right = modelPartData.addChild("wing_right", ModelPartBuilder.create().uv(8, 8).cuboid(0.0F, -4.0F, 0.0F, 0.0F, 10.0F, 4.0F, new Dilation(0.0F)), ModelTransform.pivot(-1.3F, 20.0F, 1.4F));
 
-        ModelPartData wingL = modelPartData.addChild("wingL", ModelPartBuilder.create(), ModelTransform.pivot(2.0F, 18.0F, 2.0F));
-
-        ModelPartData cube_r2 = wingL.addChild("cube_r2", ModelPartBuilder.create().uv(14, 10).cuboid(0.0F, 0.0F, -2.0F, 0.0F, 4.0F, 7.0F, new Dilation(0.0F)), ModelTransform.of(-0.5F, 0.8F, 0.0F, 0.0F, 0.3491F, -1.5708F));
-
-        ModelPartData core = modelPartData.addChild("core", ModelPartBuilder.create().uv(0, 0).cuboid(-2.5F, -6.0F, -2.0F, 5.0F, 5.0F, 5.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, 24.0F, 0.0F));
+        ModelPartData body = modelPartData.addChild("body", ModelPartBuilder.create().uv(0, 0).cuboid(-2.0F, -4.0F, -2.0F, 4.0F, 4.0F, 4.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, 24.0F, 0.0F));
         return TexturedModelData.of(modelData, 32, 32);
     }
 
