@@ -1,4 +1,4 @@
-package net.nimbu.thaumaturgy.entity.client.feature;/*package net.nimbu.thaumaturgy.entity.client.feature;
+package net.nimbu.thaumaturgy.entity.client.feature;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -9,25 +9,26 @@ import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.LivingEntityRenderer;
 import net.minecraft.client.render.entity.feature.FeatureRenderer;
 import net.minecraft.client.render.entity.feature.FeatureRendererContext;
-import net.minecraft.client.render.entity.model.EntityModel;
-import net.minecraft.client.render.entity.model.EntityModelLayers;
-import net.minecraft.client.render.entity.model.EntityModelLoader;
-import net.minecraft.client.render.entity.model.SlimeEntityModel;
+import net.minecraft.client.render.entity.model.*;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.util.Identifier;
+import net.nimbu.thaumaturgy.Thaumaturgy;
 import net.nimbu.thaumaturgy.entity.client.PixieEntityModel;
+import net.nimbu.thaumaturgy.entity.custom.PixieEntity;
 
 @Environment(EnvType.CLIENT)
-public class PixieOverlayFeatureRenderer<T extends LivingEntity> extends FeatureRenderer<T, PixieEntityModel<T>> {
-    private final EntityModel<T> model;
+public class PixieOverlayFeatureRenderer<T extends LivingEntity> extends FeatureRenderer<PixieEntity, PixieEntityModel> {
+    private final PixieEntityModel model;
 
-    public PixieOverlayFeatureRenderer(FeatureRendererContext<T, PixieEntityModel<T>> context, EntityModelLoader loader) {
+    public PixieOverlayFeatureRenderer(FeatureRendererContext<PixieEntity, PixieEntityModel> context, EntityModelLoader loader) {
         super(context);
-        this.model = new SlimeEntityModel<>(loader.getModelPart(EntityModelLayers.SLIME_OUTER));
+        this.model = new PixieEntityModel(loader.getModelPart(new EntityModelLayer(Identifier.of(Thaumaturgy.MOD_ID, "pixie"),"outer")));
+
     }
 
     public void render(
-            MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, T livingEntity, float f, float g, float h, float j, float k, float l
+            MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, PixieEntity livingEntity, float f, float g, float h, float j, float k, float l
     ) {
         MinecraftClient minecraftClient = MinecraftClient.getInstance();
         boolean bl = minecraftClient.hasOutline(livingEntity) && livingEntity.isInvisible();
@@ -40,9 +41,11 @@ public class PixieOverlayFeatureRenderer<T extends LivingEntity> extends Feature
             }
 
             this.getContextModel().copyStateTo(this.model);
-            this.model.animateModel(livingEntity, f, g, h);
-            this.model.setAngles(livingEntity, f, g, j, k, l);
-            this.model.render(matrixStack, vertexConsumer, i, LivingEntityRenderer.getOverlay(livingEntity, 0.0F));
+            //this.model.animateModel(livingEntity, f, g, h);
+            //this.model.setAngles(livingEntity, f, g, j, k, l);
+            this.model.render(matrixStack, vertexConsumer, 0xF000F0, LivingEntityRenderer.getOverlay(livingEntity, 0.0F));
         }
     }
-}*/
+
+
+}

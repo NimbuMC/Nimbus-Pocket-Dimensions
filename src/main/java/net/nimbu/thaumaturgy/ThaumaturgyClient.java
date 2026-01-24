@@ -66,7 +66,7 @@ public class ThaumaturgyClient implements ClientModInitializer {
             if (stack.getOrDefault(ModDataComponentTypes.REVISUALISED,false)) {
                 lines.add(Text.literal(""));
                 lines.add(
-                        Text.literal("Revisualised: ")
+                        Text.literal("Revisualised:")
                                 .formatted(Formatting.DARK_PURPLE)
                 );
                 lines.add(

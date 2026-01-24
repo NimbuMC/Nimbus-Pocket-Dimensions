@@ -25,8 +25,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class PixieEntity extends BeeEntity {
 
-    public final AnimationState idleAnimationState = new AnimationState();
-    private int idleAnimationCooldown = 0;
+    public final AnimationState flyingAnimationState = new AnimationState();
 
     public PixieEntity(EntityType<? extends BeeEntity> entityType, World world) {
         super(entityType, world);
@@ -41,12 +40,7 @@ public class PixieEntity extends BeeEntity {
     }
 
     private void setupAnimationStates(){
-        if (this.idleAnimationCooldown<=0){
-            this.idleAnimationCooldown=10; //idle animation length hardcoded
-            this.idleAnimationState.start(this.age);
-        } else {
-            --this.idleAnimationCooldown;
-        }
+        this.flyingAnimationState.startIfNotRunning(this.age);
     }
 
     @Override

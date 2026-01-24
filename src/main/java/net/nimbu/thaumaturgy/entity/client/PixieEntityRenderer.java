@@ -6,14 +6,18 @@ import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.client.render.entity.model.BeeEntityModel;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
 import net.nimbu.thaumaturgy.Thaumaturgy;
+import net.nimbu.thaumaturgy.entity.client.feature.PixieEyesFeatureRenderer;
+import net.nimbu.thaumaturgy.entity.client.feature.PixieOverlayFeatureRenderer;
 import net.nimbu.thaumaturgy.entity.custom.PixieEntity;
 
-public class PixieEntityRenderer extends MobEntityRenderer<PixieEntity, PixieEntityModel<PixieEntity>> {
+public class PixieEntityRenderer extends MobEntityRenderer<PixieEntity, PixieEntityModel> {
 
     public PixieEntityRenderer(EntityRendererFactory.Context context) {
-        super(context, new PixieEntityModel<>(context.getPart(PixieEntityModel.PIXIE)), 0.1f); //last val is shadow size
-        //this.addFeature(new PixieOverlayFeatureRenderer<>(this, context.getModelLoader())); //this allows for transparent outer layer?
+        super(context, new PixieEntityModel(context.getPart(PixieEntityModel.PIXIE)), 0.1f); //last val is shadow size
+        //this.addFeature(new PixieOverlayFeatureRenderer<>(this, context.getModelLoader())); //this allows for transparent outer layer
+        //this.addFeature(new PixieEyesFeatureRenderer<>(this, context.getModelLoader()));
     }
 
     @Override
@@ -21,14 +25,14 @@ public class PixieEntityRenderer extends MobEntityRenderer<PixieEntity, PixieEnt
         return Identifier.of(Thaumaturgy.MOD_ID, "textures/entity/pixie/pixie.png");
     }
 
+
     @Override
-    public void render(PixieEntity livingEntity, float f, float g, MatrixStack matrixStack,
-                       VertexConsumerProvider vertexConsumerProvider, int i) {
-        if(livingEntity.isBaby()) {
-            matrixStack.scale(0.5f, 0.5f, 0.5f);
-        } else {
-            matrixStack.scale(1f,1f,1f);
-        }
-        super.render(livingEntity, f, g, matrixStack, vertexConsumerProvider, i);
+    protected int getBlockLight(PixieEntity entity, BlockPos pos) {
+        return 15;
+    }
+
+    @Override
+    protected int getSkyLight(PixieEntity entity, BlockPos pos) {
+        return 15;
     }
 }

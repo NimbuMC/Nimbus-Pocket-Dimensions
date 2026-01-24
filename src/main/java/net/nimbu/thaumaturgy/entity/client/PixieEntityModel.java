@@ -3,75 +3,67 @@ package net.nimbu.thaumaturgy.entity.client;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.model.*;
-import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.model.EntityModelLayer;
 import net.minecraft.client.render.entity.model.SinglePartEntityModel;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.Entity;
 import net.minecraft.util.Identifier;
 import net.nimbu.thaumaturgy.Thaumaturgy;
 import net.nimbu.thaumaturgy.entity.custom.PixieEntity;
 
 @Environment(EnvType.CLIENT)
-public class PixieEntityModel<T extends Entity> extends SinglePartEntityModel<T> {
+public class PixieEntityModel extends SinglePartEntityModel<PixieEntity> {
     //see "CamelEntity" for referencing
 
     public static final EntityModelLayer PIXIE = new EntityModelLayer(Identifier.of(Thaumaturgy.MOD_ID, "pixie"), "main");
     //public static final EntityModelLayer PIXIE_TRANSPARENT = new EntityModelLayer(Identifier.of(Thaumaturgy.MOD_ID, "pixie"), "outer");
 
-    private final ModelPart wingR;
-    private final ModelPart wingL;
-    private final ModelPart core;
-    //private final ModelPart outside;
+    private final ModelPart root;
 
     public PixieEntityModel(ModelPart root) {
-        this.wingR = root.getChild("wingR");
-        this.wingL = root.getChild("wingL");
-        this.core = root.getChild("core");
-        //this.outside = root.getChild("Outside");
+
+        this.root = root;
     }
     public static TexturedModelData getTexturedModelData() {
         ModelData modelData = new ModelData();
         ModelPartData modelPartData = modelData.getRoot();
+        ModelPartData wingR = modelPartData.addChild("wingR", ModelPartBuilder.create(), ModelTransform.pivot(-2.0F, 18.0F, 2.0F));
 
-        ModelPartData wingR = modelPartData.addChild("wingR", ModelPartBuilder.create(), ModelTransform.pivot(-3.0F, 18.0F, 0.0F));
-        wingR.addChild("cube_r1", ModelPartBuilder.create().uv(0, 12).cuboid(1.0F, -4.0F, -1.0F, 0.0F, 4.0F, 7.0F, new Dilation(0.0F)), ModelTransform.of(0.0F, 1.0F, 0.0F, 0.0F, 0.0F, -1.5708F));
+        ModelPartData cube_r1 = wingR.addChild("cube_r1", ModelPartBuilder.create().uv(0, 10).cuboid(0.0F, -4.0F, -2.0F, 0.0F, 4.0F, 7.0F, new Dilation(0.0F)), ModelTransform.of(0.5004F, 0.8291F, 0.0F, 0.0F, 0.3491F, -1.5708F));
 
-        ModelPartData wingL = modelPartData.addChild("wingL", ModelPartBuilder.create(), ModelTransform.pivot(3.0F, 18.0F, 0.0F));
-        wingL.addChild("cube_r2", ModelPartBuilder.create().uv(14, 12).cuboid(0.0F, 0.0F, -2.0F, 0.0F, 4.0F, 7.0F, new Dilation(0.0F)), ModelTransform.of(0.0F, 0.0F, 1.0F, 0.0F, 0.0F, -1.5708F));
+        ModelPartData wingL = modelPartData.addChild("wingL", ModelPartBuilder.create(), ModelTransform.pivot(2.0F, 18.0F, 2.0F));
 
-        modelPartData.addChild("core", ModelPartBuilder.create().uv(0, 23).cuboid(-2.0F, -5.0F, -2.0F, 4.0F, 4.0F, 4.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, 24.0F, 0.0F));
+        ModelPartData cube_r2 = wingL.addChild("cube_r2", ModelPartBuilder.create().uv(14, 10).cuboid(0.0F, 0.0F, -2.0F, 0.0F, 4.0F, 7.0F, new Dilation(0.0F)), ModelTransform.of(-0.5F, 0.8F, 0.0F, 0.0F, 0.3491F, -1.5708F));
 
-
+        ModelPartData core = modelPartData.addChild("core", ModelPartBuilder.create().uv(0, 0).cuboid(-2.5F, -6.0F, -2.0F, 5.0F, 5.0F, 5.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, 24.0F, 0.0F));
         return TexturedModelData.of(modelData, 32, 32);
     }
 
-    public static TexturedModelData getTexturedModelDataTransparent() {
+    /*public static TexturedModelData getTexturedModelDataTransparent() {
         ModelData modelData = new ModelData();
         ModelPartData modelPartData = modelData.getRoot();
 
         modelPartData.addChild("outside", ModelPartBuilder.create().uv(0, 0).cuboid(-3.0F, -6.0F, -3.0F, 6.0F, 6.0F, 6.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, 24.0F, 0.0F));
 
         return TexturedModelData.of(modelData, 32, 32);
-    }
+    }*/
 
     @Override
     public void render(MatrixStack matrices, VertexConsumer vertexConsumer, int light, int overlay, int color) {
-        wingR.render(matrices, vertexConsumer, light, overlay, color);
-        wingL.render(matrices, vertexConsumer, light, overlay, color);
-        core.render(matrices, vertexConsumer, light, overlay, color);
-        //outside.render(matrices, vertexConsumer, light, overlay, color);
+        root.render(matrices, vertexConsumer, light, overlay, color);
     }
 
     @Override
     public ModelPart getPart() {
-        return core;
+        return root;
     }
 
+
     @Override
-    public void setAngles(T entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
+    public void setAngles(PixieEntity entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
+        this.getPart().traverse().forEach(ModelPart::resetTransform);
+
+        this.updateAnimation(entity.flyingAnimationState, PixieAnimations.FLYING, animationProgress, 1f);
     }
 }
 
