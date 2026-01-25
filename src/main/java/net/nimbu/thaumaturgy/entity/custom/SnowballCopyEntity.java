@@ -1,6 +1,5 @@
 package net.nimbu.thaumaturgy.entity.custom;
 
-import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.projectile.thrown.ThrownItemEntity;

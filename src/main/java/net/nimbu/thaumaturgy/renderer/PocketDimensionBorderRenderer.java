@@ -3,30 +3,26 @@ package net.nimbu.thaumaturgy.renderer;
 import net.fabricmc.fabric.api.client.rendering.v1.CoreShaderRegistrationCallback;
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderContext;
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
-import net.fabricmc.fabric.api.event.lifecycle.v1.ServerWorldEvents;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gl.ShaderProgram;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.render.*;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.projectile.thrown.EnderPearlEntity;
-import net.minecraft.registry.RegistryKeys;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraft.world.dimension.NetherPortal;
 import net.nimbu.thaumaturgy.Thaumaturgy;
-import net.nimbu.thaumaturgy.block.entity.custom.PocketDimensionBorderControllerBlockEntity;
 import net.nimbu.thaumaturgy.persistentstates.PocketDimRoomsHelper;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 
 public class PocketDimensionBorderRenderer {
+
+    public static final int BorderLength = 13;
+    public static final int BorderHeight = 10;
+
     public static void registerWorldRenderer() {
         CoreShaderRegistrationCallback.EVENT.register(ctx -> {
             ctx.register(
@@ -39,11 +35,9 @@ public class PocketDimensionBorderRenderer {
         WorldRenderEvents.BEFORE_ENTITIES.register(PocketDimensionBorderRenderer::render);
     }
 
-    private static void setLoadedChunk()
-    {
-        if(MinecraftClient.getInstance().world != null)
-        {
-            MinecraftClient.getInstance().world.getWorldChunk(new BlockPos(0,0,0)).setLoadedToWorld(true);
+    private static void setLoadedChunk() {
+        if (MinecraftClient.getInstance().world != null) {
+            MinecraftClient.getInstance().world.getWorldChunk(new BlockPos(0, 0, 0)).setLoadedToWorld(true);
         }
     }
 
@@ -58,7 +52,7 @@ public class PocketDimensionBorderRenderer {
             true,
             RenderLayer.MultiPhaseParameters.builder()
                     .program(new RenderPhase.ShaderProgram(PocketDimensionBorderRenderer::getShader))
-                    .texture(new RenderPhase.Texture(BORDER_TEXTURE,false,false))
+                    .texture(new RenderPhase.Texture(BORDER_TEXTURE, false, false))
                     .transparency(RenderPhase.Transparency.TRANSLUCENT_TRANSPARENCY)
                     .depthTest(RenderPhase.DepthTest.LEQUAL_DEPTH_TEST)
                     .writeMaskState(RenderPhase.ALL_MASK)
@@ -75,41 +69,41 @@ public class PocketDimensionBorderRenderer {
     private static final float[][] FACE_NORMALS = {{1, 0, 0}, {-1, 0, 0}, {0, 1, 0}, {0, -1, 0}, {0, 0, 1}, {0, 0, -1}};
     // [face][vertex][x, y, z, u, v]
     private static final float[][][] FACE_VERTICES = {
-            { // +X (Z × Y = 16 × 12)
-                    {16, 12, 16,  0, 12},
-                    {16, 12, 0,  16, 12},
-                    {16, 0, 0,   16, 0},
-                    {16, 0, 16,  0, 0}
+            { // +X (Z × Y = BorderLength × BorderHeight)
+                    {BorderLength, BorderHeight, BorderLength, 0, BorderHeight},
+                    {BorderLength, BorderHeight, 0, BorderLength, BorderHeight},
+                    {BorderLength, 0, 0, BorderLength, 0},
+                    {BorderLength, 0, BorderLength, 0, 0}
             },
-            { // -X (Z × Y = 16 × 12)
-                    {0, 12, 0,   0, 12},
-                    {0, 12, 16,  16, 12},
-                    {0, 0, 16,   16, 0},
-                    {0, 0, 0,    0, 0}
+            { // -X (Z × Y = BorderLength × BorderHeight)
+                    {0, BorderHeight, 0, 0, BorderHeight},
+                    {0, BorderHeight, BorderLength, BorderLength, BorderHeight},
+                    {0, 0, BorderLength, BorderLength, 0},
+                    {0, 0, 0, 0, 0}
             },
-            { // +Y (X × Z = 16 × 16)
-                    {0, 12, 16,   0, 16},
-                    {16, 12, 16,  16, 16},
-                    {16, 12, 0,   16, 0},
-                    {0, 12, 0,    0, 0}
+            { // +Y (X × Z = BorderLength × BorderLength)
+                    {0, BorderHeight, BorderLength, 0, BorderLength},
+                    {BorderLength, BorderHeight, BorderLength, BorderLength, BorderLength},
+                    {BorderLength, BorderHeight, 0, BorderLength, 0},
+                    {0, BorderHeight, 0, 0, 0}
             },
-            { // -Y (X × Z = 16 × 16)
-                    {0, 0, 0,     0, 0},
-                    {16, 0, 0,    16, 0},
-                    {16, 0, 16,   16, 16},
-                    {0, 0, 16,    0, 16}
+            { // -Y (X × Z = BorderLength × BorderLength)
+                    {0, 0, 0, 0, 0},
+                    {BorderLength, 0, 0, BorderLength, 0},
+                    {BorderLength, 0, BorderLength, BorderLength, BorderLength},
+                    {0, 0, BorderLength, 0, BorderLength}
             },
-            { // +Z (X × Y = 16 × 12)
-                    {0, 0, 16,    0, 0},
-                    {16, 0, 16,   16, 0},
-                    {16, 12, 16,  16, 12},
-                    {0, 12, 16,   0, 12}
+            { // +Z (X × Y = BorderLength × BorderHeight)
+                    {0, 0, BorderLength, 0, 0},
+                    {BorderLength, 0, BorderLength, BorderLength, 0},
+                    {BorderLength, BorderHeight, BorderLength, BorderLength, BorderHeight},
+                    {0, BorderHeight, BorderLength, 0, BorderHeight}
             },
-            { // -Z (X × Y = 16 × 12)
-                    {16, 0, 0,    0, 0},
-                    {0, 0, 0,     16, 0},
-                    {0, 12, 0,    16, 12},
-                    {16, 12, 0,   0, 12}
+            { // -Z (X × Y = BorderLength × BorderHeight)
+                    {BorderLength, 0, 0, 0, 0},
+                    {0, 0, 0, BorderLength, 0},
+                    {0, BorderHeight, 0, BorderLength, BorderHeight},
+                    {BorderLength, BorderHeight, 0, 0, BorderHeight}
             }
     };
 
@@ -168,7 +162,7 @@ public class PocketDimensionBorderRenderer {
             BORDER_SHADER.getUniform("time").set(t);
         }
         matrices.pop();
-        BlockPos relativePosition = new BlockPos((int) Math.floor(cam.x / 16), (int) Math.floor(cam.y / 12), (int) Math.floor(cam.z / 16));
+        BlockPos relativePosition = new BlockPos((int) Math.floor(cam.x / BorderLength), (int) Math.floor(cam.y / BorderHeight), (int) Math.floor(cam.z / BorderLength));
         final int renderRadius = 2;
         for (int x = -renderRadius; x <= renderRadius; x++) {
             for (int y = -renderRadius; y <= renderRadius; y++) {
@@ -188,16 +182,18 @@ public class PocketDimensionBorderRenderer {
         }
     }
 
-    private static void renderFace(VertexConsumer vc, MatrixStack matrix, int index, int x, int y, int z)
-    {
+    private static void renderFace(VertexConsumer vc, MatrixStack matrix, int index, int x, int y, int z) {
         Matrix4f mat = matrix.peek().getPositionMatrix();
-        x *= 16; y *= 12; z *= 16;
+        x *= BorderLength;
+        y *= BorderHeight;
+        z *= BorderLength;
+        y += 7;
         for (int i = 0; i < 4; i++) {
             vc.vertex(mat, FACE_VERTICES[index][i][0] + x, FACE_VERTICES[index][i][1] + y, FACE_VERTICES[index][i][2] + z)
                     .color(255, 255, 255, 255)
                     .normal(matrix.peek(), FACE_NORMALS[index][0], FACE_NORMALS[index][1], FACE_NORMALS[index][2])
                     .light(LightmapTextureManager.MAX_LIGHT_COORDINATE)
-                    .texture(FACE_VERTICES[index][i][3],FACE_VERTICES[index][i][4]);
+                    .texture(FACE_VERTICES[index][i][3], FACE_VERTICES[index][i][4]);
         }
     }
 }

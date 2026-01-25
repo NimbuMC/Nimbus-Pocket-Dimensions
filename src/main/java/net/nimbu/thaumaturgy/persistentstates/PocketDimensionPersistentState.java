@@ -1,6 +1,5 @@
 package net.nimbu.thaumaturgy.persistentstates;
 
-import net.minecraft.client.world.ClientWorld;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.server.world.ServerWorld;

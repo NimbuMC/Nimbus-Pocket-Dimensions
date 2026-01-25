@@ -14,7 +14,6 @@ import net.minecraft.client.render.model.BakedQuad;
 import net.minecraft.client.render.model.json.ModelTransformationMode;
 import net.minecraft.client.texture.Sprite;
 import net.minecraft.client.texture.SpriteAtlasTexture;
-import net.minecraft.client.util.ModelIdentifier;
 import net.minecraft.client.util.SpriteIdentifier;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.Item;
@@ -26,7 +25,6 @@ import net.minecraft.util.math.RotationAxis;
 import net.minecraft.world.LightType;
 import net.minecraft.world.World;
 import net.nimbu.thaumaturgy.block.entity.custom.RevisualisingTableBlockEntity;
-import net.nimbu.thaumaturgy.component.ModDataComponentTypes;
 
 public class RevisualisingTableBlockEntityRenderer implements BlockEntityRenderer<RevisualisingTableBlockEntity> {
 

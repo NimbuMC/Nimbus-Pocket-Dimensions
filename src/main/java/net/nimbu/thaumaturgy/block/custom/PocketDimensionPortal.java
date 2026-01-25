@@ -1,7 +1,9 @@
 package net.nimbu.thaumaturgy.block.custom;
 
 import com.mojang.serialization.MapCodec;
-import net.minecraft.block.*;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.BlockWithEntity;
+import net.minecraft.block.Portal;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
@@ -24,7 +26,6 @@ import org.jetbrains.annotations.Nullable;
 
 
 public class PocketDimensionPortal extends BlockWithEntity implements Portal {
-    public static int PocketDimensionMaximumSize = 128;
 
     public static final MapCodec<PocketDimensionPortal> CODEC =
             createCodec(PocketDimensionPortal::new);
@@ -90,12 +91,7 @@ public class PocketDimensionPortal extends BlockWithEntity implements Portal {
         if(world.getBlockEntity(pos) instanceof PocketDimensionPortalBlockEntity pocketDimensionPortalBlockEntity)
         {
             Thaumaturgy.LOGGER.info("FoundBlockEntity");
-            RegistryKey<World> registryKey = switch (pocketDimensionPortalBlockEntity.GetExitDimension()) {
-                case 1 -> World.NETHER;
-                case 2 -> World.END;
-                case 3 -> ModDimensions.POCKET_DIM_LEVEL_KEY;
-                default -> World.OVERWORLD;
-            };
+            RegistryKey<World> registryKey = pocketDimensionPortalBlockEntity.GetExitDimension();
             Thaumaturgy.LOGGER.info("exitDimension of " + pocketDimensionPortalBlockEntity.GetExitDimension());
             serverWorld = world.getServer().getWorld(registryKey);
             exitPos = pocketDimensionPortalBlockEntity.getExitPosition();
@@ -111,20 +107,6 @@ public class PocketDimensionPortal extends BlockWithEntity implements Portal {
 
     private static Vec3d getTeleportVelocity(Entity entity) {
         return entity instanceof EnderPearlEntity ? new Vec3d(0.0, -1.0, 0.0) : entity.getVelocity();
-    }
-
-    public BlockPos targetPortalFromID(int id)
-    {
-        int x;
-        int y;
-        int k = (int) Math.ceil((Math.sqrt(id) - 1.0)/2.0);
-        int t = 2 * k + 1;
-        int d = (t * t) - id;
-        if (d < t){ x =  k - d; y = -k;}
-        else if(d < 2 * t){ x = -k; y = -k + (d - t);}
-        else if (d < 3 * t){ x = -k + (d - 2 * t); y = k; }
-        else{ x =  k; y =  k - (d - 3 * t);}
-        return new BlockPos(x * PocketDimensionMaximumSize * 2, y * PocketDimensionMaximumSize * 2, 128);
     }
 /*
 

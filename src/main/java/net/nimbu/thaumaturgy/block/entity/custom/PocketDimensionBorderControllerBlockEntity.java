@@ -1,8 +1,6 @@
 package net.nimbu.thaumaturgy.block.entity.custom;
 
-import net.fabricmc.loader.impl.lib.sat4j.specs.IVecInt;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.RegistryWrapper;

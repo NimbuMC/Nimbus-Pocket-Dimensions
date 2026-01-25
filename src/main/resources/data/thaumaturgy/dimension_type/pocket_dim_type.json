@@ -11,9 +11,9 @@
   "has_skylight": false,
   "effects": "minecraft:the_nether",
   "infiniburn": "#minecraft:infiniburn_overworld",
-  "logical_height": 256,
+  "logical_height": 304,
   "min_y": 0,
-  "height": 256,
+  "height": 304,
   "monster_spawn_block_light_limit": 0,
   "monster_spawn_light_level": {
     "type": "minecraft:uniform",

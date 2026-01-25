@@ -1,22 +1,15 @@
 package net.nimbu.thaumaturgy.mixin;
 
 
-
-
-
 import com.llamalad7.mixinextras.sugar.Local;
-import net.minecraft.client.render.*;
+import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.item.ItemModels;
 import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.render.model.BakedModel;
 import net.minecraft.client.render.model.json.ModelTransformationMode;
-import net.minecraft.client.util.ModelIdentifier;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Identifier;
-import net.nimbu.thaumaturgy.Thaumaturgy;
 import net.nimbu.thaumaturgy.component.ModDataComponentTypes;
-import net.nimbu.thaumaturgy.item.ModItems;
 import net.nimbu.thaumaturgy.item.RevisualisedItemRenderer;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;

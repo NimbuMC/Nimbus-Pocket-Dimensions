@@ -8,15 +8,21 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtHelper;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.math.*;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import net.nimbu.thaumaturgy.Thaumaturgy;
+import net.nimbu.thaumaturgy.block.ModBlocks;
 import net.nimbu.thaumaturgy.block.custom.PocketDimensionPortal;
 import net.nimbu.thaumaturgy.block.entity.ModBlockEntityTypes;
-import net.nimbu.thaumaturgy.block.ModBlocks;
+import net.nimbu.thaumaturgy.persistentstates.PocketDimRoomsHelper;
+import net.nimbu.thaumaturgy.renderer.PocketDimensionBorderRenderer;
 import net.nimbu.thaumaturgy.worldgen.dimension.ModDimensions;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
@@ -26,10 +32,10 @@ public class PocketDimensionPortalBlockEntity extends BlockEntity {
     private long age;
     @Nullable
     private BlockPos exitPortalPos;
-    private int exitDimensionID; //0-overworld, 1-nether, 2-end, 3 PocketDimension
-    private int pocketDimensionID;
+    private RegistryKey<World> exitDimension;
     private boolean exactTeleport;
     private int teleportCooldown;
+
     public PocketDimensionPortalBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntityTypes.POCKET_DIMENSION_PORTAL, pos, state);
     }
@@ -41,8 +47,7 @@ public class PocketDimensionPortalBlockEntity extends BlockEntity {
         if (this.exitPortalPos != null) {
             nbt.put("exit_portal", NbtHelper.fromBlockPos(this.exitPortalPos));
         }
-        nbt.putInt("pocket_dimension_id", this.pocketDimensionID);
-        nbt.putInt("exit_dimension_id", this.exitDimensionID);
+        nbt.putString("exit_dimension", this.exitDimension.getValue().toString());
 
         if (this.exactTeleport) {
             nbt.putBoolean("ExactTeleport", true);
@@ -54,8 +59,7 @@ public class PocketDimensionPortalBlockEntity extends BlockEntity {
         super.readNbt(nbt, registryLookup);
         this.age = nbt.getLong("Age");
         NbtHelper.toBlockPos(nbt, "exit_portal").filter(World::isValid).ifPresent(exitPortalPos -> this.exitPortalPos = exitPortalPos);
-        this.pocketDimensionID = nbt.getInt("pocket_dimension_id");
-        this.exitDimensionID = nbt.getInt("exit_dimension_id");
+        this.exitDimension = RegistryKey.of(RegistryKeys.WORLD, Identifier.of(nbt.getString("exit_dimension")));
         this.exactTeleport = nbt.getBoolean("ExactTeleport");
     }
 
@@ -81,64 +85,40 @@ public class PocketDimensionPortalBlockEntity extends BlockEntity {
         }
     }
 
-    public void TriggerInitialIDUpdate(World world, BlockPos entryPortalPosition, int PortalID)
-    {
-        if(world.getBlockEntity(entryPortalPosition) instanceof PocketDimensionPortalBlockEntity pocketDimensionPortalBlockEntity && !world.isClient) {
-            Thaumaturgy.LOGGER.info("Created with ID " + PortalID);
-            pocketDimensionPortalBlockEntity.setPortalID(PortalID);
-            BlockPos exitPosition = targetPortalFromID(PortalID);
-            MinecraftServer server = world.getServer();
-            ServerWorld targetWorld = server.getWorld(ModDimensions.POCKET_DIM_LEVEL_KEY);
-            if(targetWorld.getBlockEntity(exitPosition) instanceof PocketDimensionPortalBlockEntity exitPortal)
-            {
-                int DimKey = 0;
-                if(world.getRegistryKey() == World.NETHER) DimKey = 1;
-                else if(world.getRegistryKey() == World.END) DimKey = 2;
-                exitPortal.setExitPosition(entryPortalPosition, DimKey);
-            }
-            else
-            {
+    public void TriggerInitialIDUpdate(World world, BlockPos entryPortalPosition, RegistryKey<World> exitID) {
+        if (world.getBlockEntity(entryPortalPosition) instanceof PocketDimensionPortalBlockEntity pocketDimensionPortalBlockEntity && !world.isClient) {
+            Thaumaturgy.LOGGER.info("Created with ID \n" + exitID);
+            pocketDimensionPortalBlockEntity.setPortalID(exitID);
+            BlockPos exitPosition = new BlockPos(6, 148, 1);
+            ServerWorld targetWorld = world.getServer().getWorld(exitID);
+            if (targetWorld.getBlockEntity(exitPosition) instanceof PocketDimensionPortalBlockEntity exitPortal) {
+                //if(exitDimension.getValue().toString().startsWith(Thaumaturgy.MOD_ID+":pocket_dimension"))
+                exitPortal.setExitPosition(entryPortalPosition, world.getRegistryKey());
+            } else {
                 targetWorld.setBlockState(exitPosition, ModBlocks.POCKET_DIMENSION_PORTAL.getDefaultState());
-                BlockPos platformPos = new BlockPos(exitPortalPos.getX(), exitPortalPos.getY() - 1, exitPortalPos.getZ());
-                targetWorld.setBlockState(platformPos, Blocks.GLOWSTONE.getDefaultState());
-                platformPos = platformPos.add(1,0,0);
-                targetWorld.setBlockState(platformPos, Blocks.GLOWSTONE.getDefaultState());
-                platformPos = platformPos.add(0,0,1);
-                targetWorld.setBlockState(platformPos, Blocks.GLOWSTONE.getDefaultState());
-                platformPos = platformPos.add(-1,0,0);
-                targetWorld.setBlockState(platformPos, Blocks.GLOWSTONE.getDefaultState());
-                platformPos = platformPos.add(-1,0,0);
-                targetWorld.setBlockState(platformPos, Blocks.GLOWSTONE.getDefaultState());
-                platformPos = platformPos.add(0,0,-1);
-                targetWorld.setBlockState(platformPos, Blocks.GLOWSTONE.getDefaultState());
-                platformPos = platformPos.add(0,0,-1);
-                targetWorld.setBlockState(platformPos, Blocks.GLOWSTONE.getDefaultState());
-                platformPos = platformPos.add(1,0,0);
-                targetWorld.setBlockState(platformPos, Blocks.GLOWSTONE.getDefaultState());
-                platformPos = platformPos.add(1,0,0);
-                targetWorld.setBlockState(platformPos, Blocks.GLOWSTONE.getDefaultState());
-                if(targetWorld.getBlockEntity(exitPosition) instanceof PocketDimensionPortalBlockEntity exitPortal)
-                {
-                    int DimKey = 0;
-                    if(world.getRegistryKey() == World.NETHER) DimKey = 1;
-                    else if(world.getRegistryKey() == World.END) DimKey = 2;
-                    exitPortal.setExitPosition(entryPortalPosition, DimKey);
+                if (targetWorld.getBlockEntity(exitPosition) instanceof PocketDimensionPortalBlockEntity exitPortal) {
+                    exitPortal.setExitPosition(entryPortalPosition, world.getRegistryKey());
                 }
             }
+
+            BlockPos roomPos = new BlockPos(
+                    Math.floorDiv(exitPosition.getX(), PocketDimensionBorderRenderer.BorderLength),
+                    Math.floorDiv(exitPosition.getY() - 2, PocketDimensionBorderRenderer.BorderHeight),
+                    Math.floorDiv(exitPosition.getZ(), PocketDimensionBorderRenderer.BorderLength)
+            );
+
+            PocketDimRoomsHelper.addRoom(targetWorld, roomPos);
         }
     }
 
-    public void setPortalID(int ID)
-    {
-        pocketDimensionID = ID;
-        exitPortalPos = targetPortalFromID(ID);
-        exitDimensionID = 3;
+    public void setPortalID(RegistryKey<World> exitWorld) {
+        exitDimension = exitWorld;
+        exitPortalPos = new BlockPos(6, 148, 1);
     }
 
 
-    public void setExitPosition(BlockPos exitPosition, int DimensionID)
-    {
-        exitDimensionID = DimensionID;
+    public void setExitPosition(BlockPos exitPosition, RegistryKey<World> exitWorld) {
+        exitDimension = exitWorld;
         exitPortalPos = exitPosition;
     }
 
@@ -177,27 +157,12 @@ public class PocketDimensionPortalBlockEntity extends BlockEntity {
         }
     }
 
-    public BlockPos targetPortalFromID(int id)
-    {
-        int x;
-        int y;
-        int k = (int) Math.ceil((Math.sqrt(id) - 1.0)/2.0);
-        int t = 2 * k + 1;
-        int d = (t * t) - id;
-        if (d < t){ x =  k - d; y = -k;}
-        else if(d < 2 * t){ x = -k; y = -k + (d - t);}
-        else if (d < 3 * t){ x = -k + (d - 2 * t); y = k; }
-        else{ x =  k; y =  k - (d - 3 * t);}
-        return new BlockPos(x * PocketDimensionPortal.PocketDimensionMaximumSize * 2, 128, y * PocketDimensionPortal.PocketDimensionMaximumSize * 2);
+
+    public RegistryKey<World> GetExitDimension() {
+        return exitDimension;
     }
 
-    public int GetExitDimension()
-    {
-        return exitDimensionID;
-    }
-
-    public BlockPos getExitPosition()
-    {
+    public BlockPos getExitPosition() {
         return exitPortalPos;
     }
 

@@ -8,7 +8,6 @@ import net.minecraft.registry.Registry;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.nimbu.thaumaturgy.Thaumaturgy;
-
 import net.nimbu.thaumaturgy.block.ModBlocks;
 
 public class ModItemGroups {
