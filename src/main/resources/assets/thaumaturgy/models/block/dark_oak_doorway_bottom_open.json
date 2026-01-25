@@ -4,7 +4,7 @@
 	"texture_size": [128, 128],
 	"textures": {
 		"0": "thaumaturgy:block/dark_oak_doorway",
-		"particle": "thaumaturgy:block/dark_oak_doorway"
+		"particle": "minecraft:block/dark_oak_planks"
 	},
 	"elements": [
 		{

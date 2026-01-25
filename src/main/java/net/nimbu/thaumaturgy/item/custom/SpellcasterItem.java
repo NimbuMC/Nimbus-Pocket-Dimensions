@@ -14,30 +14,13 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Position;
 import net.minecraft.world.World;
 
-public class WandFinalInProgresstem extends Item implements ProjectileItem {
+public class SpellcasterItem extends Item{
 
 
-    public WandFinalInProgresstem(Item.Settings settings) {
+    public SpellcasterItem(Item.Settings settings) {
         super(settings);
     }
 
-    // interface methods:
-    // (remove those that are unneeded)
-
-    @Override
-    public ProjectileEntity createEntity(World world, Position pos, ItemStack stack, Direction direction) {
-        return null;
-    }
-
-    @Override
-    public ProjectileItem.Settings getProjectileSettings() {
-        return ProjectileItem.super.getProjectileSettings();
-    }
-
-    @Override
-    public void initializeProjectile(ProjectileEntity entity, double x, double y, double z, float power, float uncertainty) {
-        ProjectileItem.super.initializeProjectile(entity, x, y, z, power, uncertainty);
-    }
 
     // IDK what these are lol
     @Override
