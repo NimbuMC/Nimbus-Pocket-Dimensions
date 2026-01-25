@@ -8,12 +8,8 @@ import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
 import net.nimbu.thaumaturgy.Thaumaturgy;
-import net.nimbu.thaumaturgy.item.custom.ModArmorItem;
+import net.nimbu.thaumaturgy.item.custom.*;
 import net.nimbu.thaumaturgy.entity.ModEntities;
-import net.nimbu.thaumaturgy.item.custom.HammerItem;
-import net.nimbu.thaumaturgy.item.custom.WandArrowItem;
-import net.nimbu.thaumaturgy.item.custom.WandItem;
-import net.nimbu.thaumaturgy.item.custom.WandPortalItem;
 
 public class ModItems {
 
@@ -77,11 +73,11 @@ public class ModItems {
                     .maxDamage(ArmorItem.Type.HELMET.getMaxDamage(15))));*/
 
     public static final Item TOME_OF_EXPANSION = registerItem("tome_of_expansion",
-            new Item(new Item.Settings()
-                    .maxCount(1)));
+            new TomeItem(new Item.Settings()
+                    .maxCount(1),0));
     public static final Item TOME_OF_SKIES = registerItem("tome_of_skies",
-            new Item(new Item.Settings()
-                    .maxCount(1)));
+            new TomeItem(new Item.Settings()
+                    .maxCount(1),1));
 
 
     //resources:
