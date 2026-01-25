@@ -1,21 +1,21 @@
 package net.nimbu.thaumaturgy.item.custom;
 
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
-import net.minecraft.item.tooltip.TooltipType;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.nimbu.thaumaturgy.Thaumaturgy;
 import net.nimbu.thaumaturgy.block.ModBlocks;
 import net.nimbu.thaumaturgy.block.entity.custom.PocketDimensionPortalBlockEntity;
 import net.nimbu.thaumaturgy.component.ModDataComponentTypes;
+import net.nimbu.thaumaturgy.dimensions.DimensionalInstancer;
 import net.nimbu.thaumaturgy.worldgen.dimension.ModDimensions;
 
 import java.util.ArrayList;
@@ -66,12 +66,12 @@ public class WandItem extends Item {
             BlockState pocketDimPortalState = ModBlocks.POCKET_DIMENSION_PORTAL.getDefaultState();
             //context.getPlayer().getGameProfile().getId();
 
-
+            ServerWorld targetDimension = DimensionalInstancer.createInstance(context.getPlayer().getServer(), context.getPlayer().getUuid());
             for(BlockPos pos : positions) {
                 //context.getStack().set(ModDataComponentTypes.COORDINATES, pos);
                 world.setBlockState(pos, pocketDimPortalState);
                 if(world.getBlockEntity(pos) instanceof PocketDimensionPortalBlockEntity portalData) {
-                    portalData.TriggerInitialIDUpdate(world, pos, 3);
+                    portalData.TriggerInitialIDUpdate(world, pos, targetDimension.getRegistryKey());
                 }
             //    if(world.getBlockState(pos).getBlock()==Blocks.AIR){
             //        if(135 > playerAbsoluteYaw && playerAbsoluteYaw > 45){
@@ -81,6 +81,7 @@ public class WandItem extends Item {
             //            world.setBlockState(pos, pocketDimPortalState);}
             //    }
             }
+            Thaumaturgy.LOGGER.info("Player Trigger Dimension creation with key of : pocket_dimension_"+context.getPlayer().getUuid());
 
             world.playSound(null, context.getBlockPos(), SoundEvents.ENTITY_SHULKER_SHOOT, SoundCategory.BLOCKS);
         }

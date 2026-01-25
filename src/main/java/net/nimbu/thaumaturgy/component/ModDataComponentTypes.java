@@ -1,13 +1,10 @@
 package net.nimbu.thaumaturgy.component;
 
 import com.mojang.serialization.Codec;
-import net.minecraft.client.render.model.BakedModel;
 import net.minecraft.component.ComponentType;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
-import net.minecraft.util.BlockRotation;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
 import net.nimbu.thaumaturgy.Thaumaturgy;
 
 import java.util.function.UnaryOperator;

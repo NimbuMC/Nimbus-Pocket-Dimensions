@@ -79,6 +79,7 @@ void main() {
     // Bayer dither
     vec2 texel = floor(vUv * scale);
     float threshold = bayer4x4(texel);
+    if (fade > threshold) discard;
 
 
     // Base texture
@@ -101,8 +102,6 @@ void main() {
 
     vec4 tex = texture(Sampler0, glitchUV);
 
-    if (fade > threshold) discard;
-    if (fade > threshold * 0.5) tex.a *= 0.5;
 
     vec4 light = texture(Sampler2, glitchUV);
     // Glow band near fade edge

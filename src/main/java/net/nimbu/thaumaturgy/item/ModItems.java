@@ -1,7 +1,6 @@
 package net.nimbu.thaumaturgy.item;
 
 import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.FoodComponents;
 import net.minecraft.item.*;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -10,6 +9,7 @@ import net.minecraft.util.Rarity;
 import net.nimbu.thaumaturgy.Thaumaturgy;
 import net.nimbu.thaumaturgy.item.custom.*;
 import net.nimbu.thaumaturgy.entity.ModEntities;
+import net.nimbu.thaumaturgy.item.custom.*;
 
 public class ModItems {
 

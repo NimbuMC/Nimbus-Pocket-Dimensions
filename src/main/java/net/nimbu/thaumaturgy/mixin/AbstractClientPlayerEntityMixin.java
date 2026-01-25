@@ -1,8 +1,6 @@
 package net.nimbu.thaumaturgy.mixin;
 
 import com.mojang.authlib.GameProfile;
-import net.nimbu.thaumaturgy.effect.ModEffects;
-import net.nimbu.thaumaturgy.item.ModItems;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -11,6 +9,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
+import net.nimbu.thaumaturgy.effect.ModEffects;
+import net.nimbu.thaumaturgy.item.ModItems;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;

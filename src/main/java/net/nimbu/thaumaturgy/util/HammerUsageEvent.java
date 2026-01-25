@@ -1,7 +1,6 @@
 package net.nimbu.thaumaturgy.util;
 
 import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
-import net.nimbu.thaumaturgy.item.custom.HammerItem;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -9,6 +8,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.nimbu.thaumaturgy.item.custom.HammerItem;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.HashSet;

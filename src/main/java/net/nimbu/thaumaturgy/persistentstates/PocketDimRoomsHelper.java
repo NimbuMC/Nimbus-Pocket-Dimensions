@@ -6,7 +6,6 @@ import net.minecraft.util.math.BlockPos;
 import net.nimbu.thaumaturgy.network.ClientPocketRooms;
 import net.nimbu.thaumaturgy.network.PocketDimRoomSync;
 
-import java.util.HashSet;
 import java.util.Set;
 
 public class PocketDimRoomsHelper {

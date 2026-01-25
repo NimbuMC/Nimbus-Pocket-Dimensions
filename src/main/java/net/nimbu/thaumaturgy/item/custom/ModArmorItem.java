@@ -1,7 +1,6 @@
 package net.nimbu.thaumaturgy.item.custom;
 
 import com.google.common.collect.ImmutableMap;
-import net.nimbu.thaumaturgy.item.ModArmorMaterials;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
@@ -11,6 +10,7 @@ import net.minecraft.item.ArmorMaterial;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.world.World;
+import net.nimbu.thaumaturgy.item.ModArmorMaterials;
 
 import java.util.List;
 import java.util.Map;

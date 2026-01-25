@@ -1,7 +1,6 @@
 package net.nimbu.thaumaturgy;
 
 import net.fabricmc.api.ModInitializer;
-
 import net.fabricmc.fabric.api.entity.event.v1.ServerEntityWorldChangeEvents;
 import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
@@ -10,10 +9,9 @@ import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRe
 import net.minecraft.block.Blocks;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
-import net.nimbu.thaumaturgy.block.entity.ModBlockEntityTypes;
 import net.nimbu.thaumaturgy.block.ModBlocks;
+import net.nimbu.thaumaturgy.block.entity.ModBlockEntityTypes;
 import net.nimbu.thaumaturgy.component.ModDataComponentTypes;
 import net.nimbu.thaumaturgy.effect.ModEffects;
 import net.nimbu.thaumaturgy.enchantment.ModEnchantmentEffects;
@@ -21,11 +19,12 @@ import net.nimbu.thaumaturgy.entity.ModEntities;
 import net.nimbu.thaumaturgy.entity.custom.PixieEntity;
 import net.nimbu.thaumaturgy.item.ModItemGroups;
 import net.nimbu.thaumaturgy.item.ModItems;
+import net.nimbu.thaumaturgy.network.PocketDimRoomSync;
 import net.nimbu.thaumaturgy.network.RoomSyncPayload;
 import net.nimbu.thaumaturgy.network.SingularRoomPayload;
 import net.nimbu.thaumaturgy.particle.ModParticles;
-import net.nimbu.thaumaturgy.network.PocketDimRoomSync;
 import net.nimbu.thaumaturgy.persistentstates.PocketDimRoomsHelper;
+import net.nimbu.thaumaturgy.renderer.PocketDimensionBorderRenderer;
 import net.nimbu.thaumaturgy.sound.ModSoundEvents;
 import net.nimbu.thaumaturgy.util.HammerUsageEvent;
 import org.slf4j.Logger;
@@ -101,9 +100,9 @@ public class Thaumaturgy implements ModInitializer {
 			if (!world.isClient && state.getBlock() == Blocks.DIRT) {
 
 				BlockPos roomPos = new BlockPos(
-						Math.floorDiv(pos.getX(), 16),
-						Math.floorDiv(pos.getY(), 12),
-						Math.floorDiv(pos.getZ(), 16)
+						Math.floorDiv(pos.getX(), PocketDimensionBorderRenderer.BorderLength),
+						Math.floorDiv(pos.getY() - 2, PocketDimensionBorderRenderer.BorderHeight),
+						Math.floorDiv(pos.getZ(), PocketDimensionBorderRenderer.BorderLength)
 				);
 
 				PocketDimRoomsHelper.addRoom((ServerWorld) world, roomPos);

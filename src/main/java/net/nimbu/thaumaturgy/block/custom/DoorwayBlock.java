@@ -2,7 +2,6 @@ package net.nimbu.thaumaturgy.block.custom;
 
 import com.mojang.serialization.MapCodec;
 import net.minecraft.block.*;
-import net.minecraft.block.enums.DoorHinge;
 import net.minecraft.block.enums.DoubleBlockHalf;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -22,7 +21,6 @@ import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
-import net.minecraft.world.event.GameEvent;
 import org.jetbrains.annotations.Nullable;
 
 public class DoorwayBlock extends HorizontalFacingBlock {

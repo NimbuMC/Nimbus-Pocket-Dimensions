@@ -6,9 +6,9 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 import net.nimbu.thaumaturgy.Thaumaturgy;
-import net.nimbu.thaumaturgy.entity.custom.SpellPortalEntity;
-import net.nimbu.thaumaturgy.entity.custom.SnowballCopyEntity;
 import net.nimbu.thaumaturgy.entity.custom.PixieEntity;
+import net.nimbu.thaumaturgy.entity.custom.SnowballCopyEntity;
+import net.nimbu.thaumaturgy.entity.custom.SpellPortalEntity;
 
 public class ModEntities {
 

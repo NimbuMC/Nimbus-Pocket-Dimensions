@@ -1,20 +1,14 @@
 package net.nimbu.thaumaturgy.entity.custom;
 
 import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
 import net.minecraft.block.enums.DoubleBlockHalf;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.data.DataTracker;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.entity.projectile.ProjectileUtil;
-import net.minecraft.item.ItemStack;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.state.property.EnumProperty;
-import net.minecraft.text.Text;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
@@ -23,13 +17,8 @@ import net.minecraft.util.math.Position;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.nimbu.thaumaturgy.block.ModBlocks;
-import net.nimbu.thaumaturgy.entity.ModEntities;
-import net.nimbu.thaumaturgy.item.ModItems;
 import net.nimbu.thaumaturgy.particle.ModParticles;
 import net.nimbu.thaumaturgy.worldgen.dimension.ModDimensions;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static net.minecraft.block.HorizontalFacingBlock.FACING;
 import static net.nimbu.thaumaturgy.block.custom.DoorwayBlock.HALF;
