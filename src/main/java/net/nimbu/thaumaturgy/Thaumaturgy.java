@@ -26,6 +26,7 @@ import net.nimbu.thaumaturgy.particle.ModParticles;
 import net.nimbu.thaumaturgy.persistentstates.PocketDimRoomsHelper;
 import net.nimbu.thaumaturgy.renderer.PocketDimensionBorderRenderer;
 import net.nimbu.thaumaturgy.sound.ModSoundEvents;
+import net.nimbu.thaumaturgy.spell.Spells;
 import net.nimbu.thaumaturgy.util.HammerUsageEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -55,6 +56,8 @@ public class Thaumaturgy implements ModInitializer {
 		ModSoundEvents.registerSounds();
 		ModParticles.registerParticles();
 		ModEnchantmentEffects.registerEnchantmentEffects();
+
+		Spells.registerSpells();
 
 
 
