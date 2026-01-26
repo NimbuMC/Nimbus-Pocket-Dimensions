@@ -9,42 +9,38 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.ProjectileItem;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.resource.featuretoggle.FeatureSet;
+import net.minecraft.screen.SimpleNamedScreenHandlerFactory;
+import net.minecraft.text.Text;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Position;
 import net.minecraft.world.World;
+import net.nimbu.thaumaturgy.block.entity.custom.RevisualisingTableBlockEntity;
+import net.nimbu.thaumaturgy.item.SpellUnlockHandler;
+import net.nimbu.thaumaturgy.screen.custom.SpellScreenHandler;
 
 public class SpellcasterItem extends Item{
-
 
     public SpellcasterItem(Item.Settings settings) {
         super(settings);
     }
 
-
-    // IDK what these are lol
     @Override
-    public boolean allowComponentsUpdateAnimation(PlayerEntity player, Hand hand, ItemStack oldStack, ItemStack newStack) {
-        return super.allowComponentsUpdateAnimation(player, hand, oldStack, newStack);
-    }
+    public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
+        ItemStack stack = user.getStackInHand(hand);
 
-    @Override
-    public boolean allowContinuingBlockBreaking(PlayerEntity player, ItemStack oldStack, ItemStack newStack) {
-        return super.allowContinuingBlockBreaking(player, oldStack, newStack);
-    }
 
-    @Override
-    public ItemStack getRecipeRemainder(ItemStack stack) {
-        return super.getRecipeRemainder(stack);
-    }
+        if (!world.isClient) {
+                user.openHandledScreen(
+                        new SimpleNamedScreenHandlerFactory(
+                                (syncId, inv, p) -> new SpellScreenHandler(syncId, inv),
+                                Text.literal("Spells")
+                        )
+                );
 
-    @Override
-    public boolean canBeEnchantedWith(ItemStack stack, RegistryEntry<Enchantment> enchantment, EnchantingContext context) {
-        return super.canBeEnchantedWith(stack, enchantment, context);
-    }
-
-    @Override
-    public boolean isEnabled(FeatureSet enabledFeatures) {
-        return super.isEnabled(enabledFeatures);
+        }
+        return TypedActionResult.success(stack);
     }
 }
