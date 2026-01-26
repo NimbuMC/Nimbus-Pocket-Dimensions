@@ -3,11 +3,13 @@
 	"package": "net.nimbu.thaumaturgy.mixin",
 	"compatibilityLevel": "JAVA_21",
 	"mixins": [
-		"PlayerEntityMixin"
+		"PlayerEntityMixin",
+		"KeyboardMixin"
 	],
 	"client": [
 		"AbstractClientPlayerEntityMixin",
-		"ItemRendererMixin"
+		"ItemRendererMixin",
+		"MinecraftClientMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

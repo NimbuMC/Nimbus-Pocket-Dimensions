@@ -14,6 +14,7 @@ public class SpellScreenHandler extends ScreenHandler {
 
     private SpellUnlockHandler spellUnlockData;
 
+
     public SpellScreenHandler(int syncId, PlayerInventory playerInventory) {
         super(ModScreenHanders.SPELL_SCREEN_HANDLER, syncId);
     }
@@ -35,6 +36,5 @@ public class SpellScreenHandler extends ScreenHandler {
     public boolean canUse(PlayerEntity player) {
         return true;
     }
-
 
 }

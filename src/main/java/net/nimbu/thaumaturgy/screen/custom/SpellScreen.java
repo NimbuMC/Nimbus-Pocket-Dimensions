@@ -1,6 +1,7 @@
 package net.nimbu.thaumaturgy.screen.custom;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.render.GameRenderer;
@@ -41,5 +42,11 @@ public class SpellScreen extends HandledScreen<SpellScreenHandler> {
 
     }
 
-
+    @Override
+    protected void handledScreenTick() {
+        super.handledScreenTick();
+        if(!MinecraftClient.getInstance().options.useKey.isPressed()){
+            this.close();
+        }
+    }
 }

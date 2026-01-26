@@ -39,7 +39,6 @@ public class SpellcasterItem extends Item{
                                 Text.literal("Spells")
                         )
                 );
-
         }
         return TypedActionResult.success(stack);
     }
