@@ -5,10 +5,12 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.render.GameRenderer;
+import net.minecraft.client.util.InputUtil;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.nimbu.thaumaturgy.Thaumaturgy;
+import org.lwjgl.glfw.GLFW;
 
 public class SpellScreen extends HandledScreen<SpellScreenHandler> {
 
@@ -45,8 +47,12 @@ public class SpellScreen extends HandledScreen<SpellScreenHandler> {
     @Override
     protected void handledScreenTick() {
         super.handledScreenTick();
-        if(!MinecraftClient.getInstance().options.useKey.isPressed()){
-            this.close();
+
+        long windowHandle = MinecraftClient.getInstance().getWindow().getHandle();
+        boolean rightHeld = GLFW.glfwGetMouseButton(windowHandle, GLFW.GLFW_MOUSE_BUTTON_RIGHT) == GLFW.GLFW_PRESS;
+
+        if (!rightHeld) {
+            this.close(); //if right click is released
         }
     }
 }
