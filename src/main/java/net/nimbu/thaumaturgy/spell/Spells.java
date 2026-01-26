@@ -8,11 +8,13 @@ import net.minecraft.world.World;
 import net.nimbu.thaumaturgy.Thaumaturgy;
 import net.nimbu.thaumaturgy.entity.ModEntities;
 import net.nimbu.thaumaturgy.entity.custom.SpellPortalEntity;
+import net.nimbu.thaumaturgy.spell.spells.EffectCleansingSpell;
 import net.nimbu.thaumaturgy.spell.spells.PocketDimensionSpell;
 
 public class Spells {
 
     public static final Spell POCKET_DIMENSION = new PocketDimensionSpell();
+    public static final Spell EFFECT_CLEANSING = new EffectCleansingSpell();
 
     public static void registerSpells(){
         Thaumaturgy.LOGGER.info("Registering spells for "+Thaumaturgy.MOD_ID);
