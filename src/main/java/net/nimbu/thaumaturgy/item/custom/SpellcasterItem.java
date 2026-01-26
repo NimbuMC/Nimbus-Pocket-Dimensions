@@ -40,6 +40,6 @@ public class SpellcasterItem extends Item{
                         )
                 );
         }
-        return TypedActionResult.success(stack);
+        return TypedActionResult.pass(stack);
     }
 }
