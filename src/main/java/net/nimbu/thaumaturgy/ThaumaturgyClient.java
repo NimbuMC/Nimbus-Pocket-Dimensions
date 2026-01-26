@@ -32,6 +32,7 @@ import net.nimbu.thaumaturgy.particle.ModParticles;
 import net.nimbu.thaumaturgy.renderer.PocketDimensionBorderRenderer;
 import net.nimbu.thaumaturgy.screen.ModScreenHanders;
 import net.nimbu.thaumaturgy.screen.custom.RevisualisingTableScreen;
+import net.nimbu.thaumaturgy.screen.custom.SpellScreen;
 import net.nimbu.thaumaturgy.util.ModModelPredicates;
 
 import java.awt.*;
@@ -57,6 +58,8 @@ public class ThaumaturgyClient implements ClientModInitializer {
 
         BlockEntityRendererFactories.register(ModBlockEntityTypes.REVISUALISING_TABLE_BLOCK_ENTITY, RevisualisingTableBlockEntityRenderer::new);
         HandledScreens.register(ModScreenHanders.REVISUALISING_TABLE_SCREEN_HANDLER, RevisualisingTableScreen::new);
+
+        HandledScreens.register(ModScreenHanders.SPELL_SCREEN_HANDLER, SpellScreen::new);
 
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.PURPLE_MAGIC_MUSHROOM, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.MAGENTA_MAGIC_MUSHROOM, RenderLayer.getCutout());
