@@ -13,6 +13,11 @@ public class ModModelPredicates {
                 (stack, world, entity, seed) -> stack.get(ModDataComponentTypes.SPELL_FLASH_TIMER)!=null ? 1f : 0f);
         //item stack, world, entity or seed can be used
 
+        //ModelPredicateProviderRegistry.register(ModItems.STAFF, Identifier.of(Thaumaturgy.MOD_ID, "spell_flash"),
+        //        (stack, world, entity, seed) -> stack.get(ModDataComponentTypes.SPELL_FLASH_TIMER)!=null ?
+        //                (stack.get(ModDataComponentTypes.SPELL_FLASH_TIMER)/8.0f)
+        //                : 0f);
+
         registerCustomBow(ModItems.WAND_ARROW);
     }
 
