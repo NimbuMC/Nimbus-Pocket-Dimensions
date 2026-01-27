@@ -6,6 +6,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.entity.projectile.ProjectileUtil;
+import net.minecraft.registry.RegistryKey;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
@@ -17,6 +18,7 @@ import net.minecraft.util.math.Position;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.nimbu.thaumaturgy.block.ModBlocks;
+import net.nimbu.thaumaturgy.block.entity.custom.DoorwayBlockEntity;
 import net.nimbu.thaumaturgy.particle.ModParticles;
 import net.nimbu.thaumaturgy.worldgen.dimension.ModDimensions;
 
@@ -24,8 +26,14 @@ import static net.minecraft.block.HorizontalFacingBlock.FACING;
 import static net.nimbu.thaumaturgy.block.custom.DoorwayBlock.HALF;
 
 public class SpellPortalEntity extends ProjectileEntity {
+    RegistryKey<World> exitDimensionID;
     public SpellPortalEntity(EntityType<? extends ProjectileEntity> entityType, World world) {
         super(entityType, world);
+    }
+
+    public void setExitDimension(RegistryKey<World> exitDimension)
+    {
+        exitDimensionID = exitDimension;
     }
 
     private void createPortal(World world){
@@ -56,8 +64,10 @@ public class SpellPortalEntity extends ProjectileEntity {
                 direction = Direction.SOUTH;
             }
             world.setBlockState(bottomHalf, ModBlocks.DOORWAY.getDefaultState().with(FACING, direction));
+            if(world.getBlockEntity(bottomHalf) instanceof DoorwayBlockEntity portalData) {
+                portalData.TriggerInitialIDUpdate(world, bottomHalf, exitDimensionID);
+            }
             world.setBlockState(topHalf, ModBlocks.DOORWAY.getDefaultState().with(HALF, DoubleBlockHalf.UPPER).with(FACING, direction));
-
             //horizontal facing appears to be broken for projectile entities??
             //world.setBlockState(bottomHalf, ModBlocks.DOORWAY.getDefaultState().with(FACING, this.getHorizontalFacing().getOpposite()));
             //world.setBlockState(topHalf, ModBlocks.DOORWAY.getDefaultState().with(HALF, DoubleBlockHalf.UPPER).with(FACING, this.getHorizontalFacing().getOpposite()));//ctx.getHorizontalPlayerFacing().getOpposite()));
