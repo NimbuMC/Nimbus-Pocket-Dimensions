@@ -25,6 +25,8 @@ public class ModRecipeProvider extends FabricRecipeProvider {
 
     @Override
     public void generate(RecipeExporter recipeExporter) {
+
+        //========================================
         List<ItemConvertible> PITCH_BLACK_SMELTABLES = List.of(
                 Blocks.BLACK_CONCRETE);
 
@@ -33,6 +35,12 @@ public class ModRecipeProvider extends FabricRecipeProvider {
 
         //allows for the combining of 9 of the same item to craft another
         offerReversibleCompactingRecipes(recipeExporter, RecipeCategory.BUILDING_BLOCKS, Items.BLACK_DYE, RecipeCategory.DECORATIONS, ModBlocks.PITCH_BLACK_BLOCK);
+        //========================================
+
+
+
+
+
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.TOOLS, ModItems.WAND)
                 .pattern(" S")
@@ -40,6 +48,33 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .input('S', Items.STICK)
                 .input('P', ModItems.PIXIE_DUST)
                 .criterion(hasItem(Items.STICK), conditionsFromItem(Items.STICK)) //adds criteria to learn crafting recipe
+                .offerTo(recipeExporter);
+        ShapedRecipeJsonBuilder.create(RecipeCategory.TOOLS, ModItems.STAFF)
+                .pattern("  S")
+                .pattern(" S ")
+                .pattern("P  ")
+                .input('S', Items.STICK)
+                .input('P', ModItems.PIXIE_DUST)
+                .criterion(hasItem(Items.STICK), conditionsFromItem(Items.STICK)) //adds criteria to learn crafting recipe
+                .offerTo(recipeExporter);
+
+        ShapelessRecipeJsonBuilder.create(RecipeCategory.MISC, ModBlocks.PURPLE_MAGIC_MUSHROOM)
+                .input(Items.BROWN_MUSHROOM)
+                .input(ModItems.PIXIE_DUST)
+                .criterion(hasItem(ModItems.PIXIE_DUST), conditionsFromItem(ModItems.PIXIE_DUST))
+                .offerTo(recipeExporter);
+        ShapelessRecipeJsonBuilder.create(RecipeCategory.MISC, ModBlocks.MAGENTA_MAGIC_MUSHROOM)
+                .input(Items.RED_MUSHROOM)
+                .input(ModItems.PIXIE_DUST)
+                .criterion(hasItem(ModItems.PIXIE_DUST), conditionsFromItem(ModItems.PIXIE_DUST))
+                .offerTo(recipeExporter);
+
+        ShapelessRecipeJsonBuilder.create(RecipeCategory.FOOD, ModItems.MAGIC_MUSHROOM_STEW)
+                .input(Items.BOWL)
+                .input(ModBlocks.PURPLE_MAGIC_MUSHROOM)
+                .input(ModBlocks.MAGENTA_MAGIC_MUSHROOM)
+                .criterion(hasItem(ModBlocks.PURPLE_MAGIC_MUSHROOM), conditionsFromItem(ModBlocks.PURPLE_MAGIC_MUSHROOM))
+                .criterion(hasItem(ModBlocks.MAGENTA_MAGIC_MUSHROOM), conditionsFromItem(ModBlocks.MAGENTA_MAGIC_MUSHROOM))
                 .offerTo(recipeExporter);
 
 

@@ -9,10 +9,13 @@ import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.render.model.BakedModel;
 import net.minecraft.client.render.model.BakedQuad;
 import net.minecraft.client.render.model.json.ModelTransformationMode;
+import net.minecraft.client.util.ModelIdentifier;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.client.world.ClientWorld;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.registry.tag.ItemTags;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.random.Random;
 
@@ -33,9 +36,10 @@ public class RevisualisedItemRenderer {
         matrices.push();
 
         ItemRenderer itemRenderer = MinecraftClient.getInstance().getItemRenderer();
-        //model = itemRenderer.getModel(ModItems.STAFF.getDefaultStack(), null,null,0);
+        model = itemRenderer.getModel(ModItems.STAFF.getDefaultStack(), null,null,0);
 
-        boolean bl = renderMode == ModelTransformationMode.GUI || renderMode == ModelTransformationMode.GROUND || renderMode == ModelTransformationMode.FIXED;
+
+        //boolean bl = renderMode == ModelTransformationMode.GUI || renderMode == ModelTransformationMode.GROUND || renderMode == ModelTransformationMode.FIXED;
         boolean bl2 = true;
         model.getTransformation().getTransformation(renderMode).apply(leftHanded, matrices);
 

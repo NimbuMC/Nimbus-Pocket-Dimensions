@@ -4,11 +4,12 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
+import net.nimbu.thaumaturgy.Thaumaturgy;
 import net.nimbu.thaumaturgy.spell.Spell;
 
 public class EffectCleansingSpell extends Spell {
     public EffectCleansingSpell() {
-        super(Identifier.ofVanilla("textures/item/milk_bucket.png"));
+        super(Identifier.of(Thaumaturgy.MOD_ID,"textures/gui/spell_icons/milk_magic.png"));
     }
 
     @Override
