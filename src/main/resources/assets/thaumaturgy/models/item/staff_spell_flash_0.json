@@ -1,7 +1,7 @@
 {
     "parent": "item/generated",
     "textures": {
-        "layer0": "thaumaturgy:item/staff"
+        "layer0": "thaumaturgy:item/staff_flash_0"
     },
     "display": {
         "ground": {

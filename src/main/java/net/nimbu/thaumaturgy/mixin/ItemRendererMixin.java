@@ -84,17 +84,27 @@ public abstract class ItemRendererMixin {
             );}
 
         //---------------------------Spell flash rendering--------------------------
+        if (stack.isOf(ModItems.STAFF) && stack.get(ModDataComponentTypes.SPELL_FLASH_TIMER) != null) {
 
-        if (stack.isOf(ModItems.STAFF)){
-            BakedModel flashModel = getModels().getModelManager().getModel(ModelIdentifier.ofInventoryVariant(
-                    Identifier.of(Thaumaturgy.MOD_ID, "staff_spell_flash_0")));
+            int flashTimer = stack.get(ModDataComponentTypes.SPELL_FLASH_TIMER);
 
+            BakedModel flashModel;
+
+            if (flashTimer>6) {
+                flashModel = getModels().getModelManager().getModel(ModelIdentifier.ofInventoryVariant(
+                        Identifier.of(Thaumaturgy.MOD_ID, "staff_spell_flash_0")));
+            } else if (flashTimer>3) {
+                flashModel = getModels().getModelManager().getModel(ModelIdentifier.ofInventoryVariant(
+                        Identifier.of(Thaumaturgy.MOD_ID, "staff_spell_flash_1")));
+            } else{
+                flashModel=getModels().getModelManager().getModel(ModelIdentifier.ofInventoryVariant(
+                        Identifier.of(Thaumaturgy.MOD_ID, "staff_spell_flash_2")));
+            }
 
             SpellFlashRenderer.renderFlash(
-                    flashModel, stack, renderMode, leftHanded, matrices, vertexConsumers, light , overlay
-            );}
-
-
+                    flashModel, stack, renderMode, leftHanded, matrices, vertexConsumers, light, overlay
+            );
+        }
     }
 }
 
