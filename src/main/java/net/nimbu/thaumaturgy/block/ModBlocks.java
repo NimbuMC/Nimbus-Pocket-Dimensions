@@ -67,9 +67,6 @@ public class ModBlocks {
     public static final Block DOORWAY = registerBlock("dark_oak_doorway",
             new DoorwayBlock(AbstractBlock.Settings.create().nonOpaque()));
 
-    public static final Block POCKET_DIMENSION_PORTAL = registerBlock("pocket_dimension_portal",
-            new PocketDimensionPortal(AbstractBlock.Settings.copy(Blocks.END_GATEWAY)));
-
     public static final Block POCKET_DIMENSION_BORDER_CONTROLLER = registerBlock("pocket_dimension_border_controller",
             new PocketDimensionBorderControllerBlock(AbstractBlock.Settings.create()));
 

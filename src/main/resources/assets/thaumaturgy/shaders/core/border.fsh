@@ -81,34 +81,13 @@ void main() {
     float threshold = bayer4x4(texel);
     if (fade > threshold) discard;
 
+    vec4 tex = texture(Sampler0, vUv);
+    if(tex.a < 0.01) discard;
+    vec4 light = texture(Sampler2, vUv);
 
-    // Base texture
-    vec2 glitchUV = texel/scale;
-
-    float glitchStrength = 0.0625;
-
-    // Compute pseudo-random 2D glitch vector
-    vec2 glitch = vec2(
-    noise(pixelWorld + slowTime * 0.075),
-    noise(pixelWorld - slowTime * 0.0125)
-    );
-
-    // Compute glitch magnitude
-    float glitchMag = length(glitch);
-
-    // Only apply glitch if the magnitude is high enough
-    if(glitchMag > 0.99) glitchUV += glitchStrength * (glitch / glitchMag);
-
-
-    vec4 tex = texture(Sampler0, glitchUV);
-
-
-    vec4 light = texture(Sampler2, glitchUV);
     // Glow band near fade edge
     float glow = 1.0 - abs(fade - 0.5) * 2.0;
     glow = pow(clamp(glow, 0.0, 1.0), 2.0);
-    float alpha = clamp(tex.a + glow,0,1);
-    if(alpha < 0.01) discard;
 
     // Twinkle: occasionally push color toward white based on noise + time
     float twinkle = noise(pixelWorld * 45.67 + slowTime * 0.1);
@@ -117,5 +96,5 @@ void main() {
 
     // Combine texture, vertex color, light, emissive
     vec3 color = tex.rgb * vColor.rgb * light.rgb + emissive;
-    fragColor = vec4(color, alpha);
+    fragColor = vec4(color, tex.a);
 }
