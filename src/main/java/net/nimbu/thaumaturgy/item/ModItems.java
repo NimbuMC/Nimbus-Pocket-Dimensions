@@ -95,6 +95,10 @@ public class ModItems {
     public static final Item PIXIE_SPAWN_EGG = registerItem("pixie_spawn_egg",
             new SpawnEggItem(ModEntities.PIXIE, 0x00d5ff, 0xFFFFFF, new Item.Settings()));
 
+    //item models because i dont know how to register models alone lmao
+    //Registry()
+
+
 
     private static Item registerItem(String name, Item item){
         return Registry.register(Registries.ITEM, Identifier.of(Thaumaturgy.MOD_ID, name), item);

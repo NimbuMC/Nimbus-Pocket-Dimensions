@@ -123,11 +123,11 @@ public class ThaumaturgyClient implements ClientModInitializer {
 
 
 
-        ModelLoadingPlugin.register(pluginContext -> {
-            pluginContext.addModels(
-                    Identifier.of(Thaumaturgy.MOD_ID, "spell_glint/staff_glint")
-            );
-        });
+        //ModelLoadingPlugin.register(pluginContext -> {
+        //    pluginContext.addModels(
+        //            Identifier.of(Thaumaturgy.MOD_ID, "item/staff_spell_flash_0")
+        //    );
+        //});
 
 
     }

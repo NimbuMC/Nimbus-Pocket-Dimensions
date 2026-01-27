@@ -5,20 +5,25 @@ import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.RenderLayers;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.item.ItemModels;
 import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.render.model.BakedModel;
 import net.minecraft.client.render.model.BakedQuad;
 import net.minecraft.client.render.model.json.ModelTransformationMode;
+import net.minecraft.client.util.ModelIdentifier;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.random.Random;
+import net.nimbu.thaumaturgy.component.ModDataComponentTypes;
 
 import java.util.List;
 
 public class SpellFlashRenderer {
 
     public static void renderFlash(
+            BakedModel model,
             ItemStack stack,
             ModelTransformationMode renderMode,
             boolean leftHanded,
@@ -27,16 +32,18 @@ public class SpellFlashRenderer {
             int light,
             int overlay
     ) {
-
+        //THIS MAY BE BETTER TO DO BY GETTING A MODEL AND OVERLAPPING IT - MAY CAUSE Z FIGHTING HOWEVER. SEE "ItemRendererMixin" FOR CODE TO GET MODELS, PASS TO HERE
 
         matrices.push();
 
         ItemRenderer itemRenderer = MinecraftClient.getInstance().getItemRenderer();
-        BakedModel model = itemRenderer.getModel(ModItems.STAFF.getDefaultStack(), null,null,0);
+        //BakedModel model = itemRenderer.getModel(ModItems.STAFF.getDefaultStack(), null,null,0);
 
         model.getTransformation().getTransformation(renderMode).apply(leftHanded, matrices);
 
+        matrices.scale(1,1,1.01f);
         matrices.translate(-0.8F, -0.4F, -0.5F);
+
 
         RenderLayer renderLayer = RenderLayers.getItemLayer(stack, true);
         VertexConsumer vertexConsumer = vertexConsumers.getBuffer(renderLayer);
@@ -78,8 +85,7 @@ public class SpellFlashRenderer {
 
 
 
-            vertices.quad(entry, bakedQuad, r, g, b, a, l, overlay);
-            //vertices.quad(entry, bakedQuad, r, g, b, 1f, light, overlay, 1);
+            vertices.quad(entry, bakedQuad, r, g, b, a, 255, overlay);
         }
     }
 }
