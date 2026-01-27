@@ -41,8 +41,8 @@ public class SpellFlashRenderer {
 
         model.getTransformation().getTransformation(renderMode).apply(leftHanded, matrices);
 
-        matrices.scale(1,1,1.01f);
-        matrices.translate(-0.8F, -0.4F, -0.5F);
+        matrices.scale(1.01f,1.01f,1.01f);
+        matrices.translate(-0.503F, -0.503F, -0.5F);
 
 
         RenderLayer renderLayer = RenderLayers.getItemLayer(stack, true);
@@ -70,8 +70,8 @@ public class SpellFlashRenderer {
         MatrixStack.Entry entry = matrices.peek();
 
         for (BakedQuad bakedQuad : quads) {
-            float r = 1.0f;
-            float g = 1.0f;
+            float r = 0.8f;
+            float g = 0.0f;
             float b = 1.0f;
             float a = 1.0f;
             int l = light;

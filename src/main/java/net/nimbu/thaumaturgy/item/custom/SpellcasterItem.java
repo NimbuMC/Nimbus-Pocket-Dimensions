@@ -35,7 +35,7 @@ public class SpellcasterItem extends Item{
 
         if (stack.get(ModDataComponentTypes.SPELL_FLASH_TIMER)!=null){
             int spellFlashTimer=stack.get(ModDataComponentTypes.SPELL_FLASH_TIMER);
-            if (spellFlashTimer<=8) {stack.set(ModDataComponentTypes.SPELL_FLASH_TIMER, spellFlashTimer+1);}
+            if (spellFlashTimer>0) {stack.set(ModDataComponentTypes.SPELL_FLASH_TIMER, spellFlashTimer-1);}
             else {stack.set(ModDataComponentTypes.SPELL_FLASH_TIMER, null);}
         }
     }
@@ -45,7 +45,7 @@ public class SpellcasterItem extends Item{
         ItemStack stack = user.getStackInHand(hand);
 
         //====================================
-        user.getStackInHand(hand).set(ModDataComponentTypes.SPELL_FLASH_TIMER, 0);
+        user.getStackInHand(hand).set(ModDataComponentTypes.SPELL_FLASH_TIMER, 9);
         //====================================
 
         if (!world.isClient) {
