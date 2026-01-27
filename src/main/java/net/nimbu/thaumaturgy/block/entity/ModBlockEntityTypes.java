@@ -6,17 +6,16 @@ import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 import net.nimbu.thaumaturgy.Thaumaturgy;
 import net.nimbu.thaumaturgy.block.ModBlocks;
+import net.nimbu.thaumaturgy.block.entity.custom.DoorwayBlockEntity;
 import net.nimbu.thaumaturgy.block.entity.custom.PocketDimensionBorderControllerBlockEntity;
-import net.nimbu.thaumaturgy.block.entity.custom.PocketDimensionPortalBlockEntity;
 import net.nimbu.thaumaturgy.block.entity.custom.RevisualisingTableBlockEntity;
 
 public class ModBlockEntityTypes {
-
-    public static BlockEntityType<PocketDimensionPortalBlockEntity> POCKET_DIMENSION_PORTAL  =
-            Registry.register(Registries.BLOCK_ENTITY_TYPE, Identifier.of(Thaumaturgy.MOD_ID, "pocket_dimension_portal"),
+    public static BlockEntityType<DoorwayBlockEntity> DOORWAY_BLOCK_ENTITY =
+            Registry.register(Registries.BLOCK_ENTITY_TYPE, Identifier.of(Thaumaturgy.MOD_ID, "doorway_block"),
                     BlockEntityType.Builder.create(
-                            PocketDimensionPortalBlockEntity::new,
-                            ModBlocks.POCKET_DIMENSION_PORTAL
+                            DoorwayBlockEntity::new,
+                            ModBlocks.DOORWAY
                     ).build());
 
 
