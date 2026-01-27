@@ -3,6 +3,7 @@ package net.nimbu.thaumaturgy;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
+import net.fabricmc.fabric.api.client.model.loading.v1.ModelLoadingPlugin;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
@@ -16,6 +17,7 @@ import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
 import net.minecraft.client.render.entity.FlyingItemEntityRenderer;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
+import net.minecraft.util.Identifier;
 import net.nimbu.thaumaturgy.block.ModBlocks;
 import net.nimbu.thaumaturgy.block.entity.ModBlockEntityTypes;
 import net.nimbu.thaumaturgy.block.entity.renderer.RevisualisingTableBlockEntityRenderer;
@@ -118,6 +120,16 @@ public class ThaumaturgyClient implements ClientModInitializer {
                         argb);
             }
         });
+
+
+
+        ModelLoadingPlugin.register(pluginContext -> {
+            pluginContext.addModels(
+                    Identifier.of(Thaumaturgy.MOD_ID, "spell_glint/staff_glint")
+            );
+        });
+
+
     }
 
 }
