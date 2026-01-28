@@ -24,6 +24,13 @@ public abstract class Spell{
         return SPRITE;
     }
 
+    public int getPrimaryColour(){
+        return PRIMARY_COLOUR;
+    }
+    public int getSecondaryColour(){
+        return SECONDARY_COLOUR;
+    }
+
     public void castSpell(World world, PlayerEntity user, Hand hand){
         //calls functions that a particular spells needs
     }

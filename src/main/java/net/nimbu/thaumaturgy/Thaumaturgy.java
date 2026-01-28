@@ -48,6 +48,7 @@ public class Thaumaturgy implements ModInitializer {
 		);
 		ModItemGroups.registerItemGroups();
 		ModItems.registerModItems();
+		ModItems.registerGrimoires();
 		ModBlocks.registerModBlocks();
 		ModBlockEntityTypes.registerBlockEntities();
 		ModDataComponentTypes.registerDataComponentTypes();

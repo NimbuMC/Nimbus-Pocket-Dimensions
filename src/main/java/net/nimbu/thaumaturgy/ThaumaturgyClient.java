@@ -27,6 +27,7 @@ import net.nimbu.thaumaturgy.entity.ModEntities;
 import net.nimbu.thaumaturgy.entity.client.PixieEntityModel;
 import net.nimbu.thaumaturgy.entity.client.PixieEntityRenderer;
 import net.nimbu.thaumaturgy.entity.client.SpellEntityRenderer;
+import net.nimbu.thaumaturgy.item.ModItemColours;
 import net.nimbu.thaumaturgy.item.ModItems;
 import net.nimbu.thaumaturgy.network.PocketDimClientNetworking;
 import net.nimbu.thaumaturgy.particle.MagicParticle;
@@ -46,6 +47,8 @@ public class ThaumaturgyClient implements ClientModInitializer {
 
         PocketDimensionBorderRenderer.registerWorldRenderer();
         ModModelPredicates.registerModelPredicates();
+
+        ModItemColours.register();
 
 
         EntityModelLayerRegistry.registerModelLayer(PixieEntityModel.PIXIE, PixieEntityModel::getTexturedModelData);
