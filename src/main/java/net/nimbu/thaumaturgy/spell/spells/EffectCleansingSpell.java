@@ -10,8 +10,8 @@ import net.nimbu.thaumaturgy.spell.Spell;
 public class EffectCleansingSpell extends Spell {
     public EffectCleansingSpell() {
         super(Identifier.of(Thaumaturgy.MOD_ID,"textures/gui/spell_icons/milk_magic.png"),
-                0xdae7ff,
-                0xededed);
+                0xFFdae7ff,
+                0xFFb9b9b9);
     }
 
     @Override

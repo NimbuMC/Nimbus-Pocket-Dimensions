@@ -1,7 +1,8 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "thaumaturgy:item/grimoire_base",
-    "layer1": "thaumaturgy:item/grimoire_base"
+    "layer0": "thaumaturgy:item/grimoire_pages",
+    "layer1": "thaumaturgy:item/grimoire_cover",
+    "layer2": "thaumaturgy:item/grimoire_highlight"
   }
 }
