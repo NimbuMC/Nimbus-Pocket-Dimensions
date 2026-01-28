@@ -43,7 +43,7 @@ public class WandPortalItem extends Item {
                 0.7f,
                 0.4f / (world.getRandom().nextFloat() * 0.4f + 0.8f));
 
-        user.getStackInHand(hand).set(ModDataComponentTypes.SPELL_FLASH_TIMER, 10);;
+        user.getStackInHand(hand).set(ModDataComponentTypes.SPELL_FLASH_TIMER, 15);
 
         if(!world.isClient) {
             ServerWorld targetDimension = DimensionalInstancer.createInstance(world.getServer(), user.getUuid());

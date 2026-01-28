@@ -15,6 +15,8 @@ public class ModDataComponentTypes {
 
     public static final ComponentType<Integer> SPELL_FLASH_TIMER =
             register("spell_flash_timer", builder ->  builder.codec(Codec.INT));
+    public static final ComponentType<Integer> EQUIPPED_SPELL_COLOUR =
+            register("equipped_spell_colour", builder -> builder.codec(Codec.INT));
 
     public static final ComponentType<Boolean> REVISUALISED =
             register("revisualised", booleanBuilder -> booleanBuilder.codec(Codec.BOOL));
