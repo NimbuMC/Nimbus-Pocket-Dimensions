@@ -1,10 +1,7 @@
 package net.nimbu.thaumaturgy.item;
 
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.RenderLayers;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.*;
 import net.minecraft.client.render.item.ItemModels;
 import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.render.model.BakedModel;
@@ -47,6 +44,7 @@ public class SpellFlashRenderer {
 
         RenderLayer renderLayer = RenderLayers.getItemLayer(stack, true);
         VertexConsumer vertexConsumer = vertexConsumers.getBuffer(renderLayer);
+
         renderBakedItemModel(model, light, overlay, matrices, vertexConsumer);
 
 
