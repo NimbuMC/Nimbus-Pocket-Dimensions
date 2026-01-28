@@ -95,6 +95,15 @@ public class ModItems {
     public static final Item PIXIE_SPAWN_EGG = registerItem("pixie_spawn_egg",
             new SpawnEggItem(ModEntities.PIXIE, 0x00d5ff, 0xFFFFFF, new Item.Settings()));
 
+    //item models because i dont know how to register models alone lmao THIS NEEDS REMOVAL
+    public static final Item STAFF_SPELL_FLASH_0 = registerItem("staff_spell_flash_0",
+            new Item(new Item.Settings()));
+    public static final Item STAFF_SPELL_FLASH_1 = registerItem("staff_spell_flash_1",
+            new Item(new Item.Settings()));
+    public static final Item STAFF_SPELL_FLASH_2 = registerItem("staff_spell_flash_2",
+            new Item(new Item.Settings()));
+
+
 
     private static Item registerItem(String name, Item item){
         return Registry.register(Registries.ITEM, Identifier.of(Thaumaturgy.MOD_ID, name), item);

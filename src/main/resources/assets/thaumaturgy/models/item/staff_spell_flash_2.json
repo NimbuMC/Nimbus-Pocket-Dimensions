@@ -1,7 +1,7 @@
 {
     "parent": "item/generated",
     "textures": {
-        "layer0": "thaumaturgy:item/staff"
+        "layer0": "thaumaturgy:item/staff_flash_2"
     },
     "display": {
         "ground": {
@@ -40,25 +40,6 @@
             "scale": [ 1.36, 1.36, 0.68 ]
         }
     },
-    "overrides": [
-        {
-            "predicate": {
-                "thaumaturgy:spell_flash": 0.01
-            },
-            "model": "thaumaturgy:item/staff_with_flash_0"
-        },
-        {
-            "predicate": {
-                "thaumaturgy:spell_flash": 0.33
-            },
-            "model": "thaumaturgy:item/staff_with_flash_1"
-        },
-        {
-            "predicate": {
-                "thaumaturgy:spell_flash": 0.66
-            },
-            "model": "thaumaturgy:item/staff_with_flash_2"
-        }
-    ],
+    "overrides": [],
     "gui_light": "front"
 }

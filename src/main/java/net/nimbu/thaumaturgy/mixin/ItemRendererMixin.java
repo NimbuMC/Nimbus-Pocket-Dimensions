@@ -8,8 +8,11 @@ import net.minecraft.client.render.item.ItemModels;
 import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.render.model.BakedModel;
 import net.minecraft.client.render.model.json.ModelTransformationMode;
+import net.minecraft.client.util.ModelIdentifier;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.Identifier;
+import net.nimbu.thaumaturgy.Thaumaturgy;
 import net.nimbu.thaumaturgy.component.ModDataComponentTypes;
 import net.nimbu.thaumaturgy.item.ModItems;
 import net.nimbu.thaumaturgy.item.RevisualisedItemRenderer;
@@ -42,11 +45,11 @@ public abstract class ItemRendererMixin {
             argsOnly = true
     )
     public BakedModel renderItemMixin(BakedModel bakedModel, @Local(argsOnly = true) ItemStack stack, @Local(argsOnly = true) ModelTransformationMode renderMode) {
-        /*
+
         if (stack.get(ModDataComponentTypes.REPLACE_MODEL_NAMESPACE)!=null && stack.get(ModDataComponentTypes.REPLACE_MODEL_PATH)!=null){
             return getModels().getModelManager().getModel(ModelIdentifier.ofInventoryVariant(
                     Identifier.of(stack.get(ModDataComponentTypes.REPLACE_MODEL_NAMESPACE), stack.get(ModDataComponentTypes.REPLACE_MODEL_PATH))));
-        }*/
+        }
 
         return bakedModel;
     }
@@ -74,17 +77,34 @@ public abstract class ItemRendererMixin {
             BakedModel model,
             CallbackInfo ci
     ) {
-
+        //---------------------------Enchantment glints?-------------------------
         if (stack.getOrDefault(ModDataComponentTypes.REVISUALISED, false)){
             RevisualisedItemRenderer.renderItem(
                     stack, renderMode, leftHanded, matrices, vertexConsumers, light, overlay, model
             );}
 
-        if (stack.isOf(ModItems.STAFF)){
-            SpellFlashRenderer.renderFlash(
-                    stack, renderMode, leftHanded, matrices, vertexConsumers, light , overlay
-            );}
+        //---------------------------Spell flash rendering--------------------------
+        if (stack.isOf(ModItems.STAFF) && stack.get(ModDataComponentTypes.SPELL_FLASH_TIMER) != null) {
 
+            int flashTimer = stack.get(ModDataComponentTypes.SPELL_FLASH_TIMER);
+
+            BakedModel flashModel;
+
+            if (flashTimer>6) {
+                flashModel = getModels().getModelManager().getModel(ModelIdentifier.ofInventoryVariant(
+                        Identifier.of(Thaumaturgy.MOD_ID, "staff_spell_flash_0")));
+            } else if (flashTimer>3) {
+                flashModel = getModels().getModelManager().getModel(ModelIdentifier.ofInventoryVariant(
+                        Identifier.of(Thaumaturgy.MOD_ID, "staff_spell_flash_1")));
+            } else{
+                flashModel=getModels().getModelManager().getModel(ModelIdentifier.ofInventoryVariant(
+                        Identifier.of(Thaumaturgy.MOD_ID, "staff_spell_flash_2")));
+            }
+
+            SpellFlashRenderer.renderFlash(
+                    flashModel, stack, renderMode, leftHanded, matrices, vertexConsumers, light, overlay
+            );
+        }
     }
 }
 
