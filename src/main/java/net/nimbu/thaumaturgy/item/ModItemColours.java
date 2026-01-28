@@ -9,13 +9,12 @@ public class ModItemColours {
         ColorProviderRegistry.ITEM.register(
                 (stack, tintIndex) -> {
                     Item item = stack.getItem();
-                    //if (item instanceof GrimoireItem grimoireItem) {
-                    //    return grimoireItem.getColor(tintIndex);
-                    //}
-                    return 0xFFFFFF; //returns white by default
+                    if (item instanceof GrimoireItem grimoireItem) {
+                        return 0xFF000000 | grimoireItem.getColor(tintIndex);
+                    }
+                    return 0xFFFFFFFF;
                 },
-                ModItems.POCKET_DIMENSION_GRIMOIRE,
-                ModItems.EFFECT_CLEANSING_GRIMOIRE
+                ModItems.GRIMOIRES.toArray(new Item[0])
         );
     }
 }
