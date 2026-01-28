@@ -13,7 +13,7 @@ public abstract class Spell{
     private final Identifier SPRITE;
 
     public Spell(Identifier spriteIdentifier){
-        this.SPRITE=spriteIdentifier;
+        this.SPRITE = spriteIdentifier;
     }
 
     public Identifier getSpriteIdentifier(){

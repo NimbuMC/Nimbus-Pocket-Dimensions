@@ -32,6 +32,7 @@ dependencies {
 	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
+	modImplementation "net.fabricmc.fabric-api:fabric-key-binding-api-v1:${project.fabric_api_version}"
 
 	modApi("com.github.iPortalTeam:DimLib:v1.1.0-mc1.21.1") {
 		exclude(group: "net.fabricmc.fabric-api")

@@ -29,9 +29,9 @@ public class SpellScreenHandler extends ScreenHandler {
 
     public SpellScreenHandler(int syncId, PlayerInventory playerInventory) {
         super(ModScreenHanders.SPELL_SCREEN_HANDLER, syncId);
-        USER= playerInventory.player;
-        WORLD=USER.getWorld();
-        HAND=Hand.MAIN_HAND;
+        USER = playerInventory.player;
+        WORLD = USER.getWorld();
+        HAND = Hand.MAIN_HAND;
 
         EQUIPPED_SPELLS.add(Spells.POCKET_DIMENSION);
         EQUIPPED_SPELLS.add(Spells.EFFECT_CLEANSING);
@@ -58,7 +58,6 @@ public class SpellScreenHandler extends ScreenHandler {
     @Override
     public boolean onButtonClick(PlayerEntity player, int id) {
         EQUIPPED_SPELLS.get(id).castSpell(WORLD, USER, HAND);
-
         System.out.println("button clicked");
 
         return super.onButtonClick(player, id);
