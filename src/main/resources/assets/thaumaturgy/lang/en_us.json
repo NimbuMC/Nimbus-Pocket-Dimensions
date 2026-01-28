@@ -42,5 +42,8 @@
 
 
   "tooltip.modid.revisualised_item": "%s %s %s",
-  "tooltip.thaumaturgy.arrow":  "→"
+  "tooltip.thaumaturgy.arrow":  "→",
+
+  "key.thaumaturgy.open_spell_wheel": "Open Spell Wheel",
+  "category.thaumaturgy.controls": "Thaumaturgy Keybinds"
 }

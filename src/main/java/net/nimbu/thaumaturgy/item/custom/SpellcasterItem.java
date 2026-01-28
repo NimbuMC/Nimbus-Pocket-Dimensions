@@ -18,17 +18,18 @@ import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Position;
 import net.minecraft.world.World;
+import net.nimbu.thaumaturgy.ThaumaturgyClient;
 import net.nimbu.thaumaturgy.block.entity.custom.RevisualisingTableBlockEntity;
 import net.nimbu.thaumaturgy.component.ModDataComponentTypes;
+import net.nimbu.thaumaturgy.item.ModItems;
 import net.nimbu.thaumaturgy.item.SpellUnlockHandler;
 import net.nimbu.thaumaturgy.screen.custom.SpellScreenHandler;
 
 public class SpellcasterItem extends Item{
-
     public SpellcasterItem(Item.Settings settings) {
         super(settings);
     }
-
+    private boolean wheelCurrentlyActive = false;
     @Override
     public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
         super.inventoryTick(stack, world, entity, slot, selected);
@@ -38,6 +39,26 @@ public class SpellcasterItem extends Item{
             if (spellFlashTimer>0) {stack.set(ModDataComponentTypes.SPELL_FLASH_TIMER, spellFlashTimer-1);}
             else {stack.set(ModDataComponentTypes.SPELL_FLASH_TIMER, null);}
         }
+
+
+        if (ThaumaturgyClient.openSpellWheel.isPressed()) {
+            if (!wheelCurrentlyActive) {
+                if (!world.isClient) {
+                    if (entity instanceof PlayerEntity user) {
+                        if(user.getInventory().getMainHandStack().getItem() == ModItems.STAFF
+                        || user.getInventory().offHand.get(0).getItem() == ModItems.STAFF) {
+                            wheelCurrentlyActive = true;
+                            user.openHandledScreen(
+                                    new SimpleNamedScreenHandlerFactory(
+                                            (syncId, inv, p) -> new SpellScreenHandler(syncId, inv),
+                                            Text.literal("Spells")
+                                    )
+                            );
+                        }
+                    }
+                }
+            }
+        } else wheelCurrentlyActive = false;
     }
 
     @Override
@@ -49,12 +70,12 @@ public class SpellcasterItem extends Item{
         //====================================
 
         if (!world.isClient) {
-                user.openHandledScreen(
-                        new SimpleNamedScreenHandlerFactory(
-                                (syncId, inv, p) -> new SpellScreenHandler(syncId, inv),
-                                Text.literal("Spells")
-                        )
-                );
+            user.openHandledScreen(
+                    new SimpleNamedScreenHandlerFactory(
+                            (syncId, inv, p) -> new SpellScreenHandler(syncId, inv),
+                            Text.literal("Spells")
+                    )
+            );
         }
         return TypedActionResult.pass(stack);
     }

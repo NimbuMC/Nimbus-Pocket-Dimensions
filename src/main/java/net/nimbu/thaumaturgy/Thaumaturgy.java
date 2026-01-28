@@ -7,6 +7,7 @@ import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.minecraft.block.Blocks;
+import net.minecraft.client.option.KeyBinding;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
@@ -35,7 +36,6 @@ public class Thaumaturgy implements ModInitializer {
 
 	public static final String MOD_ID = "thaumaturgy";
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
-
 	@Override
 	public void onInitialize() {
 		PayloadTypeRegistry.playS2C().register(
