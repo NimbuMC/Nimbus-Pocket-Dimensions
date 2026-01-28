@@ -14,7 +14,9 @@ import net.nimbu.thaumaturgy.spell.Spell;
 
 public class PocketDimensionSpell extends Spell {
     public PocketDimensionSpell() {
-        super(Identifier.of(Thaumaturgy.MOD_ID, "textures/gui/spell_icons/door_magic.png"));
+        super(Identifier.of(Thaumaturgy.MOD_ID, "textures/gui/spell_icons/door_magic.png"),
+                0x1667ff,
+                0x4c1386);
     }
 
     @Override
