@@ -10,6 +10,7 @@ public class ModSoundEvents {
 
     public static final SoundEvent MAGIC_CHARGE = registerSoundEvent("magic_charge");
     public static final SoundEvent MAGIC_CHIME = registerSoundEvent("magic_chime");
+    public static final SoundEvent LOBOTOMY = registerSoundEvent("lobotomy");
 
     /*
     BLOCK SOUND GROUP TEMPLATE:

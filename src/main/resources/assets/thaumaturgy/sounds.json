@@ -10,5 +10,11 @@
     "sounds": [
       "thaumaturgy:magic_chime"
     ]
+  },
+  "lobotomy": {
+    "subtitle": "sounds.thaumaturgy.lobotomy",
+    "sounds": [
+      "thaumaturgy:lobotomy"
+    ]
   }
 }
