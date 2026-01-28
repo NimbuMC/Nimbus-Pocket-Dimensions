@@ -11,9 +11,13 @@ import net.nimbu.thaumaturgy.entity.custom.SpellPortalEntity;
 
 public abstract class Spell{
     private final Identifier SPRITE;
+    private final int PRIMARY_COLOUR;
+    private final int SECONDARY_COLOUR;
 
-    public Spell(Identifier spriteIdentifier){
+    public Spell(Identifier spriteIdentifier, int primaryColour, int secondaryColour){
         this.SPRITE=spriteIdentifier;
+        this.PRIMARY_COLOUR=primaryColour;
+        this.SECONDARY_COLOUR=secondaryColour;
     }
 
     public Identifier getSpriteIdentifier(){
