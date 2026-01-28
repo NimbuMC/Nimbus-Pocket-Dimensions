@@ -5,6 +5,7 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
 import net.minecraft.data.client.*;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.util.Identifier;
+import net.nimbu.thaumaturgy.Thaumaturgy;
 import net.nimbu.thaumaturgy.block.ModBlocks;
 import net.nimbu.thaumaturgy.block.custom.Wellspring;
 import net.nimbu.thaumaturgy.item.ModItems;
@@ -65,5 +66,14 @@ public class ModModelProvider extends FabricModelProvider {
         // Spawn eggs:
         itemModelGenerator.register(ModItems.PIXIE_SPAWN_EGG,
                 new Model(Optional.of(Identifier.of("item/template_spawn_egg")), Optional.empty()));
+
+        Model sharedModel = new Model(
+                Optional.of(Identifier.of(Thaumaturgy.MOD_ID, "item/grimoire")),
+                Optional.empty()
+        );
+
+        ModItems.GRIMOIRES.forEach(item -> {
+            itemModelGenerator.register(item, sharedModel);
+        });
     }
 }

@@ -10,10 +10,14 @@ import net.nimbu.thaumaturgy.Thaumaturgy;
 import net.nimbu.thaumaturgy.item.custom.*;
 import net.nimbu.thaumaturgy.entity.ModEntities;
 import net.nimbu.thaumaturgy.item.custom.*;
+import net.nimbu.thaumaturgy.spell.Spells;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ModItems {
 
-    //tools:
+    //-------------------------Tools--------------------------:
 
     public static final Item WAND = registerItem("wand", new WandItem(new Item.Settings()
             .maxCount(1)
@@ -72,15 +76,10 @@ public class ModItems {
             new ArmorItem(ModArmourMaterials.INVISIBLE_ARMOR, ArmorItem.Type.HELMET, new Item.Settings()
                     .maxDamage(ArmorItem.Type.HELMET.getMaxDamage(15))));*/
 
-    public static final Item TOME_OF_EXPANSION = registerItem("tome_of_expansion",
-            new TomeItem(new Item.Settings()
-                    .maxCount(1),0));
-    public static final Item TOME_OF_SKIES = registerItem("tome_of_skies",
-            new TomeItem(new Item.Settings()
-                    .maxCount(1),1));
 
 
-    //resources:
+
+    //-------------------------Resources--------------------------
 
     public static final Item PIXIE_DUST = registerItem("pixie_dust",
             new Item(new Item.Settings()));
@@ -91,10 +90,11 @@ public class ModItems {
                     .food(ModFoodComponents.MAGIC_MUSHROOM_STEW)));
 
 
-    //spawn eggs:
+    //-------------------------Spawn Egss--------------------------
     public static final Item PIXIE_SPAWN_EGG = registerItem("pixie_spawn_egg",
             new SpawnEggItem(ModEntities.PIXIE, 0x00d5ff, 0xFFFFFF, new Item.Settings()));
 
+    //=================================================================================================
     //item models because i dont know how to register models alone lmao THIS NEEDS REMOVAL
     public static final Item STAFF_SPELL_FLASH_0 = registerItem("staff_spell_flash_0",
             new Item(new Item.Settings()));
@@ -102,6 +102,44 @@ public class ModItems {
             new Item(new Item.Settings()));
     public static final Item STAFF_SPELL_FLASH_2 = registerItem("staff_spell_flash_2",
             new Item(new Item.Settings()));
+    //=================================================================================================
+
+
+
+    //-------------------------Grimoires--------------------------
+    public static final List<Item> GRIMOIRES = new ArrayList<>();
+
+    public static final Item POCKET_DIMENSION_GRIMOIRE = registerItem("pocket_dimension_grimoire",
+            new GrimoireItem(Spells.POCKET_DIMENSION, new Item.Settings().maxCount(1)));
+
+    public static final Item EFFECT_CLEANSING_GRIMOIRE = registerItem("effect_cleansing_grimoire",
+            new GrimoireItem(Spells.EFFECT_CLEANSING, new Item.Settings().maxCount(1)));
+
+    public static void registerGrimoires(){
+        GRIMOIRES.add(POCKET_DIMENSION_GRIMOIRE);
+        GRIMOIRES.add(EFFECT_CLEANSING_GRIMOIRE);
+    }
+
+    //==========================
+    //test items
+    public static final Item TOME_OF_EXPANSION = registerItem("tome_of_expansion",
+            new TomeItem(new Item.Settings()
+                    .maxCount(1),0));
+    public static final Item TOME_OF_SKIES = registerItem("tome_of_skies",
+            new TomeItem(new Item.Settings()
+                    .maxCount(1),1));
+    //===========================
+
+
+
+
+
+
+
+
+
+
+
 
 
 

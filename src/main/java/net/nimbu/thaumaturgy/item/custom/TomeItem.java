@@ -9,6 +9,12 @@ import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
 import net.nimbu.thaumaturgy.item.SpellUnlockHandler;
 
+
+
+
+//--------------THIS IS A TEST FILE. MUST BE DELETED----------------------
+
+
 public class TomeItem extends Item {
     public TomeItem(Settings settings, int spellIndex) {
         super(settings);

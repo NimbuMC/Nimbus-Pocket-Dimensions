@@ -36,7 +36,7 @@ public class RevisualisedItemRenderer {
         matrices.push();
 
         ItemRenderer itemRenderer = MinecraftClient.getInstance().getItemRenderer();
-        model = itemRenderer.getModel(ModItems.STAFF.getDefaultStack(), null,null,0);
+        //model = itemRenderer.getModel(ModItems.STAFF.getDefaultStack(), null,null,0);
 
 
         //boolean bl = renderMode == ModelTransformationMode.GUI || renderMode == ModelTransformationMode.GROUND || renderMode == ModelTransformationMode.FIXED;
@@ -46,7 +46,7 @@ public class RevisualisedItemRenderer {
         //float scale = 1.1f;
         //matrices.scale(scale, scale, scale);
 
-        matrices.translate(-0.5F, -0.5F, -0.5F);
+        matrices.translate(-0.5F, -0.1F, -0.5F);
 
 
 
@@ -82,13 +82,10 @@ public class RevisualisedItemRenderer {
         MatrixStack.Entry entry = matrices.peek();
 
         for (BakedQuad bakedQuad : quads) {
-            //int i = Colors.RED;
-
-            float f = 0.5f;//ColorHelper.Argb.getAlpha(i) / 255.0F;
-            float g = 1.0f;////0.2f;//ColorHelper.Argb.getRed(i) / 255.0F;
-            float h = 0.0f;//0.0f;//ColorHelper.Argb.getGreen(i) / 255.0F;
-            float j = 1.0f;//1.0f;//ColorHelper.Argb.getBlue(i) / 255.0F;
-
+            float f = 1.0f;
+            float g = 1.0f;
+            float h = 0.0f;
+            float j = 1.0f;
             vertices.quad(entry, bakedQuad, g, h, j, f, light, overlay);
         }
     }
