@@ -44,6 +44,7 @@ public class SpellScreen extends HandledScreen<SpellScreenHandler> {
         EQUIPPED_SPELLS.add(Spells.POCKET_DIMENSION);
         EQUIPPED_SPELLS.add(Spells.EFFECT_CLEANSING);
         EQUIPPED_SPELLS.add(Spells.UNBAKING_BREAD);
+        EQUIPPED_SPELLS.add(Spells.SOARING);
     }
 
     protected void drawSpellSprites(DrawContext context, float delta, int mouseX, int mouseY) {
@@ -152,10 +153,12 @@ public class SpellScreen extends HandledScreen<SpellScreenHandler> {
 
     private int getButtonXPos(int buttonNo) {
         switch (buttonNo) {
-            case 0:
+            case 0: case 4:
                 return this.x + 80;
-            case 1:
+            case 1: case 3:
                 return this.x + 120;
+            case 2:
+                return this.x + 137;
             default:
                 return 0;
         }
@@ -165,8 +168,12 @@ public class SpellScreen extends HandledScreen<SpellScreenHandler> {
         switch (buttonNo) {
             case 0:
                 return this.y + 18;
-            case 1:
+            case 1: case 7:
                 return this.y + 35;
+            case 2:
+                return this.y + 75;
+            case 3:
+                return this.y + 115;
             default:
                 return 0;
         }

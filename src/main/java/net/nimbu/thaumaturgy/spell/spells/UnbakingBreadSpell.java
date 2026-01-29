@@ -7,11 +7,12 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 import net.nimbu.thaumaturgy.Thaumaturgy;
+import net.nimbu.thaumaturgy.component.ModDataComponentTypes;
 import net.nimbu.thaumaturgy.spell.Spell;
 
 public class UnbakingBreadSpell extends Spell {
     public UnbakingBreadSpell() {
-        super(Identifier.of(Thaumaturgy.MOD_ID, "textures/gui/spell_icons/door_magic.png"),
+        super(Identifier.ofVanilla("textures/item/bread.png"),
                 0x897057,
                 0xFF514131);
     }
@@ -28,7 +29,13 @@ public class UnbakingBreadSpell extends Spell {
             }
 
             if (user.getStackInHand(targetHand).isOf(Items.BREAD)){
-                user.setStackInHand(targetHand, new ItemStack(Items.WHEAT, 3));
+                user.getStackInHand(targetHand).decrement(1);
+
+                ItemStack wheat = new ItemStack(Items.WHEAT, 3);
+
+                user.getInventory().offerOrDrop(wheat);
+
+                user.getStackInHand(hand).set(ModDataComponentTypes.SPELL_FLASH_TIMER, 8);
             }
         }
     }
