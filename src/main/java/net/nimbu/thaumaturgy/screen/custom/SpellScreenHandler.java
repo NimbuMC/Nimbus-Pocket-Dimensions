@@ -5,21 +5,19 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.ScreenHandler;
-import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
-import net.nimbu.thaumaturgy.item.SpellUnlockHandler;
+import net.nimbu.thaumaturgy.item.SpellEquipHandler;
 import net.nimbu.thaumaturgy.screen.ModScreenHanders;
 import net.nimbu.thaumaturgy.spell.Spell;
 import net.nimbu.thaumaturgy.spell.Spells;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class SpellScreenHandler extends ScreenHandler {
 
-    private SpellUnlockHandler spellUnlockData;
+    private SpellEquipHandler spellUnlockData;
     private final List<Spell> EQUIPPED_SPELLS = new ArrayList<>();
 
     private final PlayerEntity USER;
@@ -35,12 +33,13 @@ public class SpellScreenHandler extends ScreenHandler {
 
         EQUIPPED_SPELLS.add(Spells.POCKET_DIMENSION);
         EQUIPPED_SPELLS.add(Spells.EFFECT_CLEANSING);
+        EQUIPPED_SPELLS.add(Spells.UNBAKING_BREAD);
     }
 
 
     private int equipSpell(){
         PlayerEntity player = MinecraftClient.getInstance().player;
-        spellUnlockData = (SpellUnlockHandler) player;
+        spellUnlockData = (SpellEquipHandler) player;
         //boolean unlocked = data.getSpellUnlockFlags(spellIndex);
         return 0;
     }

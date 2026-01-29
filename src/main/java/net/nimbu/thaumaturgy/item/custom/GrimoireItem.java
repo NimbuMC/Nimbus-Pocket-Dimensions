@@ -1,15 +1,12 @@
 package net.nimbu.thaumaturgy.item.custom;
 
-import com.google.common.collect.Iterables;
-import com.google.common.collect.Maps;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.mob.MobEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
-import net.minecraft.item.SpawnEggItem;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.Hand;
+import net.minecraft.util.TypedActionResult;
+import net.minecraft.world.World;
 import net.nimbu.thaumaturgy.spell.Spell;
-import net.nimbu.thaumaturgy.spell.Spells;
-
-import java.util.Map;
 
 public class GrimoireItem extends Item {
     //private static final Map<Spell, GrimoireItem> GRIMOIRES = Maps.<Spell, GrimoireItem>newIdentityHashMap();
@@ -22,6 +19,25 @@ public class GrimoireItem extends Item {
         this.primaryColor=spell.getPrimaryColour();
         this.secondaryColor=spell.getSecondaryColour();
         this.spell=spell;
+    }
+
+    @Override
+    public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
+        ItemStack itemStack = user.getStackInHand(hand);
+/*
+        if (!world.isClient) {
+            int spellIndex=0;
+
+            SpellEquipHandler data = (SpellEquipHandler) user;
+            boolean equipped = data.getSpellEquipFlags(spellIndex);
+
+            if(!equipped){
+                data.setSpellEquipFlags(spellIndex,true);
+                itemStack.decrement(1);
+                return TypedActionResult.consume(itemStack);
+            }
+        }*/
+        return TypedActionResult.success(itemStack);
     }
 
     public int getColor(int tintIndex) {

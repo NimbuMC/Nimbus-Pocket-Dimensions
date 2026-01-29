@@ -60,25 +60,6 @@ public class ModItems {
                     .maxCount(1)
                     .maxDamage(131)));
 
-    public static final Item INVISIBLE_HELMET = registerItem("invisible_helmet",
-            new ModArmorItem(ModArmorMaterials.INVISIBLE_ARMOR, ArmorItem.Type.HELMET, new Item.Settings()
-                    .maxDamage(ArmorItem.Type.HELMET.getMaxDamage(15))));
-    public static final Item INVISIBLE_CHESTPLATE = registerItem("invisible_chestplate",
-            new ModArmorItem(ModArmorMaterials.INVISIBLE_ARMOR, ArmorItem.Type.CHESTPLATE, new Item.Settings()
-                    .maxDamage(ArmorItem.Type.CHESTPLATE.getMaxDamage(15))));
-    public static final Item INVISIBLE_LEGGINGS = registerItem("invisible_leggings",
-            new ModArmorItem(ModArmorMaterials.INVISIBLE_ARMOR, ArmorItem.Type.LEGGINGS, new Item.Settings()
-                    .maxDamage(ArmorItem.Type.LEGGINGS.getMaxDamage(15))));
-    public static final Item INVISIBLE_BOOTS = registerItem("invisible_boots",
-            new ModArmorItem(ModArmorMaterials.INVISIBLE_ARMOR, ArmorItem.Type.BOOTS, new Item.Settings()
-                    .maxDamage(ArmorItem.Type.BOOTS.getMaxDamage(15))));
-    /*public static final Item INVISIBLE_BODY = registerItem("invisible_helmet",
-            new ArmorItem(ModArmourMaterials.INVISIBLE_ARMOR, ArmorItem.Type.HELMET, new Item.Settings()
-                    .maxDamage(ArmorItem.Type.HELMET.getMaxDamage(15))));*/
-
-
-
-
     //-------------------------Resources--------------------------
 
     public static final Item PIXIE_DUST = registerItem("pixie_dust",
@@ -109,26 +90,30 @@ public class ModItems {
     //-------------------------Grimoires--------------------------
     public static final List<Item> GRIMOIRES = new ArrayList<>();
 
-    public static final Item POCKET_DIMENSION_GRIMOIRE = registerItem("pocket_dimension_grimoire",
-            new GrimoireItem(Spells.POCKET_DIMENSION, new Item.Settings().maxCount(1)));
 
-    public static final Item EFFECT_CLEANSING_GRIMOIRE = registerItem("effect_cleansing_grimoire",
-            new GrimoireItem(Spells.EFFECT_CLEANSING, new Item.Settings().maxCount(1)));
+    //Priority Grimoires
+    public static final Item POCKET_DIMENSION_GRIMOIRE = registerItem("grimoire_of_dimensional_expansion",
+            new GrimoireItem(Spells.POCKET_DIMENSION, new Item.Settings().maxCount(1).rarity(Rarity.EPIC)));
+
+    public static final Item GRIMOIRE_OF_SOARING = registerItem("grimoire_of_soaring",
+            new GrimoireItem(Spells.SOARING, new Item.Settings().maxCount(1).rarity(Rarity.EPIC)));
+
+
+    //Uncommon/Slightly Useful Grimoires
+    public static final Item EFFECT_CLEANSING_GRIMOIRE = registerItem("grimoire_of_effect_cleansing",
+            new GrimoireItem(Spells.EFFECT_CLEANSING, new Item.Settings().maxCount(1).rarity(Rarity.RARE)));
+
+
+    //Common/Joke Grimoires
+    public static final Item GRIMOIRE_OF_UNBAKING_BREAD = registerItem("grimoire_of_unbaking_bread",
+            new GrimoireItem(Spells.UNBAKING_BREAD, new Item.Settings().maxCount(1).rarity(Rarity.UNCOMMON)));
 
     public static void registerGrimoires(){
         GRIMOIRES.add(POCKET_DIMENSION_GRIMOIRE);
+        GRIMOIRES.add(GRIMOIRE_OF_SOARING);
         GRIMOIRES.add(EFFECT_CLEANSING_GRIMOIRE);
+        GRIMOIRES.add(GRIMOIRE_OF_UNBAKING_BREAD);
     }
-
-    //==========================
-    //test items
-    public static final Item TOME_OF_EXPANSION = registerItem("tome_of_expansion",
-            new TomeItem(new Item.Settings()
-                    .maxCount(1),0));
-    public static final Item TOME_OF_SKIES = registerItem("tome_of_skies",
-            new TomeItem(new Item.Settings()
-                    .maxCount(1),1));
-    //===========================
 
 
 

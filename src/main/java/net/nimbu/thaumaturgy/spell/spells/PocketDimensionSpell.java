@@ -19,6 +19,8 @@ public class PocketDimensionSpell extends Spell {
                 0xFF9500c7);
     }
 
+    //THINKING OF RENAMING TO "Dimensional Expansion" - the pocketDimensionExpansionSpell will inherently need renaming
+
     @Override
     public void castSpell(World world, PlayerEntity user, Hand hand) {
         if(!world.getRegistryKey().getValue().toString().contains("pocket_dimension")) createProjectile(world, user);
