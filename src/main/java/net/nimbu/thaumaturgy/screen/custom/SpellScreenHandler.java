@@ -35,6 +35,7 @@ public class SpellScreenHandler extends ScreenHandler {
         EQUIPPED_SPELLS.add(Spells.EFFECT_CLEANSING);
         EQUIPPED_SPELLS.add(Spells.UNBAKING_BREAD);
         EQUIPPED_SPELLS.add(Spells.SOARING);
+        EQUIPPED_SPELLS.add(Spells.AMBIENCE_PIGSTEP);
     }
 
 

@@ -105,6 +105,8 @@ public class ModItems {
 
 
     //Common/Joke Grimoires
+    public static final Item GRIMOIRE_OF_AMBIENCE_PIGSTEP= registerItem("grimoire_of_ambience_pigstep",
+            new GrimoireItem(Spells.AMBIENCE_PIGSTEP, new Item.Settings().maxCount(1).rarity(Rarity.UNCOMMON)));
     public static final Item GRIMOIRE_OF_UNBAKING_BREAD = registerItem("grimoire_of_unbaking_bread",
             new GrimoireItem(Spells.UNBAKING_BREAD, new Item.Settings().maxCount(1).rarity(Rarity.UNCOMMON)));
 
@@ -112,6 +114,7 @@ public class ModItems {
         GRIMOIRES.add(POCKET_DIMENSION_GRIMOIRE);
         GRIMOIRES.add(GRIMOIRE_OF_SOARING);
         GRIMOIRES.add(EFFECT_CLEANSING_GRIMOIRE);
+        GRIMOIRES.add(GRIMOIRE_OF_AMBIENCE_PIGSTEP);
         GRIMOIRES.add(GRIMOIRE_OF_UNBAKING_BREAD);
     }
 

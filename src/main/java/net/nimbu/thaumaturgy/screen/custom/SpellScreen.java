@@ -45,6 +45,7 @@ public class SpellScreen extends HandledScreen<SpellScreenHandler> {
         EQUIPPED_SPELLS.add(Spells.EFFECT_CLEANSING);
         EQUIPPED_SPELLS.add(Spells.UNBAKING_BREAD);
         EQUIPPED_SPELLS.add(Spells.SOARING);
+        EQUIPPED_SPELLS.add(Spells.AMBIENCE_PIGSTEP);
     }
 
     protected void drawSpellSprites(DrawContext context, float delta, int mouseX, int mouseY) {
@@ -174,6 +175,8 @@ public class SpellScreen extends HandledScreen<SpellScreenHandler> {
                 return this.y + 75;
             case 3:
                 return this.y + 115;
+            case 4:
+                return this.y + 132;
             default:
                 return 0;
         }
