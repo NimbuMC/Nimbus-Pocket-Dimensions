@@ -1,25 +1,17 @@
 package net.nimbu.thaumaturgy.screen.custom;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.Mouse;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.render.GameRenderer;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.screen.slot.Slot;
-import net.minecraft.screen.slot.SlotActionType;
 import net.minecraft.text.Text;
-import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec2f;
-import net.minecraft.world.World;
 import net.nimbu.thaumaturgy.Thaumaturgy;
 import net.nimbu.thaumaturgy.ThaumaturgyClient;
 import net.nimbu.thaumaturgy.spell.Spell;
 import net.nimbu.thaumaturgy.spell.Spells;
-import org.lwjgl.glfw.GLFW;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,6 +43,7 @@ public class SpellScreen extends HandledScreen<SpellScreenHandler> {
 
         EQUIPPED_SPELLS.add(Spells.POCKET_DIMENSION);
         EQUIPPED_SPELLS.add(Spells.EFFECT_CLEANSING);
+        EQUIPPED_SPELLS.add(Spells.UNBAKING_BREAD);
     }
 
     protected void drawSpellSprites(DrawContext context, float delta, int mouseX, int mouseY) {
@@ -150,17 +143,6 @@ public class SpellScreen extends HandledScreen<SpellScreenHandler> {
         //    }
         //    spellNo++;
         //}
-
-        /*
-        enchanting table button control
-        for (int k = 0; k < 3; k++) {
-            double d = mouseX - (i + 60);
-            double e = mouseY - (j + 14 + 19 * k);
-            if (d >= 0.0 && e >= 0.0 && d < 108.0 && e < 19.0 && this.handler.onButtonClick(this.client.player, k)) {
-                this.client.interactionManager.clickButton(this.handler.syncId, k);
-                return true;
-            }
-        }*/
 
 
         this.close();

@@ -45,5 +45,9 @@
   "tooltip.thaumaturgy.arrow":  "→",
 
   "key.thaumaturgy.open_spell_wheel": "Open Spell Wheel",
-  "category.thaumaturgy.controls": "Thaumaturgy Keybinds"
+  "category.thaumaturgy.controls": "Thaumaturgy Keybinds",
+
+
+
+  "item.thaumaturgy.grimoire_of_soaring": "Grimoire of Soaring"
 }

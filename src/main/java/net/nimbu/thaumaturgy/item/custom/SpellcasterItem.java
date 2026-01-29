@@ -22,7 +22,6 @@ import net.nimbu.thaumaturgy.ThaumaturgyClient;
 import net.nimbu.thaumaturgy.block.entity.custom.RevisualisingTableBlockEntity;
 import net.nimbu.thaumaturgy.component.ModDataComponentTypes;
 import net.nimbu.thaumaturgy.item.ModItems;
-import net.nimbu.thaumaturgy.item.SpellUnlockHandler;
 import net.nimbu.thaumaturgy.screen.custom.SpellScreenHandler;
 
 public class SpellcasterItem extends Item{

@@ -1,6 +1,7 @@
 package net.nimbu.thaumaturgy.item;
 
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
+import net.minecraft.item.ItemConvertible;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
@@ -31,17 +32,12 @@ public class ModItemGroups {
                         entries.add(ModBlocks.PITCH_BLACK_BLOCK);
                         entries.add(ModBlocks.WELLSPRING);
                         entries.add(ModItems.PIXIE_DUST);
-                        entries.add(ModItems.INVISIBLE_HELMET);
-                        entries.add(ModItems.INVISIBLE_CHESTPLATE);
-                        entries.add(ModItems.INVISIBLE_LEGGINGS);
-                        entries.add(ModItems.INVISIBLE_BOOTS);
-                        entries.add(ModItems.TOME_OF_EXPANSION);
-                        entries.add(ModItems.TOME_OF_SKIES);
                         entries.add(ModItems.PIXIE_SPAWN_EGG);
                         entries.add(ModBlocks.DOORWAY);
                         entries.add(ModBlocks.PURPLE_MAGIC_MUSHROOM);
                         entries.add(ModBlocks.MAGENTA_MAGIC_MUSHROOM);
                         entries.add(ModItems.MAGIC_MUSHROOM_STEW);
+                        ModItems.GRIMOIRES.forEach(entries::add);
 
                     }).build());
 
