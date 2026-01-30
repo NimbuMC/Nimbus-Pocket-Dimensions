@@ -3,7 +3,7 @@ package net.nimbu.thaumaturgy.persistentstates;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
-import net.nimbu.thaumaturgy.network.ClientPocketRooms;
+import net.nimbu.thaumaturgy.network.ClientPocketDimensionPersistentState;
 import net.nimbu.thaumaturgy.network.PocketDimRoomSync;
 
 import java.util.Set;
@@ -34,7 +34,7 @@ public class PocketDimRoomsHelper {
     };
 
     public static boolean[] getAdjacents(BlockPos pos) {
-        Set<BlockPos> state = ClientPocketRooms.getRooms();
+        Set<BlockPos> state = ClientPocketDimensionPersistentState.getRooms();
         boolean[] dirs = new boolean[6];
         if (!state.contains(pos)) return dirs;
         for (int i = 0; i < 6; i++) {
@@ -46,7 +46,7 @@ public class PocketDimRoomsHelper {
     }
 
     public static boolean hasAdjacents(BlockPos pos) {
-        Set<BlockPos> state = ClientPocketRooms.getRooms();
+        Set<BlockPos> state = ClientPocketDimensionPersistentState.getRooms();
         for (int i = 0; i < 6; i++) {
             if(state.contains(pos.add(neighbourPositions[i][0], neighbourPositions[i][1], neighbourPositions[i][2]))) return true;
         }

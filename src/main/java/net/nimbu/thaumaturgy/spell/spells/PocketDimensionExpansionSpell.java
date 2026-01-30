@@ -7,11 +7,10 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.nimbu.thaumaturgy.Thaumaturgy;
-import net.nimbu.thaumaturgy.network.ClientPocketRooms;
+import net.nimbu.thaumaturgy.network.ClientPocketDimensionPersistentState;
 import net.nimbu.thaumaturgy.persistentstates.PocketDimRoomsHelper;
 import net.nimbu.thaumaturgy.renderer.PocketDimensionBorderRenderer;
 import net.nimbu.thaumaturgy.spell.Spell;
@@ -127,8 +126,8 @@ public class PocketDimensionExpansionSpell extends Spell {
                     (int)Math.round(currentRayPos.y - 0.5),
                     (int)Math.round(currentRayPos.z - 0.5));
 
-        } while (currentDistance < maxDistance && ClientPocketRooms.hasRoom(outPos));
-        return !ClientPocketRooms.hasRoom(outPos) ? outPos : null;
+        } while (currentDistance < maxDistance && ClientPocketDimensionPersistentState.hasRoom(outPos));
+        return !ClientPocketDimensionPersistentState.hasRoom(outPos) ? outPos : null;
     }
 
     private double fract(double k){return k - Math.floor(k);}
