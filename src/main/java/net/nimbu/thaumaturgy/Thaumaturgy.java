@@ -8,6 +8,9 @@ import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.option.KeyBinding;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.RegistryBuilder;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
@@ -29,6 +32,7 @@ import net.nimbu.thaumaturgy.renderer.PocketDimensionBorderRenderer;
 import net.nimbu.thaumaturgy.sound.ModSoundEvents;
 import net.nimbu.thaumaturgy.spell.Spells;
 import net.nimbu.thaumaturgy.util.HammerUsageEvent;
+import net.nimbu.thaumaturgy.worldgen.biome.ModBiomes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -79,8 +83,6 @@ public class Thaumaturgy implements ModInitializer {
 			}
 			return ActionResult.PASS; //signifies the code to continue on to the next step
 		});*/
-
-
 
 		//Entities
 		FabricDefaultAttributeRegistry.register(ModEntities.PIXIE, PixieEntity.createAttributes());

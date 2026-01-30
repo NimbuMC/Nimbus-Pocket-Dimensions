@@ -87,12 +87,12 @@ public class SpellcasterItem extends Item{
             if(currentSpell.toString().equals(Spells.POCKET_DIMENSION.toString())
                     && world.getRegistryKey().getValue().toString().contains("pocket_dimension"))
             {
-                stack.set(ModDataComponentTypes.EQUIPPED_SPELL, Spells.EXPAND_POCKET_DIMENSION.toString());
+                stack.set(ModDataComponentTypes.EQUIPPED_SPELL, "");
             }
             else if(currentSpell.toString().equals(Spells.EXPAND_POCKET_DIMENSION.toString())
                     && !world.getRegistryKey().getValue().toString().contains("pocket_dimension"))
             {
-                stack.set(ModDataComponentTypes.EQUIPPED_SPELL, Spells.POCKET_DIMENSION.toString());
+                stack.set(ModDataComponentTypes.EQUIPPED_SPELL, "");
             }
         }
     }

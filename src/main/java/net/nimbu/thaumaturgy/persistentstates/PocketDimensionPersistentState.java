@@ -3,6 +3,7 @@ package net.nimbu.thaumaturgy.persistentstates;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.PersistentState;
 
@@ -12,6 +13,10 @@ import java.util.Set;
 public class PocketDimensionPersistentState extends PersistentState {
 
     private final HashSet<BlockPos> unlockedRooms = new HashSet<>();
+    private int grassColour;
+    private int waterColour;
+    private int fogColour;
+    private Identifier skyboxId;
 
     public void addRoom(BlockPos pos) {
         unlockedRooms.add(pos.toImmutable());

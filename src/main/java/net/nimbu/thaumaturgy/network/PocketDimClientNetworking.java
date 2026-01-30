@@ -9,7 +9,7 @@ public class PocketDimClientNetworking {
                 RoomSyncPayload.ID,
                 (payload, context) -> {
                     context.client().execute(() -> {
-                        ClientPocketRooms.setRooms(payload.rooms());
+                        ClientPocketDimensionPersistentState.setRooms(payload.rooms());
                     });
                 }
         );
@@ -18,7 +18,7 @@ public class PocketDimClientNetworking {
                 SingularRoomPayload.ID,
                 (payload, context) -> {
                     context.client().execute(() -> {
-                        ClientPocketRooms.addRoom(payload.room());
+                        ClientPocketDimensionPersistentState.addRoom(payload.room());
                     });
                 }
         );
