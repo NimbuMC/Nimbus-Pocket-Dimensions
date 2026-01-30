@@ -65,10 +65,13 @@ public class SpellScreenHandler extends ScreenHandler {
 
     @Override
     public boolean onButtonClick(PlayerEntity player, int id) {
-        Spells.SPELL_DICTIONARY.get(player.getStackInHand(HAND).get(ModDataComponentTypes.EQUIPPED_SPELL)).OnSpellUnequip();
-        player.getStackInHand(HAND).set(ModDataComponentTypes.EQUIPPED_SPELL, EQUIPPED_SPELLS.get(id).toString());
-        EQUIPPED_SPELLS.get(id).OnSpellEquip();
-        System.out.println("spell selected " + player.getStackInHand(HAND).get(ModDataComponentTypes.EQUIPPED_SPELL));
+        String spell = player.getStackInHand(HAND).get(ModDataComponentTypes.EQUIPPED_SPELL);
+        if(spell != null) {
+            if(!spell.isEmpty()) Spells.SPELL_DICTIONARY.get(spell).OnSpellUnequip();
+            player.getStackInHand(HAND).set(ModDataComponentTypes.EQUIPPED_SPELL, EQUIPPED_SPELLS.get(id).toString());
+            EQUIPPED_SPELLS.get(id).OnSpellEquip();
+            System.out.println("spell selected " + player.getStackInHand(HAND).get(ModDataComponentTypes.EQUIPPED_SPELL));
+        }
 
         return super.onButtonClick(player, id);
     }

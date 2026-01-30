@@ -33,8 +33,6 @@ public class SpellcasterItem extends Item{
         super(settings);
     }
     private boolean wheelCurrentlyActive = false;
-
-    ComponentType<String> spell;
     @Override
     public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
         super.inventoryTick(stack, world, entity, slot, selected);
@@ -105,7 +103,8 @@ public class SpellcasterItem extends Item{
         if (!world.isClient) {
             String spellName = user.getStackInHand(hand).get(ModDataComponentTypes.EQUIPPED_SPELL);
             Thaumaturgy.LOGGER.info("Tried Using spell " + spellName);
-            if (!spellName.equals("")) {
+            assert spellName != null;
+            if (!spellName.isEmpty()) {
                 Spell currentSpell = Spells.SPELL_DICTIONARY.get(spellName);
                 currentSpell.castSpell(world, user, hand);
             }
