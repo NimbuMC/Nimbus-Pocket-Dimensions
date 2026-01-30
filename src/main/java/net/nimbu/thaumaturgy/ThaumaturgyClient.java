@@ -32,6 +32,7 @@ import net.nimbu.thaumaturgy.block.entity.renderer.RevisualisingTableBlockEntity
 import net.nimbu.thaumaturgy.component.ModDataComponentTypes;
 import net.nimbu.thaumaturgy.effect.ModEffects;
 import net.nimbu.thaumaturgy.entity.ModEntities;
+import net.nimbu.thaumaturgy.entity.client.EmptyEntityRenderer;
 import net.nimbu.thaumaturgy.entity.client.PixieEntityModel;
 import net.nimbu.thaumaturgy.entity.client.PixieEntityRenderer;
 import net.nimbu.thaumaturgy.entity.client.SpellEntityRenderer;
@@ -70,6 +71,7 @@ public class ThaumaturgyClient implements ClientModInitializer {
         EntityRendererRegistry.register(ModEntities.SNOWBALL_COPY, FlyingItemEntityRenderer::new);
 
         EntityRendererRegistry.register(ModEntities.SPELL_PORTAL, SpellEntityRenderer::new);
+        EntityRendererRegistry.register(ModEntities.AERODETONATION_SPELL, EmptyEntityRenderer::new);
 
         ParticleFactoryRegistry.getInstance().register(ModParticles.MAGIC_PARTICLE, MagicParticle.Factory::new);
 
