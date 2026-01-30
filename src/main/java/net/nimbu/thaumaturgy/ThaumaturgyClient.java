@@ -41,6 +41,7 @@ import net.nimbu.thaumaturgy.item.ModItems;
 import net.nimbu.thaumaturgy.network.PocketDimClientNetworking;
 import net.nimbu.thaumaturgy.particle.MagicParticle;
 import net.nimbu.thaumaturgy.particle.ModParticles;
+import net.nimbu.thaumaturgy.renderer.LobotomyHudRenderer;
 import net.nimbu.thaumaturgy.renderer.PocketDimensionBorderRenderer;
 import net.nimbu.thaumaturgy.screen.ModScreenHanders;
 import net.nimbu.thaumaturgy.screen.custom.RevisualisingTableScreen;
@@ -89,6 +90,8 @@ public class ThaumaturgyClient implements ClientModInitializer {
                 GLFW.GLFW_KEY_G, /* default key */
                 "category.thaumaturgy.controls" /* category */
         ));
+
+        LobotomyHudRenderer.register();
 
         ItemTooltipCallback.EVENT.register((stack, context, type, lines) -> {
             if (stack.getOrDefault(ModDataComponentTypes.REVISUALISED,false)) {

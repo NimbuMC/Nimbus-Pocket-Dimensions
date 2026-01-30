@@ -99,20 +99,5 @@ public class Thaumaturgy implements ModInitializer {
 					PocketDimRoomSync.sync(destination, player);
 				}
 		);
-
-		PlayerBlockBreakEvents.AFTER.register((world, player, pos, state, entity) -> {
-			if (!world.isClient && state.getBlock() == Blocks.DIRT) {
-
-				BlockPos roomPos = new BlockPos(
-						Math.floorDiv(pos.getX(), PocketDimensionBorderRenderer.BorderLength),
-						Math.floorDiv(pos.getY() - 2, PocketDimensionBorderRenderer.BorderHeight),
-						Math.floorDiv(pos.getZ(), PocketDimensionBorderRenderer.BorderLength)
-				);
-
-				PocketDimRoomsHelper.addRoom((ServerWorld) world, roomPos);
-			}
-		});
-
-
 	}
 }

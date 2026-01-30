@@ -44,4 +44,12 @@ public class PocketDimRoomsHelper {
         dirs[3] &= pos.getY() >= 0;
         return dirs;
     }
+
+    public static boolean hasAdjacents(BlockPos pos) {
+        Set<BlockPos> state = ClientPocketRooms.getRooms();
+        for (int i = 0; i < 6; i++) {
+            if(state.contains(pos.add(neighbourPositions[i][0], neighbourPositions[i][1], neighbourPositions[i][2]))) return true;
+        }
+        return false;
+    }
 }

@@ -4,7 +4,10 @@ package net.nimbu.thaumaturgy.spell;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.nimbu.thaumaturgy.entity.ModEntities;
+import net.nimbu.thaumaturgy.entity.custom.SpellPortalEntity;
 
 public abstract class Spell {
     private final Identifier SPRITE;
@@ -12,9 +15,9 @@ public abstract class Spell {
     private final int SECONDARY_COLOUR;
 
     public Spell(Identifier spriteIdentifier, int primaryColour, int secondaryColour){
-        this.SPRITE=spriteIdentifier;
-        this.PRIMARY_COLOUR=primaryColour;
-        this.SECONDARY_COLOUR=secondaryColour;
+        this.SPRITE = spriteIdentifier;
+        this.PRIMARY_COLOUR = primaryColour;
+        this.SECONDARY_COLOUR = secondaryColour;
     }
 
     public Identifier getSpriteIdentifier(){
@@ -28,12 +31,20 @@ public abstract class Spell {
         return SECONDARY_COLOUR;
     }
 
-    public void castSpell(World world, PlayerEntity user, Hand hand){
-        //calls functions that a particular spells needs
-    }
+
+    public abstract void OnSpellEquip();
+    public abstract void OnSpellUnequip();
+
+
+    public abstract void castSpell(World world, PlayerEntity user, Hand hand); //calls functions that a particular spells needs
+
+    public void renderReticle(World world, PlayerEntity user){}
+    public void cancelRenderReticle(World world, PlayerEntity user){}
 
     public void createProjectile(World world, PlayerEntity user){
 
     }
+
+    public abstract String toString();
 }
 
