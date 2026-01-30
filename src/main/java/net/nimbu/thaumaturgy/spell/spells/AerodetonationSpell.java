@@ -35,6 +35,16 @@ public class AerodetonationSpell extends Spell {
     );
 
     @Override
+    public void OnSpellEquip() {
+
+    }
+
+    @Override
+    public void OnSpellUnequip() {
+
+    }
+
+    @Override
     public void castSpell(World world, PlayerEntity user, Hand hand) {
 
         Vec3d start = user.getPos();
@@ -175,5 +185,10 @@ public class AerodetonationSpell extends Spell {
             );
             pos = pos.add(step);
         }
+    }
+
+    @Override
+    public String toString() {
+        return "aerodetonation_spell";
     }
 }
