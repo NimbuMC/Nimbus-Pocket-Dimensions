@@ -18,6 +18,16 @@ public class UnbakingBreadSpell extends Spell {
     }
 
     @Override
+    public void OnSpellEquip() {
+
+    }
+
+    @Override
+    public void OnSpellUnequip() {
+
+    }
+
+    @Override
     public void castSpell(World world, PlayerEntity user, Hand hand) {
         if (!world.isClient){
             Hand targetHand;
@@ -38,5 +48,10 @@ public class UnbakingBreadSpell extends Spell {
                 user.getStackInHand(hand).set(ModDataComponentTypes.SPELL_FLASH_TIMER, 8);
             }
         }
+    }
+
+    @Override
+    public String toString() {
+        return "unbaking_bread_spell";
     }
 }

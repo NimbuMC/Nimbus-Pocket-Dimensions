@@ -15,7 +15,18 @@ public class EffectCleansingSpell extends Spell {
     }
 
     @Override
+    public void OnSpellEquip() {}
+
+    @Override
+    public void OnSpellUnequip() {}
+
+    @Override
     public void castSpell(World world, PlayerEntity user, Hand hand) {
         user.clearStatusEffects();
+    }
+
+    @Override
+    public String toString() {
+        return "effect_cleansing_spell";
     }
 }

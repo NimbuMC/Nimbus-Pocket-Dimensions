@@ -22,6 +22,9 @@ public class ModEffects {
     public static final RegistryEntry<StatusEffect> MAGICAL = registerStatusEffect("magical",
             new MagicalEffect(StatusEffectCategory.NEUTRAL, 0xbf00ff));
 
+    public static final RegistryEntry<StatusEffect> LOBOTOMY = registerStatusEffect("lobotomy",
+            new LobotomyEffect(StatusEffectCategory.HARMFUL, 0));
+
 
 
 

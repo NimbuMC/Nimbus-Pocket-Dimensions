@@ -16,6 +16,16 @@ public class AmbiencePigstepSpell extends Spell {
     }
 
     @Override
+    public void OnSpellEquip() {
+
+    }
+
+    @Override
+    public void OnSpellUnequip() {
+
+    }
+
+    @Override
     public void castSpell(World world, PlayerEntity user, Hand hand) {
 
         //Issues:
@@ -26,5 +36,10 @@ public class AmbiencePigstepSpell extends Spell {
         if (!world.isClient) {
             world.playSound(null, user.getX(), user.getY(), user.getZ(), SoundEvents.MUSIC_DISC_PIGSTEP, SoundCategory.PLAYERS, 10.0f, 1.0f);
         }
+    }
+
+    @Override
+    public String toString() {
+        return "ambience_pigstep_spell";
     }
 }

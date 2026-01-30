@@ -22,6 +22,12 @@ public class PocketDimensionSpell extends Spell {
     //THINKING OF RENAMING TO "Dimensional Expansion" - the pocketDimensionExpansionSpell will inherently need renaming
 
     @Override
+    public void OnSpellEquip(){}
+
+    @Override
+    public void OnSpellUnequip(){}
+
+    @Override
     public void castSpell(World world, PlayerEntity user, Hand hand) {
         if(!world.getRegistryKey().getValue().toString().contains("pocket_dimension")) createProjectile(world, user);
     }
@@ -36,5 +42,10 @@ public class PocketDimensionSpell extends Spell {
             spellPortal.setExitDimension(targetDimension.getRegistryKey());
             world.spawnEntity(spellPortal);
         }
+    }
+
+    @Override
+    public String toString() {
+        return "pocket_dimension_spell";
     }
 }
