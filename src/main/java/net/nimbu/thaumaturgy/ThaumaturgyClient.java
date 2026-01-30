@@ -71,7 +71,6 @@ public class ThaumaturgyClient implements ClientModInitializer {
         EntityRendererRegistry.register(ModEntities.SNOWBALL_COPY, FlyingItemEntityRenderer::new);
 
         EntityRendererRegistry.register(ModEntities.SPELL_PORTAL, SpellEntityRenderer::new);
-        EntityRendererRegistry.register(ModEntities.AERODETONATION_SPELL, EmptyEntityRenderer::new);
 
         ParticleFactoryRegistry.getInstance().register(ModParticles.MAGIC_PARTICLE, MagicParticle.Factory::new);
 
