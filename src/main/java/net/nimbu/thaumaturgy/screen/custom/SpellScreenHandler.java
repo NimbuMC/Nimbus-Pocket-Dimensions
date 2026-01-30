@@ -31,11 +31,13 @@ public class SpellScreenHandler extends ScreenHandler {
         WORLD = USER.getWorld();
         HAND = Hand.MAIN_HAND;
 
+        EQUIPPED_SPELLS.add(Spells.AERODETONATION);
         EQUIPPED_SPELLS.add(Spells.POCKET_DIMENSION);
         EQUIPPED_SPELLS.add(Spells.EFFECT_CLEANSING);
         EQUIPPED_SPELLS.add(Spells.UNBAKING_BREAD);
         EQUIPPED_SPELLS.add(Spells.SOARING);
         EQUIPPED_SPELLS.add(Spells.AMBIENCE_PIGSTEP);
+
     }
 
 

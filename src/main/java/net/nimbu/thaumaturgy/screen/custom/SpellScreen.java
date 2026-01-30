@@ -41,11 +41,13 @@ public class SpellScreen extends HandledScreen<SpellScreenHandler> {
     public SpellScreen(SpellScreenHandler handler, PlayerInventory inventory, Text title) {
         super(handler, inventory, title);
 
+        EQUIPPED_SPELLS.add(Spells.AERODETONATION);
         EQUIPPED_SPELLS.add(Spells.POCKET_DIMENSION);
         EQUIPPED_SPELLS.add(Spells.EFFECT_CLEANSING);
         EQUIPPED_SPELLS.add(Spells.UNBAKING_BREAD);
         EQUIPPED_SPELLS.add(Spells.SOARING);
         EQUIPPED_SPELLS.add(Spells.AMBIENCE_PIGSTEP);
+
     }
 
     protected void drawSpellSprites(DrawContext context, float delta, int mouseX, int mouseY) {
@@ -160,6 +162,10 @@ public class SpellScreen extends HandledScreen<SpellScreenHandler> {
                 return this.x + 120;
             case 2:
                 return this.x + 137;
+            case 5: case 7:
+                return this.x + 40;
+            case 6:
+                return this.x + 23;
             default:
                 return 0;
         }
@@ -171,9 +177,9 @@ public class SpellScreen extends HandledScreen<SpellScreenHandler> {
                 return this.y + 18;
             case 1: case 7:
                 return this.y + 35;
-            case 2:
+            case 2: case 6:
                 return this.y + 75;
-            case 3:
+            case 3: case 5:
                 return this.y + 115;
             case 4:
                 return this.y + 132;

@@ -1,4 +1,4 @@
-// 1.21	2026-01-29T15:28:49.0291916	Thaumaturgy/Model Definitions
+// 1.21	2026-01-29T20:54:38.2401729	Thaumaturgy/Model Definitions
 f4698d48c306c6809727172323ea6b50ff606869 assets\thaumaturgy\models\item\spirit_sword.json
 864ac0048c90a633cc1269bcadb3e355359f42c2 assets\thaumaturgy\models\block\wellspring_on.json
 f5759d44be49a0bd4c14cc0120ee8d91e8197ebf assets\thaumaturgy\models\item\wellspring.json
@@ -7,16 +7,17 @@ ad2d5d3e6b4afc104eab1f08bc7f61492488b035 assets\thaumaturgy\models\item\grimoire
 21cbebaf6cea462586fac6f1db68e92f6ad90ce5 assets\thaumaturgy\blockstates\pitch_black_block.json
 be564de94334a93ba8cd378835c64a66ba69f6d8 assets\thaumaturgy\models\block\pitch_black_block.json
 4955ab74e6597a64fd04cf8ba01d68298048319e assets\thaumaturgy\models\item\pixie_dust.json
+ad2d5d3e6b4afc104eab1f08bc7f61492488b035 assets\thaumaturgy\models\item\grimoire_of_aerodetonation.json
 57fe0543e21054deef95776371dc4fa0e17feb4a assets\thaumaturgy\models\item\spirit_pickaxe.json
 a7cc5f68998b640b2fc753cca71d8aea20c198ea assets\thaumaturgy\models\item\spirit_axe.json
 715c7460eea5b24ef20e04ea378efff72fe77c5a assets\thaumaturgy\models\item\spirit_hoe.json
-9a7898172c4491e4d8a7476a4874eed2ff9eccc7 assets\thaumaturgy\blockstates\wellspring.json
 ad2d5d3e6b4afc104eab1f08bc7f61492488b035 assets\thaumaturgy\models\item\grimoire_of_ambience_pigstep.json
+9a7898172c4491e4d8a7476a4874eed2ff9eccc7 assets\thaumaturgy\blockstates\wellspring.json
 7b545c1a47897222ece528478833448dabbb4775 assets\thaumaturgy\models\item\spirit_shovel.json
 452d2600cbc912b8886956d6adcefdfe587a845e assets\thaumaturgy\models\item\pitch_black_block.json
 ad2d5d3e6b4afc104eab1f08bc7f61492488b035 assets\thaumaturgy\models\item\grimoire_of_dimensional_expansion.json
-ff24cc39a0c03f349a726ada9ac41fb65bc953f9 assets\thaumaturgy\models\item\hammer.json
 a708ba0c45e96b8a65782cba4da498e14af8d44b assets\thaumaturgy\models\block\wellspring.json
+ff24cc39a0c03f349a726ada9ac41fb65bc953f9 assets\thaumaturgy\models\item\hammer.json
 63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets\thaumaturgy\models\item\pixie_spawn_egg.json
 ad2d5d3e6b4afc104eab1f08bc7f61492488b035 assets\thaumaturgy\models\item\grimoire_of_effect_cleansing.json
 ad2d5d3e6b4afc104eab1f08bc7f61492488b035 assets\thaumaturgy\models\item\grimoire_of_soaring.json

@@ -98,6 +98,9 @@ public class ModItems {
     public static final Item GRIMOIRE_OF_SOARING = registerItem("grimoire_of_soaring",
             new GrimoireItem(Spells.SOARING, new Item.Settings().maxCount(1).rarity(Rarity.EPIC)));
 
+    //Rare Grimoires
+    public static final Item GRIMOIRE_OF_AERODETONATION = registerItem("grimoire_of_aerodetonation",
+            new GrimoireItem(Spells.AERODETONATION, new Item.Settings().maxCount(1).rarity(Rarity.EPIC)));
 
     //Uncommon/Slightly Useful Grimoires
     public static final Item EFFECT_CLEANSING_GRIMOIRE = registerItem("grimoire_of_effect_cleansing",
@@ -113,6 +116,7 @@ public class ModItems {
     public static void registerGrimoires(){
         GRIMOIRES.add(POCKET_DIMENSION_GRIMOIRE);
         GRIMOIRES.add(GRIMOIRE_OF_SOARING);
+        GRIMOIRES.add(GRIMOIRE_OF_AERODETONATION);
         GRIMOIRES.add(EFFECT_CLEANSING_GRIMOIRE);
         GRIMOIRES.add(GRIMOIRE_OF_AMBIENCE_PIGSTEP);
         GRIMOIRES.add(GRIMOIRE_OF_UNBAKING_BREAD);

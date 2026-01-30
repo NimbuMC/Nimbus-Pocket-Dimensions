@@ -48,6 +48,9 @@
   "category.thaumaturgy.controls": "Thaumaturgy Keybinds",
 
 
-
-  "item.thaumaturgy.grimoire_of_soaring": "Grimoire of Soaring"
+  "item.thaumaturgy.grimoire_of_soaring": "Grimoire of Soaring",
+  "item.thaumaturgy.grimoire_of_aerodetonation": "Grimoire of Aerodetonation",
+  "item.thaumaturgy.grimoire_of_effect_cleansing": "Grimoire of Effect Cleansing",
+  "item.thaumaturgy.grimoire_of_ambience_pigstep": "Grimoire of Ambience: Pigstep",
+  "item.thaumaturgy.grimoire_of_unbaking_bread": "Grimoire of Unbaking Bread"
 }

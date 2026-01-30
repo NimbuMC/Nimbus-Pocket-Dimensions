@@ -10,6 +10,7 @@ public class Spells {
     public static final Spell SOARING = new SoaringSpell();
     public static final Spell AMBIENCE_PIGSTEP = new AmbiencePigstepSpell();
     public static final Spell UNBAKING_BREAD = new UnbakingBreadSpell();
+    public static final Spell AERODETONATION = new AerodetonationSpell();
 
     public static void registerSpells(){
         Thaumaturgy.LOGGER.info("Registering spells for "+Thaumaturgy.MOD_ID);
