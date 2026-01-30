@@ -7,6 +7,7 @@ import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
 import net.nimbu.thaumaturgy.Thaumaturgy;
+import net.nimbu.thaumaturgy.component.ModDataComponentTypes;
 import net.nimbu.thaumaturgy.item.custom.*;
 import net.nimbu.thaumaturgy.entity.ModEntities;
 import net.nimbu.thaumaturgy.item.custom.*;
@@ -28,7 +29,8 @@ public class ModItems {
     public static final Item STAFF = registerItem("staff", new SpellcasterItem(new Item.Settings()
             .maxCount(1)
             .maxDamage(131)
-            .rarity(Rarity.RARE)));
+            .rarity(Rarity.RARE)
+            .component(ModDataComponentTypes.EQUIPPED_SPELL, "")));
 
     public static final Item SPIRIT_SWORD = registerItem("spirit_sword",
             new SwordItem(ModToolMaterials.SPIRIT, new Item.Settings()

@@ -15,9 +15,24 @@ public class SoaringSpell extends Spell {
     }
 
     @Override
+    public void OnSpellEquip() {
+
+    }
+
+    @Override
+    public void OnSpellUnequip() {
+
+    }
+
+    @Override
     public void castSpell(World world, PlayerEntity user, Hand hand) {
         user.getAbilities().allowFlying = true; //this also disables fall damage!
         //user.getAbilities().flying = true;
         user.sendAbilitiesUpdate();
+    }
+
+    @Override
+    public String toString() {
+        return "soaring_spell";
     }
 }

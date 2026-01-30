@@ -7,6 +7,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
+import net.nimbu.thaumaturgy.component.ModDataComponentTypes;
 import net.nimbu.thaumaturgy.item.SpellEquipHandler;
 import net.nimbu.thaumaturgy.screen.ModScreenHanders;
 import net.nimbu.thaumaturgy.spell.Spell;
@@ -24,6 +25,7 @@ public class SpellScreenHandler extends ScreenHandler {
     private final World WORLD;
     private final Hand HAND;
 
+    public World getWorld(){return WORLD;}
 
     public SpellScreenHandler(int syncId, PlayerInventory playerInventory) {
         super(ModScreenHanders.SPELL_SCREEN_HANDLER, syncId);
@@ -32,7 +34,10 @@ public class SpellScreenHandler extends ScreenHandler {
         HAND = Hand.MAIN_HAND;
 
         EQUIPPED_SPELLS.add(Spells.AERODETONATION);
-        EQUIPPED_SPELLS.add(Spells.POCKET_DIMENSION);
+        if(WORLD.getRegistryKey().getValue().toString().contains("pocket_dimension"))
+             EQUIPPED_SPELLS.add(Spells.EXPAND_POCKET_DIMENSION);
+        else EQUIPPED_SPELLS.add(Spells.POCKET_DIMENSION);
+
         EQUIPPED_SPELLS.add(Spells.EFFECT_CLEANSING);
         EQUIPPED_SPELLS.add(Spells.UNBAKING_BREAD);
         EQUIPPED_SPELLS.add(Spells.SOARING);
@@ -60,8 +65,10 @@ public class SpellScreenHandler extends ScreenHandler {
 
     @Override
     public boolean onButtonClick(PlayerEntity player, int id) {
-        EQUIPPED_SPELLS.get(id).castSpell(WORLD, USER, HAND);
-        System.out.println("button clicked");
+        Spells.SPELL_DICTIONARY.get(player.getStackInHand(HAND).get(ModDataComponentTypes.EQUIPPED_SPELL)).OnSpellUnequip();
+        player.getStackInHand(HAND).set(ModDataComponentTypes.EQUIPPED_SPELL, EQUIPPED_SPELLS.get(id).toString());
+        EQUIPPED_SPELLS.get(id).OnSpellEquip();
+        System.out.println("spell selected " + player.getStackInHand(HAND).get(ModDataComponentTypes.EQUIPPED_SPELL));
 
         return super.onButtonClick(player, id);
     }

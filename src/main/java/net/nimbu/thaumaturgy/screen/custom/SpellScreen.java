@@ -35,14 +35,16 @@ public class SpellScreen extends HandledScreen<SpellScreenHandler> {
             };
 
     private final List<Spell> EQUIPPED_SPELLS = new ArrayList<>();
-    private Vec2f lastSignificantMovedMouseDirection = Vec2f.ZERO;
+    private Vec2f lastSignificantMovedMouseDirection = Vec2f.SOUTH_UNIT;
 
 
     public SpellScreen(SpellScreenHandler handler, PlayerInventory inventory, Text title) {
         super(handler, inventory, title);
 
         EQUIPPED_SPELLS.add(Spells.AERODETONATION);
-        EQUIPPED_SPELLS.add(Spells.POCKET_DIMENSION);
+        if(handler.getWorld().getRegistryKey().getValue().toString().contains("pocket_dimension"))
+            EQUIPPED_SPELLS.add(Spells.EXPAND_POCKET_DIMENSION);
+        else EQUIPPED_SPELLS.add(Spells.POCKET_DIMENSION);
         EQUIPPED_SPELLS.add(Spells.EFFECT_CLEANSING);
         EQUIPPED_SPELLS.add(Spells.UNBAKING_BREAD);
         EQUIPPED_SPELLS.add(Spells.SOARING);
@@ -71,7 +73,7 @@ public class SpellScreen extends HandledScreen<SpellScreenHandler> {
             RenderSystem.enableBlend();
             RenderSystem.defaultBlendFunc();
 
-            context.drawTexture(WHEEL_HIGHLIGHTS[index], this.x, this.y, 0, 0, backgroundWidth, backgroundHeight);
+            context.drawTexture(WHEEL_HIGHLIGHTS[index], this.x, this.y - 3, 0, 0, backgroundWidth, backgroundHeight);
 
             RenderSystem.disableBlend();
     }

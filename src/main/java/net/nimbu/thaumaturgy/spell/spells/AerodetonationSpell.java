@@ -35,6 +35,16 @@ public class AerodetonationSpell extends Spell {
     );
 
     @Override
+    public void OnSpellEquip() {
+
+    }
+
+    @Override
+    public void OnSpellUnequip() {
+
+    }
+
+    @Override
     public void castSpell(World world, PlayerEntity user, Hand hand) {
 
         if(!world.isClient) {
@@ -61,5 +71,10 @@ public class AerodetonationSpell extends Spell {
                 SoundEvents.ENTITY_BREEZE_WIND_BURST
         );
         */
+    }
+
+    @Override
+    public String toString() {
+        return "aerodetonation_spell";
     }
 }

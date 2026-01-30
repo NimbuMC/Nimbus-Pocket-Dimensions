@@ -6,6 +6,7 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 import net.nimbu.thaumaturgy.Thaumaturgy;
+import net.nimbu.thaumaturgy.spell.Spell;
 
 import java.util.function.UnaryOperator;
 
@@ -15,8 +16,9 @@ public class ModDataComponentTypes {
 
     public static final ComponentType<Integer> SPELL_FLASH_TIMER =
             register("spell_flash_timer", builder ->  builder.codec(Codec.INT));
-    public static final ComponentType<Integer> EQUIPPED_SPELL_COLOUR =
-            register("equipped_spell_colour", builder -> builder.codec(Codec.INT));
+    public static final ComponentType<String> EQUIPPED_SPELL =
+            register("equipped_spell", builder -> builder.codec(Codec.STRING));
+
 
     public static final ComponentType<Boolean> REVISUALISED =
             register("revisualised", booleanBuilder -> booleanBuilder.codec(Codec.BOOL));
@@ -25,6 +27,7 @@ public class ModDataComponentTypes {
             register("replace_model_namespace", stringBuilder -> stringBuilder.codec(Codec.STRING));
     public static final ComponentType<String> REPLACE_MODEL_PATH =
             register("replace_model_path", stringBuilder -> stringBuilder.codec(Codec.STRING));
+
 
 
 
