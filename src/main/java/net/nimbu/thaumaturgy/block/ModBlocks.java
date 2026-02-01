@@ -67,8 +67,8 @@ public class ModBlocks {
     public static final Block DOORWAY = registerBlock("dark_oak_doorway",
             new DoorwayBlock(AbstractBlock.Settings.create().nonOpaque()));
 
-    public static final Block POCKET_DIMENSION_BORDER_CONTROLLER = registerBlock("pocket_dimension_border_controller",
-            new PocketDimensionBorderControllerBlock(AbstractBlock.Settings.create()));
+    public static final Block POCKET_DIMENSION_BIOME_CONTROLLER = registerBlock("pocket_dimension_border_controller",
+            new PocketDimensionBiomeControllerBlock(AbstractBlock.Settings.create()));
 
 
 

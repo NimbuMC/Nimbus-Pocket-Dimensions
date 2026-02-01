@@ -12,7 +12,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.nimbu.thaumaturgy.Thaumaturgy;
-import net.nimbu.thaumaturgy.persistentstates.PocketDimRoomsHelper;
+import net.nimbu.thaumaturgy.network.ClientPocketDimensionPersistentState;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 
@@ -200,7 +200,7 @@ public class PocketDimensionBorderRenderer {
         for (int x = -renderRadius; x <= renderRadius; x++) {
             for (int y = -renderRadius; y <= renderRadius; y++) {
                 for (int z = -renderRadius; z <= renderRadius; z++) {
-                    boolean[] adj = PocketDimRoomsHelper.getAdjacents(new BlockPos(
+                    boolean[] adj = ClientPocketDimensionPersistentState.getAdjacents(new BlockPos(
                             relativePosition.getX() + x,
                             relativePosition.getY() + y,
                             relativePosition.getZ() + z));

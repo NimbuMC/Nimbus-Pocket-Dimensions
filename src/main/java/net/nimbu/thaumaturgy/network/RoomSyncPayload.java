@@ -12,8 +12,7 @@ import java.util.Set;
 
 public record RoomSyncPayload(Set<BlockPos> rooms) implements CustomPayload {
 
-    public static final Id<RoomSyncPayload> ID =
-            new Id<>(Identifier.of(Thaumaturgy.MOD_ID, "room_sync"));
+    public static final Id<RoomSyncPayload> ID = new Id<>(Identifier.of(Thaumaturgy.MOD_ID, "room_sync"));
 
     public static final PacketCodec<RegistryByteBuf, RoomSyncPayload> CODEC =
             PacketCodec.of(
@@ -40,8 +39,6 @@ public record RoomSyncPayload(Set<BlockPos> rooms) implements CustomPayload {
     }
 
     @Override
-    public Id<? extends CustomPayload> getId() {
-        return ID;
-    }
+    public Id<? extends CustomPayload> getId() { return ID; }
 }
 

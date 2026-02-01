@@ -1,29 +1,17 @@
 package net.nimbu.thaumaturgy.item.custom;
 
-import net.fabricmc.fabric.api.item.v1.EnchantingContext;
-import net.minecraft.component.ComponentType;
-import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ProjectileItem;
-import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.resource.featuretoggle.FeatureSet;
 import net.minecraft.screen.SimpleNamedScreenHandlerFactory;
 import net.minecraft.text.Text;
-import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.Position;
 import net.minecraft.world.World;
 import net.nimbu.thaumaturgy.Thaumaturgy;
 import net.nimbu.thaumaturgy.ThaumaturgyClient;
-import net.nimbu.thaumaturgy.block.entity.custom.RevisualisingTableBlockEntity;
 import net.nimbu.thaumaturgy.component.ModDataComponentTypes;
-import net.nimbu.thaumaturgy.item.ModItems;
 import net.nimbu.thaumaturgy.screen.custom.SpellScreenHandler;
 import net.nimbu.thaumaturgy.spell.Spell;
 import net.nimbu.thaumaturgy.spell.Spells;
@@ -82,13 +70,13 @@ public class SpellcasterItem extends Item{
         String spellName = stack.get(ModDataComponentTypes.EQUIPPED_SPELL);
         if (spellName != null && !spellName.isEmpty()) {
             Spell currentSpell = Spells.SPELL_DICTIONARY.get(spellName);
-            if(currentSpell.toString().equals(Spells.POCKET_DIMENSION.toString())
-                    && world.getRegistryKey().getValue().toString().contains("pocket_dimension"))
+            if(currentSpell.toString().equals(Spells.POCKET_DIMENSION.toString()) &&
+                    world.getRegistryKey().getValue().toString().contains("pocket_dimension"))
             {
                 stack.set(ModDataComponentTypes.EQUIPPED_SPELL, "");
             }
-            else if(currentSpell.toString().equals(Spells.EXPAND_POCKET_DIMENSION.toString())
-                    && !world.getRegistryKey().getValue().toString().contains("pocket_dimension"))
+            else if(currentSpell.toString().equals(Spells.EXPAND_POCKET_DIMENSION.toString()) &&
+                    !world.getRegistryKey().getValue().toString().contains("pocket_dimension"))
             {
                 stack.set(ModDataComponentTypes.EQUIPPED_SPELL, "");
             }

@@ -11,7 +11,6 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.nimbu.thaumaturgy.Thaumaturgy;
 import net.nimbu.thaumaturgy.network.ClientPocketDimensionPersistentState;
-import net.nimbu.thaumaturgy.persistentstates.PocketDimRoomsHelper;
 import net.nimbu.thaumaturgy.renderer.PocketDimensionBorderRenderer;
 import net.nimbu.thaumaturgy.spell.Spell;
 
@@ -32,7 +31,7 @@ public class PocketDimensionExpansionSpell extends Spell {
         if (raycastCooldown-- <= 0) {
             BlockPos hit = raycastRoomFace(user);
             if(hit != null) {
-                if (hit.getY() < 0 || hit.getY() > 29 || !PocketDimRoomsHelper.hasAdjacents(hit))
+                if (hit.getY() < 0 || hit.getY() > 29 || !ClientPocketDimensionPersistentState.hasAdjacents(hit))
                     PocketDimensionBorderRenderer.expansionValid = false;
                 else PocketDimensionBorderRenderer.expansionValid = true;
                 PocketDimensionBorderRenderer.expansionModePosition = hit;
@@ -63,9 +62,9 @@ public class PocketDimensionExpansionSpell extends Spell {
         BlockPos pos = raycastRoomFace(user);
         Thaumaturgy.LOGGER.info("Tried to use spell at position " + pos);
         if(pos != null) {
-            if(PocketDimRoomsHelper.hasAdjacents(pos)) {
+            if(ClientPocketDimensionPersistentState.hasAdjacents(pos)) {
                 if (pos.getY() > -1 && pos.getY() < 30) {
-                    PocketDimRoomsHelper.addRoom((ServerWorld) world, pos);
+                    ClientPocketDimensionPersistentState.addRoom((ServerWorld) world, pos);
                     BlockState state = Blocks.AIR.getDefaultState();
                     for (int x = 0; x < BorderLength; x++) {
                         for (int y = 0; y < BorderHeight; y++) {
