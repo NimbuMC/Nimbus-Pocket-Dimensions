@@ -2,37 +2,29 @@ package net.nimbu.thaumaturgy;
 
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
-import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
-import net.fabricmc.fabric.api.client.model.loading.v1.ModelLoadingPlugin;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
-import net.minecraft.client.Keyboard;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.client.option.KeyBinding;
-import net.minecraft.client.option.StickyKeyBinding;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.RenderTickCounter;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
 import net.minecraft.client.render.entity.FlyingItemEntityRenderer;
 import net.minecraft.client.util.InputUtil;
-import net.minecraft.screen.SimpleNamedScreenHandlerFactory;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
-import net.minecraft.util.Identifier;
 import net.nimbu.thaumaturgy.block.ModBlocks;
 import net.nimbu.thaumaturgy.block.entity.ModBlockEntityTypes;
 import net.nimbu.thaumaturgy.block.entity.renderer.RevisualisingTableBlockEntityRenderer;
 import net.nimbu.thaumaturgy.component.ModDataComponentTypes;
 import net.nimbu.thaumaturgy.effect.ModEffects;
 import net.nimbu.thaumaturgy.entity.ModEntities;
-import net.nimbu.thaumaturgy.entity.client.EmptyEntityRenderer;
 import net.nimbu.thaumaturgy.entity.client.PixieEntityModel;
 import net.nimbu.thaumaturgy.entity.client.PixieEntityRenderer;
 import net.nimbu.thaumaturgy.entity.client.SpellEntityRenderer;
@@ -46,7 +38,6 @@ import net.nimbu.thaumaturgy.renderer.PocketDimensionBorderRenderer;
 import net.nimbu.thaumaturgy.screen.ModScreenHanders;
 import net.nimbu.thaumaturgy.screen.custom.RevisualisingTableScreen;
 import net.nimbu.thaumaturgy.screen.custom.SpellScreen;
-import net.nimbu.thaumaturgy.screen.custom.SpellScreenHandler;
 import net.nimbu.thaumaturgy.util.ModModelPredicates;
 import org.lwjgl.glfw.GLFW;
 
@@ -145,8 +136,6 @@ public class ThaumaturgyClient implements ClientModInitializer {
                         argb);
             }
         });
-
-
 
         //ModelLoadingPlugin.register(pluginContext -> {
         //    pluginContext.addModels(

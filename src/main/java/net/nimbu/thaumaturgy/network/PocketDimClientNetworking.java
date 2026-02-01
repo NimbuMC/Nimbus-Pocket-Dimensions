@@ -1,6 +1,7 @@
 package net.nimbu.thaumaturgy.network;
 
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.nimbu.thaumaturgy.Thaumaturgy;
 
 public class PocketDimClientNetworking {
 
@@ -19,6 +20,18 @@ public class PocketDimClientNetworking {
                 (payload, context) -> {
                     context.client().execute(() -> {
                         ClientPocketDimensionPersistentState.addRoom(payload.room());
+                    });
+                }
+        );
+
+        ClientPlayNetworking.registerGlobalReceiver(
+                DynamicBiomePayload.ID,
+                (payload, context) -> {
+                    context.client().execute(() -> {
+                        Thaumaturgy.LOGGER.info("done biome sync with inPocketDim " + payload.inPocketDimension());
+                        ClientPocketDimensionPersistentState.setIsClientInPocketDimension(payload.inPocketDimension());
+                        ClientPocketDimensionPersistentState.setDynamicBiomeBiomeEffects(payload.dynamicBiomeEffects());
+                        ClientPocketDimensionPersistentState.setSkybox(payload.skybox());
                     });
                 }
         );
