@@ -21,7 +21,7 @@ import java.util.Optional;
     @Inject(method = "getFogColor", at = @At("HEAD"), cancellable = true)
     public void getDynamicBiomeFogColour(CallbackInfoReturnable<Integer> cir)
     {
-        if(ClientPocketDimensionPersistentState.isIsClientInPocketDimension())
+        if(ClientPocketDimensionPersistentState.isClientInPocketDimension())
         {
             cir.setReturnValue(ClientPocketDimensionPersistentState.getDynamicBiomeEffects().getFogColor());
         }
@@ -30,7 +30,7 @@ import java.util.Optional;
     @Inject(method = "getWaterColor", at = @At("HEAD"), cancellable = true)
     public void getDynamicBiomeWaterColor(CallbackInfoReturnable<Integer> cir)
     {
-        if(ClientPocketDimensionPersistentState.isIsClientInPocketDimension())
+        if(ClientPocketDimensionPersistentState.isClientInPocketDimension())
         {
             cir.setReturnValue(ClientPocketDimensionPersistentState.getDynamicBiomeEffects().getWaterColor());
         }
@@ -39,7 +39,7 @@ import java.util.Optional;
     @Inject(method = "getWaterFogColor", at = @At("HEAD"), cancellable = true)
     public void getDynamicBiomeWaterFogColor(CallbackInfoReturnable<Integer> cir)
     {
-        if(ClientPocketDimensionPersistentState.isIsClientInPocketDimension())
+        if(ClientPocketDimensionPersistentState.isClientInPocketDimension())
         {
             cir.setReturnValue(ClientPocketDimensionPersistentState.getDynamicBiomeEffects().getWaterFogColor());
         }
@@ -48,7 +48,7 @@ import java.util.Optional;
     @Inject(method = "getSkyColor", at = @At("HEAD"), cancellable = true)
     public void getDynamicBiomeSkyColor(CallbackInfoReturnable<Integer> cir)
     {
-        if(ClientPocketDimensionPersistentState.isIsClientInPocketDimension())
+        if(ClientPocketDimensionPersistentState.isClientInPocketDimension())
         {
             cir.setReturnValue(ClientPocketDimensionPersistentState.getDynamicBiomeEffects().getSkyColor());
         }
@@ -57,7 +57,7 @@ import java.util.Optional;
     @Inject(method = "getFoliageColor", at = @At("HEAD"), cancellable = true)
     public void getDynamicBiomeFoliageColor(CallbackInfoReturnable<Optional<Integer>> cir)
     {
-        if(ClientPocketDimensionPersistentState.isIsClientInPocketDimension())
+        if(ClientPocketDimensionPersistentState.isClientInPocketDimension())
         {
             cir.setReturnValue(ClientPocketDimensionPersistentState.getDynamicBiomeEffects().getFoliageColor());
         }
@@ -66,7 +66,7 @@ import java.util.Optional;
     @Inject(method = "getGrassColor", at = @At("HEAD"), cancellable = true)
     public void getDynamicBiomeGrassColor(CallbackInfoReturnable<Optional<Integer>> cir)
     {
-        if(ClientPocketDimensionPersistentState.isIsClientInPocketDimension())
+        if(ClientPocketDimensionPersistentState.isClientInPocketDimension())
         {
             cir.setReturnValue(ClientPocketDimensionPersistentState.getDynamicBiomeEffects().getGrassColor());
         }
@@ -75,7 +75,7 @@ import java.util.Optional;
     @Inject(method = "getGrassColorModifier", at = @At("HEAD"), cancellable = true)
     public void getDynamicBiomeGrassColorModifier(CallbackInfoReturnable<BiomeEffects.GrassColorModifier> cir)
     {
-        if(ClientPocketDimensionPersistentState.isIsClientInPocketDimension())
+        if(ClientPocketDimensionPersistentState.isClientInPocketDimension())
         {
             cir.setReturnValue(BiomeEffects.GrassColorModifier.NONE);
         }
@@ -84,7 +84,7 @@ import java.util.Optional;
     @Inject(method = "getParticleConfig", at = @At("HEAD"), cancellable = true)
     public void getDynamicBiomeParticleConfig(CallbackInfoReturnable<Optional<BiomeParticleConfig>> cir)
     {
-        if(ClientPocketDimensionPersistentState.isIsClientInPocketDimension())
+        if(ClientPocketDimensionPersistentState.isClientInPocketDimension())
         {
             cir.setReturnValue(ClientPocketDimensionPersistentState.getDynamicBiomeEffects().getParticleConfig());
         }
@@ -93,7 +93,7 @@ import java.util.Optional;
     @Inject(method = "getLoopSound", at = @At("HEAD"), cancellable = true)
     public void getDynamicBiomeLoopSound(CallbackInfoReturnable<Optional<RegistryEntry<SoundEvent>>> cir)
     {
-        if(ClientPocketDimensionPersistentState.isIsClientInPocketDimension())
+        if(ClientPocketDimensionPersistentState.isClientInPocketDimension())
         {
             cir.setReturnValue(ClientPocketDimensionPersistentState.getDynamicBiomeEffects().getLoopSound());
         }
@@ -102,7 +102,7 @@ import java.util.Optional;
     @Inject(method = "getMoodSound", at = @At("HEAD"), cancellable = true)
     public void getDynamicBiomeMoodSound(CallbackInfoReturnable<Optional<BiomeMoodSound>> cir)
     {
-        if(ClientPocketDimensionPersistentState.isIsClientInPocketDimension())
+        if(ClientPocketDimensionPersistentState.isClientInPocketDimension())
         {
             cir.setReturnValue(ClientPocketDimensionPersistentState.getDynamicBiomeEffects().getMoodSound());
         }
@@ -111,7 +111,7 @@ import java.util.Optional;
     @Inject(method = "getAdditionsSound", at = @At("HEAD"), cancellable = true)
     public void getDynamicBiomeAdditionsSound(CallbackInfoReturnable<Optional<BiomeAdditionsSound>> cir)
     {
-        if(ClientPocketDimensionPersistentState.isIsClientInPocketDimension())
+        if(ClientPocketDimensionPersistentState.isClientInPocketDimension())
         {
             cir.setReturnValue(ClientPocketDimensionPersistentState.getDynamicBiomeEffects().getAdditionsSound());
         }
@@ -120,7 +120,7 @@ import java.util.Optional;
     @Inject(method = "getMusic", at = @At("HEAD"), cancellable = true)
     public void getDynamicBiomeMusic(CallbackInfoReturnable<Optional<MusicSound>> cir)
     {
-        if(ClientPocketDimensionPersistentState.isIsClientInPocketDimension())
+        if(ClientPocketDimensionPersistentState.isClientInPocketDimension())
         {
             cir.setReturnValue(ClientPocketDimensionPersistentState.getDynamicBiomeEffects().getMusic());
         }

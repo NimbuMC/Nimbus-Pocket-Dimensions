@@ -120,7 +120,7 @@ public final class ClientPocketDimensionPersistentState {
         ClientPocketDimensionPersistentState.dynamicBiomeBiomeEffects = dynamicBiomeBiomeEffects;
     }
 
-    public static boolean isIsClientInPocketDimension() {
+    public static boolean isClientInPocketDimension() {
         return isClientInPocketDimension;
     }
 

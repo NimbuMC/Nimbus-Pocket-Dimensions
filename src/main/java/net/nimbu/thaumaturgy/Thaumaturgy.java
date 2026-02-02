@@ -1,7 +1,9 @@
 package net.nimbu.thaumaturgy;
 
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.entity.event.v1.ServerEntityCombatEvents;
 import net.fabricmc.fabric.api.entity.event.v1.ServerEntityWorldChangeEvents;
+import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
 import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
@@ -96,6 +98,13 @@ public class Thaumaturgy implements ModInitializer {
 				(player, origin, destination) -> {
 					PocketDimensionSync.sync(destination, player);
 					PocketDimensionSync.syncDynamicBiome(player.getServerWorld(), player);
+				}
+		);
+
+		ServerPlayerEvents.AFTER_RESPAWN.register(
+				(oldPlayer, newPlayer, alive) -> {
+					PocketDimensionSync.sync(newPlayer.getServerWorld(), newPlayer);
+					PocketDimensionSync.syncDynamicBiome(newPlayer.getServerWorld(), newPlayer);
 				}
 		);
 	}

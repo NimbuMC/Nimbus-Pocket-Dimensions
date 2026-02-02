@@ -91,7 +91,7 @@ public class PocketDimensionPersistentState extends PersistentState {
             );
 
     public static PocketDimensionPersistentState get(ServerWorld world) {
-        return world.getPersistentStateManager().getOrCreate(TYPE, "pocket_dimension_rooms");
+        return world.getPersistentStateManager().getOrCreate(TYPE, "pocket_dimension_state");
     }
 }
 
