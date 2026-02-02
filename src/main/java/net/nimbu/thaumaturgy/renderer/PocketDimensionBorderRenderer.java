@@ -145,12 +145,11 @@ public class PocketDimensionBorderRenderer {
     };
 
     public static void render(WorldRenderContext context) {
-        if (!context.world().getRegistryKey().getValue().toString().contains("pocket_dimension")) return;
+        if (!ClientPocketDimensionPersistentState.isClientInPocketDimension()) return;
         MatrixStack matrices = context.matrixStack();
         Vector3f cam = MinecraftClient.getInstance().gameRenderer.getCamera().getPos().toVector3f();
         matrices.translate(-cam.x, -cam.y, -cam.z);
         matrices.push();
-        //matrices.push();
         VertexConsumerProvider.Immediate consumers = MinecraftClient.getInstance().getBufferBuilders().getEntityVertexConsumers();
 
         VertexConsumer vc = consumers.getBuffer(
@@ -238,6 +237,12 @@ public class PocketDimensionBorderRenderer {
                 }
             }
             matrices.pop();
+            matrices.translate(
+                    -(expansionModePosition.getX() * BorderLength),
+                    -(expansionModePosition.getY() * BorderHeight - 7),
+                    -(expansionModePosition.getZ() * BorderLength)
+            );
+            matrices.translate(cam.x, cam.y, cam.z);
         }
 
 

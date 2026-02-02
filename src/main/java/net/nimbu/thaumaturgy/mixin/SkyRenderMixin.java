@@ -28,7 +28,7 @@ public abstract class SkyRenderMixin {
         ClientWorld world = client.world;
         if (world == null) return;
 
-        if (ClientPocketDimensionPersistentState.isIsClientInPocketDimension()) {
+        if (ClientPocketDimensionPersistentState.isClientInPocketDimension()) {
             MatrixStack matrixStack = new MatrixStack();
             matrixStack.multiplyPositionMatrix(matrix4f);
             DynamicSkyRenderer.render(matrixStack, ClientPocketDimensionPersistentState.getSkybox());
