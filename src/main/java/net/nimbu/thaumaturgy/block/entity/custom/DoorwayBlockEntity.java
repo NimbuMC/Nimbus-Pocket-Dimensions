@@ -20,7 +20,7 @@ import net.nimbu.thaumaturgy.Thaumaturgy;
 import net.nimbu.thaumaturgy.block.ModBlocks;
 import net.nimbu.thaumaturgy.block.custom.DoorwayBlock;
 import net.nimbu.thaumaturgy.block.entity.ModBlockEntityTypes;
-import net.nimbu.thaumaturgy.persistentstates.PocketDimRoomsHelper;
+import net.nimbu.thaumaturgy.network.ClientPocketDimensionPersistentState;
 import net.nimbu.thaumaturgy.renderer.PocketDimensionBorderRenderer;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
@@ -124,7 +124,7 @@ public class DoorwayBlockEntity extends BlockEntity {
                     Math.floorDiv(exitPosition.getZ(), PocketDimensionBorderRenderer.BorderLength)
             );
 
-            PocketDimRoomsHelper.addRoom(targetWorld, roomPos);
+            ClientPocketDimensionPersistentState.addRoom(targetWorld, roomPos);
         }
     }
 

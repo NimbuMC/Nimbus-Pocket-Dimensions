@@ -1,19 +1,14 @@
 package net.nimbu.thaumaturgy;
 
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.entity.event.v1.ServerEntityCombatEvents;
 import net.fabricmc.fabric.api.entity.event.v1.ServerEntityWorldChangeEvents;
+import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
 import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
-import net.minecraft.block.Blocks;
-import net.minecraft.client.option.KeyBinding;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.RegistryBuilder;
-import net.minecraft.registry.RegistryKeys;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.math.BlockPos;
 import net.nimbu.thaumaturgy.block.ModBlocks;
 import net.nimbu.thaumaturgy.block.entity.ModBlockEntityTypes;
 import net.nimbu.thaumaturgy.component.ModDataComponentTypes;
@@ -23,16 +18,14 @@ import net.nimbu.thaumaturgy.entity.ModEntities;
 import net.nimbu.thaumaturgy.entity.custom.PixieEntity;
 import net.nimbu.thaumaturgy.item.ModItemGroups;
 import net.nimbu.thaumaturgy.item.ModItems;
-import net.nimbu.thaumaturgy.network.PocketDimRoomSync;
+import net.nimbu.thaumaturgy.network.DynamicBiomePayload;
+import net.nimbu.thaumaturgy.network.PocketDimensionSync;
 import net.nimbu.thaumaturgy.network.RoomSyncPayload;
 import net.nimbu.thaumaturgy.network.SingularRoomPayload;
 import net.nimbu.thaumaturgy.particle.ModParticles;
-import net.nimbu.thaumaturgy.persistentstates.PocketDimRoomsHelper;
-import net.nimbu.thaumaturgy.renderer.PocketDimensionBorderRenderer;
 import net.nimbu.thaumaturgy.sound.ModSoundEvents;
 import net.nimbu.thaumaturgy.spell.Spells;
 import net.nimbu.thaumaturgy.util.HammerUsageEvent;
-import net.nimbu.thaumaturgy.worldgen.biome.ModBiomes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -49,6 +42,10 @@ public class Thaumaturgy implements ModInitializer {
 		PayloadTypeRegistry.playS2C().register(
 				SingularRoomPayload.ID,
 				SingularRoomPayload.CODEC
+		);
+		PayloadTypeRegistry.playS2C().register(
+				DynamicBiomePayload.ID,
+				DynamicBiomePayload.CODEC
 		);
 		ModItemGroups.registerItemGroups();
 		ModItems.registerModItems();
@@ -92,13 +89,22 @@ public class Thaumaturgy implements ModInitializer {
 		ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {
 			ServerPlayerEntity player = handler.getPlayer();
 			server.execute(() -> {
-				PocketDimRoomSync.sync(player.getServerWorld(), player);
+				PocketDimensionSync.sync(player.getServerWorld(), player);
+				PocketDimensionSync.syncDynamicBiome(player.getServerWorld(), player);
 			});
 		});
 
 		ServerEntityWorldChangeEvents.AFTER_PLAYER_CHANGE_WORLD.register(
 				(player, origin, destination) -> {
-					PocketDimRoomSync.sync(destination, player);
+					PocketDimensionSync.sync(destination, player);
+					PocketDimensionSync.syncDynamicBiome(player.getServerWorld(), player);
+				}
+		);
+
+		ServerPlayerEvents.AFTER_RESPAWN.register(
+				(oldPlayer, newPlayer, alive) -> {
+					PocketDimensionSync.sync(newPlayer.getServerWorld(), newPlayer);
+					PocketDimensionSync.syncDynamicBiome(newPlayer.getServerWorld(), newPlayer);
 				}
 		);
 	}
