@@ -12,6 +12,9 @@ public class ModParticles {
     public static final SimpleParticleType MAGIC_PARTICLE =
             registerParticle("magic_particle", FabricParticleTypes.simple(true)); //will always spawn, even if particles are turned off in settings
 
+    public static final SimpleParticleType BLAST_PARTICLE =
+            registerParticle("blast_particle", FabricParticleTypes.simple(true));
+
     private static SimpleParticleType registerParticle(String name, SimpleParticleType simpleParticleType){
         return Registry.register(Registries.PARTICLE_TYPE, Identifier.of(Thaumaturgy.MOD_ID, name), simpleParticleType);
     }
