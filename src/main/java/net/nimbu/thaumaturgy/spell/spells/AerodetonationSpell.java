@@ -1,6 +1,5 @@
 package net.nimbu.thaumaturgy.spell.spells;
 
-import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -9,6 +8,8 @@ import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Box;
@@ -16,8 +17,9 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.explosion.AdvancedExplosionBehavior;
 import net.minecraft.world.explosion.ExplosionBehavior;
-import net.nimbu.thaumaturgy.particle.ModParticles;
 import net.nimbu.thaumaturgy.spell.Spell;
+import net.nimbu.thaumaturgy.spell.SpellEntities;
+import net.nimbu.thaumaturgy.spell.entity.AerodetonationSpellEntity;
 
 import java.util.List;
 import java.util.Optional;
@@ -50,19 +52,27 @@ public class AerodetonationSpell extends Spell {
         Vec3d start = user.getPos();
         if(!world.isClient) {
 
-            start = new Vec3d(start.x, start.y+1, start.z); //nudge up to eye height
+            start = new Vec3d(start.x, start.y+1.5, start.z); //nudge up to eye height
             Vec3d length = user.getRotationVector().multiply(6.0);
             start=start.add(length.normalize()); //push the start a block in the direction the player is looking
             Vec3d end = start.add(length);
 
+            //check raycasts and apply damage
             raycastDamage(start, end, world, user);
 
-            ((ServerWorld) world).spawnParticles(ParticleTypes.GUST,
-                    start.x, start.y, start.z, 1, 0, 0, 0, 0);
+            //particle effect
+            AerodetonationSpellEntity aerodetonationSpellEntity = new AerodetonationSpellEntity(SpellEntities.AERODETONATION_SPELL, world);
+            aerodetonationSpellEntity.setPosition(new Vec3d(start.x, start.y, start.z));
+            aerodetonationSpellEntity.setLifeTime(3);
+            aerodetonationSpellEntity.setVelocity(user, user.getPitch(), user.getYaw(), 0.0f, 2.2f, 0f);
+            world.spawnEntity(aerodetonationSpellEntity);
 
-            //ClientWorld clientWorld = (ClientWorld) world;
-            //clientWorld.addParticle(ParticleTypes.DAMAGE_INDICATOR,
-            //        start.x, start.y, start.z, 1, 0, 0);
+
+            //recoil
+            user.setVelocity(user.getVelocity().add(aerodetonationSpellEntity.getVelocity().negate().normalize()));
+            user.velocityModified = true;
+
+
         }
     }
 
@@ -106,17 +116,17 @@ public class AerodetonationSpell extends Spell {
                 right.multiply(-1).add(realUp.multiply(-1)),
         };
 
-        if (!world.isClient()) {
-            ServerWorld serverWorld = (ServerWorld) world;
-
-            for (Vec3d offset : offsets) {
-                drawDebugRay(
-                        serverWorld,
-                        start.add(offset),
-                        end.add(offset)
-                );
-            }
-        }
+//        if (!world.isClient()) {
+//            ServerWorld serverWorld = (ServerWorld) world;
+//
+//            for (Vec3d offset : offsets) {
+//                drawDebugRay(
+//                        serverWorld,
+//                        start.add(offset),
+//                        end.add(offset)
+//                );
+//            }
+//        }
 
         //tilt knockback upwards
         double horizontal = Math.sqrt(baseDir.x * baseDir.x + baseDir.z * baseDir.z);
