@@ -1,20 +1,22 @@
 {
-	"required": true,
-	"package": "net.nimbu.thaumaturgy.mixin",
-	"compatibilityLevel": "JAVA_21",
-	"mixins": [
-		"PlayerEntityMixin",
-		"KeyboardMixin"
-	],
-	"client": [
-		"AbstractClientPlayerEntityMixin",
-		"ItemRendererMixin",
-		"MinecraftClientMixin"
-	],
-	"injectors": {
-		"defaultRequire": 1
-	},
-	"overwrites": {
-		"requireAnnotations": true
+  "required": true,
+  "package": "net.nimbu.thaumaturgy.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "BiomeEffectsMixin",
+    "KeyboardMixin",
+    "PlayerEntityMixin"
+  ],
+  "client": [
+    "AbstractClientPlayerEntityMixin",
+    "ItemRendererMixin",
+    "MinecraftClientMixin",
+    "SkyRenderMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "overwrites": {
+    "requireAnnotations": true
 	}
 }

@@ -12,7 +12,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.nimbu.thaumaturgy.Thaumaturgy;
-import net.nimbu.thaumaturgy.persistentstates.PocketDimRoomsHelper;
+import net.nimbu.thaumaturgy.network.ClientPocketDimensionPersistentState;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 
@@ -145,12 +145,11 @@ public class PocketDimensionBorderRenderer {
     };
 
     public static void render(WorldRenderContext context) {
-        if (!context.world().getRegistryKey().getValue().toString().contains("pocket_dimension")) return;
+        if (!ClientPocketDimensionPersistentState.isClientInPocketDimension()) return;
         MatrixStack matrices = context.matrixStack();
         Vector3f cam = MinecraftClient.getInstance().gameRenderer.getCamera().getPos().toVector3f();
         matrices.translate(-cam.x, -cam.y, -cam.z);
         matrices.push();
-        //matrices.push();
         VertexConsumerProvider.Immediate consumers = MinecraftClient.getInstance().getBufferBuilders().getEntityVertexConsumers();
 
         VertexConsumer vc = consumers.getBuffer(
@@ -200,7 +199,7 @@ public class PocketDimensionBorderRenderer {
         for (int x = -renderRadius; x <= renderRadius; x++) {
             for (int y = -renderRadius; y <= renderRadius; y++) {
                 for (int z = -renderRadius; z <= renderRadius; z++) {
-                    boolean[] adj = PocketDimRoomsHelper.getAdjacents(new BlockPos(
+                    boolean[] adj = ClientPocketDimensionPersistentState.getAdjacents(new BlockPos(
                             relativePosition.getX() + x,
                             relativePosition.getY() + y,
                             relativePosition.getZ() + z));
@@ -238,6 +237,12 @@ public class PocketDimensionBorderRenderer {
                 }
             }
             matrices.pop();
+            matrices.translate(
+                    -(expansionModePosition.getX() * BorderLength),
+                    -(expansionModePosition.getY() * BorderHeight - 7),
+                    -(expansionModePosition.getZ() * BorderLength)
+            );
+            matrices.translate(cam.x, cam.y, cam.z);
         }
 
 
