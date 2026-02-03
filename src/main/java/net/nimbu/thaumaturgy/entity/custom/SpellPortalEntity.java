@@ -19,7 +19,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.nimbu.thaumaturgy.block.ModBlocks;
 import net.nimbu.thaumaturgy.block.entity.custom.DoorwayBlockEntity;
-import net.nimbu.thaumaturgy.particle.ModParticles;
+import net.nimbu.thaumaturgy.particle.ModParticleTypes;
 import net.nimbu.thaumaturgy.worldgen.dimension.ModDimensions;
 
 import static net.minecraft.block.HorizontalFacingBlock.FACING;
@@ -75,7 +75,7 @@ public class SpellPortalEntity extends ProjectileEntity {
             //create particle effect
             if (!world.isClient()){
                 Position pos = this.getPos();
-                ((ServerWorld) world).spawnParticles(ModParticles.MAGIC_PARTICLE,
+                ((ServerWorld) world).spawnParticles(ModParticleTypes.MAGIC_PARTICLE,
                         pos.getX(), pos.getY(), pos.getZ(), 50, 0.5, 1, 0.5, 0.5);
             }
         }
@@ -105,7 +105,7 @@ public class SpellPortalEntity extends ProjectileEntity {
         World world = this.getWorld();
         if (!world.isClient()){
             Position pos = this.getPos();
-            ((ServerWorld) world).spawnParticles(ModParticles.MAGIC_PARTICLE,
+            ((ServerWorld) world).spawnParticles(ModParticleTypes.MAGIC_PARTICLE,
                    pos.getX(), pos.getY()+0.25, pos.getZ(), 5, 0, 0, 0, 0);
         }
         //Can alternatively use "world.addParticle();" for clientside?

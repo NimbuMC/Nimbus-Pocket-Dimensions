@@ -25,19 +25,22 @@ import net.nimbu.thaumaturgy.block.entity.renderer.RevisualisingTableBlockEntity
 import net.nimbu.thaumaturgy.component.ModDataComponentTypes;
 import net.nimbu.thaumaturgy.effect.ModEffects;
 import net.nimbu.thaumaturgy.entity.ModEntities;
+import net.nimbu.thaumaturgy.entity.client.EmptyEntityRenderer;
 import net.nimbu.thaumaturgy.entity.client.PixieEntityModel;
 import net.nimbu.thaumaturgy.entity.client.PixieEntityRenderer;
 import net.nimbu.thaumaturgy.entity.client.SpellEntityRenderer;
 import net.nimbu.thaumaturgy.item.ModItemColours;
 import net.nimbu.thaumaturgy.item.ModItems;
 import net.nimbu.thaumaturgy.network.PocketDimClientNetworking;
+import net.nimbu.thaumaturgy.particle.BlastParticle;
 import net.nimbu.thaumaturgy.particle.MagicParticle;
-import net.nimbu.thaumaturgy.particle.ModParticles;
+import net.nimbu.thaumaturgy.particle.ModParticleTypes;
 import net.nimbu.thaumaturgy.renderer.LobotomyHudRenderer;
 import net.nimbu.thaumaturgy.renderer.PocketDimensionBorderRenderer;
 import net.nimbu.thaumaturgy.screen.ModScreenHanders;
 import net.nimbu.thaumaturgy.screen.custom.RevisualisingTableScreen;
 import net.nimbu.thaumaturgy.screen.custom.SpellScreen;
+import net.nimbu.thaumaturgy.spell.SpellEntities;
 import net.nimbu.thaumaturgy.util.ModModelPredicates;
 import org.lwjgl.glfw.GLFW;
 
@@ -63,8 +66,10 @@ public class ThaumaturgyClient implements ClientModInitializer {
         EntityRendererRegistry.register(ModEntities.SNOWBALL_COPY, FlyingItemEntityRenderer::new);
 
         EntityRendererRegistry.register(ModEntities.SPELL_PORTAL, SpellEntityRenderer::new);
+        EntityRendererRegistry.register(SpellEntities.AERODETONATION_SPELL, EmptyEntityRenderer::new);
 
-        ParticleFactoryRegistry.getInstance().register(ModParticles.MAGIC_PARTICLE, MagicParticle.Factory::new);
+        ParticleFactoryRegistry.getInstance().register(ModParticleTypes.MAGIC_PARTICLE, MagicParticle.Factory::new);
+        ParticleFactoryRegistry.getInstance().register(ModParticleTypes.BLAST_PARTICLE, BlastParticle.Factory::new);
 
         BlockEntityRendererFactories.register(ModBlockEntityTypes.REVISUALISING_TABLE_BLOCK_ENTITY, RevisualisingTableBlockEntityRenderer::new);
         HandledScreens.register(ModScreenHanders.REVISUALISING_TABLE_SCREEN_HANDLER, RevisualisingTableScreen::new);

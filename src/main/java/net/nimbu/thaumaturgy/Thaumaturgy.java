@@ -1,7 +1,6 @@
 package net.nimbu.thaumaturgy;
 
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.entity.event.v1.ServerEntityCombatEvents;
 import net.fabricmc.fabric.api.entity.event.v1.ServerEntityWorldChangeEvents;
 import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
 import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
@@ -22,7 +21,7 @@ import net.nimbu.thaumaturgy.network.DynamicBiomePayload;
 import net.nimbu.thaumaturgy.network.PocketDimensionSync;
 import net.nimbu.thaumaturgy.network.RoomSyncPayload;
 import net.nimbu.thaumaturgy.network.SingularRoomPayload;
-import net.nimbu.thaumaturgy.particle.ModParticles;
+import net.nimbu.thaumaturgy.particle.ModParticleTypes;
 import net.nimbu.thaumaturgy.sound.ModSoundEvents;
 import net.nimbu.thaumaturgy.spell.Spells;
 import net.nimbu.thaumaturgy.util.HammerUsageEvent;
@@ -56,7 +55,7 @@ public class Thaumaturgy implements ModInitializer {
 		ModEntities.registerModEntities();
 		ModEffects.registerEffects();
 		ModSoundEvents.registerSounds();
-		ModParticles.registerParticles();
+		ModParticleTypes.registerParticles();
 		ModEnchantmentEffects.registerEnchantmentEffects();
 
 		Spells.registerSpells();
