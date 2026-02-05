@@ -48,6 +48,7 @@ public class PocketDimensionPersistentState extends PersistentState {
 
     public Set<BlockPos> getUnlockedRooms() { return Set.copyOf(unlockedRooms); }
     public DynamicBiomeEffects getDynamicBiomeEffects(){ return dynamicBiomeEffects; }
+    public void setDynamicBiomeEffects(DynamicBiomeEffects newBiomeEffects){ dynamicBiomeEffects = newBiomeEffects; }
     public Identifier getSkybox(){ return skybox; }
 
     @Override

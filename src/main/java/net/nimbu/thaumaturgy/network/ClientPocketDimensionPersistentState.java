@@ -47,6 +47,16 @@ public final class ClientPocketDimensionPersistentState {
         );
     }
 
+    public static void updateDimensionBiome(DynamicBiomeEffects newEffects, ServerWorld world)
+    {
+        PocketDimensionPersistentState state = PocketDimensionPersistentState.get(world);
+        state.setDynamicBiomeEffects(newEffects);
+
+        for (ServerPlayerEntity player : world.getPlayers()) {
+            PocketDimensionSync.syncDynamicBiome(world, player);
+        }
+    }
+
     public static void addRoom(BlockPos room)
     {
         ROOMS.add(room);
@@ -63,7 +73,6 @@ public final class ClientPocketDimensionPersistentState {
 
     public static void addRoom(ServerWorld world, BlockPos pos) {
         PocketDimensionPersistentState state = PocketDimensionPersistentState.get(world);
-
         // Avoid resending if already unlocked
         if (state.isRoomUnlocked(pos)) return;
 
