@@ -1,7 +1,11 @@
 package net.nimbu.thaumaturgy.network;
 
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.nimbu.thaumaturgy.Thaumaturgy;
+import net.nimbu.thaumaturgy.persistentstates.PocketDimensionPersistentState;
 
 public class PocketDimClientNetworking {
 

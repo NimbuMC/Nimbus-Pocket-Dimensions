@@ -7,7 +7,6 @@ import net.minecraft.util.Identifier;
 import net.nimbu.thaumaturgy.Thaumaturgy;
 import net.nimbu.thaumaturgy.block.ModBlocks;
 import net.nimbu.thaumaturgy.block.entity.custom.DoorwayBlockEntity;
-import net.nimbu.thaumaturgy.block.entity.custom.PocketDimensionBiomeControllerBlockEntity;
 import net.nimbu.thaumaturgy.block.entity.custom.RevisualisingTableBlockEntity;
 
 public class ModBlockEntityTypes {
@@ -16,14 +15,6 @@ public class ModBlockEntityTypes {
                     BlockEntityType.Builder.create(
                             DoorwayBlockEntity::new,
                             ModBlocks.DOORWAY
-                    ).build());
-
-
-    public static final BlockEntityType<PocketDimensionBiomeControllerBlockEntity> POCKET_DIMENSION_BIOME_CONTROLLER =
-            Registry.register(Registries.BLOCK_ENTITY_TYPE, Identifier.of(Thaumaturgy.MOD_ID, "pocket_dimension_border"),
-                    BlockEntityType.Builder.create(
-                            PocketDimensionBiomeControllerBlockEntity::new,
-                            ModBlocks.POCKET_DIMENSION_BIOME_CONTROLLER
                     ).build());
 
     public static final BlockEntityType<RevisualisingTableBlockEntity> REVISUALISING_TABLE_BLOCK_ENTITY =

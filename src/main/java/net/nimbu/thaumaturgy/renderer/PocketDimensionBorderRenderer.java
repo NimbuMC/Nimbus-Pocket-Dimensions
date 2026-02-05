@@ -242,8 +242,8 @@ public class PocketDimensionBorderRenderer {
                     -(expansionModePosition.getY() * BorderHeight - 7),
                     -(expansionModePosition.getZ() * BorderLength)
             );
-            matrices.translate(cam.x, cam.y, cam.z);
         }
+        matrices.translate(cam.x, cam.y, cam.z);
 
 
         consumers.draw();
