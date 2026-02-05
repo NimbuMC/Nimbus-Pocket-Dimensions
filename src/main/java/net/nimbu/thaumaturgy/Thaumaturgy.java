@@ -23,8 +23,6 @@ import net.nimbu.thaumaturgy.entity.custom.PixieEntity;
 import net.nimbu.thaumaturgy.item.ModItemGroups;
 import net.nimbu.thaumaturgy.item.ModItems;
 import net.nimbu.thaumaturgy.network.*;
-import net.nimbu.thaumaturgy.particle.ModParticles;
-import net.nimbu.thaumaturgy.persistentstates.PocketDimensionPersistentState;
 import net.nimbu.thaumaturgy.network.DynamicBiomePayload;
 import net.nimbu.thaumaturgy.network.PocketDimensionSync;
 import net.nimbu.thaumaturgy.network.RoomSyncPayload;
