@@ -6,8 +6,13 @@ import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
 import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtOps;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.math.BlockPos;
 import net.nimbu.thaumaturgy.block.ModBlocks;
 import net.nimbu.thaumaturgy.block.entity.ModBlockEntityTypes;
 import net.nimbu.thaumaturgy.component.ModDataComponentTypes;
@@ -17,6 +22,7 @@ import net.nimbu.thaumaturgy.entity.ModEntities;
 import net.nimbu.thaumaturgy.entity.custom.PixieEntity;
 import net.nimbu.thaumaturgy.item.ModItemGroups;
 import net.nimbu.thaumaturgy.item.ModItems;
+import net.nimbu.thaumaturgy.network.*;
 import net.nimbu.thaumaturgy.network.DynamicBiomePayload;
 import net.nimbu.thaumaturgy.network.PocketDimensionSync;
 import net.nimbu.thaumaturgy.network.RoomSyncPayload;
@@ -25,6 +31,7 @@ import net.nimbu.thaumaturgy.particle.ModParticleTypes;
 import net.nimbu.thaumaturgy.sound.ModSoundEvents;
 import net.nimbu.thaumaturgy.spell.Spells;
 import net.nimbu.thaumaturgy.util.HammerUsageEvent;
+import net.nimbu.thaumaturgy.worldgen.biome.DynamicBiomeEffects;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -46,6 +53,10 @@ public class Thaumaturgy implements ModInitializer {
 				DynamicBiomePayload.ID,
 				DynamicBiomePayload.CODEC
 		);
+		PayloadTypeRegistry.playC2S().register(
+				UpdateBiomePacket.ID,
+				UpdateBiomePacket.CODEC
+		);
 		ModItemGroups.registerItemGroups();
 		ModItems.registerModItems();
 		ModItems.registerGrimoires();
@@ -57,7 +68,7 @@ public class Thaumaturgy implements ModInitializer {
 		ModSoundEvents.registerSounds();
 		ModParticleTypes.registerParticles();
 		ModEnchantmentEffects.registerEnchantmentEffects();
-
+		UpdateBiomeNetworkHandler.register();
 		Spells.registerSpells();
 
 

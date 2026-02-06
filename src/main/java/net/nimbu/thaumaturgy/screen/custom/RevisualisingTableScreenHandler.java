@@ -12,7 +12,7 @@ import net.minecraft.screen.slot.Slot;
 import net.minecraft.util.math.BlockPos;
 import net.nimbu.thaumaturgy.component.ModDataComponentTypes;
 import net.nimbu.thaumaturgy.item.ModItems;
-import net.nimbu.thaumaturgy.screen.ModScreenHanders;
+import net.nimbu.thaumaturgy.screen.ModScreenHandlers;
 
 public class RevisualisingTableScreenHandler extends ScreenHandler {
     private final Inventory inventory;
@@ -24,7 +24,7 @@ public class RevisualisingTableScreenHandler extends ScreenHandler {
 
     public RevisualisingTableScreenHandler(int syncId, PlayerInventory playerInventory,
                                            BlockEntity blockEntity, PropertyDelegate arrayPropertyDelegate) {
-        super(ModScreenHanders.REVISUALISING_TABLE_SCREEN_HANDLER, syncId);
+        super(ModScreenHandlers.REVISUALISING_TABLE_SCREEN_HANDLER, syncId);
         this.inventory = ((Inventory) blockEntity);
         this.propertyDelegate = arrayPropertyDelegate;
 
