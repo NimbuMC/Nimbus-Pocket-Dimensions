@@ -23,14 +23,22 @@ public class ModParticleTypes {
     public static final SimpleParticleType BLAST_PARTICLE =
             registerParticle("blast_particle", FabricParticleTypes.simple(true));
 
-//    public static final ParticleType<BlastParticleEffect> BLAST_PARTICLE =
-//            registerParticle("blast_particle", false, type -> BlastParticleEffect.CODEC, type -> BlastParticleEffect.PACKET_CODEC);
+    public static final SimpleParticleType RISE_PARTICLE =
+            registerParticle("rise_particle", FabricParticleTypes.simple(false));
+
+
 
 
     private static SimpleParticleType registerParticle(String name, SimpleParticleType simpleParticleType){
         return Registry.register(Registries.PARTICLE_TYPE, Identifier.of(Thaumaturgy.MOD_ID, name), simpleParticleType);
     }
 
+
+
+//      TODO: BELOW IS CODE FOR PARTICLES WITH ADDITIONAL DATA PASSED TO THEM.
+
+//    public static final ParticleType<BlastParticleEffect> BLAST_PARTICLE =
+//            registerParticle("blast_particle", false, type -> BlastParticleEffect.CODEC, type -> BlastParticleEffect.PACKET_CODEC);
 
 //    private static <T extends ParticleEffect> ParticleType<T> registerParticle(
 //            String name,

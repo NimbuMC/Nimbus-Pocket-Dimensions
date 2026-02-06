@@ -33,6 +33,7 @@ import net.nimbu.thaumaturgy.item.ModItemColours;
 import net.nimbu.thaumaturgy.item.ModItems;
 import net.nimbu.thaumaturgy.network.PocketDimClientNetworking;
 import net.nimbu.thaumaturgy.particle.BlastParticle;
+import net.nimbu.thaumaturgy.particle.RiseParticle;
 import net.nimbu.thaumaturgy.particle.MagicParticle;
 import net.nimbu.thaumaturgy.particle.ModParticleTypes;
 import net.nimbu.thaumaturgy.renderer.LobotomyHudRenderer;
@@ -65,11 +66,12 @@ public class ThaumaturgyClient implements ClientModInitializer {
 
         EntityRendererRegistry.register(ModEntities.SNOWBALL_COPY, FlyingItemEntityRenderer::new);
 
-        EntityRendererRegistry.register(ModEntities.SPELL_PORTAL, SpellEntityRenderer::new);
+        EntityRendererRegistry.register(SpellEntities.SPELL_PORTAL, SpellEntityRenderer::new);
         EntityRendererRegistry.register(SpellEntities.AERODETONATION_SPELL, EmptyEntityRenderer::new);
 
         ParticleFactoryRegistry.getInstance().register(ModParticleTypes.MAGIC_PARTICLE, MagicParticle.Factory::new);
         ParticleFactoryRegistry.getInstance().register(ModParticleTypes.BLAST_PARTICLE, BlastParticle.Factory::new);
+        ParticleFactoryRegistry.getInstance().register(ModParticleTypes.RISE_PARTICLE, RiseParticle.Factory::new);
 
         BlockEntityRendererFactories.register(ModBlockEntityTypes.REVISUALISING_TABLE_BLOCK_ENTITY, RevisualisingTableBlockEntityRenderer::new);
         HandledScreens.register(ModScreenHanders.REVISUALISING_TABLE_SCREEN_HANDLER, RevisualisingTableScreen::new);

@@ -1,8 +1,6 @@
 package net.nimbu.thaumaturgy.spell;
 
 import net.nimbu.thaumaturgy.Thaumaturgy;
-import net.nimbu.thaumaturgy.entity.ModEntities;
-import net.nimbu.thaumaturgy.entity.custom.SpellPortalEntity;
 import net.nimbu.thaumaturgy.spell.spells.EffectCleansingSpell;
 import net.nimbu.thaumaturgy.spell.spells.PocketDimensionExpansionSpell;
 import net.nimbu.thaumaturgy.spell.spells.PocketDimensionSpell;

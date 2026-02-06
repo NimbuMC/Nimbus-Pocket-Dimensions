@@ -1,4 +1,4 @@
-package net.nimbu.thaumaturgy.entity.custom;
+package net.nimbu.thaumaturgy.spell.entity;
 
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.enums.DoubleBlockHalf;
