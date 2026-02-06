@@ -5,6 +5,7 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.narration.NarrationMessageBuilder;
 import net.minecraft.client.gui.widget.ClickableWidget;
+import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.client.render.*;
 import net.minecraft.text.Text;
 import net.nimbu.thaumaturgy.Thaumaturgy;
@@ -21,11 +22,15 @@ public class ColourSlider extends ClickableWidget {
     private int value;
     private boolean mouseEnteredWithClick;
     private boolean mouseOutLastFrame;
+    private boolean held;
     private final int colour;
     private final Text name;
     private ColourSlider rSlider;
     private ColourSlider gSlider;
     private ColourSlider bSlider;
+    private TextFieldWidget rTextBox;
+    private TextFieldWidget gTextBox;
+    private TextFieldWidget bTextBox;
     private int lowGrad;
     private int highGrad;
 
@@ -34,8 +39,10 @@ public class ColourSlider extends ClickableWidget {
         name = objName;
         this.colour = colour;
         this.value = initial;
-    }
-    public void setOtherColourSliders(@Nullable ColourSlider r, ColourSlider g, ColourSlider b)
+        }
+    public void setOtherColourSliders(
+            ColourSlider r, ColourSlider g, ColourSlider b,
+            TextFieldWidget rText, TextFieldWidget gText, TextFieldWidget bText)
     {
         rSlider = r;
         gSlider = g;
@@ -49,21 +56,37 @@ public class ColourSlider extends ClickableWidget {
         bSlider.setGrads(
                 (rSlider.getValue() << 16) | (gSlider.getValue() << 8),
                 (rSlider.getValue() << 16) | (gSlider.getValue() << 8) | 255);
+
+        rTextBox = rText;
+        gTextBox = gText;
+        bTextBox = bText;
+
+        rTextBox.setText(rSlider.getValue() + "");
+        gTextBox.setText(gSlider.getValue() + "");
+        bTextBox.setText(bSlider.getValue() + "");
     }
 
     @Override
     protected void renderWidget(DrawContext context, int mouseX, int mouseY, float delta) {
         boolean mouseDown = GLFW.glfwGetMouseButton(MinecraftClient.getInstance().getWindow().getHandle(),GLFW.GLFW_MOUSE_BUTTON_1) == GLFW.GLFW_PRESS;
-        if(mouseOutLastFrame && isHovered() && mouseDown)
-        {
-            mouseEnteredWithClick = true;
-        }
+        if(mouseOutLastFrame && isHovered() && mouseDown) mouseEnteredWithClick = true;
         if(!mouseDown) mouseEnteredWithClick = false;
-
-        if(mouseDown && !mouseEnteredWithClick && isHovered())
+        if(mouseDown && !mouseEnteredWithClick && isHovered()) held = true;
+        if(!mouseDown && held) held = false;
+        if(held) updateValue(mouseX);
+        else if(rTextBox.getText().matches("[0-9]+") && Integer.parseInt(rTextBox.getText()) != rSlider.getValue())
         {
-            updateValue(mouseX);
+            rSlider.setValue(Integer.parseInt(rTextBox.getText()));
         }
+        else if(gTextBox.getText().matches("[0-9]+") && Integer.parseInt(gTextBox.getText()) != gSlider.getValue())
+        {
+            gSlider.setValue(Integer.parseInt(gTextBox.getText()));
+        }
+        else if(bTextBox.getText().matches("[0-9]+") && Integer.parseInt(bTextBox.getText()) != bSlider.getValue())
+        {
+            bSlider.setValue(Integer.parseInt(bTextBox.getText()));
+        }
+
 
         context.drawText(MinecraftClient.getInstance().textRenderer,
                 name.getString(),
@@ -71,17 +94,7 @@ public class ColourSlider extends ClickableWidget {
                 getY(),
                 colour,
                 false);
-        /*
-        context.drawTexture(
-                SLIDER_BAR,
-                getX(), getY(),
-                0, 0,
-                width, height,
-                width, height
-        );
 
-
-         */
         drawHorizontalGradient(
                 context,
                 getX(), getY(),
@@ -104,22 +117,16 @@ public class ColourSlider extends ClickableWidget {
             int x, int y, int width, int height,
             int leftColor, int rightColor
     ) {
-        for (int i = 0; i < width; i+=4) {
-            float t = i / (float)(width - 1);
+        for (int i = 0; i < width - 2; i += 4) {
+            float t = i / (float) (width - 3);
 
-            int r = (int)(lerp(t,
-                    (leftColor >> 16) & 0xFF,
-                    (rightColor >> 16) & 0xFF));
-            int g = (int)(lerp(t,
-                    (leftColor >> 8) & 0xFF,
-                    (rightColor >> 8) & 0xFF));
-            int b = (int)(lerp(t,
-                    leftColor & 0xFF,
-                    rightColor & 0xFF));
+            int r = (int) (lerp(t, (leftColor >> 16) & 0xFF, (rightColor >> 16) & 0xFF));
+            int g = (int) (lerp(t, (leftColor >> 8) & 0xFF, (rightColor >> 8) & 0xFF));
+            int b = (int) (lerp(t, leftColor & 0xFF, rightColor & 0xFF));
 
             int color = 0xFF000000 | (r << 16) | (g << 8) | b;
 
-            context.fill(x + i, y + (height/2) - 1, x + i + 4, y + (height/2), color);
+            context.fill(x + i, y + (height / 2) - 1, x + i + 4, y + (height / 2), color);
         }
     }
 
@@ -134,7 +141,7 @@ public class ColourSlider extends ClickableWidget {
 
 
     private void updateValue(double mouseX) {
-        double t = (mouseX - getX()) / (double)(width - 1);
+        double t = (mouseX - getX()) / (double)(width - 5);
         t = Math.clamp(t, 0.0, 1.0);
         value = min + (int)Math.round(t * (max - min));
         rSlider.setGrads(
@@ -146,6 +153,29 @@ public class ColourSlider extends ClickableWidget {
         bSlider.setGrads(
                 (rSlider.getValue() << 16) | (gSlider.getValue() << 8),
                 (rSlider.getValue() << 16) | (gSlider.getValue() << 8) | 255);
+
+        rTextBox.setText(rSlider.getValue() + "");
+        gTextBox.setText(gSlider.getValue() + "");
+        bTextBox.setText(bSlider.getValue() + "");
+    }
+
+    public void setValue(int x)
+    {
+        x = Math.clamp(x, 0, 255);
+        value = x;
+        rSlider.setGrads(
+                (gSlider.getValue() << 8) | bSlider.getValue(),
+                (255 << 16) | (gSlider.getValue() << 8) | bSlider.getValue());
+        gSlider.setGrads(
+                (rSlider.getValue() << 16) | bSlider.getValue(),
+                (rSlider.getValue() << 16) | (255 << 8) | bSlider.getValue());
+        bSlider.setGrads(
+                (rSlider.getValue() << 16) | (gSlider.getValue() << 8),
+                (rSlider.getValue() << 16) | (gSlider.getValue() << 8) | 255);
+
+        rTextBox.setText(rSlider.getValue() + "");
+        gTextBox.setText(gSlider.getValue() + "");
+        bTextBox.setText(bSlider.getValue() + "");
     }
 
     public void setGrads(int low, int high) {
