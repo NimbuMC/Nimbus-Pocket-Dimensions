@@ -11,7 +11,8 @@
     "AbstractClientPlayerEntityMixin",
     "ItemRendererMixin",
     "MinecraftClientMixin",
-    "SkyRenderMixin"
+    "SkyRenderMixin",
+    "PlayerEntityRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1

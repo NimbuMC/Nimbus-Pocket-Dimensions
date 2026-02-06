@@ -14,7 +14,8 @@ import net.minecraft.world.World;
 import net.nimbu.thaumaturgy.component.ModDataComponentTypes;
 import net.nimbu.thaumaturgy.dimensions.DimensionalInstancer;
 import net.nimbu.thaumaturgy.entity.ModEntities;
-import net.nimbu.thaumaturgy.entity.custom.SpellPortalEntity;
+import net.nimbu.thaumaturgy.spell.SpellEntities;
+import net.nimbu.thaumaturgy.spell.entity.SpellPortalEntity;
 
 public class WandPortalItem extends Item {
     public WandPortalItem(Settings settings) {
@@ -47,7 +48,7 @@ public class WandPortalItem extends Item {
 
         if(!world.isClient) {
             ServerWorld targetDimension = DimensionalInstancer.createInstance(world.getServer(), user.getUuid());
-            SpellPortalEntity spellPortal = new SpellPortalEntity(ModEntities.SPELL_PORTAL, world);
+            SpellPortalEntity spellPortal = new SpellPortalEntity(SpellEntities.SPELL_PORTAL, world);
             spellPortal.setPosition(new Vec3d(user.getX(), user.getY() + 1.5, user.getZ()));
             spellPortal.setVelocity(user, user.getPitch() - 30, user.getYaw(), 0.0f, 0.45f, 0f);
             spellPortal.setExitDimension(targetDimension.getRegistryKey());

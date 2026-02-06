@@ -10,7 +10,7 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.nimbu.thaumaturgy.Thaumaturgy;
-import net.nimbu.thaumaturgy.entity.custom.SpellPortalEntity;
+import net.nimbu.thaumaturgy.spell.entity.SpellPortalEntity;
 
 public class SpellEntityRenderer extends EntityRenderer<SpellPortalEntity> {
     private static final Identifier TEXTURE = Identifier.of(Thaumaturgy.MOD_ID, "textures/particle/spell_portal.png");
