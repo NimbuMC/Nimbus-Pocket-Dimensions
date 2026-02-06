@@ -38,7 +38,8 @@ import net.nimbu.thaumaturgy.particle.MagicParticle;
 import net.nimbu.thaumaturgy.particle.ModParticleTypes;
 import net.nimbu.thaumaturgy.renderer.LobotomyHudRenderer;
 import net.nimbu.thaumaturgy.renderer.PocketDimensionBorderRenderer;
-import net.nimbu.thaumaturgy.screen.ModScreenHanders;
+import net.nimbu.thaumaturgy.screen.ModScreenHandlers;
+import net.nimbu.thaumaturgy.screen.custom.PocketDimensionBiomeControllerScreen;
 import net.nimbu.thaumaturgy.screen.custom.RevisualisingTableScreen;
 import net.nimbu.thaumaturgy.screen.custom.SpellScreen;
 import net.nimbu.thaumaturgy.spell.SpellEntities;
@@ -74,9 +75,11 @@ public class ThaumaturgyClient implements ClientModInitializer {
         ParticleFactoryRegistry.getInstance().register(ModParticleTypes.RISE_PARTICLE, RiseParticle.Factory::new);
 
         BlockEntityRendererFactories.register(ModBlockEntityTypes.REVISUALISING_TABLE_BLOCK_ENTITY, RevisualisingTableBlockEntityRenderer::new);
-        HandledScreens.register(ModScreenHanders.REVISUALISING_TABLE_SCREEN_HANDLER, RevisualisingTableScreen::new);
+        HandledScreens.register(ModScreenHandlers.REVISUALISING_TABLE_SCREEN_HANDLER, RevisualisingTableScreen::new);
 
-        HandledScreens.register(ModScreenHanders.SPELL_SCREEN_HANDLER, SpellScreen::new);
+        HandledScreens.register(ModScreenHandlers.POCKET_DIM_BIOME_SCREEN_HANDLER, PocketDimensionBiomeControllerScreen::new);
+
+        HandledScreens.register(ModScreenHandlers.SPELL_SCREEN_HANDLER, SpellScreen::new);
 
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.PURPLE_MAGIC_MUSHROOM, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.MAGENTA_MAGIC_MUSHROOM, RenderLayer.getCutout());

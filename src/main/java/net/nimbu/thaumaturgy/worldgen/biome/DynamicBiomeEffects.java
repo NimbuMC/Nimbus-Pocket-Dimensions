@@ -36,17 +36,17 @@ public class DynamicBiomeEffects {
                     )
                     .apply(instance, DynamicBiomeEffects::new)
     );
-    private final int fogColor;
-    private final int waterColor;
-    private final int waterFogColor;
-    private final int skyColor;
-    private final Optional<Integer> foliageColor;
-    private final Optional<Integer> grassColor;
-    private final Optional<BiomeParticleConfig> particleConfig;
-    private final Optional<RegistryEntry<SoundEvent>> loopSound;
-    private final Optional<BiomeMoodSound> moodSound;
-    private final Optional<BiomeAdditionsSound> additionsSound;
-    private final Optional<MusicSound> music;
+    private int fogColor;
+    private int waterColor;
+    private int waterFogColor;
+    private int skyColor;
+    private Optional<Integer> foliageColor;
+    private Optional<Integer> grassColor;
+    private Optional<BiomeParticleConfig> particleConfig;
+    private Optional<RegistryEntry<SoundEvent>> loopSound;
+    private Optional<BiomeMoodSound> moodSound;
+    private Optional<BiomeAdditionsSound> additionsSound;
+    private Optional<MusicSound> music;
 
     DynamicBiomeEffects(
             int fogColor,
@@ -78,28 +78,56 @@ public class DynamicBiomeEffects {
         return this.fogColor;
     }
 
+    public void setFogColor(int fogColor){
+        this.fogColor = fogColor;
+    }
+
     public int getWaterColor() {
         return this.waterColor;
+    }
+
+    public void setWaterColor(int waterColor) {
+        this.waterColor = waterColor;
     }
 
     public int getWaterFogColor() {
         return this.waterFogColor;
     }
 
+    public void setWaterFogColor(int waterFogColor) {
+        this.waterFogColor = waterFogColor;
+    }
+
     public int getSkyColor() {
         return this.skyColor;
+    }
+
+    public void setSkyColor(int skyColor) {
+        this.skyColor = skyColor;
     }
 
     public Optional<Integer> getFoliageColor() {
         return this.foliageColor;
     }
 
+    public void setFoliageColor(Optional<Integer> foliageColor) {
+        this.foliageColor = foliageColor;
+    }
+
     public Optional<Integer> getGrassColor() {
         return this.grassColor;
     }
 
+    public void setGrassColor(Optional<Integer> grassColor) {
+        this.grassColor = grassColor;
+    }
+
     public Optional<BiomeParticleConfig> getParticleConfig() {
         return this.particleConfig;
+    }
+
+    public void setParticleConfig(Optional<BiomeParticleConfig> particleConfig) {
+        this.particleConfig = particleConfig;
     }
 
     /**
@@ -110,6 +138,10 @@ public class DynamicBiomeEffects {
      */
     public Optional<RegistryEntry<SoundEvent>> getLoopSound() {
         return this.loopSound;
+    }
+
+    public void setLoopSound(Optional<RegistryEntry<SoundEvent>> loopSound) {
+        this.loopSound = loopSound;
     }
 
     /**
@@ -126,6 +158,10 @@ public class DynamicBiomeEffects {
         return this.moodSound;
     }
 
+    public void setMoodSound(Optional<BiomeMoodSound> moodSound) {
+        this.moodSound = moodSound;
+    }
+
     /**
      * Returns the additions sound.
      *
@@ -136,8 +172,16 @@ public class DynamicBiomeEffects {
         return this.additionsSound;
     }
 
+    public void setAdditionsSound(Optional<BiomeAdditionsSound> additionsSound) {
+        this.additionsSound = additionsSound;
+    }
+
     public Optional<MusicSound> getMusic() {
         return this.music;
+    }
+
+    public void setMusic(Optional<MusicSound> music) {
+        this.music = music;
     }
 
     public static class Builder {

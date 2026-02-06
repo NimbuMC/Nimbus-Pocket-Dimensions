@@ -9,7 +9,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 import net.nimbu.thaumaturgy.component.ModDataComponentTypes;
 import net.nimbu.thaumaturgy.item.SpellEquipHandler;
-import net.nimbu.thaumaturgy.screen.ModScreenHanders;
+import net.nimbu.thaumaturgy.screen.ModScreenHandlers;
 import net.nimbu.thaumaturgy.spell.Spell;
 import net.nimbu.thaumaturgy.spell.Spells;
 
@@ -28,7 +28,7 @@ public class SpellScreenHandler extends ScreenHandler {
     public World getWorld(){return WORLD;}
 
     public SpellScreenHandler(int syncId, PlayerInventory playerInventory) {
-        super(ModScreenHanders.SPELL_SCREEN_HANDLER, syncId);
+        super(ModScreenHandlers.SPELL_SCREEN_HANDLER, syncId);
         USER = playerInventory.player;
         WORLD = USER.getWorld();
         HAND = Hand.MAIN_HAND;
