@@ -39,7 +39,7 @@ public class ColourSlider extends ClickableWidget {
         name = objName;
         this.colour = colour;
         this.value = initial;
-        }
+    }
     public void setOtherColourSliders(
             ColourSlider r, ColourSlider g, ColourSlider b,
             TextFieldWidget rText, TextFieldWidget gText, TextFieldWidget bText)
@@ -107,8 +107,8 @@ public class ColourSlider extends ClickableWidget {
                 SLIDER_KNOB,
                 knobX, getY(),
                 0, 0,
-                8, height,
-                8, height
+                height, height,
+                32, 32
         );
         mouseOutLastFrame = !isHovered();
     }
