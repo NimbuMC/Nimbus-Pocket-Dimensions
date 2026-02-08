@@ -26,6 +26,7 @@ public class PocketDimensionBiomeControllerScreen extends HandledScreen<PocketDi
 
     public static final Identifier SLIDER_BAR = Identifier.of(Thaumaturgy.MOD_ID, "textures/gui/widgets/slider_bar.png");
     public static final Identifier SLIDER_KNOB = Identifier.of(Thaumaturgy.MOD_ID, "textures/gui/widgets/slider_knob.png");
+    public static final Identifier BACKGROUND = Identifier.of(Thaumaturgy.MOD_ID, "textures/gui/pocket_dimension_customiser/img.png");
     private RGBSliderGroup fogSliders;
     private RGBSliderGroup waterSliders;
     private RGBSliderGroup waterFogSliders;
@@ -33,21 +34,21 @@ public class PocketDimensionBiomeControllerScreen extends HandledScreen<PocketDi
     private RGBSliderGroup grassSliders;
 
     public PocketDimensionBiomeControllerScreen(PocketDimensionBiomeControllerScreenHandler handler, PlayerInventory inventory, Text title) {
-        super(handler, inventory, Text.of(""));
+        super(handler, new PlayerInventory(inventory.player), Text.of(""));
     }
 
     @Override
     protected void init() {
         super.init();
-        fogSliders = new RGBSliderGroup(x, y + 30, 90, 50, 5, 5, handler.getFogColour());
+        fogSliders = new RGBSliderGroup(x + backgroundWidth - 90, y + 70, 90, 40, 5, 2, handler.getFogColour());
         fogSliders.forEachChild(this::addDrawableChild);
-        waterSliders = new RGBSliderGroup(x + 120, y + 30, 90, 50, 5, 5, handler.getFogColour());
+        waterSliders = new RGBSliderGroup(x + backgroundWidth - 90, y + 70, 90, 40, 5, 2, handler.getWaterColour());
         waterSliders.forEachChild(this::addDrawableChild);
-        waterFogSliders = new RGBSliderGroup(x + 240, y + 30, 90, 50, 5, 5, handler.getFogColour());
+        waterFogSliders = new RGBSliderGroup(x + backgroundWidth - 90, y + 120, 90, 40, 5, 2, handler.getWaterFogColour());
         waterFogSliders.forEachChild(this::addDrawableChild);
-        foliageSliders = new RGBSliderGroup(x + 360, y + 30, 90, 50, 5, 5, handler.getFogColour());
+        foliageSliders = new RGBSliderGroup(x + backgroundWidth - 90, y + 70, 90, 40, 5, 2, handler.getFoliageColour());
         foliageSliders.forEachChild(this::addDrawableChild);
-        grassSliders = new RGBSliderGroup(x + 480, y + 30, 90, 50, 5, 5, handler.getFogColour());
+        grassSliders = new RGBSliderGroup(x + backgroundWidth - 90, y + 120, 90, 40, 5, 2, handler.getGrassColour());
         grassSliders.forEachChild(this::addDrawableChild);
 
         ButtonWidget applyButton = ButtonWidget.builder(
@@ -55,14 +56,80 @@ public class PocketDimensionBiomeControllerScreen extends HandledScreen<PocketDi
                 button -> applyChanges()
         ).dimensions(x, y, 60, 20).build();
         addDrawableChild(applyButton);
+
+
+        //menu buttons
+        ButtonWidget fogMenuButton = ButtonWidget.builder(
+                Text.literal("Fog colour"),
+                button -> {
+                    fogSliders.setVisibility(true);
+                    waterSliders.setVisibility(false);
+                    waterFogSliders.setVisibility(false);
+                    foliageSliders.setVisibility(false);
+                    grassSliders.setVisibility(false);
+                }
+        ).dimensions(x, y + 60, 60, 20).build();
+        addDrawableChild(fogMenuButton);
+        ButtonWidget waterMenuButton = ButtonWidget.builder( //water colours and water fog colours
+                Text.literal("Water colours"),
+                button -> {
+                    fogSliders.setVisibility(false);
+                    waterSliders.setVisibility(true);
+                    waterFogSliders.setVisibility(true);
+                    foliageSliders.setVisibility(false);
+                    grassSliders.setVisibility(false);
+                }
+        ).dimensions(x, y + 80, 60, 20).build();
+        addDrawableChild(waterMenuButton);
+        ButtonWidget foliageColours = ButtonWidget.builder( //grass and leaf colours
+                Text.literal("Foliage colours"),
+                button -> {
+                    fogSliders.setVisibility(false);
+                    waterSliders.setVisibility(false);
+                    waterFogSliders.setVisibility(false);
+                    foliageSliders.setVisibility(true);
+                    grassSliders.setVisibility(true);
+                }
+        ).dimensions(x, y + 100, 60, 20).build();
+        addDrawableChild(foliageColours);
+
+        fogSliders.setVisibility(true);
+        waterSliders.setVisibility(false);
+        waterFogSliders.setVisibility(false);
+        foliageSliders.setVisibility(false);
+        grassSliders.setVisibility(false);
     }
 
     @Override
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
         super.render(context, mouseX, mouseY, delta);
-        int[] colour = fogSliders.getColour();
-        renderBlock(context, Blocks.OAK_LEAVES.getDefaultState(), x + 100,y, 100,
-                colour[0], colour[1], colour[2]);
+        int[] fogColour = fogSliders.getColour();
+        int[] waterColour = waterSliders.getColour();
+        int[] waterFogColour = waterFogSliders.getColour();
+        int[] foliageColour = foliageSliders.getColour();
+        int[] grassColour = grassSliders.getColour();
+
+
+        testSample(context,x + backgroundWidth - 70, y, 70, 70,
+                0xFF000000 | (fogColour[0] << 16) | (fogColour[1] << 8) | fogColour[2],
+                0xFF000000 | (waterColour[0] << 16) | (waterColour[1] << 8) | waterColour[2],
+                0xFF000000 | (waterFogColour[0] << 16) | (waterFogColour[1] << 8) | waterFogColour[2],
+                0xFF000000 | (foliageColour[0] << 16) | (foliageColour[1] << 8) | foliageColour[2],
+                0xFF000000 | (grassColour[0] << 16) | (grassColour[1] << 8) | grassColour[2]
+                );
+        //renderBlock(context, Blocks.OAK_LEAVES.getDefaultState(), x + 100,y, 100,colour[0], colour[1], colour[2]);
+    }
+
+
+    private void testSample(DrawContext context, int x, int y, int width, int height, int C1, int C2,int C3,int C4,int C5) {
+
+        int widthPer = width/5;
+
+        context.fill(x, y, x + widthPer, y + height, C1);
+        context.fill(x + widthPer, y, x + 2 * widthPer, y + height, C2);
+        context.fill(x + 2 * widthPer, y, x + 3 * widthPer, y + height, C3);
+        context.fill(x + 3 * widthPer, y, x + 4 * widthPer, y + height, C4);
+        context.fill(x + 4 * widthPer, y, x + 5 * widthPer, y + height, C5);
     }
 
     private void renderBlock(
@@ -110,7 +177,10 @@ public class PocketDimensionBiomeControllerScreen extends HandledScreen<PocketDi
 
     @Override
     protected void drawBackground(DrawContext context, float delta, int mouseX, int mouseY) {
+        int x = (width - backgroundWidth) / 2; //background with and height variables are the dimensions of a default inventory menu
+        int y = (height - backgroundHeight) / 2;
 
+        context.drawTexture(BACKGROUND, x, y, 0, 0, backgroundWidth, backgroundHeight);
     }
 
     private void applyChanges() {

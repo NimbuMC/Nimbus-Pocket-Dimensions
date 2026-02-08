@@ -33,63 +33,67 @@ public class RGBSliderGroup implements Widget, Drawable {
         this.y = y;
         this.width = width;
         this.height = height;
+        int textBoxWidth = 30;
+        int sliderWidth = width - (borderWidth * 3) - textBoxWidth;
+        int sliderHeight = (height - ((borderWidth + barSeparation) * 2)) / 3;
+        int redY = y + borderWidth;
+        int greenY = y + borderWidth + sliderHeight + barSeparation;
+        int blueY = y + borderWidth + 2 * (sliderHeight + barSeparation);
         rSlider = new ColourSlider(
                 x + borderWidth,
-                y + borderWidth,
-                width - (borderWidth * 2) - 20,
-                (height - ((borderWidth + barSeparation) * 2)) / 3,
+                redY,
+                sliderWidth,
+                sliderHeight,
                 Text.of("R"),
                 initialValues[0],
                 0xFF0000
         );
 
-        int greenY = y + borderWidth + ((height - (borderWidth * 2)) / 3) + barSeparation;
         gSlider = new ColourSlider(
                 x + borderWidth,
                 greenY,
-                width - (borderWidth * 2) - 20,
-                (height - ((borderWidth + barSeparation) * 2)) / 3,
+                sliderWidth,
+                sliderHeight,
                 Text.of("G"),
                 initialValues[1],
                 0x00FF00
         );
 
-        int blueY = y + borderWidth + (((height - (borderWidth * 2)) * 2) / 3) + (2 * barSeparation);
         bSlider = new ColourSlider(
                 x + borderWidth,
                 blueY,
-                width - (borderWidth * 2) - 20,
-                (height - ((borderWidth + barSeparation) * 2)) / 3,
+                sliderWidth,
+                sliderHeight,
                 Text.of("B"),
                 initialValues[2],
                 0x0000FF
         );
 
         rTextBox = new TextFieldWidget(MinecraftClient.getInstance().textRenderer,
-                rSlider.getX() + rSlider.getWidth() + 5,
-                y + borderWidth,
-                30,
-                (height - ((borderWidth + barSeparation) * 2)) / 3,
+                x + borderWidth + sliderWidth + barSeparation,
+                redY - 2,
+                textBoxWidth,
+                sliderHeight + 2,
                 Text.of("R"));
 
         rTextBox.setMaxLength(3);
         rTextBox.setText(rSlider.getValue() + "");
 
         gTextBox = new TextFieldWidget(MinecraftClient.getInstance().textRenderer,
-                gSlider.getX() + gSlider.getWidth() + 5,
-                greenY,
-                30,
-                (height - ((borderWidth + barSeparation) * 2)) / 3,
+                x + borderWidth + sliderWidth + barSeparation,
+                greenY - 2,
+                textBoxWidth,
+                sliderHeight + 2,
                 Text.of("G"));
 
         gTextBox.setMaxLength(3);
         gTextBox.setText(gSlider.getValue() + "");
 
         bTextBox = new TextFieldWidget(MinecraftClient.getInstance().textRenderer,
-                bSlider.getX() + bSlider.getWidth() + 5,
-                blueY,
-                30,
-                (height - ((borderWidth + barSeparation) * 2)) / 3,
+                x + borderWidth + sliderWidth + barSeparation,
+                blueY - 2,
+                textBoxWidth,
+                sliderHeight + 2,
                 Text.of("B"));
 
         bTextBox.setMaxLength(3);
@@ -141,9 +145,14 @@ public class RGBSliderGroup implements Widget, Drawable {
 
     @Override
     public void forEachChild(Consumer<ClickableWidget> consumer) {
-        for(ClickableWidget child : List.of(rSlider, gSlider, bSlider, rTextBox, rSlider, bSlider))
+        for(ClickableWidget child : List.of(rSlider, gSlider, bSlider, rTextBox, gTextBox, bTextBox))
         {
             consumer.accept(child);
         }
+    }
+
+    public void setVisibility(boolean visibility)
+    {
+        forEachChild(x -> x.visible = visibility);
     }
 }
