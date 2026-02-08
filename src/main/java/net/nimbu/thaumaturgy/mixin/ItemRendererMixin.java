@@ -19,6 +19,7 @@ import net.nimbu.thaumaturgy.item.RevisualisedItemRenderer;
 import net.nimbu.thaumaturgy.item.SpellFlashRenderer;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Mutable;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -54,7 +55,27 @@ public abstract class ItemRendererMixin {
         return bakedModel;
     }
 
-
+//    @Shadow
+//    @Final
+//    @Mutable
+//    private static Identifier ITEM_ENCHANTMENT_GLINT;
+//
+//    @Inject(method = "<clinit>", at = @At("TAIL"))
+//    private static void replaceGlintTexture(CallbackInfo ci) {
+//        MinecraftClient client = MinecraftClient.getInstance();
+//        if (client.player == null) return;
+//
+//        // Switch less frequently: use player block coordinates
+//        int x = client.player.getBlockX();
+//        int z = client.player.getBlockZ();
+//
+//        // Example: alternate glint every 5 blocks
+//        if ((x / 5 + z / 5) % 2 == 0) {
+//            ITEM_ENCHANTMENT_GLINT = Identifier.of(Thaumaturgy.MOD_ID, "textures/item/hammer.png");
+//        } else {
+//            ITEM_ENCHANTMENT_GLINT = Identifier.of(Thaumaturgy.MOD_ID, "textures/item/tome_of_expansion.png");
+//        }
+//    }
 
     //Adding addition effects
 
