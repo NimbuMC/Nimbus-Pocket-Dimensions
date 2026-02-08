@@ -1,10 +1,7 @@
 package net.nimbu.thaumaturgy.item;
 
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.RenderLayers;
-import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.*;
 import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.render.model.BakedModel;
 import net.minecraft.client.render.model.BakedQuad;
@@ -22,6 +19,22 @@ import net.minecraft.util.math.random.Random;
 import java.util.List;
 
 public class RevisualisedItemRenderer {
+
+    private static final RenderLayer GLINT = RenderLayer.of(
+            "glint",
+            VertexFormats.POSITION_TEXTURE,
+            VertexFormat.DrawMode.QUADS,
+            1536,
+            RenderLayer.MultiPhaseParameters.builder()
+                    .program(RenderLayer.GLINT_PROGRAM)
+                    .texture(new RenderPhase.Texture(ItemRenderer.ITEM_ENCHANTMENT_GLINT, true, false))
+                    .writeMaskState(RenderLayer.COLOR_MASK)
+                    .cull(RenderLayer.DISABLE_CULLING)
+                    .depthTest(RenderLayer.EQUAL_DEPTH_TEST)
+                    .transparency(RenderLayer.GLINT_TRANSPARENCY)
+                    .texturing(RenderLayer.GLINT_TEXTURING)
+                    .build(false)
+    );
 
     public static void renderItem(
             ItemStack stack,
@@ -52,11 +65,34 @@ public class RevisualisedItemRenderer {
 
         RenderLayer renderLayer = RenderLayers.getItemLayer(stack, bl2);
         VertexConsumer vertexConsumer = vertexConsumers.getBuffer(renderLayer);
-        renderBakedItemModel(model, stack, 255, overlay, matrices, vertexConsumer);
+
+        //renderBakedItemModel(model, vertexConsumers.getBuffer(renderLayer), stack, matrices, ver, light, overlay, null);
+
+        // Render the second layer with a color
+        int color = 0xFF00FF00; // ARGB
+        float red = 1f;
+        float red2=0f;
+        //renderBakedItemModel(model, RenderLayer.getGlint(), stack, matrices, vcp, light, overlay, color);
+
+        //renderBakedItemModel(model, stack, 255, overlay, matrices, VertexConsumers.union(getItemConsumer(vertexConsumers, renderLayer), getGlintConsumer(vertexConsumers)));
+        renderBakedItemModel(model, stack, 255, overlay, matrices, getItemConsumer(vertexConsumers, renderLayer), red);
+        renderBakedItemModel(model, stack, 255, overlay, matrices, getGlintConsumer(vertexConsumers), red2);
+        //TODO: even when rendered separately, it seems to search for a model it overlaps with and applies the texture there. changing color/alpha here does nothing. dead end.
+        //TODO: mcmeta data might be an option however
 
 
+
+        //renderBakedItemModel(model, stack, 255, overlay, matrices, vertexConsumer);
         matrices.pop();
     }
+
+    public static VertexConsumer getItemConsumer(VertexConsumerProvider provider, RenderLayer layer) {
+        return provider.getBuffer(layer);
+    }
+    public static VertexConsumer getGlintConsumer(VertexConsumerProvider provider) {
+        return provider.getBuffer(RenderLayer.getGlint());
+    }
+
 
 
 //-----------------------------------------------------------------------------
@@ -64,29 +100,29 @@ public class RevisualisedItemRenderer {
 // -------------------------------------------------------------------------
 
 
-    private static void renderBakedItemModel(BakedModel model, ItemStack stack, int light, int overlay, MatrixStack matrices, VertexConsumer vertices) {
+    private static void renderBakedItemModel(BakedModel model, ItemStack stack, int light, int overlay, MatrixStack matrices, VertexConsumer vertices, float red) {
         Random random = Random.create();
         long l = 42L;
 
         for (Direction direction : Direction.values()) {
             random.setSeed(42L);
-            renderBakedItemQuads(matrices, vertices, model.getQuads(null, direction, random), stack, light, overlay);
+            renderBakedItemQuads(matrices, vertices, model.getQuads(null, direction, random), stack, light, overlay, red);
         }
 
         random.setSeed(42L);
-        renderBakedItemQuads(matrices, vertices, model.getQuads(null, null, random), stack, light, overlay);
+        renderBakedItemQuads(matrices, vertices, model.getQuads(null, null, random), stack, light, overlay, red);
     }
 
-    private static void renderBakedItemQuads(MatrixStack matrices, VertexConsumer vertices, List<BakedQuad> quads, ItemStack stack, int light, int overlay) {
+    private static void renderBakedItemQuads(MatrixStack matrices, VertexConsumer vertices, List<BakedQuad> quads, ItemStack stack, int light, int overlay, float red) {
         boolean bl = !stack.isEmpty();
         MatrixStack.Entry entry = matrices.peek();
 
         for (BakedQuad bakedQuad : quads) {
-            float f = 1.0f;
+            float a = red;
+            float r = red;
             float g = 1.0f;
-            float h = 0.0f;
-            float j = 1.0f;
-            vertices.quad(entry, bakedQuad, g, h, j, f, light, overlay);
+            float b = red;
+            vertices.quad(entry, bakedQuad, r, g, b, a, light, overlay);
         }
     }
 
