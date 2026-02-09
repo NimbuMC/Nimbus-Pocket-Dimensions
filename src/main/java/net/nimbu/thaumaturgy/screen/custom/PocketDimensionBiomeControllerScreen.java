@@ -26,7 +26,7 @@ public class PocketDimensionBiomeControllerScreen extends HandledScreen<PocketDi
 
     public static final Identifier SLIDER_BAR = Identifier.of(Thaumaturgy.MOD_ID, "textures/gui/widgets/slider_bar.png");
     public static final Identifier SLIDER_KNOB = Identifier.of(Thaumaturgy.MOD_ID, "textures/gui/widgets/slider_knob.png");
-    public static final Identifier BACKGROUND = Identifier.of(Thaumaturgy.MOD_ID, "textures/gui/pocket_dimension_customiser/img.png");
+    public static final Identifier BACKGROUND = Identifier.of(Thaumaturgy.MOD_ID, "textures/gui/pocket_dimension_customizer/pocket_dimension_customizer.png");
     private RGBSliderGroup fogSliders;
     private RGBSliderGroup waterSliders;
     private RGBSliderGroup waterFogSliders;
@@ -102,7 +102,7 @@ public class PocketDimensionBiomeControllerScreen extends HandledScreen<PocketDi
 
     @Override
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
-        super.render(context, mouseX, mouseY, delta);
+          super.render(context, mouseX, mouseY, delta);
         int[] fogColour = fogSliders.getColour();
         int[] waterColour = waterSliders.getColour();
         int[] waterFogColour = waterFogSliders.getColour();
@@ -120,6 +120,9 @@ public class PocketDimensionBiomeControllerScreen extends HandledScreen<PocketDi
         //renderBlock(context, Blocks.OAK_LEAVES.getDefaultState(), x + 100,y, 100,colour[0], colour[1], colour[2]);
     }
 
+    @Override
+    protected void drawForeground(DrawContext context, int mouseX, int mouseY) {
+    }
 
     private void testSample(DrawContext context, int x, int y, int width, int height, int C1, int C2,int C3,int C4,int C5) {
 
