@@ -19,6 +19,7 @@ import net.nimbu.thaumaturgy.Thaumaturgy;
 import net.nimbu.thaumaturgy.network.ClientPocketDimensionPersistentState;
 import net.nimbu.thaumaturgy.network.UpdateBiomePacket;
 import net.nimbu.thaumaturgy.screen.widgets.ColourSlider;
+import net.nimbu.thaumaturgy.screen.widgets.InvisibleButton;
 import net.nimbu.thaumaturgy.screen.widgets.RGBSliderGroup;
 import net.nimbu.thaumaturgy.worldgen.biome.DynamicBiomeEffects;
 
@@ -27,9 +28,15 @@ public class PocketDimensionBiomeControllerScreen extends HandledScreen<PocketDi
     public static final Identifier SLIDER_BAR = Identifier.of(Thaumaturgy.MOD_ID, "textures/gui/widgets/slider_bar.png");
     public static final Identifier SLIDER_KNOB = Identifier.of(Thaumaturgy.MOD_ID, "textures/gui/widgets/slider_knob.png");
     public static final Identifier BACKGROUND = Identifier.of(Thaumaturgy.MOD_ID, "textures/gui/pocket_dimension_customizer/pocket_dimension_customizer.png");
+    public static final Identifier BACKGROUND_0 = Identifier.of(Thaumaturgy.MOD_ID, "textures/gui/pocket_dimension_customizer/pocket_dimension_customizer_0.png");
+    public static final Identifier BACKGROUND_1 = Identifier.of(Thaumaturgy.MOD_ID, "textures/gui/pocket_dimension_customizer/pocket_dimension_customizer_1.png");
+    public static final Identifier BACKGROUND_2 = Identifier.of(Thaumaturgy.MOD_ID, "textures/gui/pocket_dimension_customizer/pocket_dimension_customizer_2.png");
+    public static final Identifier BACKGROUND_3 = Identifier.of(Thaumaturgy.MOD_ID, "textures/gui/pocket_dimension_customizer/pocket_dimension_customizer_3.png");
+    public static final Identifier BACKGROUND_4 = Identifier.of(Thaumaturgy.MOD_ID, "textures/gui/pocket_dimension_customizer/pocket_dimension_customizer_4.png");
+    public static final Identifier BACKGROUND_5 = Identifier.of(Thaumaturgy.MOD_ID, "textures/gui/pocket_dimension_customizer/pocket_dimension_customizer_5.png");
+    public static final Identifier BACKGROUND_6 = Identifier.of(Thaumaturgy.MOD_ID, "textures/gui/pocket_dimension_customizer/pocket_dimension_customizer_6.png");
     private RGBSliderGroup fogSliders;
     private RGBSliderGroup waterSliders;
-    private RGBSliderGroup waterFogSliders;
     private RGBSliderGroup foliageSliders;
     private RGBSliderGroup grassSliders;
 
@@ -44,14 +51,12 @@ public class PocketDimensionBiomeControllerScreen extends HandledScreen<PocketDi
         fogSliders.forEachChild(this::addDrawableChild);
         waterSliders = new RGBSliderGroup(x + backgroundWidth - 90, y + 70, 90, 40, 5, 2, handler.getWaterColour());
         waterSliders.forEachChild(this::addDrawableChild);
-        waterFogSliders = new RGBSliderGroup(x + backgroundWidth - 90, y + 120, 90, 40, 5, 2, handler.getWaterFogColour());
-        waterFogSliders.forEachChild(this::addDrawableChild);
         foliageSliders = new RGBSliderGroup(x + backgroundWidth - 90, y + 70, 90, 40, 5, 2, handler.getFoliageColour());
         foliageSliders.forEachChild(this::addDrawableChild);
         grassSliders = new RGBSliderGroup(x + backgroundWidth - 90, y + 120, 90, 40, 5, 2, handler.getGrassColour());
         grassSliders.forEachChild(this::addDrawableChild);
 
-        ButtonWidget applyButton = ButtonWidget.builder(
+        InvisibleButton applyButton = InvisibleButton.builder(
                 Text.literal("Apply"),
                 button -> applyChanges()
         ).dimensions(x, y, 60, 20).build();
@@ -64,7 +69,6 @@ public class PocketDimensionBiomeControllerScreen extends HandledScreen<PocketDi
                 button -> {
                     fogSliders.setVisibility(true);
                     waterSliders.setVisibility(false);
-                    waterFogSliders.setVisibility(false);
                     foliageSliders.setVisibility(false);
                     grassSliders.setVisibility(false);
                 }
@@ -75,7 +79,6 @@ public class PocketDimensionBiomeControllerScreen extends HandledScreen<PocketDi
                 button -> {
                     fogSliders.setVisibility(false);
                     waterSliders.setVisibility(true);
-                    waterFogSliders.setVisibility(true);
                     foliageSliders.setVisibility(false);
                     grassSliders.setVisibility(false);
                 }
@@ -86,7 +89,6 @@ public class PocketDimensionBiomeControllerScreen extends HandledScreen<PocketDi
                 button -> {
                     fogSliders.setVisibility(false);
                     waterSliders.setVisibility(false);
-                    waterFogSliders.setVisibility(false);
                     foliageSliders.setVisibility(true);
                     grassSliders.setVisibility(true);
                 }
@@ -95,7 +97,6 @@ public class PocketDimensionBiomeControllerScreen extends HandledScreen<PocketDi
 
         fogSliders.setVisibility(true);
         waterSliders.setVisibility(false);
-        waterFogSliders.setVisibility(false);
         foliageSliders.setVisibility(false);
         grassSliders.setVisibility(false);
     }
@@ -105,7 +106,6 @@ public class PocketDimensionBiomeControllerScreen extends HandledScreen<PocketDi
           super.render(context, mouseX, mouseY, delta);
         int[] fogColour = fogSliders.getColour();
         int[] waterColour = waterSliders.getColour();
-        int[] waterFogColour = waterFogSliders.getColour();
         int[] foliageColour = foliageSliders.getColour();
         int[] grassColour = grassSliders.getColour();
 
@@ -113,7 +113,7 @@ public class PocketDimensionBiomeControllerScreen extends HandledScreen<PocketDi
         testSample(context,x + backgroundWidth - 70, y, 70, 70,
                 0xFF000000 | (fogColour[0] << 16) | (fogColour[1] << 8) | fogColour[2],
                 0xFF000000 | (waterColour[0] << 16) | (waterColour[1] << 8) | waterColour[2],
-                0xFF000000 | (waterFogColour[0] << 16) | (waterFogColour[1] << 8) | waterFogColour[2],
+                0xFF000000 | ((waterColour[0] / 10) << 16) | ((waterColour[1] / 10) << 8) | (waterColour[2] / 10),
                 0xFF000000 | (foliageColour[0] << 16) | (foliageColour[1] << 8) | foliageColour[2],
                 0xFF000000 | (grassColour[0] << 16) | (grassColour[1] << 8) | grassColour[2]
                 );
@@ -189,13 +189,12 @@ public class PocketDimensionBiomeControllerScreen extends HandledScreen<PocketDi
     private void applyChanges() {
         int[] fogColour = fogSliders.getColour();
         int[] waterColour = waterSliders.getColour();
-        int[] waterFogColour = waterFogSliders.getColour();
         int[] foliageColour = foliageSliders.getColour();
         int[] grassColour = grassSliders.getColour();
         handler.setBiomeColours(
                 fogColour[0], fogColour[1], fogColour[2],
                 waterColour[0], waterColour[1], waterColour[2],
-                waterFogColour[0], waterFogColour[1], waterFogColour[2],
+                waterColour[0] / 10, waterColour[1] / 10, waterColour[2] / 10,
                 foliageColour[0], foliageColour[1], foliageColour[2],
                 grassColour[0], grassColour[1], grassColour[2]);
     }

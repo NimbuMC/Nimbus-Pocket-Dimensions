@@ -141,18 +141,18 @@ public class RGBSliderGroup implements Widget, Drawable {
         return height;
     }
 
-    public int[] getColour(){return new int[]{rSlider.getValue(), gSlider.getValue(), bSlider.getValue()};}
+    public int[] getColour() {
+        return new int[]{rSlider.getValue(), gSlider.getValue(), bSlider.getValue()};
+    }
 
     @Override
     public void forEachChild(Consumer<ClickableWidget> consumer) {
-        for(ClickableWidget child : List.of(rSlider, gSlider, bSlider, rTextBox, gTextBox, bTextBox))
-        {
+        for (ClickableWidget child : List.of(rSlider, gSlider, bSlider, rTextBox, gTextBox, bTextBox)) {
             consumer.accept(child);
         }
     }
 
-    public void setVisibility(boolean visibility)
-    {
+    public void setVisibility(boolean visibility) {
         forEachChild(x -> x.visible = visibility);
     }
 }
