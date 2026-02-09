@@ -59,22 +59,32 @@ public class PocketDimensionBiomeControllerScreen extends HandledScreen<PocketDi
         InvisibleButton applyButton = InvisibleButton.builder(
                 Text.literal("Apply"),
                 button -> applyChanges()
-        ).dimensions(x, y, 60, 20).build();
+        ).dimensions(x, y /*+ ((backgroundHeight * 9) / 10)*/, 60, backgroundHeight / 10).build();
         addDrawableChild(applyButton);
 
-
-        //menu buttons
-        ButtonWidget fogMenuButton = ButtonWidget.builder(
-                Text.literal("Fog colour"),
+        InvisibleButton grassColours = InvisibleButton.builder( //grass colours
+                Text.literal("Grass colours"),
                 button -> {
-                    fogSliders.setVisibility(true);
+                    fogSliders.setVisibility(false);
                     waterSliders.setVisibility(false);
                     foliageSliders.setVisibility(false);
+                    grassSliders.setVisibility(true);
+                }
+        ).dimensions(x+1, y + 7, 46, 16).build();
+        addDrawableChild(grassColours);
+
+        InvisibleButton foliageColours = InvisibleButton.builder( //leaf colours
+                Text.literal("Foliage colours"),
+                button -> {
+                    fogSliders.setVisibility(false);
+                    waterSliders.setVisibility(false);
+                    foliageSliders.setVisibility(true);
                     grassSliders.setVisibility(false);
                 }
-        ).dimensions(x, y + 60, 60, 20).build();
-        addDrawableChild(fogMenuButton);
-        ButtonWidget waterMenuButton = ButtonWidget.builder( //water colours and water fog colours
+        ).dimensions(x + 1, y + 23, 46, 16).build();
+        addDrawableChild(foliageColours);
+
+        InvisibleButton waterMenuButton = InvisibleButton.builder( //water colours and water fog colours
                 Text.literal("Water colours"),
                 button -> {
                     fogSliders.setVisibility(false);
@@ -82,18 +92,21 @@ public class PocketDimensionBiomeControllerScreen extends HandledScreen<PocketDi
                     foliageSliders.setVisibility(false);
                     grassSliders.setVisibility(false);
                 }
-        ).dimensions(x, y + 80, 60, 20).build();
+        ).dimensions(x + 1, y + 39, 46, 16).build();
         addDrawableChild(waterMenuButton);
-        ButtonWidget foliageColours = ButtonWidget.builder( //grass and leaf colours
-                Text.literal("Foliage colours"),
+
+        //menu buttons
+        InvisibleButton fogMenuButton = InvisibleButton.builder(
+                Text.literal("Fog colour"),
                 button -> {
-                    fogSliders.setVisibility(false);
+                    fogSliders.setVisibility(true);
                     waterSliders.setVisibility(false);
-                    foliageSliders.setVisibility(true);
-                    grassSliders.setVisibility(true);
+                    foliageSliders.setVisibility(false);
+                    grassSliders.setVisibility(false);
                 }
-        ).dimensions(x, y + 100, 60, 20).build();
-        addDrawableChild(foliageColours);
+        ).dimensions(x + 1, y + 71, 46, 16).build();
+        addDrawableChild(fogMenuButton);
+
 
         fogSliders.setVisibility(true);
         waterSliders.setVisibility(false);
@@ -103,21 +116,26 @@ public class PocketDimensionBiomeControllerScreen extends HandledScreen<PocketDi
 
     @Override
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
-          super.render(context, mouseX, mouseY, delta);
+        super.render(context, mouseX, mouseY, delta);
         int[] fogColour = fogSliders.getColour();
         int[] waterColour = waterSliders.getColour();
         int[] foliageColour = foliageSliders.getColour();
         int[] grassColour = grassSliders.getColour();
 
 
-        testSample(context,x + backgroundWidth - 70, y, 70, 70,
+        testSample(context, x + backgroundWidth - 70, y, 70, 70,
                 0xFF000000 | (fogColour[0] << 16) | (fogColour[1] << 8) | fogColour[2],
                 0xFF000000 | (waterColour[0] << 16) | (waterColour[1] << 8) | waterColour[2],
                 0xFF000000 | ((waterColour[0] / 10) << 16) | ((waterColour[1] / 10) << 8) | (waterColour[2] / 10),
                 0xFF000000 | (foliageColour[0] << 16) | (foliageColour[1] << 8) | foliageColour[2],
                 0xFF000000 | (grassColour[0] << 16) | (grassColour[1] << 8) | grassColour[2]
-                );
+        );
         //renderBlock(context, Blocks.OAK_LEAVES.getDefaultState(), x + 100,y, 100,colour[0], colour[1], colour[2]);
+
+        if(grassSliders.getVisibility()){context.drawTexture(BACKGROUND_0, x,y,0,0, 256, 256);}
+        if(foliageSliders.getVisibility()){context.drawTexture(BACKGROUND_1, x,y,0,0, 256, 256);}
+        if(waterSliders.getVisibility()){context.drawTexture(BACKGROUND_2, x,y,0,0, 256, 256);}
+        if(fogSliders.getVisibility()){context.drawTexture(BACKGROUND_4, x,y,0,0, 256, 256);}
     }
 
     @Override
