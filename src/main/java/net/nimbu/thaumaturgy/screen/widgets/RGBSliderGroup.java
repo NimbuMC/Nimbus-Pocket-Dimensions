@@ -152,6 +152,8 @@ public class RGBSliderGroup implements Widget, Drawable {
         }
     }
 
+    public boolean getVisibility() { return rSlider.visible; }
+
     public void setVisibility(boolean visibility) {
         forEachChild(x -> x.visible = visibility);
     }
