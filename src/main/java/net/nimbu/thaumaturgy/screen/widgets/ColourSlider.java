@@ -107,8 +107,8 @@ public class ColourSlider extends ClickableWidget {
                 SLIDER_KNOB,
                 knobX, getY(),
                 0, 0,
-                height, height,
-                32, 32
+                7, 7,
+                7, 7
         );
         mouseOutLastFrame = !isHovered();
     }
