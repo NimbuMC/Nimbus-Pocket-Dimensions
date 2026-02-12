@@ -8,6 +8,7 @@ import net.minecraft.screen.SimpleNamedScreenHandlerFactory;
 import net.minecraft.text.Text;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
+import net.minecraft.util.UseAction;
 import net.minecraft.world.World;
 import net.nimbu.thaumaturgy.Thaumaturgy;
 import net.nimbu.thaumaturgy.ThaumaturgyClient;
@@ -97,6 +98,6 @@ public class SpellcasterItem extends Item{
                 currentSpell.castSpell(world, user, hand);
             }
         }
-        return TypedActionResult.pass(stack);
+        return TypedActionResult.success(stack, world.isClient);
     }
 }

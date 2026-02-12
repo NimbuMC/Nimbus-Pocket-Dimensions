@@ -140,20 +140,22 @@ public class SpellScreen extends HandledScreen<SpellScreenHandler> {
         if (spellSlotChosen >= EQUIPPED_SPELLS.size()) return false;
         assert this.client.interactionManager != null;
         this.client.interactionManager.clickButton(this.handler.syncId, spellSlotChosen);
-        //for(Spell spell : EQUIPPED_SPELLS) {
-        //    int x=getButtonXPos(spellNo);
-        //    int y=getButtonYPos(spellNo);
-        //    assert this.client.interactionManager != null;
-        //    if(mouseX > x && mouseX < x+16 && mouseY > y && mouseY < y+16){
-        //        this.client.interactionManager.clickButton(this.handler.syncId, spellNo);
-        //    }
-        //    spellNo++;
-        //}
-
 
         this.close();
 
         return super.mouseClicked(mouseX, mouseY, spellSlotChosen);
+    }
+
+    @Override
+    public void close() {
+        float angle = vectorAngle(lastSignificantMovedMouseDirection) + 22.5f;
+        int spellSlotChosen = (int) ((Math.floor(angle / 45f) + 10) % 8);
+        Thaumaturgy.LOGGER.info("spell slot chosen -> " + spellSlotChosen);
+        if (spellSlotChosen < EQUIPPED_SPELLS.size()) {
+            assert this.client.interactionManager != null;
+            this.client.interactionManager.clickButton(this.handler.syncId, spellSlotChosen);
+        }
+        super.close();
     }
 
     private int getButtonXPos(int buttonNo) {
