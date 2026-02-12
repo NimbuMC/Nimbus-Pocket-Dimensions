@@ -25,8 +25,12 @@ public class ModItems {
             .maxDamage(131)
             .rarity(Rarity.RARE)
             .component(DataComponentTypes.ENCHANTMENT_GLINT_OVERRIDE, false))); //never show enchantment glint
-
     public static final Item STAFF = registerItem("staff", new SpellcasterItem(new Item.Settings()
+            .maxCount(1)
+            .maxDamage(131)
+            .rarity(Rarity.RARE)
+            .component(ModDataComponentTypes.EQUIPPED_SPELL, "")));
+    public static final Item SLAYER_STAFF = registerItem("slayer_staff", new SpellcasterItem(new Item.Settings()
             .maxCount(1)
             .maxDamage(131)
             .rarity(Rarity.RARE)
