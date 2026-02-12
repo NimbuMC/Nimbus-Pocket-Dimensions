@@ -1,12 +1,18 @@
 package net.nimbu.thaumaturgy.screen.custom;
 
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.minecraft.block.Blocks;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.network.ClientPlayerEntity;
+import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.Property;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.chunk.ChunkManager;
 import net.nimbu.thaumaturgy.Thaumaturgy;
 import net.nimbu.thaumaturgy.network.ClientPocketDimensionPersistentState;
 import net.nimbu.thaumaturgy.network.UpdateBiomePacket;
@@ -109,6 +115,11 @@ public class PocketDimensionBiomeControllerScreenHandler extends ScreenHandler {
 
     public static void sendDynamicBiome(DynamicBiomeEffects effects) {
         //todo add the check for the same dimension using clientpersistentstate (find a way to get a serverworld here)
+        MinecraftClient client = MinecraftClient.getInstance();
+
+        if (client.world != null) {
+            client.worldRenderer.reload();
+        }
         ClientPlayNetworking.send(new UpdateBiomePacket(effects));
     }
 
