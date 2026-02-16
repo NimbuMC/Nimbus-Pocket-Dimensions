@@ -41,6 +41,16 @@ public class ModItemGroups {
 
                     }).build());
 
+    public static final ItemGroup THAUMATURGY_SPELLCASTERS = Registry.register(Registries.ITEM_GROUP,
+            Identifier.of(Thaumaturgy.MOD_ID, "thaumaturgy_spellcasters"),
+            FabricItemGroup.builder().icon(() -> new ItemStack(ModItems.STAFF))
+                    .displayName(Text.translatable("itemgroup.thaumaturgy.thaumaturgy_items"))
+                    .entries((displayContext, entries) -> {
+                        entries.add(ModItems.STAFF);
+                        entries.add(ModItems.SLAYER_STAFF);
+                        entries.add(ModItems.BUTTERFLY_STAFF);
+                    }).build());
+
 
     public static void registerItemGroups() {
 

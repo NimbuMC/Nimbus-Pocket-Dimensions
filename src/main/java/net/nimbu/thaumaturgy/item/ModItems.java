@@ -35,6 +35,11 @@ public class ModItems {
             .maxDamage(131)
             .rarity(Rarity.RARE)
             .component(ModDataComponentTypes.EQUIPPED_SPELL, "")));
+    public static final Item BUTTERFLY_STAFF = registerItem("butterfly_staff", new SpellcasterItem(new Item.Settings()
+            .maxCount(1)
+            .maxDamage(131)
+            .rarity(Rarity.RARE)
+            .component(ModDataComponentTypes.EQUIPPED_SPELL, "")));
 
     public static final Item SPIRIT_SWORD = registerItem("spirit_sword",
             new SwordItem(ModToolMaterials.SPIRIT, new Item.Settings()
