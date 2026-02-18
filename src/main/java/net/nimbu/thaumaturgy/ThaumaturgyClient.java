@@ -84,6 +84,7 @@ public class ThaumaturgyClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.PURPLE_MAGIC_MUSHROOM, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.MAGENTA_MAGIC_MUSHROOM, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.POCKET_DIMENSION_BIOME_CONTROLLER, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.POCKET_DIMENSION_CUSTOMIZER, RenderLayer.getCutout());
 
         openSpellWheel = KeyBindingHelper.registerKeyBinding(new KeyBinding(
                 "key.thaumaturgy.open_spell_wheel", /* translation key */
