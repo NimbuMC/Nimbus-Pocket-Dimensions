@@ -57,6 +57,24 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .input('P', ModItems.PIXIE_DUST)
                 .criterion(hasItem(Items.STICK), conditionsFromItem(Items.STICK)) //adds criteria to learn crafting recipe
                 .offerTo(recipeExporter);
+        ShapedRecipeJsonBuilder.create(RecipeCategory.TOOLS, ModItems.SLAYER_STAFF)
+                .pattern("  G")
+                .pattern(" B ")
+                .pattern("P  ")
+                .input('G', Items.GOLD_INGOT)
+                .input('B', Items.BLAZE_ROD)
+                .input('P', ModItems.PIXIE_DUST)
+                .criterion(hasItem(Items.STICK), conditionsFromItem(Items.STICK)) //adds criteria to learn crafting recipe
+                .offerTo(recipeExporter);
+        ShapedRecipeJsonBuilder.create(RecipeCategory.TOOLS, ModItems.BUTTERFLY_STAFF)
+                .pattern("  S")
+                .pattern(" C ")
+                .pattern("P  ")
+                .input('S', Items.STICK)
+                .input('C', Items.PURPLE_CARPET)
+                .input('P', ModItems.PIXIE_DUST)
+                .criterion(hasItem(Items.STICK), conditionsFromItem(Items.STICK)) //adds criteria to learn crafting recipe
+                .offerTo(recipeExporter);
 
         ShapelessRecipeJsonBuilder.create(RecipeCategory.MISC, ModBlocks.PURPLE_MAGIC_MUSHROOM)
                 .input(Items.BROWN_MUSHROOM)
