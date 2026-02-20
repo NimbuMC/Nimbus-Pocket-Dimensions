@@ -6,6 +6,8 @@ import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.BlockWithEntity;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.BlockEntityTicker;
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.screen.SimpleNamedScreenHandlerFactory;
 import net.minecraft.text.Text;
@@ -13,18 +15,20 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.nimbu.thaumaturgy.block.entity.ModBlockEntityTypes;
+import net.nimbu.thaumaturgy.block.entity.custom.PocketDimensionCustomizerBlockEntity;
+import net.nimbu.thaumaturgy.block.entity.custom.RevisualisingTableBlockEntity;
 import net.nimbu.thaumaturgy.screen.custom.PocketDimensionBiomeControllerScreenHandler;
-import net.nimbu.thaumaturgy.screen.custom.SpellScreenHandler;
 import org.jetbrains.annotations.Nullable;
 
-public class PocketDimensionBiomeControllerBlock extends Block {
-    public PocketDimensionBiomeControllerBlock(Settings settings) {
+public class PocketDimensionCustomizerBlock extends BlockWithEntity {
+    public PocketDimensionCustomizerBlock(Settings settings) {
         super(settings);
     }
 
     @Override
-    protected MapCodec<? extends PocketDimensionBiomeControllerBlock> getCodec() {
-        return createCodec(PocketDimensionBiomeControllerBlock::new);
+    protected MapCodec<? extends BlockWithEntity> getCodec() {
+        return createCodec(PocketDimensionCustomizerBlock::new);
     }
 
     @Override
@@ -32,6 +36,17 @@ public class PocketDimensionBiomeControllerBlock extends Block {
         return BlockRenderType.MODEL;
     }
 
+    @Nullable
+    @Override
+    public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+        return new PocketDimensionCustomizerBlockEntity(pos, state);
+    }
+
+    @Nullable
+    @Override
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
+        return world.isClient ? validateTicker(type, ModBlockEntityTypes.POCKET_DIMENSION_CUSTOMIZER_BLOCK_ENTITY, PocketDimensionCustomizerBlockEntity::tick) : null;
+    }
 
     @Override
     protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {

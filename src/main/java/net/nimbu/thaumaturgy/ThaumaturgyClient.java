@@ -25,14 +25,12 @@ import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.nimbu.thaumaturgy.block.ModBlocks;
 import net.nimbu.thaumaturgy.block.entity.ModBlockEntityTypes;
+import net.nimbu.thaumaturgy.block.entity.renderer.PocketDimensionCustomizerBlockEntityRenderer;
 import net.nimbu.thaumaturgy.block.entity.renderer.RevisualisingTableBlockEntityRenderer;
 import net.nimbu.thaumaturgy.component.ModDataComponentTypes;
 import net.nimbu.thaumaturgy.effect.ModEffects;
 import net.nimbu.thaumaturgy.entity.ModEntities;
-import net.nimbu.thaumaturgy.entity.client.EmptyEntityRenderer;
-import net.nimbu.thaumaturgy.entity.client.PixieEntityModel;
-import net.nimbu.thaumaturgy.entity.client.PixieEntityRenderer;
-import net.nimbu.thaumaturgy.entity.client.SpellEntityRenderer;
+import net.nimbu.thaumaturgy.entity.client.*;
 import net.nimbu.thaumaturgy.item.ModItemColours;
 import net.nimbu.thaumaturgy.item.ModItems;
 import net.nimbu.thaumaturgy.network.PocketDimClientNetworking;
@@ -69,6 +67,9 @@ public class ThaumaturgyClient implements ClientModInitializer {
         //EntityModelLayerRegistry.registerModelLayer(PixieEntityModel.PIXIE_TRANSPARENT, PixieEntityModel::getTexturedModelDataTransparent);
         EntityRendererRegistry.register(ModEntities.PIXIE, PixieEntityRenderer::new);
 
+        EntityModelLayerRegistry.registerModelLayer(PocketDimensionOrbModel.ORB, PocketDimensionOrbModel::getTexturedModelData);
+        //EntityRendererRegistry.register(ModEntities.PIXIE, PixieEntityRenderer::new);
+
         EntityRendererRegistry.register(ModEntities.SNOWBALL_COPY, FlyingItemEntityRenderer::new);
 
         EntityRendererRegistry.register(SpellEntities.SPELL_PORTAL, SpellEntityRenderer::new);
@@ -80,6 +81,8 @@ public class ThaumaturgyClient implements ClientModInitializer {
 
         BlockEntityRendererFactories.register(ModBlockEntityTypes.REVISUALISING_TABLE_BLOCK_ENTITY, RevisualisingTableBlockEntityRenderer::new);
         HandledScreens.register(ModScreenHandlers.REVISUALISING_TABLE_SCREEN_HANDLER, RevisualisingTableScreen::new);
+
+        BlockEntityRendererFactories.register(ModBlockEntityTypes.POCKET_DIMENSION_CUSTOMIZER_BLOCK_ENTITY, PocketDimensionCustomizerBlockEntityRenderer::new);
 
         HandledScreens.register(ModScreenHandlers.POCKET_DIM_BIOME_SCREEN_HANDLER, PocketDimensionBiomeControllerScreen::new);
 
