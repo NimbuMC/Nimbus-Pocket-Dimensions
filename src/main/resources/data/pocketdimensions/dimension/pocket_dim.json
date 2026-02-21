@@ -1,0 +1,21 @@
+{
+  "type": "pocketdimensions:pocket_dim_type",
+  "generator": {
+    "type": "minecraft:flat",
+    "settings": {
+      "biome": "pocketdimensions:pocket_dim_biome",
+      "lakes": false,
+      "features": false,
+      "layers": [
+        {
+          "height": 0,
+          "block": "minecraft:gold_block"
+        },
+        {
+          "height": 128,
+          "block": "minecraft:barrier"
+        }
+      ]
+    }
+  }
+}
