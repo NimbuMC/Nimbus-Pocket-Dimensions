@@ -16,8 +16,8 @@ import net.nimbu.pocketdimensions.dimensions.DimensionalInstancer;
 import net.nimbu.pocketdimensions.entity.ModEntities;
 import net.nimbu.pocketdimensions.entity.custom.SpellPortalEntity;
 
-public class WandPortalItem extends Item {
-    public WandPortalItem(Settings settings) {
+public class GatewayWandItem extends Item {
+    public GatewayWandItem(Settings settings) {
         super(settings);
     }
 

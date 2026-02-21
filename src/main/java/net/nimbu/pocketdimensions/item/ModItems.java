@@ -11,7 +11,7 @@ public class ModItems {
 
 
     public static final Item GATEWAY_WAND = registerItem("gateway_wand",
-            new WandPortalItem(new Item.Settings()
+            new GatewayWandItem(new Item.Settings()
                     .maxCount(1)
                     .maxDamage(131)));
 
