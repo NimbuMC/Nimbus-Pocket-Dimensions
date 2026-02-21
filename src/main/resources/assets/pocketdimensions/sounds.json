@@ -1,0 +1,20 @@
+{
+  "magic_charge": {
+    "subtitle": "sounds.pocketdimensions.magic_charge",
+    "sounds": [
+      "pocketdimensions:magic_charge"
+    ]
+  },
+  "magic_chime": {
+    "subtitle": "sounds.pocketdimensions.magic_chime",
+    "sounds": [
+      "pocketdimensions:magic_chime"
+    ]
+  },
+  "lobotomy": {
+    "subtitle": "sounds.pocketdimensions.lobotomy",
+    "sounds": [
+      "pocketdimensions:lobotomy"
+    ]
+  }
+}

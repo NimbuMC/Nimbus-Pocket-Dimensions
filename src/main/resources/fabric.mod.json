@@ -1,32 +1,32 @@
 {
 	"schemaVersion": 1,
-	"id": "thaumaturgy",
+	"id": "pocketdimensions",
 	"version": "${version}",
-	"name": "Thaumaturgy",
-	"description": "This is a magic mod called Thaumaturgy.",
+	"name": "Pocket Dimensions",
+	"description": ".",
 	"authors": [
 		"Nimbu"
 	],
 	"contact": {
 		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/NimbuMC/Fabric-Thaumaturgy-1.21"
+		"sources": "https://github.com/NimbuMC/Fabric-Pocket-Dimensions-1.21"
 	},
 	"license": "CC0-1.0",
-	"icon": "assets/thaumaturgy/icon.png",
+	"icon": "assets/pocketdimensions/icon.png",
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-			"net.nimbu.thaumaturgy.Thaumaturgy"
+			"net.nimbu.pocketdimensions.PocketDimensions"
 		],
 		"fabric-datagen": [
-			"net.nimbu.thaumaturgy.ThaumaturgyDataGenerator"
+			"net.nimbu.pocketdimensions.PocketDimensionsDataGenerator"
 		],
 		"client": [
-			"net.nimbu.thaumaturgy.ThaumaturgyClient"
+			"net.nimbu.pocketdimensions.PocketDimensionsClient"
 		]
 	},
 	"mixins": [
-		"thaumaturgy.mixins.json"
+		"pocketdimensions.mixins.json"
 	],
 	"depends": {
 		"fabricloader": ">=0.18.4",
