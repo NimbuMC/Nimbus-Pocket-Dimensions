@@ -25,9 +25,9 @@ import net.nimbu.pocketdimensions.worldgen.dimension.ModDimensions;
 import static net.minecraft.block.HorizontalFacingBlock.FACING;
 import static net.nimbu.pocketdimensions.block.custom.DoorwayBlock.HALF;
 
-public class SpellPortalEntity extends ProjectileEntity {
+public class GatewayProjectileEntity extends ProjectileEntity {
     RegistryKey<World> exitDimensionID;
-    public SpellPortalEntity(EntityType<? extends ProjectileEntity> entityType, World world) {
+    public GatewayProjectileEntity(EntityType<? extends ProjectileEntity> entityType, World world) {
         super(entityType, world);
     }
 
@@ -75,7 +75,7 @@ public class SpellPortalEntity extends ProjectileEntity {
             //create particle effect
             if (!world.isClient()){
                 Position pos = this.getPos();
-                ((ServerWorld) world).spawnParticles(ModParticleTypes.MAGIC_PARTICLE,
+                ((ServerWorld) world).spawnParticles(ModParticleTypes.GATEWAY_PROJECTILE_PARTICLE,
                         pos.getX(), pos.getY(), pos.getZ(), 50, 0.5, 1, 0.5, 0.5);
             }
         }
@@ -105,7 +105,7 @@ public class SpellPortalEntity extends ProjectileEntity {
         World world = this.getWorld();
         if (!world.isClient()){
             Position pos = this.getPos();
-            ((ServerWorld) world).spawnParticles(ModParticleTypes.MAGIC_PARTICLE,
+            ((ServerWorld) world).spawnParticles(ModParticleTypes.GATEWAY_PROJECTILE_PARTICLE,
                    pos.getX(), pos.getY()+0.25, pos.getZ(), 5, 0, 0, 0, 0);
         }
         //Can alternatively use "world.addParticle();" for clientside?

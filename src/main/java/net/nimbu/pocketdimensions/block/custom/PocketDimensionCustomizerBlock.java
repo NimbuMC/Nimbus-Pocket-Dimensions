@@ -16,7 +16,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.nimbu.pocketdimensions.block.entity.ModBlockEntityTypes;
 import net.nimbu.pocketdimensions.block.entity.custom.PocketDimensionCustomizerBlockEntity;
-import net.nimbu.pocketdimensions.screen.custom.PocketDimensionBiomeControllerScreenHandler;
+import net.nimbu.pocketdimensions.screen.custom.DimensionCustomizerScreenHandler;
 import org.jetbrains.annotations.Nullable;
 
 public class PocketDimensionCustomizerBlock extends BlockWithEntity {
@@ -51,7 +51,7 @@ public class PocketDimensionCustomizerBlock extends BlockWithEntity {
         if (!world.isClient) {
             player.openHandledScreen(
                     new SimpleNamedScreenHandlerFactory(
-                            (syncId, inv, p) -> new PocketDimensionBiomeControllerScreenHandler(syncId, inv),
+                            (syncId, inv, p) -> new DimensionCustomizerScreenHandler(syncId, inv),
                             Text.literal("Pocket dimension customiser")
                     ));
             return ActionResult.CONSUME;

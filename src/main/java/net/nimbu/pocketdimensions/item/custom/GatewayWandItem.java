@@ -14,7 +14,7 @@ import net.minecraft.world.World;
 import net.nimbu.pocketdimensions.component.ModDataComponentTypes;
 import net.nimbu.pocketdimensions.dimensions.DimensionalInstancer;
 import net.nimbu.pocketdimensions.entity.ModEntities;
-import net.nimbu.pocketdimensions.entity.custom.SpellPortalEntity;
+import net.nimbu.pocketdimensions.entity.custom.GatewayProjectileEntity;
 
 public class GatewayWandItem extends Item {
     public GatewayWandItem(Settings settings) {
@@ -47,7 +47,7 @@ public class GatewayWandItem extends Item {
 
         if(!world.isClient) {
             ServerWorld targetDimension = DimensionalInstancer.createInstance(world.getServer(), user.getUuid());
-            SpellPortalEntity spellPortal = new SpellPortalEntity(ModEntities.SPELL_PORTAL, world);
+            GatewayProjectileEntity spellPortal = new GatewayProjectileEntity(ModEntities.SPELL_PORTAL, world);
             spellPortal.setPosition(new Vec3d(user.getX(), user.getY() + 1.5, user.getZ()));
             spellPortal.setVelocity(user, user.getPitch() - 30, user.getYaw(), 0.0f, 0.45f, 0f);
             spellPortal.setExitDimension(targetDimension.getRegistryKey());

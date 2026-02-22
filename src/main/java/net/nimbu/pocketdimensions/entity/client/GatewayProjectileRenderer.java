@@ -10,21 +10,21 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.nimbu.pocketdimensions.PocketDimensions;
-import net.nimbu.pocketdimensions.entity.custom.SpellPortalEntity;
+import net.nimbu.pocketdimensions.entity.custom.GatewayProjectileEntity;
 
-public class SpellEntityRenderer extends EntityRenderer<SpellPortalEntity> {
-    private static final Identifier TEXTURE = Identifier.of(PocketDimensions.MOD_ID, "textures/particle/spell_portal.png");
+public class GatewayProjectileRenderer extends EntityRenderer<GatewayProjectileEntity> {
+    private static final Identifier TEXTURE = Identifier.of(PocketDimensions.MOD_ID, "textures/particle/gateway_projectile_particle.png");
     private static final RenderLayer LAYER = RenderLayer.getEntityCutoutNoCull(TEXTURE);
 
-    public SpellEntityRenderer(EntityRendererFactory.Context context) {
+    public GatewayProjectileRenderer(EntityRendererFactory.Context context) {
         super(context);
     }
 
-    protected int getBlockLight(SpellPortalEntity spellPortalEntity, BlockPos blockPos) {
+    protected int getBlockLight(GatewayProjectileEntity gatewayProjectileEntity, BlockPos blockPos) {
         return 15;
     }
 
-    public void render(SpellPortalEntity spellPortalEntity, float f, float g, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i) {
+    public void render(GatewayProjectileEntity gatewayProjectileEntity, float f, float g, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i) {
         matrixStack.push();
         matrixStack.scale(0.5F, 0.5F, 0.5F); //defines the bounding box size in terms of blocks. 0.5 in each dimention looks the same as a dropped item
         matrixStack.multiply(this.dispatcher.getRotation());
@@ -35,7 +35,7 @@ public class SpellEntityRenderer extends EntityRenderer<SpellPortalEntity> {
         produceVertex(vertexConsumer, entry, i, 1.0F, 1, 1, 0);
         produceVertex(vertexConsumer, entry, i, 0.0F, 1, 0, 0);
         matrixStack.pop();
-        super.render(spellPortalEntity, f, g, matrixStack, vertexConsumerProvider, i);
+        super.render(gatewayProjectileEntity, f, g, matrixStack, vertexConsumerProvider, i);
     }
 
     private static void produceVertex(VertexConsumer vertexConsumer, MatrixStack.Entry matrix, int light, float x, int z, int textureU, int textureV) {
@@ -47,7 +47,7 @@ public class SpellEntityRenderer extends EntityRenderer<SpellPortalEntity> {
                 .normal(matrix, 0.0F, 1.0F, 0.0F);
     }
 
-    public Identifier getTexture(SpellPortalEntity spellPortalEntity) {
+    public Identifier getTexture(GatewayProjectileEntity gatewayProjectileEntity) {
         return TEXTURE;
     }
 }

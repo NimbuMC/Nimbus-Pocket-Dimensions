@@ -15,11 +15,11 @@ import net.nimbu.pocketdimensions.block.entity.renderer.PocketDimensionCustomize
 import net.nimbu.pocketdimensions.entity.ModEntities;
 import net.nimbu.pocketdimensions.entity.client.*;
 import net.nimbu.pocketdimensions.network.PocketDimClientNetworking;
-import net.nimbu.pocketdimensions.particle.MagicParticle;
+import net.nimbu.pocketdimensions.particle.GatewayProjectileParticle;
 import net.nimbu.pocketdimensions.particle.ModParticleTypes;
 import net.nimbu.pocketdimensions.renderer.PocketDimensionBorderRenderer;
 import net.nimbu.pocketdimensions.screen.ModScreenHandlers;
-import net.nimbu.pocketdimensions.screen.custom.PocketDimensionBiomeControllerScreen;
+import net.nimbu.pocketdimensions.screen.custom.DimensionCustomizerScreen;
 
 public class PocketDimensionsClient implements ClientModInitializer {
     public static KeyBinding openSpellWheel;
@@ -33,13 +33,13 @@ public class PocketDimensionsClient implements ClientModInitializer {
 
         EntityModelLayerRegistry.registerModelLayer(PocketDimensionOrbModel.ORB, PocketDimensionOrbModel::getTexturedModelData);
 
-        EntityRendererRegistry.register(ModEntities.SPELL_PORTAL, SpellEntityRenderer::new);
+        EntityRendererRegistry.register(ModEntities.SPELL_PORTAL, GatewayProjectileRenderer::new);
 
-        ParticleFactoryRegistry.getInstance().register(ModParticleTypes.MAGIC_PARTICLE, MagicParticle.Factory::new);
+        ParticleFactoryRegistry.getInstance().register(ModParticleTypes.GATEWAY_PROJECTILE_PARTICLE, GatewayProjectileParticle.Factory::new);
 
         BlockEntityRendererFactories.register(ModBlockEntityTypes.POCKET_DIMENSION_CUSTOMIZER_BLOCK_ENTITY, PocketDimensionCustomizerBlockEntityRenderer::new);
 
-        HandledScreens.register(ModScreenHandlers.POCKET_DIM_BIOME_SCREEN_HANDLER, PocketDimensionBiomeControllerScreen::new);
+        HandledScreens.register(ModScreenHandlers.POCKET_DIM_BIOME_SCREEN_HANDLER, DimensionCustomizerScreen::new);
 
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.DIMENSION_CUSTOMIZER, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.DIMENSION_CUSTOMIZER, RenderLayer.getCutout());

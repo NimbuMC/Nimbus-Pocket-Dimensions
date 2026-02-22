@@ -9,14 +9,8 @@ import net.nimbu.pocketdimensions.PocketDimensions;
 
 public class ModParticleTypes {
 
-    public static final SimpleParticleType MAGIC_PARTICLE =
-            registerParticle("magic_particle", FabricParticleTypes.simple(true)); //will always spawn, even if particles are turned off in settings
-
-    public static final SimpleParticleType BLAST_PARTICLE =
-            registerParticle("blast_particle", FabricParticleTypes.simple(true));
-
-    public static final SimpleParticleType RISE_PARTICLE =
-            registerParticle("rise_particle", FabricParticleTypes.simple(false));
+    public static final SimpleParticleType GATEWAY_PROJECTILE_PARTICLE =
+            registerParticle("gateway_projectile_particle", FabricParticleTypes.simple(true)); //will always spawn, even if particles are turned off in settings
 
 
 
@@ -24,37 +18,6 @@ public class ModParticleTypes {
     private static SimpleParticleType registerParticle(String name, SimpleParticleType simpleParticleType){
         return Registry.register(Registries.PARTICLE_TYPE, Identifier.of(PocketDimensions.MOD_ID, name), simpleParticleType);
     }
-
-
-
-//      TODO: BELOW IS CODE FOR PARTICLES WITH ADDITIONAL DATA PASSED TO THEM.
-
-//    public static final ParticleType<BlastParticleEffect> BLAST_PARTICLE =
-//            registerParticle("blast_particle", false, type -> BlastParticleEffect.CODEC, type -> BlastParticleEffect.PACKET_CODEC);
-
-//    private static <T extends ParticleEffect> ParticleType<T> registerParticle(
-//            String name,
-//            boolean alwaysShow,
-//            Function<ParticleType<T>, MapCodec<T>> codecGetter,
-//            Function<ParticleType<T>, PacketCodec<? super RegistryByteBuf, T>> packetCodecGetter
-//    ) {
-//        return Registry.register(Registries.PARTICLE_TYPE, name, new ParticleType<T>(alwaysShow) {
-//            @Override
-//            public MapCodec<T> getCodec() {
-//                return (MapCodec<T>)codecGetter.apply(this);
-//            }
-//
-//           @Override
-//           public PacketCodec<? super RegistryByteBuf, T> getPacketCodec() {
-//                return (PacketCodec<? super RegistryByteBuf, T>)packetCodecGetter.apply(this);
-//            }
-//        });
-//    }
-
-
-
-
-
     public static void registerParticles(){
         PocketDimensions.LOGGER.info("Registering particles for "+ PocketDimensions.MOD_ID);
     }
