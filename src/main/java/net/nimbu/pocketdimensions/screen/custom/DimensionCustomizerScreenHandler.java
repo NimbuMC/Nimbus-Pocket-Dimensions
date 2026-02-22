@@ -15,7 +15,7 @@ import net.nimbu.pocketdimensions.worldgen.biome.DynamicBiomeEffects;
 
 import java.util.Optional;
 
-public class PocketDimensionBiomeControllerScreenHandler extends ScreenHandler {
+public class DimensionCustomizerScreenHandler extends ScreenHandler {
 
     public final Property fogR = Property.create();
     public final Property fogG = Property.create();
@@ -39,7 +39,7 @@ public class PocketDimensionBiomeControllerScreenHandler extends ScreenHandler {
 
 
 
-    public PocketDimensionBiomeControllerScreenHandler(
+    public DimensionCustomizerScreenHandler(
             int syncId,
             PlayerInventory inventory
     ) {

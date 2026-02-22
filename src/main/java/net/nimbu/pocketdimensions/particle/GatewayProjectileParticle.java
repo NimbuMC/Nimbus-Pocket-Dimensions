@@ -5,14 +5,13 @@ import net.minecraft.client.world.ClientWorld;
 import net.minecraft.particle.SimpleParticleType;
 import org.jetbrains.annotations.Nullable;
 
-public class MagicParticle extends SpriteBillboardParticle {
-    public MagicParticle(ClientWorld clientWorld, double x, double y, double z,
-                         SpriteProvider spriteProvider, double xSpeed, double ySpeed, double zSpeed) {
+public class GatewayProjectileParticle extends SpriteBillboardParticle {
+    public GatewayProjectileParticle(ClientWorld clientWorld, double x, double y, double z,
+                                     SpriteProvider spriteProvider, double xSpeed, double ySpeed, double zSpeed) {
         super(clientWorld, x, y, z, xSpeed, ySpeed, zSpeed);
 
         this.velocityMultiplier=0.8f;
         this.maxAge=5;
-        this.red=0.5f;
         this.setSpriteForAge(spriteProvider);
     }
 
@@ -38,7 +37,7 @@ public class MagicParticle extends SpriteBillboardParticle {
         public Particle createParticle(SimpleParticleType parameters, ClientWorld world,
                                        double x, double y, double z,
                                        double velocityX, double velocityY, double velocityZ) {
-            return new MagicParticle(world, x, y, z, this.spriteProvider, velocityX, velocityY, velocityZ);
+            return new GatewayProjectileParticle(world, x, y, z, this.spriteProvider, velocityX, velocityY, velocityZ);
         }
     }
 }

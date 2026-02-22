@@ -18,6 +18,7 @@ public class ModItemGroups {
                     .displayName(Text.translatable("itemgroup.pocketdimensions.pocketdimensions_items"))
                     .entries((displayContext, entries) -> {
                         entries.add(ModItems.GATEWAY_WAND);
+                        entries.add(ModItems.DIMENSION_EXPANSION_GEM);
                         entries.add(ModBlocks.GATEWAY);
                         entries.add(ModBlocks.DIMENSION_CUSTOMIZER);
 

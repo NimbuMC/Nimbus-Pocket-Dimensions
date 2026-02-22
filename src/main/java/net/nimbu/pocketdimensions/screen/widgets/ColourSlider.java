@@ -8,7 +8,7 @@ import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.text.Text;
 import org.lwjgl.glfw.GLFW;
 
-import static net.nimbu.pocketdimensions.screen.custom.PocketDimensionBiomeControllerScreen.SLIDER_KNOB;
+import static net.nimbu.pocketdimensions.screen.custom.DimensionCustomizerScreen.SLIDER_KNOB;
 
 public class ColourSlider extends ClickableWidget {
 

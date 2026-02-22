@@ -16,7 +16,7 @@ import net.nimbu.pocketdimensions.PocketDimensions;
 import net.nimbu.pocketdimensions.screen.widgets.InvisibleButton;
 import net.nimbu.pocketdimensions.screen.widgets.RGBSliderGroup;
 
-public class PocketDimensionBiomeControllerScreen extends HandledScreen<PocketDimensionBiomeControllerScreenHandler> {
+public class DimensionCustomizerScreen extends HandledScreen<DimensionCustomizerScreenHandler> {
 
     public static final Identifier SLIDER_BAR = Identifier.of(PocketDimensions.MOD_ID, "textures/gui/widgets/slider_bar.png");
     public static final Identifier SLIDER_KNOB = Identifier.of(PocketDimensions.MOD_ID, "textures/gui/widgets/slider_knob.png");
@@ -33,7 +33,7 @@ public class PocketDimensionBiomeControllerScreen extends HandledScreen<PocketDi
     private RGBSliderGroup foliageSliders;
     private RGBSliderGroup grassSliders;
 
-    public PocketDimensionBiomeControllerScreen(PocketDimensionBiomeControllerScreenHandler handler, PlayerInventory inventory, Text title) {
+    public DimensionCustomizerScreen(DimensionCustomizerScreenHandler handler, PlayerInventory inventory, Text title) {
         super(handler, new PlayerInventory(inventory.player), Text.of(""));
     }
 
