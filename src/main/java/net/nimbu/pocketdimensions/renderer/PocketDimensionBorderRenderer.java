@@ -247,6 +247,8 @@ public class PocketDimensionBorderRenderer {
 
 
         consumers.draw();
+
+
     }
 
     private static void renderFace(VertexConsumer vc, MatrixStack matrix, int index, int x, int y, int z) {

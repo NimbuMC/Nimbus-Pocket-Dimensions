@@ -78,6 +78,7 @@ public class DimensionExpanderItem extends Item {
                 }
             }
             item.decrement(1);
+            PocketDimensionBorderRenderer.expansionModeActive = false;
         }
 
         return TypedActionResult.success(item);
