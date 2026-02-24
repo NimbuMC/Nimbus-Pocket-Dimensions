@@ -2,8 +2,13 @@ package net.nimbu.pocketdimensions.datagen;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
+import net.minecraft.block.Blocks;
 import net.minecraft.data.server.recipe.RecipeExporter;
+import net.minecraft.data.server.recipe.ShapedRecipeJsonBuilder;
+import net.minecraft.item.Items;
+import net.minecraft.recipe.book.RecipeCategory;
 import net.minecraft.registry.RegistryWrapper;
+import net.nimbu.pocketdimensions.block.ModBlocks;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -14,6 +19,17 @@ public class ModRecipeProvider extends FabricRecipeProvider {
 
     @Override
     public void generate(RecipeExporter recipeExporter) {
+
+        ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, ModBlocks.DIMENSION_CUSTOMIZER)
+                .pattern("BEB")
+                .pattern("BCB")
+                .input('E', Items.END_CRYSTAL)
+                .input('B', Blocks.STONE_BRICKS)
+                .input('C', Blocks.CHISELED_STONE_BRICKS)
+                .criterion(hasItem(Items.END_CRYSTAL), conditionsFromItem(Items.END_CRYSTAL)) //adds criteria to learn crafting recipe
+                .offerTo(recipeExporter);
+
+
 
 //        //========================================
 //        List<ItemConvertible> PITCH_BLACK_SMELTABLES = List.of(
