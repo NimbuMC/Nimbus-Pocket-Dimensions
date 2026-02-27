@@ -42,7 +42,7 @@ public class PocketDimensionsClient implements ClientModInitializer {
         HandledScreens.register(ModScreenHandlers.POCKET_DIM_BIOME_SCREEN_HANDLER, DimensionCustomizerScreen::new);
 
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.DIMENSION_CUSTOMIZER, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.DIMENSION_CUSTOMIZER, RenderLayer.getCutout());
+        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.TEST_O_GATEWAY, RenderLayer.getCutout());
 
     }
 }
