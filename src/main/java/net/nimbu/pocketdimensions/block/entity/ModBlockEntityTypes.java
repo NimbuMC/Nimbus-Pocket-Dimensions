@@ -6,14 +6,14 @@ import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 import net.nimbu.pocketdimensions.PocketDimensions;
 import net.nimbu.pocketdimensions.block.ModBlocks;
-import net.nimbu.pocketdimensions.block.entity.custom.DoorwayBlockEntity;
+import net.nimbu.pocketdimensions.block.entity.custom.GatewayBlockEntity;
 import net.nimbu.pocketdimensions.block.entity.custom.PocketDimensionCustomizerBlockEntity;
 
 public class ModBlockEntityTypes {
-    public static BlockEntityType<DoorwayBlockEntity> DOORWAY_BLOCK_ENTITY =
+    public static BlockEntityType<GatewayBlockEntity> DOORWAY_BLOCK_ENTITY =
             Registry.register(Registries.BLOCK_ENTITY_TYPE, Identifier.of(PocketDimensions.MOD_ID, "doorway_block"),
                     BlockEntityType.Builder.create(
-                            DoorwayBlockEntity::new,
+                            GatewayBlockEntity::new,
                             ModBlocks.GATEWAY
                     ).build());
 

@@ -18,12 +18,12 @@ import net.minecraft.util.math.Position;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.nimbu.pocketdimensions.block.ModBlocks;
-import net.nimbu.pocketdimensions.block.entity.custom.DoorwayBlockEntity;
+import net.nimbu.pocketdimensions.block.entity.custom.GatewayBlockEntity;
 import net.nimbu.pocketdimensions.particle.ModParticleTypes;
 import net.nimbu.pocketdimensions.worldgen.dimension.ModDimensions;
 
 import static net.minecraft.block.HorizontalFacingBlock.FACING;
-import static net.nimbu.pocketdimensions.block.custom.DoorwayBlock.HALF;
+import static net.nimbu.pocketdimensions.block.custom.GatewayBlock.HALF;
 
 public class GatewayProjectileEntity extends ProjectileEntity {
     RegistryKey<World> exitDimensionID;
@@ -64,7 +64,7 @@ public class GatewayProjectileEntity extends ProjectileEntity {
                 direction = Direction.SOUTH;
             }
             world.setBlockState(bottomHalf, ModBlocks.GATEWAY.getDefaultState().with(FACING, direction));
-            if(world.getBlockEntity(bottomHalf) instanceof DoorwayBlockEntity portalData) {
+            if(world.getBlockEntity(bottomHalf) instanceof GatewayBlockEntity portalData) {
                 portalData.TriggerInitialIDUpdate(world, bottomHalf, exitDimensionID);
             }
             world.setBlockState(topHalf, ModBlocks.GATEWAY.getDefaultState().with(HALF, DoubleBlockHalf.UPPER).with(FACING, direction));
