@@ -74,6 +74,13 @@ public class PocketDimensions implements ModInitializer {
 				}
 		);
 
+		ServerPlayConnectionEvents.JOIN.register(
+				(handler, a, b) -> {
+					PocketDimensionSync.sync(handler.getPlayer().getServerWorld(), handler.getPlayer());
+					PocketDimensionSync.syncDynamicBiome(handler.getPlayer().getServerWorld(), handler.getPlayer());
+				}
+		);
+
 		ServerPlayerEvents.AFTER_RESPAWN.register(
 				(oldPlayer, newPlayer, alive) -> {
 					PocketDimensionSync.sync(newPlayer.getServerWorld(), newPlayer);

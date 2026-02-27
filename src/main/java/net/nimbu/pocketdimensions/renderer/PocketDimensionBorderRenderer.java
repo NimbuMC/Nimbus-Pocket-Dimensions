@@ -29,6 +29,14 @@ public class PocketDimensionBorderRenderer {
                     shader -> BORDER_SHADER = shader
             );
         });
+        CoreShaderRegistrationCallback.EVENT.register(ctx -> {
+            ctx.register(
+                    Identifier.of(PocketDimensions.MOD_ID, "farViewBorder"),
+                    VertexFormats.POSITION_COLOR_TEXTURE_LIGHT_NORMAL,
+                    shader -> FAR_BORDER_SHADER = shader
+            );
+        });
+
         WorldRenderEvents.END.register(ctx -> {
             if (MinecraftClient.getInstance().world == null) {
                 expansionModeActive = false;
@@ -44,6 +52,7 @@ public class PocketDimensionBorderRenderer {
 
     public static final Identifier BORDER_TEXTURE = Identifier.of(PocketDimensions.MOD_ID, "textures/block/near_border.png");
     private static ShaderProgram BORDER_SHADER;
+    private static ShaderProgram FAR_BORDER_SHADER;
     private static final RenderLayer BORDER_RENDER_LAYER = RenderLayer.of(
             "pocketdimensions_border",
             VertexFormats.POSITION_COLOR_TEXTURE_LIGHT_NORMAL,
@@ -70,7 +79,7 @@ public class PocketDimensionBorderRenderer {
             false,
             true,
             RenderLayer.MultiPhaseParameters.builder()
-                    .program(RenderPhase.POSITION_COLOR_TEXTURE_LIGHTMAP_PROGRAM)
+                    .program(new RenderPhase.ShaderProgram(PocketDimensionBorderRenderer::getFarShader))
                     .texture(new RenderPhase.Texture(BORDER_TEXTURE, false, false))
                     .transparency(RenderPhase.Transparency.NO_TRANSPARENCY)
                     .depthTest(RenderPhase.DepthTest.LEQUAL_DEPTH_TEST)
@@ -88,7 +97,7 @@ public class PocketDimensionBorderRenderer {
             false,
             true,
             RenderLayer.MultiPhaseParameters.builder()
-                    .program(RenderPhase.POSITION_COLOR_TEXTURE_LIGHTMAP_PROGRAM)
+                    .program(new RenderPhase.ShaderProgram(PocketDimensionBorderRenderer::getFarShader))
                     .texture(new RenderPhase.Texture(BORDER_TEXTURE,false, false))
                     .transparency(RenderPhase.Transparency.NO_TRANSPARENCY)
                     .depthTest(RenderPhase.DepthTest.ALWAYS_DEPTH_TEST)
@@ -101,6 +110,7 @@ public class PocketDimensionBorderRenderer {
     private static ShaderProgram getShader() {
         return BORDER_SHADER;
     }
+    private static ShaderProgram getFarShader(){return FAR_BORDER_SHADER;}
 
     // Face normals: +X, -X, +Y, -Y, +Z, -Z
     private static final float[][] FACE_NORMALS = {{1, 0, 0}, {-1, 0, 0}, {0, 1, 0}, {0, -1, 0}, {0, 0, 1}, {0, 0, -1}};
@@ -216,6 +226,41 @@ public class PocketDimensionBorderRenderer {
 
         if (expansionModeActive && expansionModePosition != null) {
             matrices.push();
+            FAR_BORDER_SHADER.getUniform("cameraPosition").set(cam.x, cam.y, cam.z);
+            var world = MinecraftClient.getInstance().world;
+            if (world != null) {
+                var players = world.getPlayers();
+                int count = Math.min(players.size(), 8);
+
+                FAR_BORDER_SHADER.getUniform("playerCount").set(count);
+
+                float[] data = new float[8 * 3];
+                if (count > 0) {
+                    Vector3f playerPos = player.getPos().toVector3f();
+                    data[0] = playerPos.x;
+                    data[1] = playerPos.y;
+                    data[2] = playerPos.z;
+                }
+
+                if (count > 1) {
+                    for (int i = 1; i < count; i++) {
+                        Vec3d p = players.get(i).getPos();
+                        int base = i * 3;
+                        data[base] = (float) p.x;
+                        data[base + 1] = (float) p.y;
+                        data[base + 2] = (float) p.z;
+                    }
+                }
+
+                for (int i = count; i < 8; i++) {
+                    int base = i * 3;
+                    data[base] = data[base + 1] = data[base + 2] = 0.0f;
+                }
+
+                FAR_BORDER_SHADER.getUniform("playerPositions").set(data);
+            }
+            float t = MinecraftClient.getInstance().world.getTime();
+            FAR_BORDER_SHADER.getUniform("time").set(t);
 
             // Keep world-space positioning
             matrices.translate(
@@ -226,14 +271,15 @@ public class PocketDimensionBorderRenderer {
 
             VertexConsumer expVc = consumers.getBuffer(EXPANSION_RETICLE_LAYER);
             Matrix4f mat = matrices.peek().getPositionMatrix();
-
-            for (int i = 0; i < 6; i++) {
-                for (int v = 0; v < 4; v++) {
-                    expVc.vertex(mat, FACE_VERTICES[i][v][0], FACE_VERTICES[i][v][1], FACE_VERTICES[i][v][2])
-                            .color(expansionValid ? 0 : 255, expansionValid ? 255 : 0, 0, 255)
-                            .texture(FACE_VERTICES[i][v][3], FACE_VERTICES[i][v][4])
-                            .light(LightmapTextureManager.MAX_LIGHT_COORDINATE)
-                            .normal(FACE_NORMALS[i][0], FACE_NORMALS[i][1], FACE_NORMALS[i][2]);
+            if(expansionValid) {
+                for (int i = 0; i < 6; i++) {
+                    for (int v = 0; v < 4; v++) {
+                        expVc.vertex(mat, FACE_VERTICES[i][v][0], FACE_VERTICES[i][v][1], FACE_VERTICES[i][v][2])
+                                .color(0, 255, 0, 255)
+                                .texture(FACE_VERTICES[i][v][3], FACE_VERTICES[i][v][4])
+                                .light(LightmapTextureManager.MAX_LIGHT_COORDINATE)
+                                .normal(FACE_NORMALS[i][0], FACE_NORMALS[i][1], FACE_NORMALS[i][2]);
+                    }
                 }
             }
             matrices.pop();
@@ -244,11 +290,7 @@ public class PocketDimensionBorderRenderer {
             );
         }
         matrices.translate(cam.x, cam.y, cam.z);
-
-
         consumers.draw();
-
-
     }
 
     private static void renderFace(VertexConsumer vc, MatrixStack matrix, int index, int x, int y, int z) {
