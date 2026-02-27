@@ -38,11 +38,11 @@ import net.minecraft.world.*;
 import net.minecraft.world.event.listener.GameEventListener;
 import net.nimbu.pocketdimensions.PocketDimensions;
 import net.nimbu.pocketdimensions.block.entity.ModBlockEntityTypes;
-import net.nimbu.pocketdimensions.block.entity.custom.DoorwayBlockEntity;
+import net.nimbu.pocketdimensions.block.entity.custom.GatewayBlockEntity;
 import org.jetbrains.annotations.Nullable;
 
-public class DoorwayBlock extends BlockWithEntity implements Portal {
-    public static final MapCodec<DoorwayBlock> CODEC = createCodec(DoorwayBlock::new);
+public class GatewayBlock extends BlockWithEntity implements Portal {
+    public static final MapCodec<GatewayBlock> CODEC = createCodec(GatewayBlock::new);
     public static final DirectionProperty FACING = Properties.HORIZONTAL_FACING;
     public static final BooleanProperty OPEN = Properties.OPEN;
     public static final EnumProperty<DoubleBlockHalf> HALF = Properties.DOUBLE_BLOCK_HALF;
@@ -53,7 +53,7 @@ public class DoorwayBlock extends BlockWithEntity implements Portal {
             6.0, 0.0, -3.0,
             10.0, 16.0, 19.0);
 
-    public DoorwayBlock(Settings settings) {
+    public GatewayBlock(Settings settings) {
         super(settings);
         this.setDefaultState(
                 this.stateManager
@@ -107,7 +107,7 @@ public class DoorwayBlock extends BlockWithEntity implements Portal {
     }
 
     @Override
-    protected MapCodec<? extends DoorwayBlock> getCodec() {
+    protected MapCodec<? extends GatewayBlock> getCodec() {
         return CODEC;
     }
 
@@ -142,7 +142,7 @@ public class DoorwayBlock extends BlockWithEntity implements Portal {
                     ? Blocks.AIR.getDefaultState()
                     : super.getStateForNeighborUpdate(state, direction, neighborState, world, pos, neighborPos);
         } else {
-            return neighborState.getBlock() instanceof DoorwayBlock && neighborState.get(HALF) != doubleBlockHalf
+            return neighborState.getBlock() instanceof GatewayBlock && neighborState.get(HALF) != doubleBlockHalf
                     ? neighborState.with(HALF, doubleBlockHalf)
                     : Blocks.AIR.getDefaultState();
         }
@@ -172,7 +172,7 @@ public class DoorwayBlock extends BlockWithEntity implements Portal {
     @Override
     public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
         return state.get(HALF) == DoubleBlockHalf.LOWER
-                ? new DoorwayBlockEntity(pos, state)
+                ? new GatewayBlockEntity(pos, state)
                 : null;
     }
 
@@ -189,8 +189,8 @@ public class DoorwayBlock extends BlockWithEntity implements Portal {
                 type,
                 ModBlockEntityTypes.DOORWAY_BLOCK_ENTITY,
                 world.isClient
-                        ? DoorwayBlockEntity::clientTick
-                        : DoorwayBlockEntity::serverTick
+                        ? GatewayBlockEntity::clientTick
+                        : GatewayBlockEntity::serverTick
         );
     }
 
@@ -221,11 +221,11 @@ public class DoorwayBlock extends BlockWithEntity implements Portal {
         if (getTeleportBox(pos, state.get(FACING)).intersects(entity.getBoundingBox())
                 && entity.canUsePortals(false)
                 && !world.isClient
-                && world.getBlockEntity(pos) instanceof DoorwayBlockEntity doorway
+                && world.getBlockEntity(pos) instanceof GatewayBlockEntity doorway
                 && !doorway.needsCooldownBeforeTeleporting()) {
 
             entity.tryUsePortal(this, pos);
-            DoorwayBlockEntity.startTeleportCooldown(world, pos, state, doorway);
+            GatewayBlockEntity.startTeleportCooldown(world, pos, state, doorway);
         }
     }
 
@@ -236,7 +236,7 @@ public class DoorwayBlock extends BlockWithEntity implements Portal {
         Vec3d exitPos = null;
         BlockPos exitBlock = new BlockPos(0, 100000, 0);
         ServerWorld serverWorld = null;
-        if (world.getBlockEntity(pos) instanceof DoorwayBlockEntity doorwayBlockEntity) {
+        if (world.getBlockEntity(pos) instanceof GatewayBlockEntity doorwayBlockEntity) {
             PocketDimensions.LOGGER.info("FoundBlockEntity");
             RegistryKey<World> registryKey = doorwayBlockEntity.GetExitDimension();
             if (registryKey != null) {
@@ -252,8 +252,8 @@ public class DoorwayBlock extends BlockWithEntity implements Portal {
         else {
             assert serverWorld != null;
             return new TeleportTarget(serverWorld, exitPos, getTeleportVelocity(entity),
-                    entity.getYaw() + serverWorld.getBlockState(exitBlock).get(DoorwayBlock.FACING).asRotation() -
-                                    world.getBlockState(pos).get(DoorwayBlock.FACING).asRotation() + 180,
+                    entity.getYaw() + serverWorld.getBlockState(exitBlock).get(GatewayBlock.FACING).asRotation() -
+                                    world.getBlockState(pos).get(GatewayBlock.FACING).asRotation() + 180,
                     entity.getPitch(), TeleportTarget.ADD_PORTAL_CHUNK_TICKET);
         }
     }

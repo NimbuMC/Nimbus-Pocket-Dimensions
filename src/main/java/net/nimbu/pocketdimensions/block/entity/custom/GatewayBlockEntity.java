@@ -18,14 +18,14 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.nimbu.pocketdimensions.PocketDimensions;
 import net.nimbu.pocketdimensions.block.ModBlocks;
-import net.nimbu.pocketdimensions.block.custom.DoorwayBlock;
+import net.nimbu.pocketdimensions.block.custom.GatewayBlock;
 import net.nimbu.pocketdimensions.block.entity.ModBlockEntityTypes;
 import net.nimbu.pocketdimensions.network.ClientPocketDimensionPersistentState;
 import net.nimbu.pocketdimensions.renderer.PocketDimensionBorderRenderer;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
 
-public class DoorwayBlockEntity extends BlockEntity {
+public class GatewayBlockEntity extends BlockEntity {
     private long age;
     @Nullable
     private BlockPos exitPortalPos;
@@ -33,7 +33,7 @@ public class DoorwayBlockEntity extends BlockEntity {
     private boolean exactTeleport;
     private int teleportCooldown;
 
-    public DoorwayBlockEntity(BlockPos pos, BlockState state) {
+    public GatewayBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntityTypes.DOORWAY_BLOCK_ENTITY, pos, state);
     }
 
@@ -63,14 +63,14 @@ public class DoorwayBlockEntity extends BlockEntity {
     }
 
 
-    public static void clientTick(World world, BlockPos pos, BlockState state, DoorwayBlockEntity blockEntity) {
+    public static void clientTick(World world, BlockPos pos, BlockState state, GatewayBlockEntity blockEntity) {
         blockEntity.age++;
         if (blockEntity.needsCooldownBeforeTeleporting()) {
             blockEntity.teleportCooldown--;
         }
     }
 
-    public static void serverTick(World world, BlockPos pos, BlockState state, DoorwayBlockEntity blockEntity) {
+    public static void serverTick(World world, BlockPos pos, BlockState state, GatewayBlockEntity blockEntity) {
         boolean bl = blockEntity.isRecentlyGenerated();
         boolean bl2 = blockEntity.needsCooldownBeforeTeleporting();
         blockEntity.age++;
@@ -86,22 +86,22 @@ public class DoorwayBlockEntity extends BlockEntity {
     }
 
     public void TriggerInitialIDUpdate(World world, BlockPos entryPortalPosition, RegistryKey<World> exitID) {
-        if (world.getBlockEntity(entryPortalPosition) instanceof DoorwayBlockEntity DoorwayBlockEntity && !world.isClient) {
+        if (world.getBlockEntity(entryPortalPosition) instanceof GatewayBlockEntity DoorwayBlockEntity && !world.isClient) {
             PocketDimensions.LOGGER.info("Created with ID \n" + exitID);
             DoorwayBlockEntity.setPortalID(exitID);
             BlockPos exitPosition = new BlockPos(6, 148, 1);
             ServerWorld targetWorld = world.getServer().getWorld(exitID);
-            if (targetWorld.getBlockEntity(exitPosition) instanceof DoorwayBlockEntity exitPortal) {
+            if (targetWorld.getBlockEntity(exitPosition) instanceof GatewayBlockEntity exitPortal) {
                 //if(exitDimension.getValue().toString().startsWith(Thaumaturgy.MOD_ID+":pocket_dimension"))
                 exitPortal.setExitPosition(entryPortalPosition, world.getRegistryKey());
             } else {
                 targetWorld.setBlockState(exitPosition, ModBlocks.GATEWAY.getDefaultState()
-                        .with(DoorwayBlock.FACING, Direction.SOUTH)
-                        .with(DoorwayBlock.OPEN, true));
+                        .with(GatewayBlock.FACING, Direction.SOUTH)
+                        .with(GatewayBlock.OPEN, true));
                 targetWorld.setBlockState(exitPosition.add(0, 1, 0), ModBlocks.GATEWAY.getDefaultState()
-                        .with(DoorwayBlock.FACING, Direction.SOUTH)
-                        .with(DoorwayBlock.HALF, DoubleBlockHalf.UPPER)
-                        .with(DoorwayBlock.OPEN, true));
+                        .with(GatewayBlock.FACING, Direction.SOUTH)
+                        .with(GatewayBlock.HALF, DoubleBlockHalf.UPPER)
+                        .with(GatewayBlock.OPEN, true));
                 targetWorld.setBlockState(exitPosition.add(-1,-1,-1), Blocks.GLOWSTONE.getDefaultState());
                 targetWorld.setBlockState(exitPosition.add(-1,-1,0), Blocks.GLOWSTONE.getDefaultState());
                 targetWorld.setBlockState(exitPosition.add(-1,-1,1), Blocks.GLOWSTONE.getDefaultState());
@@ -113,7 +113,7 @@ public class DoorwayBlockEntity extends BlockEntity {
                 targetWorld.setBlockState(exitPosition.add(1,-1,-1), Blocks.GLOWSTONE.getDefaultState());
                 targetWorld.setBlockState(exitPosition.add(1,-1,0), Blocks.GLOWSTONE.getDefaultState());
                 targetWorld.setBlockState(exitPosition.add(1,-1,1), Blocks.GLOWSTONE.getDefaultState());
-                if (targetWorld.getBlockEntity(exitPosition) instanceof DoorwayBlockEntity exitPortal) {
+                if (targetWorld.getBlockEntity(exitPosition) instanceof GatewayBlockEntity exitPortal) {
                     exitPortal.setExitPosition(entryPortalPosition, world.getRegistryKey());
                 }
             }
@@ -156,7 +156,7 @@ public class DoorwayBlockEntity extends BlockEntity {
         return this.createComponentlessNbt(registryLookup);
     }
 
-    public static void startTeleportCooldown(World world, BlockPos pos, BlockState state, DoorwayBlockEntity blockEntity) {
+    public static void startTeleportCooldown(World world, BlockPos pos, BlockState state, GatewayBlockEntity blockEntity) {
         if (!world.isClient) {
             blockEntity.teleportCooldown = 40;
             world.addSyncedBlockEvent(pos, state.getBlock(), 1, 0);
