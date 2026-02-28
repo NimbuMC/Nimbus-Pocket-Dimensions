@@ -23,6 +23,9 @@ public class ModBlocks {
     public static final Block TEST_O_GATEWAY = registerBlock("oak_gateway",
             new GatewayBlock(AbstractBlock.Settings.create().nonOpaque()));
 
+    public static final Block TEST_B_GATEWAY = registerBlock("birch_gateway",
+            new GatewayBlock(AbstractBlock.Settings.create().nonOpaque()));
+
     public static final Block DIMENSION_CUSTOMIZER = registerBlock("dimension_customizer",
             new PocketDimensionCustomizerBlock(AbstractBlock.Settings.create().nonOpaque().luminance(state -> 10)));
 
