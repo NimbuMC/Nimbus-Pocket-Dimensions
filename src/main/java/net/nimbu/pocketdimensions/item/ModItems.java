@@ -14,7 +14,7 @@ public class ModItems {
             new GatewayWandItem(new Item.Settings()
                     .maxCount(1)
                     .maxDamage(131)));
-    public static final Item DIMENSION_EXPANSION_GEM = registerItem("dimension_expansion_gem",
+    public static final Item EXPANSION_GEM = registerItem("expansion_gem",
             new DimensionExpanderItem(new Item.Settings()));
 
 

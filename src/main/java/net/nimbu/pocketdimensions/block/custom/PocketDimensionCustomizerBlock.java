@@ -1,9 +1,7 @@
 package net.nimbu.pocketdimensions.block.custom;
 
 import com.mojang.serialization.MapCodec;
-import net.minecraft.block.BlockRenderType;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.BlockWithEntity;
+import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
@@ -13,6 +11,9 @@ import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.shape.VoxelShape;
+import net.minecraft.util.shape.VoxelShapes;
+import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.nimbu.pocketdimensions.block.entity.ModBlockEntityTypes;
 import net.nimbu.pocketdimensions.block.entity.custom.PocketDimensionCustomizerBlockEntity;
@@ -20,6 +21,29 @@ import net.nimbu.pocketdimensions.screen.custom.DimensionCustomizerScreenHandler
 import org.jetbrains.annotations.Nullable;
 
 public class PocketDimensionCustomizerBlock extends BlockWithEntity {
+    public static final VoxelShape BASE = Block.createCuboidShape(
+            0, 0, 0,
+            16, 9, 16);
+    public static final VoxelShape PILLAR_NW = Block.createCuboidShape(
+            0, 9, 0,
+            4, 16, 4);
+    public static final VoxelShape PILLAR_NE = Block.createCuboidShape(
+            12, 9, 0,
+            16, 16, 4);
+    public static final VoxelShape PILLAR_SW = Block.createCuboidShape(
+            0, 9, 12,
+            4, 16, 16);
+    public static final VoxelShape PILLAR_SE = Block.createCuboidShape(
+            12, 9, 12,
+            16, 16, 16);
+    public static final VoxelShape SHAPE = VoxelShapes.union(
+            BASE,
+            PILLAR_NW,
+            PILLAR_NE,
+            PILLAR_SW,
+            PILLAR_SE);
+
+
     public PocketDimensionCustomizerBlock(Settings settings) {
         super(settings);
     }
@@ -57,5 +81,10 @@ public class PocketDimensionCustomizerBlock extends BlockWithEntity {
             return ActionResult.CONSUME;
         }
         return ActionResult.SUCCESS;
+    }
+
+    @Override
+    protected VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
+        return SHAPE;
     }
 }
