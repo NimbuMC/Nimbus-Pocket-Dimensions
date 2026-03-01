@@ -5,10 +5,12 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.minecraft.block.Blocks;
 import net.minecraft.data.server.recipe.RecipeExporter;
 import net.minecraft.data.server.recipe.ShapedRecipeJsonBuilder;
+import net.minecraft.data.server.recipe.ShapelessRecipeJsonBuilder;
 import net.minecraft.item.Items;
 import net.minecraft.recipe.book.RecipeCategory;
 import net.minecraft.registry.RegistryWrapper;
 import net.nimbu.pocketdimensions.block.ModBlocks;
+import net.nimbu.pocketdimensions.item.ModItems;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -20,6 +22,14 @@ public class ModRecipeProvider extends FabricRecipeProvider {
     @Override
     public void generate(RecipeExporter recipeExporter) {
 
+        ShapedRecipeJsonBuilder.create(RecipeCategory.TOOLS, ModItems.GATEWAY_WAND)
+                .pattern(" B ")
+                .pattern("E  ")
+                .input('E', Items.ECHO_SHARD)
+                .input('B', Items.BREEZE_ROD)
+                .criterion(hasItem(Items.ECHO_SHARD), conditionsFromItem(Items.ECHO_SHARD)) //adds criteria to learn crafting recipe
+                .offerTo(recipeExporter);
+
         ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, ModBlocks.DIMENSION_CUSTOMIZER)
                 .pattern("BEB")
                 .pattern("BCB")
@@ -29,6 +39,12 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .criterion(hasItem(Items.END_CRYSTAL), conditionsFromItem(Items.END_CRYSTAL)) //adds criteria to learn crafting recipe
                 .offerTo(recipeExporter);
 
+        ShapelessRecipeJsonBuilder.create(RecipeCategory.MISC, ModItems.EXPANSION_GEM)
+                .input(Items.ENDER_PEARL)
+                .input(Items.DIAMOND)
+                .input(Items.AMETHYST_SHARD)
+                .criterion(hasItem(Items.ENDER_PEARL), conditionsFromItem(Items.ENDER_PEARL))
+                .offerTo(recipeExporter);
 
 
 //        //========================================

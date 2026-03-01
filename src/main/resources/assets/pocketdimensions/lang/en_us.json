@@ -1,6 +1,7 @@
 {
   "item.pocketdimensions.gateway_wand": "Gateway Wand",
+  "item.pocketdimensions.expansion_gem": "Expansion Gem",
   "block.pocketdimensions.dimension_customizer": "Dimension Customizer",
   "block.pocketdimensions.dark_oak_gateway": "Dark Oak Gateway",
-  "itemgroup.pocketdimensions.pocketdimensions_items": "Pocket Dimensions Items"
+  "itemgroup.pocketdimensions.pocketdimensions_items": "Pocket Dimensions"
 }
