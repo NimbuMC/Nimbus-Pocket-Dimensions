@@ -1,0 +1,65 @@
+{
+  "variants": {
+    "facing=east,open=false,half=upper": {
+      "model": "pocketdimensions:block/jungle_gateway_top",
+      "y": 90
+    },
+    "facing=north,open=false,half=upper": {
+      "model": "pocketdimensions:block/jungle_gateway_top"
+    },
+    "facing=south,open=false,half=upper": {
+      "model": "pocketdimensions:block/jungle_gateway_top",
+      "y": 180
+    },
+    "facing=west,open=false,half=upper": {
+      "model": "pocketdimensions:block/jungle_gateway_top",
+      "y": 270
+    },
+    "facing=east,open=true,half=upper": {
+      "model": "pocketdimensions:block/jungle_gateway_top_open",
+      "y": 90
+    },
+    "facing=north,open=true,half=upper": {
+      "model": "pocketdimensions:block/jungle_gateway_top_open"
+    },
+    "facing=south,open=true,half=upper": {
+      "model": "pocketdimensions:block/jungle_gateway_top_open",
+      "y": 180
+    },
+    "facing=west,open=true,half=upper": {
+      "model": "pocketdimensions:block/jungle_gateway_top_open",
+      "y": 270
+    },
+    "facing=east,open=false,half=lower": {
+      "model": "pocketdimensions:block/jungle_gateway_bottom",
+      "y": 90
+    },
+    "facing=north,open=false,half=lower": {
+      "model": "pocketdimensions:block/jungle_gateway_bottom"
+    },
+    "facing=south,open=false,half=lower": {
+      "model": "pocketdimensions:block/jungle_gateway_bottom",
+      "y": 180
+    },
+    "facing=west,open=false,half=lower": {
+      "model": "pocketdimensions:block/jungle_gateway_bottom",
+      "y": 270
+    },
+    "facing=east,open=true,half=lower": {
+      "model": "pocketdimensions:block/jungle_gateway_bottom_open",
+      "y": 90
+    },
+    "facing=north,open=true,half=lower": {
+      "model": "pocketdimensions:block/jungle_gateway_bottom_open"
+    },
+    "facing=south,open=true,half=lower": {
+      "model": "pocketdimensions:block/jungle_gateway_bottom_open",
+      "y": 180
+    },
+    "facing=west,open=true,half=lower": {
+      "model": "pocketdimensions:block/jungle_gateway_bottom_open",
+      "y": 270
+    }
+  }
+}
+
