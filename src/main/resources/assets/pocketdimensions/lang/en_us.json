@@ -2,6 +2,11 @@
   "item.pocketdimensions.gateway_wand": "Gateway Wand",
   "item.pocketdimensions.expansion_gem": "Expansion Gem",
   "block.pocketdimensions.dimension_customizer": "Dimension Customizer",
+  "block.pocketdimensions.oak_gateway": "Oak Gateway",
+  "block.pocketdimensions.birch_gateway": "Birch Gateway",
+  "block.pocketdimensions.spruce_gateway": "Spruce Gateway",
   "block.pocketdimensions.dark_oak_gateway": "Dark Oak Gateway",
+  "block.pocketdimensions.jungle_gateway": "Jungle Gateway",
+  "block.pocketdimensions.acacia_gateway": "Acacia Gateway",
   "itemgroup.pocketdimensions.pocketdimensions_items": "Pocket Dimensions"
 }
