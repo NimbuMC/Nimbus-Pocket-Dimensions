@@ -1,0 +1,8 @@
+{
+	"parent": "pocketdimensions:block/gateway_top_open",
+	"texture_size": [128, 128],
+	"textures": {
+		"0": "pocketdimensions:block/warped_gateway",
+		"particle": "minecraft:block/warped_planks"
+	}
+}

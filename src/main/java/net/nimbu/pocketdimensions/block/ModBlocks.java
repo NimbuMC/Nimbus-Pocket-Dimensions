@@ -35,6 +35,12 @@ public class ModBlocks {
     public static final Block TEST_C_GATEWAY = registerBlock("cherry_gateway",
             new GatewayBlock(AbstractBlock.Settings.create().nonOpaque()));
 
+    public static final Block TEST_W_GATEWAY = registerBlock("warped_gateway",
+            new GatewayBlock(AbstractBlock.Settings.create().nonOpaque()));
+
+    public static final Block TEST_CR_GATEWAY = registerBlock("crimson_gateway",
+            new GatewayBlock(AbstractBlock.Settings.create().nonOpaque()));
+
     public static final Block DIMENSION_CUSTOMIZER = registerBlock("dimension_customizer",
             new PocketDimensionCustomizerBlock(AbstractBlock.Settings.create().nonOpaque().luminance(state -> 10)));
 

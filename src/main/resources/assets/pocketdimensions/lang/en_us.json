@@ -9,5 +9,7 @@
   "block.pocketdimensions.jungle_gateway": "Jungle Gateway",
   "block.pocketdimensions.acacia_gateway": "Acacia Gateway",
   "block.pocketdimensions.cherry_gateway": "Cherry Gateway",
+  "block.pocketdimensions.warped_gateway": "Warped Gateway",
+  "block.pocketdimensions.crimson_gateway": "Crimson Gateway",
   "itemgroup.pocketdimensions.pocketdimensions_items": "Pocket Dimensions"
 }
