@@ -62,10 +62,10 @@ public class DimensionCustomizerScreen extends HandledScreen<DimensionCustomizer
         InvisibleButton grassColours = InvisibleButton.builder( //grass colours
                 Text.literal("Grass colours"),
                 button -> {
-                    fogSliders.setVisibility(false);
-                    waterSliders.setVisibility(false);
-                    leavesSliders.setVisibility(false);
                     grassSliders.setVisibility(true);
+                    leavesSliders.setVisibility(false);
+                    waterSliders.setVisibility(false);
+                    fogSliders.setVisibility(false);
                 }
         ).dimensions(x+1, y + 7, 46, 16).build();
         addDrawableChild(grassColours);
@@ -73,10 +73,10 @@ public class DimensionCustomizerScreen extends HandledScreen<DimensionCustomizer
         InvisibleButton foliageColours = InvisibleButton.builder( //leaf colours
                 Text.literal("Foliage colours"),
                 button -> {
-                    fogSliders.setVisibility(false);
-                    waterSliders.setVisibility(false);
-                    leavesSliders.setVisibility(true);
                     grassSliders.setVisibility(false);
+                    leavesSliders.setVisibility(true);
+                    waterSliders.setVisibility(false);
+                    fogSliders.setVisibility(false);
                 }
         ).dimensions(x + 1, y + 23, 46, 16).build();
         addDrawableChild(foliageColours);
@@ -84,10 +84,10 @@ public class DimensionCustomizerScreen extends HandledScreen<DimensionCustomizer
         InvisibleButton waterMenuButton = InvisibleButton.builder( //water colours and water fog colours
                 Text.literal("Water colours"),
                 button -> {
-                    fogSliders.setVisibility(false);
-                    waterSliders.setVisibility(true);
-                    leavesSliders.setVisibility(false);
                     grassSliders.setVisibility(false);
+                    leavesSliders.setVisibility(false);
+                    waterSliders.setVisibility(true);
+                    fogSliders.setVisibility(false);
                 }
         ).dimensions(x + 1, y + 39, 46, 16).build();
         addDrawableChild(waterMenuButton);
@@ -96,10 +96,10 @@ public class DimensionCustomizerScreen extends HandledScreen<DimensionCustomizer
         InvisibleButton fogMenuButton = InvisibleButton.builder(
                 Text.literal("Fog colour"),
                 button -> {
-                    fogSliders.setVisibility(true);
-                    waterSliders.setVisibility(false);
-                    leavesSliders.setVisibility(false);
                     grassSliders.setVisibility(false);
+                    leavesSliders.setVisibility(false);
+                    waterSliders.setVisibility(false);
+                    fogSliders.setVisibility(true);
                 }
         ).dimensions(x + 1, y + 71, 46, 16).build();
         addDrawableChild(fogMenuButton);
