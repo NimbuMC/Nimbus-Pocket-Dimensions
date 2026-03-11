@@ -1,5 +1,6 @@
 package net.nimbu.pocketdimensions.screen.widgets;
 
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.narration.NarrationMessageBuilder;
@@ -85,7 +86,7 @@ public class ColourSlider extends ClickableWidget {
 
         context.drawText(MinecraftClient.getInstance().textRenderer,
                 name.getString(),
-                getX() - 20,
+                getX() - 14,
                 getY(),
                 colour,
                 false);
@@ -97,8 +98,12 @@ public class ColourSlider extends ClickableWidget {
                 width, height,
                 lowGrad, highGrad
         );
+
         // KNOB
+        //TODO: Knob brightness changing
+        float brightness = (float) ((double)1 - ((double)value/(double)max)*0.5);
         int knobX = getX() + (int)((value - min) / (float)(max - min) * (width - 8));
+        RenderSystem.setShaderColor(brightness, brightness, brightness, 1.0f);
         context.drawTexture(
                 SLIDER_KNOB,
                 knobX, getY(),
@@ -107,6 +112,8 @@ public class ColourSlider extends ClickableWidget {
                 7, 7
         );
         mouseOutLastFrame = !isHovered();
+
+        RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
     }
     private void drawHorizontalGradient(
             DrawContext context,
