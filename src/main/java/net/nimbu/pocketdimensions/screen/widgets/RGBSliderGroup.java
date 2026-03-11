@@ -29,12 +29,14 @@ public class RGBSliderGroup implements Widget, Drawable {
         this.y = y;
         this.width = width;
         this.height = height;
-        int textBoxWidth = 30;
+        final int textBoxWidth = 26;
+        final int textBoxHeight = 12;
         int sliderWidth = width - (borderWidth * 3) - textBoxWidth;
         int sliderHeight = (height - ((borderWidth + barSeparation) * 2)) / 3;
         int redY = y + borderWidth;
         int greenY = y + borderWidth + sliderHeight + barSeparation;
         int blueY = y + borderWidth + 2 * (sliderHeight + barSeparation);
+
         rSlider = new ColourSlider(
                 x + borderWidth,
                 redY,
@@ -69,7 +71,7 @@ public class RGBSliderGroup implements Widget, Drawable {
                 x + borderWidth + sliderWidth + barSeparation,
                 redY - 2,
                 textBoxWidth,
-                sliderHeight + 2,
+                textBoxHeight,
                 Text.of("R"));
 
         rTextBox.setMaxLength(3);
@@ -79,7 +81,7 @@ public class RGBSliderGroup implements Widget, Drawable {
                 x + borderWidth + sliderWidth + barSeparation,
                 greenY - 2,
                 textBoxWidth,
-                sliderHeight + 2,
+                textBoxHeight,
                 Text.of("G"));
 
         gTextBox.setMaxLength(3);
@@ -89,7 +91,7 @@ public class RGBSliderGroup implements Widget, Drawable {
                 x + borderWidth + sliderWidth + barSeparation,
                 blueY - 2,
                 textBoxWidth,
-                sliderHeight + 2,
+                textBoxHeight,
                 Text.of("B"));
 
         bTextBox.setMaxLength(3);

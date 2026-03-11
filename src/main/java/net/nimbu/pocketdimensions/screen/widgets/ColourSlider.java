@@ -92,7 +92,8 @@ public class ColourSlider extends ClickableWidget {
 
         drawHorizontalGradient(
                 context,
-                getX(), getY(),
+                getX(),
+                getY(),
                 width, height,
                 lowGrad, highGrad
         );
@@ -112,7 +113,7 @@ public class ColourSlider extends ClickableWidget {
             int x, int y, int width, int height,
             int leftColor, int rightColor
     ) {
-        for (int i = 0; i < width - 2; i += 4) {
+        for (int i = 0; i < width - 2; i += 3) {
             float t = i / (float) (width - 3);
 
             int r = (int) (lerp(t, (leftColor >> 16) & 0xFF, (rightColor >> 16) & 0xFF));
@@ -121,7 +122,7 @@ public class ColourSlider extends ClickableWidget {
 
             int color = 0xFF000000 | (r << 16) | (g << 8) | b;
 
-            context.fill(x + i, y + (height / 2) - 1, x + i + 4, y + (height / 2), color);
+            context.fill(x + i, y + 2, x + i + 3, y + 5, color);
         }
     }
 
