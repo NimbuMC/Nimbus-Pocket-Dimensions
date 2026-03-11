@@ -28,10 +28,11 @@ public class DimensionCustomizerScreen extends HandledScreen<DimensionCustomizer
     public static final Identifier BACKGROUND_4 = Identifier.of(PocketDimensions.MOD_ID, "textures/gui/pocket_dimension_customizer/pocket_dimension_customizer_4.png");
     public static final Identifier BACKGROUND_5 = Identifier.of(PocketDimensions.MOD_ID, "textures/gui/pocket_dimension_customizer/pocket_dimension_customizer_5.png");
     public static final Identifier BACKGROUND_6 = Identifier.of(PocketDimensions.MOD_ID, "textures/gui/pocket_dimension_customizer/pocket_dimension_customizer_6.png");
-    private RGBSliderGroup fogSliders;
-    private RGBSliderGroup waterSliders;
-    private RGBSliderGroup foliageSliders;
+    public static final Identifier BACKGROUND_7 = Identifier.of(PocketDimensions.MOD_ID, "textures/gui/pocket_dimension_customizer/pocket_dimension_customizer_7.png");
     private RGBSliderGroup grassSliders;
+    private RGBSliderGroup leavesSliders;
+    private RGBSliderGroup waterSliders;
+    private RGBSliderGroup fogSliders;
 
     public DimensionCustomizerScreen(DimensionCustomizerScreenHandler handler, PlayerInventory inventory, Text title) {
         super(handler, new PlayerInventory(inventory.player), Text.of(""));
@@ -40,14 +41,17 @@ public class DimensionCustomizerScreen extends HandledScreen<DimensionCustomizer
     @Override
     protected void init() {
         super.init();
-        fogSliders = new RGBSliderGroup(x + backgroundWidth - 90, y + 70, 90, 40, 5, 2, handler.getFogColour());
-        fogSliders.forEachChild(this::addDrawableChild);
-        waterSliders = new RGBSliderGroup(x + backgroundWidth - 90, y + 70, 90, 40, 5, 2, handler.getWaterColour());
-        waterSliders.forEachChild(this::addDrawableChild);
-        foliageSliders = new RGBSliderGroup(x + backgroundWidth - 90, y + 70, 90, 40, 5, 2, handler.getFoliageColour());
-        foliageSliders.forEachChild(this::addDrawableChild);
-        grassSliders = new RGBSliderGroup(x + backgroundWidth - 90, y + 120, 90, 40, 5, 2, handler.getGrassColour());
+        grassSliders = new RGBSliderGroup(x + backgroundWidth - 101, y + 114, 89, 46, 5, 3, handler.getGrassColour());
         grassSliders.forEachChild(this::addDrawableChild);
+        leavesSliders = new RGBSliderGroup(x + backgroundWidth - 101, y + 114, 89, 46, 5, 3, handler.getFoliageColour());
+        leavesSliders.forEachChild(this::addDrawableChild);
+        waterSliders = new RGBSliderGroup(x + backgroundWidth - 101, y + 114, 89, 46, 5, 3, handler.getWaterColour());
+        waterSliders.forEachChild(this::addDrawableChild);
+        fogSliders = new RGBSliderGroup(x + backgroundWidth - 101, y + 114, 89, 46, 5, 3, handler.getFogColour());
+        fogSliders.forEachChild(this::addDrawableChild);
+
+
+
 
         InvisibleButton applyButton = InvisibleButton.builder(
                 Text.literal("Apply"),
@@ -60,7 +64,7 @@ public class DimensionCustomizerScreen extends HandledScreen<DimensionCustomizer
                 button -> {
                     fogSliders.setVisibility(false);
                     waterSliders.setVisibility(false);
-                    foliageSliders.setVisibility(false);
+                    leavesSliders.setVisibility(false);
                     grassSliders.setVisibility(true);
                 }
         ).dimensions(x+1, y + 7, 46, 16).build();
@@ -71,7 +75,7 @@ public class DimensionCustomizerScreen extends HandledScreen<DimensionCustomizer
                 button -> {
                     fogSliders.setVisibility(false);
                     waterSliders.setVisibility(false);
-                    foliageSliders.setVisibility(true);
+                    leavesSliders.setVisibility(true);
                     grassSliders.setVisibility(false);
                 }
         ).dimensions(x + 1, y + 23, 46, 16).build();
@@ -82,7 +86,7 @@ public class DimensionCustomizerScreen extends HandledScreen<DimensionCustomizer
                 button -> {
                     fogSliders.setVisibility(false);
                     waterSliders.setVisibility(true);
-                    foliageSliders.setVisibility(false);
+                    leavesSliders.setVisibility(false);
                     grassSliders.setVisibility(false);
                 }
         ).dimensions(x + 1, y + 39, 46, 16).build();
@@ -94,7 +98,7 @@ public class DimensionCustomizerScreen extends HandledScreen<DimensionCustomizer
                 button -> {
                     fogSliders.setVisibility(true);
                     waterSliders.setVisibility(false);
-                    foliageSliders.setVisibility(false);
+                    leavesSliders.setVisibility(false);
                     grassSliders.setVisibility(false);
                 }
         ).dimensions(x + 1, y + 71, 46, 16).build();
@@ -103,16 +107,19 @@ public class DimensionCustomizerScreen extends HandledScreen<DimensionCustomizer
 
         fogSliders.setVisibility(true);
         waterSliders.setVisibility(false);
-        foliageSliders.setVisibility(false);
+        leavesSliders.setVisibility(false);
         grassSliders.setVisibility(false);
     }
 
     @Override
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
         super.render(context, mouseX, mouseY, delta);
+
+
+
         int[] fogColour = fogSliders.getColour();
         int[] waterColour = waterSliders.getColour();
-        int[] foliageColour = foliageSliders.getColour();
+        int[] foliageColour = leavesSliders.getColour();
         int[] grassColour = grassSliders.getColour();
 
 
@@ -124,11 +131,6 @@ public class DimensionCustomizerScreen extends HandledScreen<DimensionCustomizer
                 0xFF000000 | (grassColour[0] << 16) | (grassColour[1] << 8) | grassColour[2]
         );
         //renderBlock(context, Blocks.OAK_LEAVES.getDefaultState(), x + 100,y, 100,colour[0], colour[1], colour[2]);
-
-        if(grassSliders.getVisibility()){context.drawTexture(BACKGROUND_0, x,y,0,0, 256, 256);}
-        if(foliageSliders.getVisibility()){context.drawTexture(BACKGROUND_1, x,y,0,0, 256, 256);}
-        if(waterSliders.getVisibility()){context.drawTexture(BACKGROUND_2, x,y,0,0, 256, 256);}
-        if(fogSliders.getVisibility()){context.drawTexture(BACKGROUND_4, x,y,0,0, 256, 256);}
     }
 
     @Override
@@ -195,12 +197,17 @@ public class DimensionCustomizerScreen extends HandledScreen<DimensionCustomizer
         int y = (height - backgroundHeight) / 2;
 
         context.drawTexture(BACKGROUND, x, y, 0, 0, backgroundWidth, backgroundHeight);
+
+        if(grassSliders.getVisibility()){context.drawTexture(BACKGROUND_0, x,y,0,0, 256, 256);}
+        if(leavesSliders.getVisibility()){context.drawTexture(BACKGROUND_1, x,y,0,0, 256, 256);}
+        if(waterSliders.getVisibility()){context.drawTexture(BACKGROUND_2, x,y,0,0, 256, 256);}
+        if(fogSliders.getVisibility()){context.drawTexture(BACKGROUND_4, x,y,0,0, 256, 256);}
     }
 
     private void applyChanges() {
         int[] fogColour = fogSliders.getColour();
         int[] waterColour = waterSliders.getColour();
-        int[] foliageColour = foliageSliders.getColour();
+        int[] foliageColour = leavesSliders.getColour();
         int[] grassColour = grassSliders.getColour();
         handler.setBiomeColours(
                 fogColour[0], fogColour[1], fogColour[2],

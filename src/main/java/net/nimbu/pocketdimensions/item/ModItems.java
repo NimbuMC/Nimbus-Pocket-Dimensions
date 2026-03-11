@@ -1,5 +1,6 @@
 package net.nimbu.pocketdimensions.item;
 
+import net.minecraft.component.DataComponentTypes;
 import net.minecraft.item.*;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -13,7 +14,8 @@ public class ModItems {
     public static final Item GATEWAY_WAND = registerItem("gateway_wand",
             new GatewayWandItem(new Item.Settings()
                     .maxCount(1)
-                    .maxDamage(131)));
+                    .maxDamage(131)
+                    .component(DataComponentTypes.ENCHANTMENT_GLINT_OVERRIDE, true)));
     public static final Item EXPANSION_GEM = registerItem("expansion_gem",
             new DimensionExpanderItem(new Item.Settings()));
 
