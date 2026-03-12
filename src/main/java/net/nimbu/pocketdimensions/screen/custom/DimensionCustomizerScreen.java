@@ -2,6 +2,7 @@ package net.nimbu.pocketdimensions.screen.custom;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
@@ -29,6 +30,7 @@ public class DimensionCustomizerScreen extends HandledScreen<DimensionCustomizer
     public static final Identifier BACKGROUND_5 = Identifier.of(PocketDimensions.MOD_ID, "textures/gui/pocket_dimension_customizer/pocket_dimension_customizer_5.png");
     public static final Identifier BACKGROUND_6 = Identifier.of(PocketDimensions.MOD_ID, "textures/gui/pocket_dimension_customizer/pocket_dimension_customizer_6.png");
     public static final Identifier BACKGROUND_7 = Identifier.of(PocketDimensions.MOD_ID, "textures/gui/pocket_dimension_customizer/pocket_dimension_customizer_7.png");
+    public static final Identifier FOG_DEMO = Identifier.of(PocketDimensions.MOD_ID, "textures/gui/pocket_dimension_customizer/dimension_customizer_fog_demo.png");
     private RGBSliderGroup grassSliders;
     private RGBSliderGroup leavesSliders;
     private RGBSliderGroup waterSliders;
@@ -119,17 +121,27 @@ public class DimensionCustomizerScreen extends HandledScreen<DimensionCustomizer
 
         int[] fogColour = fogSliders.getColour();
         int[] waterColour = waterSliders.getColour();
-        int[] foliageColour = leavesSliders.getColour();
+        int[] leavesColour = leavesSliders.getColour();
         int[] grassColour = grassSliders.getColour();
 
+        if(fogSliders.getVisibility()) {
+            RenderSystem.setShaderColor((float) fogColour[0] / 255, (float) fogColour[1] / 255, (float) fogColour[2] / 255, 1.0f);
+            context.drawTexture(FOG_DEMO, x+65, y+18, 0, 0, 82, 82, 82, 82);
+            RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
+        }
+        else if(leavesSliders.getVisibility()) {
+            renderBlock(context, Blocks.OAK_LEAVES.getDefaultState(), x+72,y+36, 51, leavesColour[0], leavesColour[1], leavesColour[2]);
+        }
+        else {
+            testSample(context, x + backgroundWidth - 70, y, 70, 70,
+                    0xFF000000 | (fogColour[0] << 16) | (fogColour[1] << 8) | fogColour[2],
+                    0xFF000000 | (waterColour[0] << 16) | (waterColour[1] << 8) | waterColour[2],
+                    0xFF000000 | ((waterColour[0] / 10) << 16) | ((waterColour[1] / 10) << 8) | (waterColour[2] / 10),
+                    0xFF000000 | (leavesColour[0] << 16) | (leavesColour[1] << 8) | leavesColour[2],
+                    0xFF000000 | (grassColour[0] << 16) | (grassColour[1] << 8) | grassColour[2]
+            );
+        }
 
-        testSample(context, x + backgroundWidth - 70, y, 70, 70,
-                0xFF000000 | (fogColour[0] << 16) | (fogColour[1] << 8) | fogColour[2],
-                0xFF000000 | (waterColour[0] << 16) | (waterColour[1] << 8) | waterColour[2],
-                0xFF000000 | ((waterColour[0] / 10) << 16) | ((waterColour[1] / 10) << 8) | (waterColour[2] / 10),
-                0xFF000000 | (foliageColour[0] << 16) | (foliageColour[1] << 8) | foliageColour[2],
-                0xFF000000 | (grassColour[0] << 16) | (grassColour[1] << 8) | grassColour[2]
-        );
         //renderBlock(context, Blocks.OAK_LEAVES.getDefaultState(), x + 100,y, 100,colour[0], colour[1], colour[2]);
     }
 
@@ -202,6 +214,7 @@ public class DimensionCustomizerScreen extends HandledScreen<DimensionCustomizer
         if(leavesSliders.getVisibility()){context.drawTexture(BACKGROUND_1, x,y,0,0, 256, 256);}
         if(waterSliders.getVisibility()){context.drawTexture(BACKGROUND_2, x,y,0,0, 256, 256);}
         if(fogSliders.getVisibility()){context.drawTexture(BACKGROUND_4, x,y,0,0, 256, 256);}
+
     }
 
     private void applyChanges() {

@@ -99,8 +99,7 @@ public class ColourSlider extends ClickableWidget {
                 lowGrad, highGrad
         );
 
-        // KNOB
-        //TODO: Knob brightness changing
+        // knob
         float brightness = (float) ((double)1 - ((double)value/(double)max)*0.5);
         int knobX = getX() + (int)((value - min) / (float)(max - min) * (width - 8));
         RenderSystem.setShaderColor(brightness, brightness, brightness, 1.0f);
@@ -112,7 +111,6 @@ public class ColourSlider extends ClickableWidget {
                 7, 7
         );
         mouseOutLastFrame = !isHovered();
-
         RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
     }
     private void drawHorizontalGradient(
