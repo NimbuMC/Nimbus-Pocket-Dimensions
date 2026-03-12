@@ -40,7 +40,7 @@ public class RGBSliderGroup implements Widget, Drawable {
         rSlider = new ColourSlider(
                 x + borderWidth,
                 redY,
-                sliderWidth,
+                sliderWidth-1,
                 sliderHeight,
                 Text.of("R"),
                 initialValues[0],
@@ -50,7 +50,7 @@ public class RGBSliderGroup implements Widget, Drawable {
         gSlider = new ColourSlider(
                 x + borderWidth,
                 greenY,
-                sliderWidth,
+                sliderWidth-1,
                 sliderHeight,
                 Text.of("G"),
                 initialValues[1],
@@ -60,7 +60,7 @@ public class RGBSliderGroup implements Widget, Drawable {
         bSlider = new ColourSlider(
                 x + borderWidth,
                 blueY,
-                sliderWidth,
+                sliderWidth-1,
                 sliderHeight,
                 Text.of("B"),
                 initialValues[2],
