@@ -44,6 +44,12 @@ public class ModBlocks {
     public static final Block DIMENSION_CUSTOMIZER = registerBlock("dimension_customizer",
             new PocketDimensionCustomizerBlock(AbstractBlock.Settings.create().nonOpaque().luminance(state -> 10)));
 
+    public static final Block GUI_OAK_LEAVES = registerGuiBlock("gui_oak_leaves",
+            new Block(AbstractBlock.Settings.create().nonOpaque()));
+    public static final Block GUI_WATER = registerGuiBlock("gui_water",
+            new Block(AbstractBlock.Settings.create().nonOpaque()));
+    public static final Block GUI_GRASS = registerGuiBlock("gui_grass",
+            new Block(AbstractBlock.Settings.create().nonOpaque()));
 
 
     private static Block registerBlock(String name, Block block){
@@ -54,6 +60,10 @@ public class ModBlocks {
     private static void registerBlockItem(String name, Block block){
         Registry.register(Registries.ITEM, Identifier.of(PocketDimensions.MOD_ID, name),
                 new BlockItem(block, new Item.Settings()));
+    }
+
+    private static Block registerGuiBlock(String name, Block block){
+        return Registry.register(Registries.BLOCK, Identifier.of(PocketDimensions.MOD_ID, name), block);
     }
 
     public static void registerModBlocks(){

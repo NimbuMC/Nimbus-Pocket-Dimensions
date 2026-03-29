@@ -19,7 +19,6 @@ public class ModItemGroups {
                     .entries((displayContext, entries) -> {
                         entries.add(ModItems.GATEWAY_WAND);
                         entries.add(ModItems.EXPANSION_GEM);
-                        entries.add(ModBlocks.GATEWAY);
                         entries.add(ModBlocks.DIMENSION_CUSTOMIZER);
 
                     }).build());
