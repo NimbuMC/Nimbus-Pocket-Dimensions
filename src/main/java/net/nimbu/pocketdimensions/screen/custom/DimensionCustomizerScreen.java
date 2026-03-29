@@ -10,10 +10,12 @@ import net.minecraft.client.render.LightmapTextureManager;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.state.property.Properties;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.RotationAxis;
 import net.nimbu.pocketdimensions.PocketDimensions;
+import net.nimbu.pocketdimensions.block.ModBlocks;
 import net.nimbu.pocketdimensions.screen.widgets.InvisibleButton;
 import net.nimbu.pocketdimensions.screen.widgets.RGBSliderGroup;
 
@@ -30,7 +32,6 @@ public class DimensionCustomizerScreen extends HandledScreen<DimensionCustomizer
     public static final Identifier BACKGROUND_5 = Identifier.of(PocketDimensions.MOD_ID, "textures/gui/pocket_dimension_customizer/pocket_dimension_customizer_5.png");
     public static final Identifier BACKGROUND_6 = Identifier.of(PocketDimensions.MOD_ID, "textures/gui/pocket_dimension_customizer/pocket_dimension_customizer_6.png");
     public static final Identifier BACKGROUND_7 = Identifier.of(PocketDimensions.MOD_ID, "textures/gui/pocket_dimension_customizer/pocket_dimension_customizer_7.png");
-    public static final Identifier FOG_DEMO = Identifier.of(PocketDimensions.MOD_ID, "textures/gui/pocket_dimension_customizer/dimension_customizer_fog_demo.png");
     private RGBSliderGroup grassSliders;
     private RGBSliderGroup leavesSliders;
     private RGBSliderGroup waterSliders;
@@ -69,7 +70,7 @@ public class DimensionCustomizerScreen extends HandledScreen<DimensionCustomizer
                     waterSliders.setVisibility(false);
                     fogSliders.setVisibility(false);
                 }
-        ).dimensions(x+1, y + 7, 46, 16).build();
+        ).dimensions(x+1, y + 7, 46, 17).build();
         addDrawableChild(grassColours);
 
         InvisibleButton foliageColours = InvisibleButton.builder( //leaf colours
@@ -80,7 +81,7 @@ public class DimensionCustomizerScreen extends HandledScreen<DimensionCustomizer
                     waterSliders.setVisibility(false);
                     fogSliders.setVisibility(false);
                 }
-        ).dimensions(x + 1, y + 23, 46, 16).build();
+        ).dimensions(x + 1, y + 24, 46, 17).build();
         addDrawableChild(foliageColours);
 
         InvisibleButton waterMenuButton = InvisibleButton.builder( //water colours and water fog colours
@@ -91,7 +92,7 @@ public class DimensionCustomizerScreen extends HandledScreen<DimensionCustomizer
                     waterSliders.setVisibility(true);
                     fogSliders.setVisibility(false);
                 }
-        ).dimensions(x + 1, y + 39, 46, 16).build();
+        ).dimensions(x + 1, y + 41, 46, 17).build();
         addDrawableChild(waterMenuButton);
 
         //menu buttons
@@ -103,14 +104,13 @@ public class DimensionCustomizerScreen extends HandledScreen<DimensionCustomizer
                     waterSliders.setVisibility(false);
                     fogSliders.setVisibility(true);
                 }
-        ).dimensions(x + 1, y + 71, 46, 16).build();
+        ).dimensions(x + 1, y + 75, 46, 17).build();
         addDrawableChild(fogMenuButton);
 
-
-        fogSliders.setVisibility(true);
-        waterSliders.setVisibility(false);
+        grassSliders.setVisibility(true);
         leavesSliders.setVisibility(false);
-        grassSliders.setVisibility(false);
+        waterSliders.setVisibility(false);
+        fogSliders.setVisibility(false);
     }
 
     @Override
@@ -124,13 +124,18 @@ public class DimensionCustomizerScreen extends HandledScreen<DimensionCustomizer
         int[] leavesColour = leavesSliders.getColour();
         int[] grassColour = grassSliders.getColour();
 
-        if(fogSliders.getVisibility()) {
-            RenderSystem.setShaderColor((float) fogColour[0] / 255, (float) fogColour[1] / 255, (float) fogColour[2] / 255, 1.0f);
-            context.drawTexture(FOG_DEMO, x+65, y+18, 0, 0, 82, 82, 82, 82);
-            RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
+        if(grassSliders.getVisibility()) {
+            renderBlock(context, Blocks.DIRT.getDefaultState(),51, 255, 255, 255);
+            renderBlock(context, ModBlocks.GUI_GRASS.getDefaultState(), 51, grassColour[0], grassColour[1], grassColour[2]);
+        }
+        else if(fogSliders.getVisibility()) {
+            renderBlock(context, Blocks.WHITE_STAINED_GLASS.getDefaultState(), 51, fogColour[0], fogColour[1], fogColour[2]);
+        }
+        else if(waterSliders.getVisibility()) {
+            renderBlock(context, ModBlocks.GUI_WATER.getDefaultState(), 51, waterColour[0], waterColour[1], waterColour[2]);
         }
         else if(leavesSliders.getVisibility()) {
-            renderBlock(context, Blocks.OAK_LEAVES.getDefaultState(), x+72,y+36, 51, leavesColour[0], leavesColour[1], leavesColour[2]);
+            renderBlock(context, ModBlocks.GUI_OAK_LEAVES.getDefaultState(), 51, leavesColour[0], leavesColour[1], leavesColour[2]);
         }
         else {
             testSample(context, x + backgroundWidth - 70, y, 70, 70,
@@ -163,17 +168,19 @@ public class DimensionCustomizerScreen extends HandledScreen<DimensionCustomizer
     private void renderBlock(
             DrawContext context,
             BlockState state,
-            int x, int y,
             float scale,
             int r, int g, int b
     ) {
+
+        int x = this.x + 72;
+        int y = this.y + 80;
         MinecraftClient client = MinecraftClient.getInstance();
 
         MatrixStack matrices = context.getMatrices();
         matrices.push();
 
         matrices.translate(x, y, 100);
-        matrices.scale(scale, scale, scale);
+        matrices.scale(scale, -scale, scale); //flip vertically
         matrices.multiply(RotationAxis.POSITIVE_X.rotationDegrees(30));
         matrices.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(45));
 
