@@ -48,11 +48,11 @@ public class GatewayBlock extends BlockWithEntity implements Portal {
     public static final EnumProperty<DoubleBlockHalf> HALF = Properties.DOUBLE_BLOCK_HALF;
     public static final BooleanProperty EXIT = BooleanProperty.of("exit");
     private static final VoxelShape X_SHAPE = Block.createCuboidShape(
-            -3.0, 0.0, 6.0,
-            19.0, 16.0, 10.0);
+            0.0, 0.0, 6.0,
+            16.0, 16.0, 10.0);
     private static final VoxelShape Z_SHAPE = Block.createCuboidShape(
-            6.0, 0.0, -3.0,
-            10.0, 16.0, 19.0);
+            6.0, 0.0, 0.0,
+            10.0, 16.0, 16.0);
 
     public GatewayBlock(Settings settings) {
         super(settings);
@@ -88,12 +88,16 @@ public class GatewayBlock extends BlockWithEntity implements Portal {
 
     @Override
     protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
-        state = state.cycle(OPEN);
-        world.setBlockState(pos, state, Block.NOTIFY_LISTENERS | Block.REDRAW_ON_MAIN_THREAD);
-        world.playSound(null, pos, SoundEvents.BLOCK_CHERRY_WOOD_DOOR_OPEN, SoundCategory.BLOCKS);
-        //this.playOpenCloseSound(player, world, pos, (Boolean)state.get(OPEN));
-        //world.emitGameEvent(player, this.isOpen(state) ? GameEvent.BLOCK_OPEN : GameEvent.BLOCK_CLOSE, pos);
-        return ActionResult.success(world.isClient);
+        if (!state.get(EXIT)) {
+            state = state.cycle(OPEN);
+            world.setBlockState(pos, state, Block.NOTIFY_LISTENERS | Block.REDRAW_ON_MAIN_THREAD);
+            world.playSound(null, pos, SoundEvents.BLOCK_CHERRY_WOOD_DOOR_OPEN, SoundCategory.BLOCKS);
+            //TODO: do a proper sound system, same way doors are done
+            //this.playOpenCloseSound(player, world, pos, (Boolean)state.get(OPEN));
+            //world.emitGameEvent(player, this.isOpen(state) ? GameEvent.BLOCK_OPEN : GameEvent.BLOCK_CLOSE, pos);
+            return ActionResult.success(world.isClient);
+        }
+        return ActionResult.PASS;
     }
 
 
@@ -105,6 +109,9 @@ public class GatewayBlock extends BlockWithEntity implements Portal {
                 return X_SHAPE;
             default:
                 return Z_SHAPE;
+
+                //todo: we're gonna need invisible helper blocks (make the door out of 4 blocks) in order to have the open door model work correctly... although the hitbox will still look wierd as it'll only cover half the door
+                //EXCEPT THAT ISNT TRUE AT ALL AS WE CAN JUST HAVE TWO OVERLAPPING HITBOXES THAT DO THE SAME THING SO ITS FINE
         }
     }
 
@@ -122,7 +129,8 @@ public class GatewayBlock extends BlockWithEntity implements Portal {
             return this.getDefaultState()
                     .with(FACING, ctx.getHorizontalPlayerFacing().getOpposite())
                     .with(OPEN, false)
-                    .with(HALF, DoubleBlockHalf.LOWER);
+                    .with(HALF, DoubleBlockHalf.LOWER)
+                    .with(EXIT, false);
         } else {
             return null;
         }
@@ -314,6 +322,19 @@ public class GatewayBlock extends BlockWithEntity implements Portal {
                         BooleanBiFunction.OR
                 );
                 return VoxelShapes.combine(shape1, VoxelShapes.combine(shape2, shape3, BooleanBiFunction.OR), BooleanBiFunction.OR);
+            } else if (state.get(EXIT)){
+                VoxelShape shape1 = rotateShape(Direction.NORTH, state.get(FACING), 15.99, 0, 3, 19.99, 16, 13);
+                VoxelShape shape2 = VoxelShapes.combine(
+                        rotateShape(Direction.NORTH, state.get(FACING), -3.99, 0, 3, 0.01, 16, 13),
+                        rotateShape(Direction.NORTH, state.get(FACING), 0, 0, 9, 16, 16, 11),
+                        BooleanBiFunction.OR
+                );
+                VoxelShape shape3 = VoxelShapes.combine(
+                        rotateShape(Direction.NORTH, state.get(FACING), -2, 20, 2, 18, 24, 14),
+                        rotateShape(Direction.NORTH, state.get(FACING), 0, 0, 9, 16, 16, 11),
+                        BooleanBiFunction.OR
+                );
+                return VoxelShapes.combine(shape1, VoxelShapes.combine(shape2, shape3, BooleanBiFunction.OR), BooleanBiFunction.OR);
             } else {
                 VoxelShape shape1 = VoxelShapes.combine(
                         rotateShape(Direction.NORTH, state.get(FACING), 0, 0, 6, 16, 16, 9),
@@ -341,6 +362,14 @@ public class GatewayBlock extends BlockWithEntity implements Portal {
                         BooleanBiFunction.OR
                 );
 
+                VoxelShape shape2 = VoxelShapes.combine(
+                        rotateShape(Direction.NORTH, state.get(FACING), -3.99, 0, 3, 0.01, 16, 13),
+                        rotateShape(Direction.NORTH, state.get(FACING), 0, 0, 9, 16, 16, 11),
+                        BooleanBiFunction.OR
+                );
+                return VoxelShapes.combine(shape1, shape2, BooleanBiFunction.OR);
+            } else if (state.get(EXIT)){
+                VoxelShape shape1 = rotateShape(Direction.NORTH, state.get(FACING), 15.99, 0, 3, 19.99, 16, 13);
                 VoxelShape shape2 = VoxelShapes.combine(
                         rotateShape(Direction.NORTH, state.get(FACING), -3.99, 0, 3, 0.01, 16, 13),
                         rotateShape(Direction.NORTH, state.get(FACING), 0, 0, 9, 16, 16, 11),
