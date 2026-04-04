@@ -104,15 +104,15 @@ public class GatewayBlockEntity extends BlockEntity {
                         .with(GatewayBlock.HALF, DoubleBlockHalf.UPPER)
                         .with(GatewayBlock.OPEN, true)
                         .with(GatewayBlock.EXIT, true));
-                targetWorld.setBlockState(exitPosition.add(-1,-1,-1), Blocks.STONE_BRICK_SLAB.getDefaultState());
+                targetWorld.setBlockState(exitPosition.add(-1,-1,-1), Blocks.STONE_BRICKS.getDefaultState());
                 targetWorld.setBlockState(exitPosition.add(-1,-1,0), Blocks.STONE_BRICKS.getDefaultState());
                 targetWorld.setBlockState(exitPosition.add(-1,-1,1), Blocks.STONE_BRICK_SLAB.getDefaultState());
 
                 targetWorld.setBlockState(exitPosition.add(0,-1,-1), Blocks.STONE_BRICKS.getDefaultState());
                 targetWorld.setBlockState(exitPosition.add(0,-1,0), Blocks.CHISELED_STONE_BRICKS.getDefaultState());
-                targetWorld.setBlockState(exitPosition.add(0,-1,1), Blocks.STONE_BRICKS.getDefaultState());
+                targetWorld.setBlockState(exitPosition.add(0,-1,1), Blocks.STONE_BRICK_STAIRS.getDefaultState());
 
-                targetWorld.setBlockState(exitPosition.add(1,-1,-1), Blocks.STONE_BRICK_SLAB.getDefaultState());
+                targetWorld.setBlockState(exitPosition.add(1,-1,-1), Blocks.STONE_BRICKS.getDefaultState());
                 targetWorld.setBlockState(exitPosition.add(1,-1,0), Blocks.STONE_BRICKS.getDefaultState());
                 targetWorld.setBlockState(exitPosition.add(1,-1,1), Blocks.STONE_BRICK_SLAB.getDefaultState());
                 if (targetWorld.getBlockEntity(exitPosition) instanceof GatewayBlockEntity exitPortal) {
