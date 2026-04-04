@@ -46,6 +46,7 @@ public class GatewayBlock extends BlockWithEntity implements Portal {
     public static final DirectionProperty FACING = Properties.HORIZONTAL_FACING;
     public static final BooleanProperty OPEN = Properties.OPEN;
     public static final EnumProperty<DoubleBlockHalf> HALF = Properties.DOUBLE_BLOCK_HALF;
+    public static final BooleanProperty EXIT = BooleanProperty.of("exit");
     private static final VoxelShape X_SHAPE = Block.createCuboidShape(
             -3.0, 0.0, 6.0,
             19.0, 16.0, 10.0);
@@ -61,6 +62,7 @@ public class GatewayBlock extends BlockWithEntity implements Portal {
                         .with(FACING, Direction.NORTH)
                         .with(OPEN, false)
                         .with(HALF, DoubleBlockHalf.LOWER)
+                        .with(EXIT, false) //if it leads back to the entrance portal
         );
 
     }
@@ -166,7 +168,7 @@ public class GatewayBlock extends BlockWithEntity implements Portal {
 
     @Override
     protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
-        builder.add(FACING, OPEN, HALF);
+        builder.add(FACING, OPEN, HALF, EXIT);
     }
 
     @Override
@@ -187,7 +189,7 @@ public class GatewayBlock extends BlockWithEntity implements Portal {
 
         return validateTicker(
                 type,
-                ModBlockEntityTypes.DOORWAY_BLOCK_ENTITY,
+                ModBlockEntityTypes.GATEWAY_BLOCK_ENTITY,
                 world.isClient
                         ? GatewayBlockEntity::clientTick
                         : GatewayBlockEntity::serverTick
