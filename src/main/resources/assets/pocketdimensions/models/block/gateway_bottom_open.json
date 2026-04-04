@@ -4,6 +4,7 @@
   "texture_size": [128, 128],
   "textures": {
     "0": "minecraft:block/stone",
+    "1": "pocketdimensions:block/gateway_portal",
     "particle": "minecraft:block/stone"
   },
   "elements": [
@@ -51,7 +52,7 @@
       "to": [16, 16, 11],
       "rotation": {"angle": 0, "axis": "y", "origin": [5, 5, 9]},
       "faces": {
-        "north": {"uv": [4, 4, 6, 6], "texture": "#0"},
+        "north": { "texture": "#1"},
         "east": {"uv": [9.375, 0, 9.625, 2], "texture": "#0"},
         "south": {"uv": [0, 5, 2, 7], "texture": "#0"},
         "west": {"uv": [1.125, 9.375, 1.375, 11.375], "texture": "#0"},
