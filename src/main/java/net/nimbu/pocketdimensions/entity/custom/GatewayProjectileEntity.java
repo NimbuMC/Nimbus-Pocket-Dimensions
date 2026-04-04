@@ -63,11 +63,11 @@ public class GatewayProjectileEntity extends ProjectileEntity {
             else {
                 direction = Direction.SOUTH;
             }
-            world.setBlockState(bottomHalf, ModBlocks.GATEWAY.getDefaultState().with(FACING, direction));
+            world.setBlockState(bottomHalf, ModBlocks.DARK_OAK_GATEWAY.getDefaultState().with(FACING, direction));
             if(world.getBlockEntity(bottomHalf) instanceof GatewayBlockEntity portalData) {
                 portalData.TriggerInitialIDUpdate(world, bottomHalf, exitDimensionID);
             }
-            world.setBlockState(topHalf, ModBlocks.GATEWAY.getDefaultState().with(HALF, DoubleBlockHalf.UPPER).with(FACING, direction));
+            world.setBlockState(topHalf, ModBlocks.DARK_OAK_GATEWAY.getDefaultState().with(HALF, DoubleBlockHalf.UPPER).with(FACING, direction));
             //horizontal facing appears to be broken for projectile entities??
             //world.setBlockState(bottomHalf, ModBlocks.DOORWAY.getDefaultState().with(FACING, this.getHorizontalFacing().getOpposite()));
             //world.setBlockState(topHalf, ModBlocks.DOORWAY.getDefaultState().with(HALF, DoubleBlockHalf.UPPER).with(FACING, this.getHorizontalFacing().getOpposite()));//ctx.getHorizontalPlayerFacing().getOpposite()));

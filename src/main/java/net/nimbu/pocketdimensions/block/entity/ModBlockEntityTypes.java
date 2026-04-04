@@ -10,11 +10,11 @@ import net.nimbu.pocketdimensions.block.entity.custom.GatewayBlockEntity;
 import net.nimbu.pocketdimensions.block.entity.custom.PocketDimensionCustomizerBlockEntity;
 
 public class ModBlockEntityTypes {
-    public static BlockEntityType<GatewayBlockEntity> DOORWAY_BLOCK_ENTITY =
+    public static BlockEntityType<GatewayBlockEntity> GATEWAY_BLOCK_ENTITY =
             Registry.register(Registries.BLOCK_ENTITY_TYPE, Identifier.of(PocketDimensions.MOD_ID, "doorway_block"),
                     BlockEntityType.Builder.create(
                             GatewayBlockEntity::new,
-                            ModBlocks.GATEWAY
+                            ModBlocks.DARK_OAK_GATEWAY
                     ).build());
 
     public static BlockEntityType<PocketDimensionCustomizerBlockEntity> POCKET_DIMENSION_CUSTOMIZER_BLOCK_ENTITY =

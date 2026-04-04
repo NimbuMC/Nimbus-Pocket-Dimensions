@@ -14,7 +14,7 @@ import net.nimbu.pocketdimensions.block.custom.*;
 public class ModBlocks {
 
 
-    public static final Block GATEWAY = registerBlock("dark_oak_gateway",
+    public static final Block DARK_OAK_GATEWAY = registerBlock("dark_oak_gateway",
             new GatewayBlock(AbstractBlock.Settings.create().nonOpaque()));
 
     public static final Block TEST_S_GATEWAY = registerBlock("spruce_gateway",

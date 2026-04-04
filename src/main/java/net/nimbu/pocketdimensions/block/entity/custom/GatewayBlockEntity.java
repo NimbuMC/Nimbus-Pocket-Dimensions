@@ -34,7 +34,7 @@ public class GatewayBlockEntity extends BlockEntity {
     private int teleportCooldown;
 
     public GatewayBlockEntity(BlockPos pos, BlockState state) {
-        super(ModBlockEntityTypes.DOORWAY_BLOCK_ENTITY, pos, state);
+        super(ModBlockEntityTypes.GATEWAY_BLOCK_ENTITY, pos, state);
     }
 
     @Override
@@ -92,27 +92,29 @@ public class GatewayBlockEntity extends BlockEntity {
             BlockPos exitPosition = new BlockPos(6, 148, 1);
             ServerWorld targetWorld = world.getServer().getWorld(exitID);
             if (targetWorld.getBlockEntity(exitPosition) instanceof GatewayBlockEntity exitPortal) {
-                //if(exitDimension.getValue().toString().startsWith(Thaumaturgy.MOD_ID+":pocket_dimension"))
+                //if(exitDimension.getValue().toString().startsWith(Thaumaturgy.MOD_ID+":pocket_dimension")) //TODO tf is this dawg
                 exitPortal.setExitPosition(entryPortalPosition, world.getRegistryKey());
             } else {
-                targetWorld.setBlockState(exitPosition, ModBlocks.GATEWAY.getDefaultState()
+                targetWorld.setBlockState(exitPosition, ModBlocks.DARK_OAK_GATEWAY.getDefaultState()
                         .with(GatewayBlock.FACING, Direction.SOUTH)
-                        .with(GatewayBlock.OPEN, true));
-                targetWorld.setBlockState(exitPosition.add(0, 1, 0), ModBlocks.GATEWAY.getDefaultState()
+                        .with(GatewayBlock.OPEN, true)
+                        .with(GatewayBlock.EXIT, true));
+                targetWorld.setBlockState(exitPosition.add(0, 1, 0), ModBlocks.DARK_OAK_GATEWAY.getDefaultState()
                         .with(GatewayBlock.FACING, Direction.SOUTH)
                         .with(GatewayBlock.HALF, DoubleBlockHalf.UPPER)
-                        .with(GatewayBlock.OPEN, true));
-                targetWorld.setBlockState(exitPosition.add(-1,-1,-1), Blocks.GLOWSTONE.getDefaultState());
-                targetWorld.setBlockState(exitPosition.add(-1,-1,0), Blocks.GLOWSTONE.getDefaultState());
-                targetWorld.setBlockState(exitPosition.add(-1,-1,1), Blocks.GLOWSTONE.getDefaultState());
+                        .with(GatewayBlock.OPEN, true)
+                        .with(GatewayBlock.EXIT, true));
+                targetWorld.setBlockState(exitPosition.add(-1,-1,-1), Blocks.STONE_BRICK_SLAB.getDefaultState());
+                targetWorld.setBlockState(exitPosition.add(-1,-1,0), Blocks.STONE_BRICKS.getDefaultState());
+                targetWorld.setBlockState(exitPosition.add(-1,-1,1), Blocks.STONE_BRICK_SLAB.getDefaultState());
 
-                targetWorld.setBlockState(exitPosition.add(0,-1,-1), Blocks.GLOWSTONE.getDefaultState());
-                targetWorld.setBlockState(exitPosition.add(0,-1,0), Blocks.GLOWSTONE.getDefaultState());
-                targetWorld.setBlockState(exitPosition.add(0,-1,1), Blocks.GLOWSTONE.getDefaultState());
+                targetWorld.setBlockState(exitPosition.add(0,-1,-1), Blocks.STONE_BRICKS.getDefaultState());
+                targetWorld.setBlockState(exitPosition.add(0,-1,0), Blocks.CHISELED_STONE_BRICKS.getDefaultState());
+                targetWorld.setBlockState(exitPosition.add(0,-1,1), Blocks.STONE_BRICKS.getDefaultState());
 
-                targetWorld.setBlockState(exitPosition.add(1,-1,-1), Blocks.GLOWSTONE.getDefaultState());
-                targetWorld.setBlockState(exitPosition.add(1,-1,0), Blocks.GLOWSTONE.getDefaultState());
-                targetWorld.setBlockState(exitPosition.add(1,-1,1), Blocks.GLOWSTONE.getDefaultState());
+                targetWorld.setBlockState(exitPosition.add(1,-1,-1), Blocks.STONE_BRICK_SLAB.getDefaultState());
+                targetWorld.setBlockState(exitPosition.add(1,-1,0), Blocks.STONE_BRICKS.getDefaultState());
+                targetWorld.setBlockState(exitPosition.add(1,-1,1), Blocks.STONE_BRICK_SLAB.getDefaultState());
                 if (targetWorld.getBlockEntity(exitPosition) instanceof GatewayBlockEntity exitPortal) {
                     exitPortal.setExitPosition(entryPortalPosition, world.getRegistryKey());
                 }
