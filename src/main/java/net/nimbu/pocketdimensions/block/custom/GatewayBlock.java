@@ -304,7 +304,20 @@ public class GatewayBlock extends BlockWithEntity implements Portal {
     @Override
     protected VoxelShape getCollisionShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
         if (state.get(HALF) == DoubleBlockHalf.UPPER) {
-            if (state.get(OPEN)) {
+            if (state.get(EXIT)) {
+                VoxelShape shape1 = rotateShape(Direction.NORTH, state.get(FACING), 15.99, 0, 3, 19.99, 16, 13);
+                VoxelShape shape2 = VoxelShapes.combine(
+                        rotateShape(Direction.NORTH, state.get(FACING), -3.99, 0, 3, 0.01, 16, 13),
+                        rotateShape(Direction.NORTH, state.get(FACING), 0, 0, 9, 16, 16, 11),
+                        BooleanBiFunction.OR
+                );
+                VoxelShape shape3 = VoxelShapes.combine(
+                        rotateShape(Direction.NORTH, state.get(FACING), -2, 20, 2, 18, 24, 14),
+                        rotateShape(Direction.NORTH, state.get(FACING), 0, 0, 9, 16, 16, 11),
+                        BooleanBiFunction.OR
+                );
+                return VoxelShapes.combine(shape1, VoxelShapes.combine(shape2, shape3, BooleanBiFunction.OR), BooleanBiFunction.OR);
+            } else if (state.get(OPEN)) {
 
                 VoxelShape shape1 = VoxelShapes.combine(
                         rotateShape(Direction.NORTH, state.get(FACING), 13, 0, -7, 16, 16, 9),
@@ -314,19 +327,6 @@ public class GatewayBlock extends BlockWithEntity implements Portal {
                 VoxelShape shape2 = VoxelShapes.combine(
                         rotateShape(Direction.NORTH, state.get(FACING), -3.99, 0, 3, 0.01, 16, 13),
                         rotateShape(Direction.NORTH, state.get(FACING), -4.8, 16, 2, 20.8, 20, 14),
-                        BooleanBiFunction.OR
-                );
-                VoxelShape shape3 = VoxelShapes.combine(
-                        rotateShape(Direction.NORTH, state.get(FACING), -2, 20, 2, 18, 24, 14),
-                        rotateShape(Direction.NORTH, state.get(FACING), 0, 0, 9, 16, 16, 11),
-                        BooleanBiFunction.OR
-                );
-                return VoxelShapes.combine(shape1, VoxelShapes.combine(shape2, shape3, BooleanBiFunction.OR), BooleanBiFunction.OR);
-            } else if (state.get(EXIT)){
-                VoxelShape shape1 = rotateShape(Direction.NORTH, state.get(FACING), 15.99, 0, 3, 19.99, 16, 13);
-                VoxelShape shape2 = VoxelShapes.combine(
-                        rotateShape(Direction.NORTH, state.get(FACING), -3.99, 0, 3, 0.01, 16, 13),
-                        rotateShape(Direction.NORTH, state.get(FACING), 0, 0, 9, 16, 16, 11),
                         BooleanBiFunction.OR
                 );
                 VoxelShape shape3 = VoxelShapes.combine(
@@ -355,21 +355,22 @@ public class GatewayBlock extends BlockWithEntity implements Portal {
                 return VoxelShapes.combine(shape1, VoxelShapes.combine(shape2, shape3, BooleanBiFunction.OR), BooleanBiFunction.OR);
             }
         } else {
-            if (state.get(OPEN)) {
-                VoxelShape shape1 = VoxelShapes.combine(
-                        rotateShape(Direction.NORTH, state.get(FACING), 13, 0, -7, 16, 16, 9),
-                        rotateShape(Direction.NORTH, state.get(FACING), 15.99, 0, 3, 19.99, 16, 13),
-                        BooleanBiFunction.OR
-                );
-
+            if (state.get(EXIT)){
+                VoxelShape shape1 = rotateShape(Direction.NORTH, state.get(FACING), 15.99, 0, 3, 19.99, 16, 13);
                 VoxelShape shape2 = VoxelShapes.combine(
                         rotateShape(Direction.NORTH, state.get(FACING), -3.99, 0, 3, 0.01, 16, 13),
                         rotateShape(Direction.NORTH, state.get(FACING), 0, 0, 9, 16, 16, 11),
                         BooleanBiFunction.OR
                 );
                 return VoxelShapes.combine(shape1, shape2, BooleanBiFunction.OR);
-            } else if (state.get(EXIT)){
-                VoxelShape shape1 = rotateShape(Direction.NORTH, state.get(FACING), 15.99, 0, 3, 19.99, 16, 13);
+            }
+            else if (state.get(OPEN)) {
+                VoxelShape shape1 = VoxelShapes.combine(
+                        rotateShape(Direction.NORTH, state.get(FACING), 13, 0, -7, 16, 16, 9),
+                        rotateShape(Direction.NORTH, state.get(FACING), 15.99, 0, 3, 19.99, 16, 13),
+                        BooleanBiFunction.OR
+                );
+
                 VoxelShape shape2 = VoxelShapes.combine(
                         rotateShape(Direction.NORTH, state.get(FACING), -3.99, 0, 3, 0.01, 16, 13),
                         rotateShape(Direction.NORTH, state.get(FACING), 0, 0, 9, 16, 16, 11),
