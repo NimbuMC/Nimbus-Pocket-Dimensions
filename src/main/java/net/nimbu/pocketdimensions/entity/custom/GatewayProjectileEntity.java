@@ -43,8 +43,12 @@ public class GatewayProjectileEntity extends ProjectileEntity {
                 1f,
                 1.5f);
 
-        if(!world.isClient() && world.getRegistryKey() != ModDimensions.POCKET_DIM_LEVEL_KEY) {
+        //System.out.println("DIMENSION KEYS: CURRENT: "+world.getRegistryKey().toString() +" Target: "+ ModDimensions.POCKET_DIM_LEVEL_KEY.toString());
+        //world.getDimension();
 
+        if(!world.isClient() && !world.getDimensionEntry().matchesKey(ModDimensions.POCKET_DIM_TYPE)) {
+
+            //TODO: fix block erasure and the projectile disappearing on contact with non full blocks
             //create door halves (THIS CURRENTLY FLIPS INCORRECTLY IN WEST/EAST?? WHAT?) also erases blocks oops lol
             BlockPos bottomHalf = this.getBlockPos();
             BlockPos topHalf = bottomHalf.up();
