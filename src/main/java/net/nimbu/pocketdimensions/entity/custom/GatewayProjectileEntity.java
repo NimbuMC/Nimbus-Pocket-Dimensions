@@ -37,52 +37,65 @@ public class GatewayProjectileEntity extends ProjectileEntity {
     }
 
     private void createPortal(World world){
-        world.playSound(null, this.getX(), this.getY(), this.getZ(),
-                SoundEvents.BLOCK_BEACON_ACTIVATE,
-                SoundCategory.NEUTRAL,
-                1f,
-                1.5f);
 
-        //System.out.println("DIMENSION KEYS: CURRENT: "+world.getRegistryKey().toString() +" Target: "+ ModDimensions.POCKET_DIM_LEVEL_KEY.toString());
-        //world.getDimension();
 
-        if(!world.isClient() && !world.getDimensionEntry().matchesKey(ModDimensions.POCKET_DIM_TYPE)) {
 
-            //TODO: fix block erasure and the projectile disappearing on contact with non full blocks
-            //create door halves (THIS CURRENTLY FLIPS INCORRECTLY IN WEST/EAST?? WHAT?) also erases blocks oops lol
-            BlockPos bottomHalf = this.getBlockPos();
-            BlockPos topHalf = bottomHalf.up();
+        if(!world.isClient()) {
+            if (!world.getDimensionEntry().matchesKey(ModDimensions.POCKET_DIM_TYPE)){
 
-            float yaw = this.getYaw();
-            Direction direction = null;
-            if(45<yaw && yaw<135){
-                direction = Direction.WEST;
-            }
-            else if (-45<yaw && yaw<45){
-                direction = Direction.NORTH;
-            }
-            else if (-135<yaw && yaw<-45){
-                direction = Direction.EAST;
-            }
-            else {
-                direction = Direction.SOUTH;
-            }
-            world.setBlockState(bottomHalf, ModBlocks.DARK_OAK_GATEWAY.getDefaultState().with(FACING, direction));
-            if(world.getBlockEntity(bottomHalf) instanceof GatewayBlockEntity portalData) {
-                portalData.TriggerInitialIDUpdate(world, bottomHalf, exitDimensionID);
-            }
-            world.setBlockState(topHalf, ModBlocks.DARK_OAK_GATEWAY.getDefaultState().with(HALF, DoubleBlockHalf.UPPER).with(FACING, direction));
-            //horizontal facing appears to be broken for projectile entities??
-            //world.setBlockState(bottomHalf, ModBlocks.DOORWAY.getDefaultState().with(FACING, this.getHorizontalFacing().getOpposite()));
-            //world.setBlockState(topHalf, ModBlocks.DOORWAY.getDefaultState().with(HALF, DoubleBlockHalf.UPPER).with(FACING, this.getHorizontalFacing().getOpposite()));//ctx.getHorizontalPlayerFacing().getOpposite()));
+                world.playSound(null, this.getX(), this.getY(), this.getZ(),
+                        SoundEvents.BLOCK_BEACON_ACTIVATE,
+                        SoundCategory.NEUTRAL,
+                        1f,
+                        1.5f);
 
-            //create particle effect
-            if (!world.isClient()){
+
+
+                //TODO: fix block erasure and the projectile disappearing on contact with non full blocks
+                //create door halves (THIS CURRENTLY FLIPS INCORRECTLY IN WEST/EAST?? WHAT?) also erases blocks oops lol
+                BlockPos bottomHalf = this.getBlockPos();
+                BlockPos topHalf = bottomHalf.up();
+
+                float yaw = this.getYaw();
+                Direction direction = null;
+                if(45<yaw && yaw<135){
+                    direction = Direction.WEST;
+                }
+                else if (-45<yaw && yaw<45){
+                    direction = Direction.NORTH;
+                }
+                else if (-135<yaw && yaw<-45){
+                    direction = Direction.EAST;
+                }
+                else {
+                    direction = Direction.SOUTH;
+                }
+                world.setBlockState(bottomHalf, ModBlocks.DARK_OAK_GATEWAY.getDefaultState().with(FACING, direction));
+                if(world.getBlockEntity(bottomHalf) instanceof GatewayBlockEntity portalData) {
+                    portalData.TriggerInitialIDUpdate(world, bottomHalf, exitDimensionID);
+                }
+                world.setBlockState(topHalf, ModBlocks.DARK_OAK_GATEWAY.getDefaultState().with(HALF, DoubleBlockHalf.UPPER).with(FACING, direction));
+                //horizontal facing appears to be broken for projectile entities??
+                //world.setBlockState(bottomHalf, ModBlocks.DOORWAY.getDefaultState().with(FACING, this.getHorizontalFacing().getOpposite()));
+                //world.setBlockState(topHalf, ModBlocks.DOORWAY.getDefaultState().with(HALF, DoubleBlockHalf.UPPER).with(FACING, this.getHorizontalFacing().getOpposite()));//ctx.getHorizontalPlayerFacing().getOpposite()));
+
+                //create particle effect
+
                 Position pos = this.getPos();
                 ((ServerWorld) world).spawnParticles(ModParticleTypes.GATEWAY_PROJECTILE_PARTICLE,
                         pos.getX(), pos.getY(), pos.getZ(), 50, 0.5, 1, 0.5, 0.5);
+
+            }
+            else{
+                world.playSound(null, this.getX(), this.getY(), this.getZ(),
+                        SoundEvents.BLOCK_TRIAL_SPAWNER_PLACE,
+                        SoundCategory.NEUTRAL,
+                        1f,
+                        1.4f);
             }
         }
+
+
     }
 
     @Override
