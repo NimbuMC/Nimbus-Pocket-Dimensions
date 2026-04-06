@@ -8,7 +8,6 @@ import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.nimbu.pocketdimensions.block.ModBlocks;
 import net.nimbu.pocketdimensions.block.entity.ModBlockEntityTypes;
-import net.nimbu.pocketdimensions.component.ModDataComponentTypes;
 import net.nimbu.pocketdimensions.entity.ModEntities;
 import net.nimbu.pocketdimensions.item.ModItemGroups;
 import net.nimbu.pocketdimensions.item.ModItems;
@@ -50,7 +49,7 @@ public class PocketDimensions implements ModInitializer {
 		ModItems.registerModItems();
 		ModBlocks.registerModBlocks();
 		ModBlockEntityTypes.registerBlockEntities();
-		ModDataComponentTypes.registerDataComponentTypes();
+		//ModDataComponentTypes.registerDataComponentTypes();
 		ModEntities.registerModEntities();
 		ModSoundEvents.registerSounds();
 		ModParticleTypes.registerParticles();
