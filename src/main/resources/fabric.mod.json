@@ -23,6 +23,9 @@
 		],
 		"client": [
 			"net.nimbu.pocketdimensions.PocketDimensionsClient"
+		],
+		"cardinal-components-entity": [
+			"net.nimbu.pocketdimensions.component.ModComponentInitializer"
 		]
 	},
 	"mixins": [
@@ -34,5 +37,10 @@
 		"java": ">=21",
 		"fabric-api": "*",
 		"fabric-key-binding-api-v1": "*"
+	},
+	"custom": {
+		"cardinal-components": [
+			"pocketdimensions:player_gateway"
+		]
 	}
 }
