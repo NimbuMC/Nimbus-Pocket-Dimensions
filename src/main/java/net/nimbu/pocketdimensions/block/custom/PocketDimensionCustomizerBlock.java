@@ -18,6 +18,7 @@ import net.minecraft.world.World;
 import net.nimbu.pocketdimensions.block.entity.ModBlockEntityTypes;
 import net.nimbu.pocketdimensions.block.entity.custom.PocketDimensionCustomizerBlockEntity;
 import net.nimbu.pocketdimensions.screen.custom.DimensionCustomizerScreenHandler;
+import net.nimbu.pocketdimensions.worldgen.dimension.ModDimensions;
 import org.jetbrains.annotations.Nullable;
 
 public class PocketDimensionCustomizerBlock extends BlockWithEntity {
@@ -72,7 +73,7 @@ public class PocketDimensionCustomizerBlock extends BlockWithEntity {
 
     @Override
     protected ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
-        if (!world.isClient) {
+        if (!world.isClient && world.getDimensionEntry().matchesKey(ModDimensions.POCKET_DIM_TYPE)) {
             player.openHandledScreen(
                     new SimpleNamedScreenHandlerFactory(
                             (syncId, inv, p) -> new DimensionCustomizerScreenHandler(syncId, inv),

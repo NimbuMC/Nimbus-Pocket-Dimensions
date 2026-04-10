@@ -18,6 +18,7 @@ import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.nimbu.pocketdimensions.block.entity.ModBlockEntityTypes;
+import net.nimbu.pocketdimensions.worldgen.dimension.ModDimensions;
 import org.jetbrains.annotations.Nullable;
 
 public class PocketDimensionCustomizerBlockEntity extends BlockEntity {
@@ -30,10 +31,12 @@ public class PocketDimensionCustomizerBlockEntity extends BlockEntity {
     }
 
     public static void tick(World world, BlockPos blockPos, BlockState blockState, PocketDimensionCustomizerBlockEntity blockEntity) {
-        blockEntity.ticks++;
-        blockEntity.rotation += 0.3f;
-        if(blockEntity.rotation >= 360) {
-            blockEntity.rotation = 0;
+        if (world.getDimensionEntry().matchesKey(ModDimensions.POCKET_DIM_TYPE)) {
+            blockEntity.ticks++;
+            blockEntity.rotation += 0.3f;
+            if (blockEntity.rotation >= 360) {
+                blockEntity.rotation = 0;
+            }
         }
     }
 
