@@ -31,10 +31,10 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .offerTo(recipeExporter);
 
         ShapedRecipeJsonBuilder.create(RecipeCategory.MISC, ModBlocks.DIMENSION_CUSTOMIZER)
-                .pattern("BEB")
-                .pattern("BCB")
+                .pattern("SES")
+                .pattern("CCC")
                 .input('E', Items.END_CRYSTAL)
-                .input('B', Blocks.STONE_BRICKS)
+                .input('S', Blocks.COBBLESTONE)
                 .input('C', Blocks.CHISELED_STONE_BRICKS)
                 .criterion(hasItem(Items.END_CRYSTAL), conditionsFromItem(Items.END_CRYSTAL)) //adds criteria to learn crafting recipe
                 .offerTo(recipeExporter);

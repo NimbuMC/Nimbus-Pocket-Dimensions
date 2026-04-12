@@ -1,9 +1,11 @@
 {
+	"parent": "block/block",
 	"format_version": "1.9.0",
 	"credit": "Made with Blockbench",
 	"texture_size": [32, 32],
 	"textures": {
-		"1": "pocketdimensions:block/pocket_dimension_customizer"
+		"1": "pocketdimensions:block/pocket_dimension_customizer",
+		"particle": "minecraft:block/chiseled_stone_bricks"
 	},
 	"elements": [
 		{
