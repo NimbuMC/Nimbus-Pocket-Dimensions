@@ -54,8 +54,6 @@ public class DimensionExpanderItem extends Item {
         ItemStack item = user.getStackInHand(hand);
 
         if (!world.isClient) {
-
-
             BlockPos pos = raycastRoomFace(user);
             PocketDimensions.LOGGER.info("Tried to expand pocket dimension at position " + pos);
             if (pos != null) {
@@ -77,7 +75,9 @@ public class DimensionExpanderItem extends Item {
                     }
                 }
             }
-            item.decrement(1);
+            if (!user.isCreative()) {
+                item.decrement(1);
+            }
             PocketDimensionBorderRenderer.expansionModeActive = false;
         }
 

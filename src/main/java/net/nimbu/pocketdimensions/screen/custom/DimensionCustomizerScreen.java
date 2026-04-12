@@ -55,13 +55,6 @@ public class DimensionCustomizerScreen extends HandledScreen<DimensionCustomizer
 
 
 
-
-        InvisibleButton applyButton = InvisibleButton.builder(
-                Text.literal("Apply"),
-                button -> applyChanges()
-        ).dimensions(x, y /*+ ((backgroundHeight * 9) / 10)*/, 60, backgroundHeight / 10).build();
-        addDrawableChild(applyButton);
-
         InvisibleButton grassColours = InvisibleButton.builder( //grass colours
                 Text.literal("Grass colours"),
                 button -> {

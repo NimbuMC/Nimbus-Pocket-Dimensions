@@ -5,6 +5,7 @@ import net.minecraft.item.*;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.Rarity;
 import net.nimbu.pocketdimensions.PocketDimensions;
 import net.nimbu.pocketdimensions.item.custom.*;
 
@@ -15,6 +16,7 @@ public class ModItems {
             new GatewayWandItem(new Item.Settings()
                     .maxCount(1)
                     .maxDamage(131)
+                    .rarity(Rarity.EPIC)
                     .component(DataComponentTypes.ENCHANTMENT_GLINT_OVERRIDE, true)));
     public static final Item EXPANSION_GEM = registerItem("expansion_gem",
             new DimensionExpanderItem(new Item.Settings()));
