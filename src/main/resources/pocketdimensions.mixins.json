@@ -3,7 +3,8 @@
   "package": "net.nimbu.pocketdimensions.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-    "BiomeEffectsMixin"
+    "BiomeEffectsMixin",
+    "BiomeColorsMixin"
   ],
   "client": [
     "SkyRenderMixin"
