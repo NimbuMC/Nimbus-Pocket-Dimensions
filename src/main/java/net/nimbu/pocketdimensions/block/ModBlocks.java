@@ -8,41 +8,41 @@ import net.minecraft.item.ItemGroups;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.Rarity;
 import net.nimbu.pocketdimensions.PocketDimensions;
 import net.nimbu.pocketdimensions.block.custom.*;
 
 public class ModBlocks {
 
+    public static final Block OAK_GATEWAY = registerBlock("oak_gateway",
+            new GatewayBlock(AbstractBlock.Settings.create().nonOpaque()), new Item.Settings());
+
+    public static final Block BIRCH_GATEWAY = registerBlock("birch_gateway",
+            new GatewayBlock(AbstractBlock.Settings.create().nonOpaque()), new Item.Settings());
+
+    public static final Block SPRUCE_GATEWAY = registerBlock("spruce_gateway",
+            new GatewayBlock(AbstractBlock.Settings.create().nonOpaque()), new Item.Settings());
 
     public static final Block DARK_OAK_GATEWAY = registerBlock("dark_oak_gateway",
-            new GatewayBlock(AbstractBlock.Settings.create().nonOpaque()));
+            new GatewayBlock(AbstractBlock.Settings.create().nonOpaque()), new Item.Settings());
 
-    public static final Block TEST_S_GATEWAY = registerBlock("spruce_gateway",
-            new GatewayBlock(AbstractBlock.Settings.create().nonOpaque()));
+    public static final Block JUNGLE_GATEWAY = registerBlock("jungle_gateway",
+            new GatewayBlock(AbstractBlock.Settings.create().nonOpaque()), new Item.Settings());
 
-    public static final Block TEST_O_GATEWAY = registerBlock("oak_gateway",
-            new GatewayBlock(AbstractBlock.Settings.create().nonOpaque()));
+    public static final Block ACACIA_GATEWAY = registerBlock("acacia_gateway",
+            new GatewayBlock(AbstractBlock.Settings.create().nonOpaque()), new Item.Settings());
 
-    public static final Block TEST_B_GATEWAY = registerBlock("birch_gateway",
-            new GatewayBlock(AbstractBlock.Settings.create().nonOpaque()));
+    public static final Block CHERRY_GATEWAY = registerBlock("cherry_gateway",
+            new GatewayBlock(AbstractBlock.Settings.create().nonOpaque()), new Item.Settings());
 
-    public static final Block TEST_J_GATEWAY = registerBlock("jungle_gateway",
-            new GatewayBlock(AbstractBlock.Settings.create().nonOpaque()));
+    public static final Block WARPED_GATEWAY = registerBlock("warped_gateway",
+            new GatewayBlock(AbstractBlock.Settings.create().nonOpaque()), new Item.Settings());
 
-    public static final Block TEST_A_GATEWAY = registerBlock("acacia_gateway",
-            new GatewayBlock(AbstractBlock.Settings.create().nonOpaque()));
-
-    public static final Block TEST_C_GATEWAY = registerBlock("cherry_gateway",
-            new GatewayBlock(AbstractBlock.Settings.create().nonOpaque()));
-
-    public static final Block TEST_W_GATEWAY = registerBlock("warped_gateway",
-            new GatewayBlock(AbstractBlock.Settings.create().nonOpaque()));
-
-    public static final Block TEST_CR_GATEWAY = registerBlock("crimson_gateway",
-            new GatewayBlock(AbstractBlock.Settings.create().nonOpaque()));
+    public static final Block CRIMSON_GATEWAY = registerBlock("crimson_gateway",
+            new GatewayBlock(AbstractBlock.Settings.create().nonOpaque()), new Item.Settings());
 
     public static final Block DIMENSION_CUSTOMIZER = registerBlock("dimension_customizer",
-            new PocketDimensionCustomizerBlock(AbstractBlock.Settings.create().nonOpaque().luminance(state -> 10)));
+            new PocketDimensionCustomizerBlock(AbstractBlock.Settings.create().nonOpaque().luminance(state -> 10)), new Item.Settings().rarity(Rarity.RARE));
 
     public static final Block GUI_OAK_LEAVES = registerGuiBlock("gui_oak_leaves",
             new Block(AbstractBlock.Settings.create().nonOpaque()));
@@ -52,14 +52,14 @@ public class ModBlocks {
             new Block(AbstractBlock.Settings.create().nonOpaque()));
 
 
-    private static Block registerBlock(String name, Block block){
-        registerBlockItem(name, block);
+    private static Block registerBlock(String name, Block block, Item.Settings settings){
+        registerBlockItem(name, block, settings);
         return Registry.register(Registries.BLOCK, Identifier.of(PocketDimensions.MOD_ID, name), block);
     }
 
-    private static void registerBlockItem(String name, Block block){
+    private static void registerBlockItem(String name, Block block, Item.Settings settings){
         Registry.register(Registries.ITEM, Identifier.of(PocketDimensions.MOD_ID, name),
-                new BlockItem(block, new Item.Settings()));
+                new BlockItem(block, settings));
     }
 
     private static Block registerGuiBlock(String name, Block block){
