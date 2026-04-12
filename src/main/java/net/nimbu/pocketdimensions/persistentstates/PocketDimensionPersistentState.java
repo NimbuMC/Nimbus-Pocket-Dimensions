@@ -23,16 +23,12 @@ public class PocketDimensionPersistentState extends PersistentState {
     private final HashSet<BlockPos> unlockedRooms = new HashSet<>();
     private DynamicBiomeEffects dynamicBiomeEffects =
             new DynamicBiomeEffects.Builder()
-                    .skyColor(0xFF00FF)
+                    .skyColor(0xFFFFFF)
                     .foliageColor(0xFF00FF)
-                    .additionsSound(new BiomeAdditionsSound(SoundEvents.AMBIENT_WARPED_FOREST_ADDITIONS,0.05))
-                    .particleConfig(new BiomeParticleConfig(ParticleTypes.END_ROD,0.001f))
                     .grassColor(0xFF00FF)
                     .waterColor(0xFF00FF)
                     .waterFogColor(0xFF00FF)
-                    .loopSound(SoundEvents.AMBIENT_WARPED_FOREST_LOOP)
-                    .moodSound(new BiomeMoodSound(SoundEvents.AMBIENT_NETHER_WASTES_MOOD, 6000, 8, 2.0))
-                    .music(MusicType.createIngameMusic(SoundEvents.MUSIC_NETHER_NETHER_WASTES))
+                    .music(MusicType.createIngameMusic(SoundEvents.MUSIC_CREATIVE))
                     .fogColor(0xFF00FF)
                     .build();
     private Identifier skybox = Identifier.ofVanilla("textures/environment/end_sky.png");
