@@ -224,6 +224,12 @@ public class DimensionCustomizerScreen extends HandledScreen<DimensionCustomizer
 
     }
 
+    @Override
+    public void close() {
+        applyChanges();
+        super.close();
+    }
+
     private void applyChanges() {
         int[] fogColour = fogSliders.getColour();
         int[] waterColour = waterSliders.getColour();
