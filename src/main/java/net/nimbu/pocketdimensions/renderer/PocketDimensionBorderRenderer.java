@@ -10,6 +10,7 @@ import net.minecraft.client.render.*;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
 import net.nimbu.pocketdimensions.PocketDimensions;
 import net.nimbu.pocketdimensions.network.ClientPocketDimensionPersistentState;
@@ -100,12 +101,13 @@ public class PocketDimensionBorderRenderer {
                     .program(new RenderPhase.ShaderProgram(PocketDimensionBorderRenderer::getFarShader))
                     .texture(new RenderPhase.Texture(BORDER_TEXTURE,false, false))
                     .transparency(RenderPhase.Transparency.NO_TRANSPARENCY)
-                    .depthTest(RenderPhase.DepthTest.ALWAYS_DEPTH_TEST)
+                    .depthTest(RenderPhase.DepthTest.LEQUAL_DEPTH_TEST)
                     .writeMaskState(RenderPhase.ALL_MASK)
                     .cull(RenderPhase.Cull.DISABLE_CULLING)
                     .lightmap(RenderPhase.DISABLE_LIGHTMAP)
                     .build(false)
     );
+
 
     private static ShaderProgram getShader() {
         return BORDER_SHADER;
@@ -209,15 +211,44 @@ public class PocketDimensionBorderRenderer {
         for (int x = -renderRadius; x <= renderRadius; x++) {
             for (int y = -renderRadius; y <= renderRadius; y++) {
                 for (int z = -renderRadius; z <= renderRadius; z++) {
-                    boolean[] adj = ClientPocketDimensionPersistentState.getAdjacents(new BlockPos(
+
+                    BlockPos currentPos = new BlockPos(
                             relativePosition.getX() + x,
                             relativePosition.getY() + y,
-                            relativePosition.getZ() + z));
+                            relativePosition.getZ() + z
+                    );
+
+                    //skip faced wall if looking at expansion (green) wall
+                    if (expansionModeActive && expansionModePosition != null
+                            && currentPos.equals(expansionModePosition)) {
+                        continue;
+                    }
+
+                    boolean[] adj = ClientPocketDimensionPersistentState.getAdjacents(currentPos);
+
+                    if (expansionModeActive && expansionModePosition != null) {
+
+                        for (int i = 0; i < 6; i++) {
+
+                            int nx = (int) FACE_NORMALS[i][0];
+                            int ny = (int) FACE_NORMALS[i][1];
+                            int nz = (int) FACE_NORMALS[i][2];
+
+                            BlockPos neighbour = currentPos.add(nx, ny, nz);
+
+                            if (neighbour.equals(expansionModePosition)) {
+                                adj[i] = false;
+                            }
+                        }
+                    }
+
                     for (int i = 0; i < 6; i++) {
-                        if (adj[i]) renderFace(vc, matrices, i,
-                                relativePosition.getX() + x,
-                                relativePosition.getY() + y,
-                                relativePosition.getZ() + z);
+                        if (adj[i]) {
+                            renderFace(vc, matrices, i,
+                                    currentPos.getX(),
+                                    currentPos.getY(),
+                                    currentPos.getZ());
+                        }
                     }
                 }
             }
@@ -283,11 +314,11 @@ public class PocketDimensionBorderRenderer {
                 }
             }
             matrices.pop();
-            matrices.translate(
-                    -(expansionModePosition.getX() * BorderLength),
-                    -(expansionModePosition.getY() * BorderHeight - 7),
-                    -(expansionModePosition.getZ() * BorderLength)
-            );
+//            matrices.translate(
+//                    -(expansionModePosition.getX() * BorderLength),
+//                    -(expansionModePosition.getY() * BorderHeight - 7),
+//                    -(expansionModePosition.getZ() * BorderLength)
+//            );
         }
         matrices.translate(cam.x, cam.y, cam.z);
         consumers.draw();

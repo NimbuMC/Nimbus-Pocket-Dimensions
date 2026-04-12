@@ -45,7 +45,7 @@ public class DimensionExpanderItem extends Item {
             }
         }
         else{
-            PocketDimensionBorderRenderer.expansionModeActive = false;
+            cancelRenderReticle(world, player);
         }
     }
 
