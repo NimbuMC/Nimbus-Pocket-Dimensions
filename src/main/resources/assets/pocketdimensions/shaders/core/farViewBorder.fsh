@@ -92,9 +92,15 @@ void main() {
     // Twinkle: occasionally push color toward white based on noise + time
     float twinkle = noise(pixelWorld * 45.67 + slowTime * 0.1);
     twinkle = smoothstep(0.5, 1.0, twinkle) * 0.4f; // only strong twinkles
-    vec3 emissive = vec3(0.3, 0.5, 1.0) * glow * 0.8 + vec3(twinkle);
 
     // Combine texture, vertex color, light, emissive
-    vec3 color = tex.rgb * vColor.rgb * light.rgb + emissive;
+    vec3 base = tex.rgb * vColor.rgb * light.rgb;
+
+    vec3 emissive = (vColor.rgb * glow * 0.4) + (vec3(twinkle) * 0.2);
+
+    vec3 color = base + emissive;
+
+    color = clamp(color, 0.0, 1.0);
+
     fragColor = vec4(color, tex.a);
 }
