@@ -17,13 +17,10 @@ public class ModBlocks {
     public static final Block OAK_GATEWAY = registerBlock("oak_gateway",
             new GatewayBlock(AbstractBlock.Settings.create().nonOpaque()), new Item.Settings());
 
-    public static final Block BIRCH_GATEWAY = registerBlock("birch_gateway",
-            new GatewayBlock(AbstractBlock.Settings.create().nonOpaque()), new Item.Settings());
-
     public static final Block SPRUCE_GATEWAY = registerBlock("spruce_gateway",
             new GatewayBlock(AbstractBlock.Settings.create().nonOpaque()), new Item.Settings());
 
-    public static final Block DARK_OAK_GATEWAY = registerBlock("dark_oak_gateway",
+    public static final Block BIRCH_GATEWAY = registerBlock("birch_gateway",
             new GatewayBlock(AbstractBlock.Settings.create().nonOpaque()), new Item.Settings());
 
     public static final Block JUNGLE_GATEWAY = registerBlock("jungle_gateway",
@@ -32,14 +29,26 @@ public class ModBlocks {
     public static final Block ACACIA_GATEWAY = registerBlock("acacia_gateway",
             new GatewayBlock(AbstractBlock.Settings.create().nonOpaque()), new Item.Settings());
 
+    public static final Block DARK_OAK_GATEWAY = registerBlock("dark_oak_gateway",
+            new GatewayBlock(AbstractBlock.Settings.create().nonOpaque()), new Item.Settings());
+
+    //Mangrove
+    //-------
+
     public static final Block CHERRY_GATEWAY = registerBlock("cherry_gateway",
+            new GatewayBlock(AbstractBlock.Settings.create().nonOpaque()), new Item.Settings());
+
+    //Pale Oak
+    //-------
+
+    public static final Block CRIMSON_GATEWAY = registerBlock("crimson_gateway",
             new GatewayBlock(AbstractBlock.Settings.create().nonOpaque()), new Item.Settings());
 
     public static final Block WARPED_GATEWAY = registerBlock("warped_gateway",
             new GatewayBlock(AbstractBlock.Settings.create().nonOpaque()), new Item.Settings());
 
-    public static final Block CRIMSON_GATEWAY = registerBlock("crimson_gateway",
-            new GatewayBlock(AbstractBlock.Settings.create().nonOpaque()), new Item.Settings());
+    //Bamboo
+    //-------
 
     public static final Block DIMENSION_CUSTOMIZER = registerBlock("dimension_customizer",
             new PocketDimensionCustomizerBlock(AbstractBlock.Settings.create().nonOpaque().luminance(state -> 10)), new Item.Settings().rarity(Rarity.RARE));

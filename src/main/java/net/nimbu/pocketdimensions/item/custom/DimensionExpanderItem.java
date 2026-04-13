@@ -7,6 +7,8 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.TypedActionResult;
@@ -78,7 +80,14 @@ public class DimensionExpanderItem extends Item {
             if (!user.isCreative()) {
                 item.decrement(1);
             }
-            PocketDimensionBorderRenderer.expansionModeActive = false;
+            if (item.isEmpty()) {
+                PocketDimensionBorderRenderer.expansionModeActive = false;
+            }
+            world.playSound(null, user.getX(), user.getY(), user.getZ(),
+                    SoundEvents.BLOCK_BEACON_ACTIVATE,
+                    SoundCategory.NEUTRAL,
+                    1f,
+                    1.5f);
         }
 
         return TypedActionResult.success(item);
