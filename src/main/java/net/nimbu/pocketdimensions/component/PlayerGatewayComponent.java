@@ -11,4 +11,7 @@ public interface PlayerGatewayComponent extends Component {
 
     RegistryKey<World> getGatewayDim();
     void setGatewayDim(RegistryKey<World> dim);
+
+    int getGatewayMaterial();
+    void setGatewayMaterial(int material);
 }

@@ -1,6 +1,7 @@
 package net.nimbu.pocketdimensions.entity.custom;
 
-import net.minecraft.block.AbstractBlock;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.enums.DoubleBlockHalf;
 import net.minecraft.entity.Entity;
@@ -49,12 +50,11 @@ public class GatewayProjectileEntity extends ProjectileEntity {
         if(!world.isClient()) {
             if (!world.getDimensionEntry().matchesKey(ModDimensions.POCKET_DIM_TYPE)){
 
+                Entity owner = this.getOwner();
+                if (!(owner instanceof PlayerEntity)) return; //ensures cannot create portal if not player
+                PlayerGatewayComponent comp = ModComponentInitializer.PLAYER_GATEWAY_KEY.get(owner);
 
 
-
-
-
-                //create door halves (THIS CURRENTLY FLIPS INCORRECTLY IN WEST/EAST?? WHAT?) also erases blocks oops lol
                 BlockPos bottomHalf = this.getBlockPos();
                 BlockPos topHalf = bottomHalf.up();
                 if ((world.getBlockState(bottomHalf).isOf(Blocks.AIR) ||
@@ -64,6 +64,7 @@ public class GatewayProjectileEntity extends ProjectileEntity {
                         (world.getBlockState(topHalf).isOf(Blocks.AIR) ||
                         world.getBlockState(bottomHalf).isOf(Blocks.TALL_GRASS))) {
 
+                    //Find gateway orientation
                     float yaw = this.getYaw();
                     Direction direction;
                     if (45 < yaw && yaw < 135) {
@@ -75,20 +76,31 @@ public class GatewayProjectileEntity extends ProjectileEntity {
                     } else {
                         direction = Direction.SOUTH;
                     }
-                    world.setBlockState(bottomHalf, ModBlocks.DARK_OAK_GATEWAY.getDefaultState().with(FACING, direction));
+                    //Find gateway material
+                    Block doortype;
+                    switch (comp.getGatewayMaterial()){
+                        case 0: doortype=ModBlocks.OAK_GATEWAY; break;
+                        case 1: doortype=ModBlocks.SPRUCE_GATEWAY; break;
+                        case 2: doortype=ModBlocks.BIRCH_GATEWAY; break;
+                        case 3: doortype=ModBlocks.JUNGLE_GATEWAY; break;
+                        case 4: doortype=ModBlocks.ACACIA_GATEWAY; break;
+                        case 5: doortype=ModBlocks.DARK_OAK_GATEWAY; break;
+
+                        case 7: doortype=ModBlocks.CHERRY_GATEWAY; break;
+                        case 8: doortype=ModBlocks.CRIMSON_GATEWAY; break;
+                        case 9: doortype=ModBlocks.WARPED_GATEWAY; break;
+                        default: doortype=ModBlocks.DARK_OAK_GATEWAY; break;
+                    }
+                    world.setBlockState(bottomHalf, doortype.getDefaultState().with(FACING, direction));
                     if (world.getBlockEntity(bottomHalf) instanceof GatewayBlockEntity portalData) {
                         portalData.TriggerInitialIDUpdate(world, bottomHalf, exitDimensionID);
                     }
-                    world.setBlockState(topHalf, ModBlocks.DARK_OAK_GATEWAY.getDefaultState().with(HALF, DoubleBlockHalf.UPPER).with(FACING, direction));
+                    world.setBlockState(topHalf, doortype.getDefaultState().with(HALF, DoubleBlockHalf.UPPER).with(FACING, direction));
 
 
                     //Delete data at saved position
-                    Entity owner = this.getOwner();
-                    if (!(owner instanceof PlayerEntity)) return; //ensures cannot create portal if not player
-                    PlayerGatewayComponent comp = ModComponentInitializer.PLAYER_GATEWAY_KEY.get(owner);
                     BlockPos previousPos = comp.getGatewayPos();
                     RegistryKey<World> previousDimension = comp.getGatewayDim();
-
                     if (previousPos != null && previousDimension != null) {
                         ServerWorld targetWorld = world.getServer().getWorld(previousDimension); // get the correct dimension
                         if (targetWorld != null) {

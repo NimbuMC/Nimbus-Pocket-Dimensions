@@ -18,6 +18,7 @@ import net.nimbu.pocketdimensions.PocketDimensions;
 import net.nimbu.pocketdimensions.block.ModBlocks;
 import net.nimbu.pocketdimensions.screen.widgets.InvisibleButton;
 import net.nimbu.pocketdimensions.screen.widgets.RGBSliderGroup;
+import net.nimbu.pocketdimensions.screen.widgets.Slider;
 
 public class DimensionCustomizerScreen extends HandledScreen<DimensionCustomizerScreenHandler> {
 
@@ -36,6 +37,7 @@ public class DimensionCustomizerScreen extends HandledScreen<DimensionCustomizer
     private RGBSliderGroup leavesSliders;
     private RGBSliderGroup waterSliders;
     private RGBSliderGroup fogSliders;
+    private Slider doorSlider;
 
     public DimensionCustomizerScreen(DimensionCustomizerScreenHandler handler, PlayerInventory inventory, Text title) {
         super(handler, new PlayerInventory(inventory.player), Text.of(""));
@@ -52,7 +54,8 @@ public class DimensionCustomizerScreen extends HandledScreen<DimensionCustomizer
         waterSliders.forEachChild(this::addDrawableChild);
         fogSliders = new RGBSliderGroup(x + backgroundWidth - 101, y + 114, 89, 46, 5, 3, handler.getFogColour());
         fogSliders.forEachChild(this::addDrawableChild);
-
+        doorSlider = new Slider(x + backgroundWidth - 101, y + 130, 66, 46, Text.of("Door Material"), 5, 10);
+        doorSlider.forEachChild(this::addDrawableChild);
 
 
         InvisibleButton grassColours = InvisibleButton.builder( //grass colours
@@ -62,6 +65,7 @@ public class DimensionCustomizerScreen extends HandledScreen<DimensionCustomizer
                     leavesSliders.setVisibility(false);
                     waterSliders.setVisibility(false);
                     fogSliders.setVisibility(false);
+                    doorSlider.setVisibility(false);
                 }
         ).dimensions(x+1, y + 7, 46, 17).build();
         addDrawableChild(grassColours);
@@ -73,6 +77,7 @@ public class DimensionCustomizerScreen extends HandledScreen<DimensionCustomizer
                     leavesSliders.setVisibility(true);
                     waterSliders.setVisibility(false);
                     fogSliders.setVisibility(false);
+                    doorSlider.setVisibility(false);
                 }
         ).dimensions(x + 1, y + 24, 46, 17).build();
         addDrawableChild(foliageColours);
@@ -84,11 +89,11 @@ public class DimensionCustomizerScreen extends HandledScreen<DimensionCustomizer
                     leavesSliders.setVisibility(false);
                     waterSliders.setVisibility(true);
                     fogSliders.setVisibility(false);
+                    doorSlider.setVisibility(false);
                 }
         ).dimensions(x + 1, y + 41, 46, 17).build();
         addDrawableChild(waterMenuButton);
 
-        //menu buttons
         InvisibleButton fogMenuButton = InvisibleButton.builder(
                 Text.literal("Fog colour"),
                 button -> {
@@ -96,14 +101,28 @@ public class DimensionCustomizerScreen extends HandledScreen<DimensionCustomizer
                     leavesSliders.setVisibility(false);
                     waterSliders.setVisibility(false);
                     fogSliders.setVisibility(true);
+                    doorSlider.setVisibility(false);
                 }
         ).dimensions(x + 1, y + 75, 46, 17).build();
         addDrawableChild(fogMenuButton);
+
+        InvisibleButton doorMenuButton = InvisibleButton.builder(
+                Text.literal("Door material"),
+                button -> {
+                    grassSliders.setVisibility(false);
+                    leavesSliders.setVisibility(false);
+                    waterSliders.setVisibility(false);
+                    fogSliders.setVisibility(false);
+                    doorSlider.setVisibility(true);
+                }
+        ).dimensions(x + 1, y + 126, 46, 17).build();
+        addDrawableChild(doorMenuButton);
 
         grassSliders.setVisibility(true);
         leavesSliders.setVisibility(false);
         waterSliders.setVisibility(false);
         fogSliders.setVisibility(false);
+        doorSlider.setVisibility(false);
     }
 
     @Override

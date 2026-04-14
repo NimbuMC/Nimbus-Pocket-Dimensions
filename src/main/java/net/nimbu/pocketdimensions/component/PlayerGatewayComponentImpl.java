@@ -11,6 +11,7 @@ public class PlayerGatewayComponentImpl implements PlayerGatewayComponent, Respa
 
     private BlockPos pos;
     private RegistryKey<World> dim;
+    private int material;
 
     @Override
     public BlockPos getGatewayPos() {return pos;}
@@ -21,6 +22,11 @@ public class PlayerGatewayComponentImpl implements PlayerGatewayComponent, Respa
     public RegistryKey<World> getGatewayDim() {return dim;}
     @Override
     public void setGatewayDim(RegistryKey<World> dim) {this.dim=dim;}
+
+    @Override
+    public int getGatewayMaterial() {return material;}
+    @Override
+    public void setGatewayMaterial(int material) {this.material=material;}
 
     @Override
     public void readFromNbt(NbtCompound nbtCompound, RegistryWrapper.WrapperLookup wrapperLookup) {}

@@ -70,7 +70,7 @@ public class ColourSlider extends ClickableWidget {
         if(mouseDown && !mouseEnteredWithClick && isHovered()) held = true;
         if(!mouseDown && held) held = false;
         if(held) updateValue(mouseX);
-        else if(rTextBox.getText().matches("[0-9]+") && Integer.parseInt(rTextBox.getText()) != rSlider.getValue())
+        else if(rTextBox.getText().matches("[0-9]+") && Integer.parseInt(rTextBox.getText()) != rSlider.getValue()) //if value has changed after slider moved
         {
             rSlider.setValue(Integer.parseInt(rTextBox.getText()));
         }
