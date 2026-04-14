@@ -91,10 +91,10 @@ public class GatewayBlockEntity extends BlockEntity {
             DoorwayBlockEntity.setPortalID(exitID);
             BlockPos exitPosition = new BlockPos(6, 148, 1);
             ServerWorld targetWorld = world.getServer().getWorld(exitID);
+
             if (targetWorld.getBlockEntity(exitPosition) instanceof GatewayBlockEntity exitPortal) {
-                //if(exitDimension.getValue().toString().startsWith(Thaumaturgy.MOD_ID+":pocket_dimension")) //TODO tf is this dawg
-                exitPortal.setExitPosition(entryPortalPosition, world.getRegistryKey());
-            } else {
+                exitPortal.setExitPosition(entryPortalPosition, world.getRegistryKey()); //replace exit position when creating gateway
+            } else { //build portal if no portal found
                 targetWorld.setBlockState(exitPosition, ModBlocks.DARK_OAK_GATEWAY.getDefaultState()
                         .with(GatewayBlock.FACING, Direction.SOUTH)
                         .with(GatewayBlock.OPEN, true)
