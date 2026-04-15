@@ -11,7 +11,7 @@ import net.nimbu.pocketdimensions.block.entity.custom.PocketDimensionCustomizerB
 
 public class ModBlockEntityTypes {
     public static BlockEntityType<GatewayBlockEntity> GATEWAY_BLOCK_ENTITY =
-            Registry.register(Registries.BLOCK_ENTITY_TYPE, Identifier.of(PocketDimensions.MOD_ID, "doorway_block"),
+            Registry.register(Registries.BLOCK_ENTITY_TYPE, Identifier.of(PocketDimensions.MOD_ID, "gateway_block"),
                     BlockEntityType.Builder.create(
                             GatewayBlockEntity::new,
                             ModBlocks.DARK_OAK_GATEWAY

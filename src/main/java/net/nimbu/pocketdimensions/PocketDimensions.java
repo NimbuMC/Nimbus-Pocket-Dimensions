@@ -105,6 +105,9 @@ public class PocketDimensions implements ModInitializer {
 								ModComponentInitializer.PLAYER_GATEWAY_KEY.get(player);
 
 						comp.setGatewayMaterial(payload.material());
+
+
+						ModComponentInitializer.PLAYER_GATEWAY_KEY.sync(player);
 					});
 				}
 		);
