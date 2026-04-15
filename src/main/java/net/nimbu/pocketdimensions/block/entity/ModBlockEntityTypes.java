@@ -14,7 +14,15 @@ public class ModBlockEntityTypes {
             Registry.register(Registries.BLOCK_ENTITY_TYPE, Identifier.of(PocketDimensions.MOD_ID, "gateway_block"),
                     BlockEntityType.Builder.create(
                             GatewayBlockEntity::new,
-                            ModBlocks.DARK_OAK_GATEWAY
+                            ModBlocks.OAK_GATEWAY,
+                            ModBlocks.SPRUCE_GATEWAY,
+                            ModBlocks.BIRCH_GATEWAY,
+                            ModBlocks.JUNGLE_GATEWAY,
+                            ModBlocks.ACACIA_GATEWAY,
+                            ModBlocks.DARK_OAK_GATEWAY,
+                            ModBlocks.CHERRY_GATEWAY,
+                            ModBlocks.CRIMSON_GATEWAY,
+                            ModBlocks.WARPED_GATEWAY
                     ).build());
 
     public static BlockEntityType<PocketDimensionCustomizerBlockEntity> POCKET_DIMENSION_CUSTOMIZER_BLOCK_ENTITY =
