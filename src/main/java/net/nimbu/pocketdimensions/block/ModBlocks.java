@@ -32,8 +32,8 @@ public class ModBlocks {
     public static final Block DARK_OAK_GATEWAY = registerBlock("dark_oak_gateway",
             new GatewayBlock(AbstractBlock.Settings.create().nonOpaque()), new Item.Settings());
 
-    //Mangrove
-    //-------
+    public static final Block MANGROVE_GATEWAY = registerBlock("mangrove_gateway",
+            new GatewayBlock(AbstractBlock.Settings.create().nonOpaque()), new Item.Settings());
 
     public static final Block CHERRY_GATEWAY = registerBlock("cherry_gateway",
             new GatewayBlock(AbstractBlock.Settings.create().nonOpaque()), new Item.Settings());

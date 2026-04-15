@@ -20,6 +20,7 @@ public class ModBlockEntityTypes {
                             ModBlocks.JUNGLE_GATEWAY,
                             ModBlocks.ACACIA_GATEWAY,
                             ModBlocks.DARK_OAK_GATEWAY,
+                            ModBlocks.MANGROVE_GATEWAY,
                             ModBlocks.CHERRY_GATEWAY,
                             ModBlocks.CRIMSON_GATEWAY,
                             ModBlocks.WARPED_GATEWAY

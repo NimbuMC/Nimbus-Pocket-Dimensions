@@ -1,0 +1,95 @@
+{
+  "variants": {
+    "facing=east,open=false,half=upper,exit=false": {
+      "model": "pocketdimensions:block/mangrove_gateway_top",
+      "y": 90
+    },
+    "facing=north,open=false,half=upper,exit=false": {
+      "model": "pocketdimensions:block/mangrove_gateway_top"
+    },
+    "facing=south,open=false,half=upper,exit=false": {
+      "model": "pocketdimensions:block/mangrove_gateway_top",
+      "y": 180
+    },
+    "facing=west,open=false,half=upper,exit=false": {
+      "model": "pocketdimensions:block/mangrove_gateway_top",
+      "y": 270
+    },
+    "facing=east,open=true,half=upper,exit=false": {
+      "model": "pocketdimensions:block/mangrove_gateway_top_open",
+      "y": 90
+    },
+    "facing=north,open=true,half=upper,exit=false": {
+      "model": "pocketdimensions:block/mangrove_gateway_top_open"
+    },
+    "facing=south,open=true,half=upper,exit=false": {
+      "model": "pocketdimensions:block/mangrove_gateway_top_open",
+      "y": 180
+    },
+    "facing=west,open=true,half=upper,exit=false": {
+      "model": "pocketdimensions:block/mangrove_gateway_top_open",
+      "y": 270
+    },
+    "facing=east,open=false,half=lower,exit=false": {
+      "model": "pocketdimensions:block/mangrove_gateway_bottom",
+      "y": 90
+    },
+    "facing=north,open=false,half=lower,exit=false": {
+      "model": "pocketdimensions:block/mangrove_gateway_bottom"
+    },
+    "facing=south,open=false,half=lower,exit=false": {
+      "model": "pocketdimensions:block/mangrove_gateway_bottom",
+      "y": 180
+    },
+    "facing=west,open=false,half=lower,exit=false": {
+      "model": "pocketdimensions:block/mangrove_gateway_bottom",
+      "y": 270
+    },
+    "facing=east,open=true,half=lower,exit=false": {
+      "model": "pocketdimensions:block/mangrove_gateway_bottom_open",
+      "y": 90
+    },
+    "facing=north,open=true,half=lower,exit=false": {
+      "model": "pocketdimensions:block/mangrove_gateway_bottom_open"
+    },
+    "facing=south,open=true,half=lower,exit=false": {
+      "model": "pocketdimensions:block/mangrove_gateway_bottom_open",
+      "y": 180
+    },
+    "facing=west,open=true,half=lower,exit=false": {
+      "model": "pocketdimensions:block/mangrove_gateway_bottom_open",
+      "y": 270
+    },
+
+    "facing=east,half=upper,exit=true": {
+      "model": "pocketdimensions:block/mangrove_gateway_top_exit",
+      "y": 90
+    },
+    "facing=north,half=upper,exit=true": {
+      "model": "pocketdimensions:block/mangrove_gateway_top_exit"
+    },
+    "facing=south,half=upper,exit=true": {
+      "model": "pocketdimensions:block/mangrove_gateway_top_exit",
+      "y": 180
+    },
+    "facing=west,half=upper,exit=true": {
+      "model": "pocketdimensions:block/mangrove_gateway_top_exit",
+      "y": 270
+    },
+    "facing=east,half=lower,exit=true": {
+      "model": "pocketdimensions:block/mangrove_gateway_bottom_exit",
+      "y": 90
+    },
+    "facing=north,half=lower,exit=true": {
+      "model": "pocketdimensions:block/mangrove_gateway_bottom_exit"
+    },
+    "facing=south,half=lower,exit=true": {
+      "model": "pocketdimensions:block/mangrove_gateway_bottom_exit",
+      "y": 180
+    },
+    "facing=west,half=lower,exit=true": {
+      "model": "pocketdimensions:block/mangrove_gateway_bottom_exit",
+      "y": 270
+    }
+  }
+}
