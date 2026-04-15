@@ -2,6 +2,7 @@ package net.nimbu.pocketdimensions.screen.custom;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.MinecraftClient;
@@ -60,7 +61,7 @@ public class DimensionCustomizerScreen extends HandledScreen<DimensionCustomizer
         waterSliders.forEachChild(this::addDrawableChild);
         fogSliders = new RGBSliderGroup(x + backgroundWidth - 101, y + 114, 89, 46, 5, 3, handler.getFogColour());
         fogSliders.forEachChild(this::addDrawableChild);
-        doorSlider = new Slider(x + backgroundWidth - 114, y + 130, 68, 46, Text.of("Door Material"), 5, 10);
+        doorSlider = new Slider(x + backgroundWidth - 113, y + 130, 68, 46, Text.of("Door Material"), 5, 10);
         doorSlider.forEachChild(this::addDrawableChild);
 
 
@@ -155,7 +156,23 @@ public class DimensionCustomizerScreen extends HandledScreen<DimensionCustomizer
         else if(leavesSliders.getVisibility()) {
             renderBlock(context, ModBlocks.GUI_OAK_LEAVES.getDefaultState(), 51, leavesColour[0], leavesColour[1], leavesColour[2]);
         }
-        else if(doorSlider.getVisibility()){}
+        else if(doorSlider.getVisibility()){
+            Block blockType;
+            switch (doorSlider.getValue()){
+                case 0: blockType=Blocks.OAK_PLANKS; break;
+                case 1: blockType=Blocks.SPRUCE_PLANKS; break;
+                case 2: blockType=Blocks.BIRCH_PLANKS; break;
+                case 3: blockType=Blocks.JUNGLE_PLANKS; break;
+                case 4: blockType=Blocks.ACACIA_PLANKS; break;
+                case 5: blockType=Blocks.DARK_OAK_PLANKS; break;
+
+                case 7: blockType=Blocks.CHERRY_PLANKS; break;
+                case 8: blockType=Blocks.CRIMSON_PLANKS; break;
+                case 9: blockType=Blocks.WARPED_PLANKS; break;
+                default: blockType=Blocks.DARK_OAK_PLANKS; break;
+            }
+            renderBlock(context, blockType.getDefaultState(), 51, 255, 255, 255);
+        }
 //        else {
 //            testSample(context, x + backgroundWidth - 70, y, 70, 70,
 //                    0xFF000000 | (fogColour[0] << 16) | (fogColour[1] << 8) | fogColour[2],
@@ -238,6 +255,7 @@ public class DimensionCustomizerScreen extends HandledScreen<DimensionCustomizer
         if(leavesSliders.getVisibility()){context.drawTexture(BACKGROUND_1, x,y,0,0, 256, 256);}
         if(waterSliders.getVisibility()){context.drawTexture(BACKGROUND_2, x,y,0,0, 256, 256);}
         if(fogSliders.getVisibility()){context.drawTexture(BACKGROUND_4, x,y,0,0, 256, 256);}
+        if(doorSlider.getVisibility()){context.drawTexture(BACKGROUND_7, x,y,0,0, 256, 256);}
 
     }
 

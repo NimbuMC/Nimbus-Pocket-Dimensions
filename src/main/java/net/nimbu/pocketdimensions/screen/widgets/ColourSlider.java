@@ -162,7 +162,7 @@ public class ColourSlider extends ClickableWidget {
 
     public void setValue(int x)
     {
-        x = Math.clamp(x, 0, 255);
+        x = Math.clamp(x, min, max);
         value = x;
         rSlider.setGrads(
                 (gSlider.getValue() << 8) | bSlider.getValue(),
