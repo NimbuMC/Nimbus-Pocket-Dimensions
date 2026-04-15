@@ -246,26 +246,37 @@ public class GatewayBlock extends BlockWithEntity implements Portal {
         Vec3d exitPos = null;
         BlockPos exitBlock = new BlockPos(0, 100000, 0);
         ServerWorld serverWorld = null;
-        if (world.getBlockEntity(pos) instanceof GatewayBlockEntity doorwayBlockEntity) {
+        if (world.getBlockEntity(pos) instanceof GatewayBlockEntity gatewayBlockEntity) {
             PocketDimensions.LOGGER.info("FoundBlockEntity");
-            RegistryKey<World> registryKey = doorwayBlockEntity.GetExitDimension();
+            RegistryKey<World> registryKey = gatewayBlockEntity.GetExitDimension();
+
+            serverWorld = world.getServer().getWorld(registryKey);
+            exitBlock = gatewayBlockEntity.getExitBlock();
+            BlockState blockState = serverWorld.getBlockState(exitBlock);
+
+            Direction exitDirection = Direction.NORTH;
+
+            if (blockState.getBlock() instanceof GatewayBlock) { //i dont know why this is necessary... because you the exit position gets moved to the portal anyways
+                exitDirection = blockState.get(GatewayBlock.FACING);
+            }
+
             if (registryKey != null) {
-                PocketDimensions.LOGGER.info("exitDimension of " + doorwayBlockEntity.GetExitDimension());
-                serverWorld = world.getServer().getWorld(registryKey);
-                exitBlock = doorwayBlockEntity.getExitBlock();
-                exitPos = doorwayBlockEntity.getExitPosition(serverWorld.getBlockState(exitBlock).get(FACING));
+                PocketDimensions.LOGGER.info("exitDimension of " + gatewayBlockEntity.GetExitDimension());
+                exitPos = gatewayBlockEntity.getExitPosition(exitDirection);
                 PocketDimensions.LOGGER.info("exitPos of " + exitPos);
             }
-        }
 
-        if (exitPos == null) return null;
-        else {
-            assert serverWorld != null;
-            return new TeleportTarget(serverWorld, exitPos, getTeleportVelocity(entity),
-                    entity.getYaw() + serverWorld.getBlockState(exitBlock).get(GatewayBlock.FACING).asRotation() -
-                                    world.getBlockState(pos).get(GatewayBlock.FACING).asRotation() + 180,
-                    entity.getPitch(), TeleportTarget.ADD_PORTAL_CHUNK_TICKET);
+
+            if (exitPos == null) return null;
+            else {
+                assert serverWorld != null;
+                return new TeleportTarget(serverWorld, exitPos, getTeleportVelocity(entity),
+                        entity.getYaw() + exitDirection.asRotation() -
+                                world.getBlockState(pos).get(GatewayBlock.FACING).asRotation() + 180,
+                        entity.getPitch(), TeleportTarget.ADD_PORTAL_CHUNK_TICKET);
+            }
         }
+        return null;
     }
 
     private static Vec3d getTeleportVelocity(Entity entity) {

@@ -53,6 +53,10 @@ public class DimensionCustomizerScreen extends HandledScreen<DimensionCustomizer
     @Override
     protected void init() {
         super.init();
+
+        MinecraftClient client = MinecraftClient.getInstance();
+        PlayerEntity player = client.player;
+
         grassSliders = new RGBSliderGroup(x + backgroundWidth - 101, y + 114, 89, 46, 5, 3, handler.getGrassColour());
         grassSliders.forEachChild(this::addDrawableChild);
         leavesSliders = new RGBSliderGroup(x + backgroundWidth - 101, y + 114, 89, 46, 5, 3, handler.getFoliageColour());
@@ -61,7 +65,7 @@ public class DimensionCustomizerScreen extends HandledScreen<DimensionCustomizer
         waterSliders.forEachChild(this::addDrawableChild);
         fogSliders = new RGBSliderGroup(x + backgroundWidth - 101, y + 114, 89, 46, 5, 3, handler.getFogColour());
         fogSliders.forEachChild(this::addDrawableChild);
-        doorSlider = new Slider(x + backgroundWidth - 113, y + 130, 68, 46, Text.of("Door Material"), 5, 10);
+        doorSlider = new Slider(x + backgroundWidth - 113, y + 130, 68, 46, Text.of("Door Material"), ModComponentInitializer.PLAYER_GATEWAY_KEY.get(player).getGatewayMaterial(), 10);
         doorSlider.forEachChild(this::addDrawableChild);
 
 
@@ -159,16 +163,16 @@ public class DimensionCustomizerScreen extends HandledScreen<DimensionCustomizer
         else if(doorSlider.getVisibility()){
             Block blockType;
             switch (doorSlider.getValue()){
-                case 0: blockType=Blocks.OAK_PLANKS; break;
-                case 1: blockType=Blocks.SPRUCE_PLANKS; break;
-                case 2: blockType=Blocks.BIRCH_PLANKS; break;
-                case 3: blockType=Blocks.JUNGLE_PLANKS; break;
-                case 4: blockType=Blocks.ACACIA_PLANKS; break;
-                case 5: blockType=Blocks.DARK_OAK_PLANKS; break;
-                case 6: blockType=Blocks.MANGROVE_PLANKS; break;
-                case 7: blockType=Blocks.CHERRY_PLANKS; break;
-                case 8: blockType=Blocks.CRIMSON_PLANKS; break;
-                case 9: blockType=Blocks.WARPED_PLANKS; break;
+                case 1: blockType=Blocks.OAK_PLANKS; break;
+                case 2: blockType=Blocks.SPRUCE_PLANKS; break;
+                case 3: blockType=Blocks.BIRCH_PLANKS; break;
+                case 4: blockType=Blocks.JUNGLE_PLANKS; break;
+                case 5: blockType=Blocks.ACACIA_PLANKS; break;
+                case 6: blockType=Blocks.DARK_OAK_PLANKS; break;
+                case 7: blockType=Blocks.MANGROVE_PLANKS; break;
+                case 8: blockType=Blocks.CHERRY_PLANKS; break;
+                case 9: blockType=Blocks.CRIMSON_PLANKS; break;
+                case 10: blockType=Blocks.WARPED_PLANKS; break;
                 default: blockType=Blocks.DARK_OAK_PLANKS; break;
             }
             renderBlock(context, blockType.getDefaultState(), 51, 255, 255, 255);
@@ -260,9 +264,9 @@ public class DimensionCustomizerScreen extends HandledScreen<DimensionCustomizer
     }
 
     @Override
-    public void close() {
+    public void removed() {
         applyChanges();
-        super.close();
+        super.removed();
     }
 
     private void applyChanges() {
@@ -276,13 +280,9 @@ public class DimensionCustomizerScreen extends HandledScreen<DimensionCustomizer
                 waterColour[0] / 10, waterColour[1] / 10, waterColour[2] / 10,
                 foliageColour[0], foliageColour[1], foliageColour[2],
                 grassColour[0], grassColour[1], grassColour[2]);
-        //handler.setPlayerGatewayMaterial(doorSlider.getValue());
-
-        int material = doorSlider.getValue();
 
         ClientPlayNetworking.send(
                 new GatewayMaterialPayload(doorSlider.getValue())
         );
     }
-
 }
