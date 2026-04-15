@@ -120,7 +120,7 @@ public class PocketDimensions implements ModInitializer {
 						//Update material type in pocket dimension
 						ServerWorld world = player.getServerWorld();
 
-						BlockPos pos = new BlockPos(6,148,2); //block position to override;
+						BlockPos pos = new BlockPos(6,148,1); //block position to override;
 						Block doortype;
 						switch (comp.getGatewayMaterial()){
 							case 1: doortype=ModBlocks.OAK_GATEWAY; break;
@@ -139,7 +139,7 @@ public class PocketDimensions implements ModInitializer {
 
 						//TODO: sometimes doesn't update right and appears invisible.... but it ain't that deep... probably
 						BlockState lower = doortype.getDefaultState()
-								.with(GatewayBlock.FACING, Direction.SOUTH);
+								.with(GatewayBlock.FACING, Direction.SOUTH).with(GatewayBlock.EXIT, true);
 						BlockState upper = lower.with(GatewayBlock.HALF, DoubleBlockHalf.UPPER);
 
 						world.setBlockState(pos, lower, Block.NOTIFY_ALL);

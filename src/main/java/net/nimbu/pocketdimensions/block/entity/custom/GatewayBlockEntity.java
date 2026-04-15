@@ -1,9 +1,12 @@
 package net.nimbu.pocketdimensions.block.entity.custom;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.enums.DoubleBlockHalf;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtHelper;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
@@ -20,6 +23,8 @@ import net.nimbu.pocketdimensions.PocketDimensions;
 import net.nimbu.pocketdimensions.block.ModBlocks;
 import net.nimbu.pocketdimensions.block.custom.GatewayBlock;
 import net.nimbu.pocketdimensions.block.entity.ModBlockEntityTypes;
+import net.nimbu.pocketdimensions.component.ModComponentInitializer;
+import net.nimbu.pocketdimensions.component.PlayerGatewayComponent;
 import net.nimbu.pocketdimensions.network.ClientPocketDimensionPersistentState;
 import net.nimbu.pocketdimensions.renderer.PocketDimensionBorderRenderer;
 import org.jetbrains.annotations.Nullable;
@@ -85,21 +90,23 @@ public class GatewayBlockEntity extends BlockEntity {
         }
     }
 
-    public void TriggerInitialIDUpdate(World world, BlockPos entryPortalPosition, RegistryKey<World> exitID) {
+    public void TriggerInitialIDUpdate(World world, BlockPos entryPortalPosition, RegistryKey<World> exitID, Block doorType) {
         if (world.getBlockEntity(entryPortalPosition) instanceof GatewayBlockEntity gatewayBlockEntity && !world.isClient) {
             PocketDimensions.LOGGER.info("Created with ID \n" + exitID);
             gatewayBlockEntity.setPortalID(exitID);
             BlockPos exitPosition = new BlockPos(6, 148, 1);
             ServerWorld targetWorld = world.getServer().getWorld(exitID);
 
+
+
             if (targetWorld.getBlockEntity(exitPosition) instanceof GatewayBlockEntity exitPortal) {
                 exitPortal.setExitPosition(entryPortalPosition, world.getRegistryKey()); //replace exit position when creating gateway
             } else { //build portal if no portal found
-                targetWorld.setBlockState(exitPosition, ModBlocks.DARK_OAK_GATEWAY.getDefaultState()
+                targetWorld.setBlockState(exitPosition, doorType.getDefaultState()
                         .with(GatewayBlock.FACING, Direction.SOUTH)
                         .with(GatewayBlock.OPEN, true)
                         .with(GatewayBlock.EXIT, true));
-                targetWorld.setBlockState(exitPosition.add(0, 1, 0), ModBlocks.DARK_OAK_GATEWAY.getDefaultState()
+                targetWorld.setBlockState(exitPosition.add(0, 1, 0), doorType.getDefaultState()
                         .with(GatewayBlock.FACING, Direction.SOUTH)
                         .with(GatewayBlock.HALF, DoubleBlockHalf.UPPER)
                         .with(GatewayBlock.OPEN, true)

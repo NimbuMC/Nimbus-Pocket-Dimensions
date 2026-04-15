@@ -93,7 +93,7 @@ public class GatewayProjectileEntity extends ProjectileEntity {
                     }
                     world.setBlockState(bottomHalf, doortype.getDefaultState().with(FACING, direction));
                     if (world.getBlockEntity(bottomHalf) instanceof GatewayBlockEntity portalData) {
-                        portalData.TriggerInitialIDUpdate(world, bottomHalf, exitDimensionID);
+                        portalData.TriggerInitialIDUpdate(world, bottomHalf, exitDimensionID, doortype);
                     }
                     world.setBlockState(topHalf, doortype.getDefaultState().with(HALF, DoubleBlockHalf.UPPER).with(FACING, direction));
 
