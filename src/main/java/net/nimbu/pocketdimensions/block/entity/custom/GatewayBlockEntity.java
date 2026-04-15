@@ -86,9 +86,9 @@ public class GatewayBlockEntity extends BlockEntity {
     }
 
     public void TriggerInitialIDUpdate(World world, BlockPos entryPortalPosition, RegistryKey<World> exitID) {
-        if (world.getBlockEntity(entryPortalPosition) instanceof GatewayBlockEntity DoorwayBlockEntity && !world.isClient) {
+        if (world.getBlockEntity(entryPortalPosition) instanceof GatewayBlockEntity gatewayBlockEntity && !world.isClient) {
             PocketDimensions.LOGGER.info("Created with ID \n" + exitID);
-            DoorwayBlockEntity.setPortalID(exitID);
+            gatewayBlockEntity.setPortalID(exitID);
             BlockPos exitPosition = new BlockPos(6, 148, 1);
             ServerWorld targetWorld = world.getServer().getWorld(exitID);
 

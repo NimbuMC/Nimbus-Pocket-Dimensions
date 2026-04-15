@@ -78,7 +78,6 @@ public class GatewayProjectileEntity extends ProjectileEntity {
                     }
                     //Find gateway material
                     Block doortype;
-                    System.out.println("THE VALUE ISSSSSSSSSSSS: "+comp.getGatewayMaterial());
                     switch (comp.getGatewayMaterial()){
                         case 0: doortype=ModBlocks.OAK_GATEWAY; break;
                         case 1: doortype=ModBlocks.SPRUCE_GATEWAY; break;
