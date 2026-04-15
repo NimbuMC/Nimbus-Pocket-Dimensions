@@ -165,7 +165,7 @@ public class DimensionCustomizerScreen extends HandledScreen<DimensionCustomizer
                 case 3: blockType=Blocks.JUNGLE_PLANKS; break;
                 case 4: blockType=Blocks.ACACIA_PLANKS; break;
                 case 5: blockType=Blocks.DARK_OAK_PLANKS; break;
-
+                case 6: blockType=Blocks.MANGROVE_PLANKS; break;
                 case 7: blockType=Blocks.CHERRY_PLANKS; break;
                 case 8: blockType=Blocks.CRIMSON_PLANKS; break;
                 case 9: blockType=Blocks.WARPED_PLANKS; break;

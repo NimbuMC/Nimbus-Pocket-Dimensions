@@ -85,7 +85,7 @@ public class GatewayProjectileEntity extends ProjectileEntity {
                         case 3: doortype=ModBlocks.JUNGLE_GATEWAY; break;
                         case 4: doortype=ModBlocks.ACACIA_GATEWAY; break;
                         case 5: doortype=ModBlocks.DARK_OAK_GATEWAY; break;
-
+                        case 6: doortype=ModBlocks.MANGROVE_GATEWAY; break;
                         case 7: doortype=ModBlocks.CHERRY_GATEWAY; break;
                         case 8: doortype=ModBlocks.CRIMSON_GATEWAY; break;
                         case 9: doortype=ModBlocks.WARPED_GATEWAY; break;
