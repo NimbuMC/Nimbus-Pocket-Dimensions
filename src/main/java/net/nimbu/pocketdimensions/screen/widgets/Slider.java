@@ -9,6 +9,9 @@ import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.text.Text;
 import org.lwjgl.glfw.GLFW;
 
+import java.util.List;
+import java.util.function.Consumer;
+
 import static net.nimbu.pocketdimensions.screen.custom.DimensionCustomizerScreen.SLIDER_KNOB;
 
 public class Slider extends ClickableWidget {
@@ -28,11 +31,12 @@ public class Slider extends ClickableWidget {
         this.max=max;
         this.value = initial;
         textBox = new TextFieldWidget(MinecraftClient.getInstance().textRenderer,
-                x + width,
-                y - 50,
-                16,
-                16,
-                Text.of("R"));
+                x + width+3,
+                y-11,
+                20,
+                17,
+                Text.of(initial+""));
+        textBox.setText(initial+"");
     }
 
 
@@ -61,7 +65,7 @@ public class Slider extends ClickableWidget {
         context.fill(
                 getX(),
                 getY() + 2,
-                getX() + width,
+                getX() + width-1,
                 getY() + 5,
                 0xFF404040
         );
@@ -104,5 +108,12 @@ public class Slider extends ClickableWidget {
 
     public void setVisibility(boolean visibility) {
         forEachChild(x -> x.visible = visibility);
+    }
+
+    @Override
+    public void forEachChild(Consumer<ClickableWidget> consumer) {
+        for (ClickableWidget child : List.of(this, textBox)) {
+            consumer.accept(child);
+        }
     }
 }

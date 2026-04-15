@@ -9,6 +9,8 @@ import net.minecraft.screen.Property;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.util.math.BlockPos;
 import net.nimbu.pocketdimensions.PocketDimensions;
+import net.nimbu.pocketdimensions.component.ModComponentInitializer;
+import net.nimbu.pocketdimensions.component.PlayerGatewayComponent;
 import net.nimbu.pocketdimensions.network.ClientPocketDimensionPersistentState;
 import net.nimbu.pocketdimensions.network.UpdateBiomePacket;
 import net.nimbu.pocketdimensions.screen.ModScreenHandlers;
@@ -106,6 +108,14 @@ public class DimensionCustomizerScreenHandler extends ScreenHandler {
 
         sendDynamicBiome(ClientPocketDimensionPersistentState.getDynamicBiomeEffects());
     }
+
+//    public void setPlayerGatewayMaterial(int material){
+//        //Record door material for future creation
+//        MinecraftClient client = MinecraftClient.getInstance();
+//        PlayerEntity player = client.player;
+//        PlayerGatewayComponent comp = ModComponentInitializer.PLAYER_GATEWAY_KEY.get(player);
+//        comp.setGatewayMaterial(material);
+//    }
 
 
     public static void sendDynamicBiome(DynamicBiomeEffects effects) {

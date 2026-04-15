@@ -1,6 +1,7 @@
 package net.nimbu.pocketdimensions.screen.custom;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.MinecraftClient;
@@ -9,6 +10,8 @@ import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.render.LightmapTextureManager;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.state.property.Properties;
 import net.minecraft.text.Text;
@@ -16,6 +19,9 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.RotationAxis;
 import net.nimbu.pocketdimensions.PocketDimensions;
 import net.nimbu.pocketdimensions.block.ModBlocks;
+import net.nimbu.pocketdimensions.component.ModComponentInitializer;
+import net.nimbu.pocketdimensions.component.PlayerGatewayComponent;
+import net.nimbu.pocketdimensions.network.GatewayMaterialPayload;
 import net.nimbu.pocketdimensions.screen.widgets.InvisibleButton;
 import net.nimbu.pocketdimensions.screen.widgets.RGBSliderGroup;
 import net.nimbu.pocketdimensions.screen.widgets.Slider;
@@ -54,7 +60,7 @@ public class DimensionCustomizerScreen extends HandledScreen<DimensionCustomizer
         waterSliders.forEachChild(this::addDrawableChild);
         fogSliders = new RGBSliderGroup(x + backgroundWidth - 101, y + 114, 89, 46, 5, 3, handler.getFogColour());
         fogSliders.forEachChild(this::addDrawableChild);
-        doorSlider = new Slider(x + backgroundWidth - 101, y + 130, 66, 46, Text.of("Door Material"), 5, 10);
+        doorSlider = new Slider(x + backgroundWidth - 114, y + 130, 68, 46, Text.of("Door Material"), 5, 10);
         doorSlider.forEachChild(this::addDrawableChild);
 
 
@@ -149,33 +155,32 @@ public class DimensionCustomizerScreen extends HandledScreen<DimensionCustomizer
         else if(leavesSliders.getVisibility()) {
             renderBlock(context, ModBlocks.GUI_OAK_LEAVES.getDefaultState(), 51, leavesColour[0], leavesColour[1], leavesColour[2]);
         }
-        else {
-            testSample(context, x + backgroundWidth - 70, y, 70, 70,
-                    0xFF000000 | (fogColour[0] << 16) | (fogColour[1] << 8) | fogColour[2],
-                    0xFF000000 | (waterColour[0] << 16) | (waterColour[1] << 8) | waterColour[2],
-                    0xFF000000 | ((waterColour[0] / 10) << 16) | ((waterColour[1] / 10) << 8) | (waterColour[2] / 10),
-                    0xFF000000 | (leavesColour[0] << 16) | (leavesColour[1] << 8) | leavesColour[2],
-                    0xFF000000 | (grassColour[0] << 16) | (grassColour[1] << 8) | grassColour[2]
-            );
-        }
-
-        //renderBlock(context, Blocks.OAK_LEAVES.getDefaultState(), x + 100,y, 100,colour[0], colour[1], colour[2]);
+        else if(doorSlider.getVisibility()){}
+//        else {
+//            testSample(context, x + backgroundWidth - 70, y, 70, 70,
+//                    0xFF000000 | (fogColour[0] << 16) | (fogColour[1] << 8) | fogColour[2],
+//                    0xFF000000 | (waterColour[0] << 16) | (waterColour[1] << 8) | waterColour[2],
+//                    0xFF000000 | ((waterColour[0] / 10) << 16) | ((waterColour[1] / 10) << 8) | (waterColour[2] / 10),
+//                    0xFF000000 | (leavesColour[0] << 16) | (leavesColour[1] << 8) | leavesColour[2],
+//                    0xFF000000 | (grassColour[0] << 16) | (grassColour[1] << 8) | grassColour[2]
+//            );
+//        }
     }
 
     @Override
     protected void drawForeground(DrawContext context, int mouseX, int mouseY) {
     }
 
-    private void testSample(DrawContext context, int x, int y, int width, int height, int C1, int C2,int C3,int C4,int C5) {
-
-        int widthPer = width/5;
-
-        context.fill(x, y, x + widthPer, y + height, C1);
-        context.fill(x + widthPer, y, x + 2 * widthPer, y + height, C2);
-        context.fill(x + 2 * widthPer, y, x + 3 * widthPer, y + height, C3);
-        context.fill(x + 3 * widthPer, y, x + 4 * widthPer, y + height, C4);
-        context.fill(x + 4 * widthPer, y, x + 5 * widthPer, y + height, C5);
-    }
+//    private void testSample(DrawContext context, int x, int y, int width, int height, int C1, int C2,int C3,int C4,int C5) {
+//
+//        int widthPer = width/5;
+//
+//        context.fill(x, y, x + widthPer, y + height, C1);
+//        context.fill(x + widthPer, y, x + 2 * widthPer, y + height, C2);
+//        context.fill(x + 2 * widthPer, y, x + 3 * widthPer, y + height, C3);
+//        context.fill(x + 3 * widthPer, y, x + 4 * widthPer, y + height, C4);
+//        context.fill(x + 4 * widthPer, y, x + 5 * widthPer, y + height, C5);
+//    }
 
     private void renderBlock(
             DrawContext context,
@@ -253,6 +258,13 @@ public class DimensionCustomizerScreen extends HandledScreen<DimensionCustomizer
                 waterColour[0] / 10, waterColour[1] / 10, waterColour[2] / 10,
                 foliageColour[0], foliageColour[1], foliageColour[2],
                 grassColour[0], grassColour[1], grassColour[2]);
+        //handler.setPlayerGatewayMaterial(doorSlider.getValue());
+
+        int material = doorSlider.getValue();
+
+        ClientPlayNetworking.send(
+                new GatewayMaterialPayload(doorSlider.getValue())
+        );
     }
 
 }

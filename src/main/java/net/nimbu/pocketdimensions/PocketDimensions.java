@@ -5,9 +5,12 @@ import net.fabricmc.fabric.api.entity.event.v1.ServerEntityWorldChangeEvents;
 import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.nimbu.pocketdimensions.block.ModBlocks;
 import net.nimbu.pocketdimensions.block.entity.ModBlockEntityTypes;
+import net.nimbu.pocketdimensions.component.ModComponentInitializer;
+import net.nimbu.pocketdimensions.component.PlayerGatewayComponent;
 import net.nimbu.pocketdimensions.entity.ModEntities;
 import net.nimbu.pocketdimensions.item.ModItemGroups;
 import net.nimbu.pocketdimensions.item.ModItems;
@@ -43,6 +46,10 @@ public class PocketDimensions implements ModInitializer {
 		PayloadTypeRegistry.playC2S().register(
 				UpdateBiomePacket.ID,
 				UpdateBiomePacket.CODEC
+		);
+		PayloadTypeRegistry.playC2S().register(
+				GatewayMaterialPayload.ID,
+				GatewayMaterialPayload.CODEC
 		);
 
 		ModItemGroups.registerItemGroups();
@@ -84,6 +91,21 @@ public class PocketDimensions implements ModInitializer {
 				(oldPlayer, newPlayer, alive) -> {
 					PocketDimensionSync.sync(newPlayer.getServerWorld(), newPlayer);
 					PocketDimensionSync.syncDynamicBiome(newPlayer.getServerWorld(), newPlayer);
+				}
+		);
+
+		ServerPlayNetworking.registerGlobalReceiver(
+				GatewayMaterialPayload.ID,
+				(payload, context) -> {
+
+					ServerPlayerEntity player = context.player();
+
+					context.server().execute(() -> {
+						PlayerGatewayComponent comp =
+								ModComponentInitializer.PLAYER_GATEWAY_KEY.get(player);
+
+						comp.setGatewayMaterial(payload.material());
+					});
 				}
 		);
 	}
