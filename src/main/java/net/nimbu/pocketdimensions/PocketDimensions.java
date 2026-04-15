@@ -6,8 +6,15 @@ import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.enums.DoubleBlockHalf;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.nimbu.pocketdimensions.block.ModBlocks;
+import net.nimbu.pocketdimensions.block.custom.GatewayBlock;
 import net.nimbu.pocketdimensions.block.entity.ModBlockEntityTypes;
 import net.nimbu.pocketdimensions.component.ModComponentInitializer;
 import net.nimbu.pocketdimensions.component.PlayerGatewayComponent;
@@ -102,12 +109,41 @@ public class PocketDimensions implements ModInitializer {
 					ServerPlayerEntity player = context.player();
 
 					context.server().execute(() -> {
+						//Save material type to player
 						PlayerGatewayComponent comp =
 								ModComponentInitializer.PLAYER_GATEWAY_KEY.get(player);
 
 						comp.setGatewayMaterial(payload.material());
 
 						ModComponentInitializer.PLAYER_GATEWAY_KEY.sync(player);
+
+						//Update material type in pocket dimension
+						ServerWorld world = player.getServerWorld();
+
+						BlockPos pos = new BlockPos(6,148,2); //block position to override;
+						Block doortype;
+						switch (comp.getGatewayMaterial()){
+							case 1: doortype=ModBlocks.OAK_GATEWAY; break;
+							case 2: doortype=ModBlocks.SPRUCE_GATEWAY; break;
+							case 3: doortype=ModBlocks.BIRCH_GATEWAY; break;
+							case 4: doortype=ModBlocks.JUNGLE_GATEWAY; break;
+							case 5: doortype=ModBlocks.ACACIA_GATEWAY; break;
+							//case 6: doortype=ModBlocks.DARK_OAK_GATEWAY; break;   //unneeded
+							case 7: doortype=ModBlocks.MANGROVE_GATEWAY; break;
+							case 8: doortype=ModBlocks.CHERRY_GATEWAY; break;
+							case 9: doortype=ModBlocks.CRIMSON_GATEWAY; break;
+							case 10: doortype=ModBlocks.WARPED_GATEWAY; break;
+							default: doortype=ModBlocks.DARK_OAK_GATEWAY; break;
+						}
+
+
+						//TODO: sometimes doesn't update right and appears invisible.... but it ain't that deep... probably
+						BlockState lower = doortype.getDefaultState()
+								.with(GatewayBlock.FACING, Direction.SOUTH);
+						BlockState upper = lower.with(GatewayBlock.HALF, DoubleBlockHalf.UPPER);
+
+						world.setBlockState(pos, lower, Block.NOTIFY_ALL);
+						world.setBlockState(pos.up(), upper, Block.NOTIFY_ALL);
 					});
 				}
 		);

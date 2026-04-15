@@ -79,16 +79,16 @@ public class GatewayProjectileEntity extends ProjectileEntity {
                     //Find gateway material
                     Block doortype;
                     switch (comp.getGatewayMaterial()){
-                        case 0: doortype=ModBlocks.OAK_GATEWAY; break;
-                        case 1: doortype=ModBlocks.SPRUCE_GATEWAY; break;
-                        case 2: doortype=ModBlocks.BIRCH_GATEWAY; break;
-                        case 3: doortype=ModBlocks.JUNGLE_GATEWAY; break;
-                        case 4: doortype=ModBlocks.ACACIA_GATEWAY; break;
-                        case 5: doortype=ModBlocks.DARK_OAK_GATEWAY; break;
-                        case 6: doortype=ModBlocks.MANGROVE_GATEWAY; break;
-                        case 7: doortype=ModBlocks.CHERRY_GATEWAY; break;
-                        case 8: doortype=ModBlocks.CRIMSON_GATEWAY; break;
-                        case 9: doortype=ModBlocks.WARPED_GATEWAY; break;
+                        case 1: doortype=ModBlocks.OAK_GATEWAY; break;
+                        case 2: doortype=ModBlocks.SPRUCE_GATEWAY; break;
+                        case 3: doortype=ModBlocks.BIRCH_GATEWAY; break;
+                        case 4: doortype=ModBlocks.JUNGLE_GATEWAY; break;
+                        case 5: doortype=ModBlocks.ACACIA_GATEWAY; break;
+                        //case 6: doortype=ModBlocks.DARK_OAK_GATEWAY; break;  //unneeded
+                        case 7: doortype=ModBlocks.MANGROVE_GATEWAY; break;
+                        case 8: doortype=ModBlocks.CHERRY_GATEWAY; break;
+                        case 9: doortype=ModBlocks.CRIMSON_GATEWAY; break;
+                        case 10: doortype=ModBlocks.WARPED_GATEWAY; break;
                         default: doortype=ModBlocks.DARK_OAK_GATEWAY; break;
                     }
                     world.setBlockState(bottomHalf, doortype.getDefaultState().with(FACING, direction));

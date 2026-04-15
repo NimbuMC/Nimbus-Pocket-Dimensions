@@ -16,7 +16,7 @@ import static net.nimbu.pocketdimensions.screen.custom.DimensionCustomizerScreen
 
 public class Slider extends ClickableWidget {
 
-    private final int min = 0;
+    private final int min = 1;
     private final int max;
     private int value;
     private boolean mouseEnteredWithClick;
