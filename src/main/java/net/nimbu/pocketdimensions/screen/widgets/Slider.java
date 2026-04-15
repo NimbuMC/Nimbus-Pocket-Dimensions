@@ -23,7 +23,7 @@ public class Slider extends ClickableWidget {
     private boolean mouseOutLastFrame;
     private boolean held;
     private final Text name;
-    private TextFieldWidget textBox;
+    private final TextFieldWidget textBox;
 
     public Slider(int x, int y, int width, int height, Text objName, int initial, int max) {
         super(x, y, width, height, Text.empty());
