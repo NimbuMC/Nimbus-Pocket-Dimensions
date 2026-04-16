@@ -15,7 +15,7 @@ public class PlayerGatewayComponentImpl implements PlayerGatewayComponent, Respa
 
     private BlockPos pos;
     private RegistryKey<World> dim;
-    private int material;
+    private int material = 6;
 
     @Override
     public BlockPos getGatewayPos() {return pos;}

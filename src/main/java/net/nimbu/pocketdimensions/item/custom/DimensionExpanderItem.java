@@ -43,11 +43,11 @@ public class DimensionExpanderItem extends Item {
 
             if (!world.isClient) {
                 PocketDimensionBorderRenderer.expansionModeActive = true;
-                renderReticle(world,player);
+                renderReticle(player);
             }
         }
         else{
-            cancelRenderReticle(world, player);
+            cancelRenderReticle();
         }
     }
 
@@ -95,7 +95,7 @@ public class DimensionExpanderItem extends Item {
 
     }
 
-    public void renderReticle(World world, PlayerEntity user) {
+    public void renderReticle(PlayerEntity user) {
             if (raycastCooldown-- <= 0) {
                 BlockPos hit = raycastRoomFace(user);
                 if(hit != null) {
@@ -109,7 +109,7 @@ public class DimensionExpanderItem extends Item {
             PocketDimensionBorderRenderer.expansionModeActive = true;
     }
 
-    public void cancelRenderReticle(World world, PlayerEntity user) {
+    public void cancelRenderReticle() {
         PocketDimensionBorderRenderer.expansionValid = false;
         PocketDimensionBorderRenderer.expansionModeActive = false;
     }
