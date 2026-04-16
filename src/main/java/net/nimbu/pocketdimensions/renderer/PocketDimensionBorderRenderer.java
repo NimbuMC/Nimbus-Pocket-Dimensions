@@ -1,5 +1,6 @@
 package net.nimbu.pocketdimensions.renderer;
 
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
 import net.fabricmc.fabric.api.client.rendering.v1.CoreShaderRegistrationCallback;
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderContext;
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
@@ -38,11 +39,10 @@ public class PocketDimensionBorderRenderer {
             );
         });
 
-        WorldRenderEvents.END.register(ctx -> {
-            if (MinecraftClient.getInstance().world == null) {
-                expansionModeActive = false;
-                expansionModePosition = null;
-            }
+        ClientPlayConnectionEvents.JOIN.register((handler, sender, client) -> {
+            expansionModeActive = false;
+            expansionModePosition = null;
+            expansionValid = true;
         });
         WorldRenderEvents.AFTER_ENTITIES.register(PocketDimensionBorderRenderer::render);
     }
@@ -314,11 +314,6 @@ public class PocketDimensionBorderRenderer {
                 }
             }
             matrices.pop();
-//            matrices.translate(
-//                    -(expansionModePosition.getX() * BorderLength),
-//                    -(expansionModePosition.getY() * BorderHeight - 7),
-//                    -(expansionModePosition.getZ() * BorderLength)
-//            );
         }
         matrices.translate(cam.x, cam.y, cam.z);
         consumers.draw();
