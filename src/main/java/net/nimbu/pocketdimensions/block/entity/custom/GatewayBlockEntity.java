@@ -5,8 +5,6 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.enums.DoubleBlockHalf;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtHelper;
 import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
@@ -20,11 +18,8 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.nimbu.pocketdimensions.PocketDimensions;
-import net.nimbu.pocketdimensions.block.ModBlocks;
 import net.nimbu.pocketdimensions.block.custom.GatewayBlock;
 import net.nimbu.pocketdimensions.block.entity.ModBlockEntityTypes;
-import net.nimbu.pocketdimensions.component.ModComponentInitializer;
-import net.nimbu.pocketdimensions.component.PlayerGatewayComponent;
 import net.nimbu.pocketdimensions.network.ClientPocketDimensionPersistentState;
 import net.nimbu.pocketdimensions.renderer.PocketDimensionBorderRenderer;
 import org.jetbrains.annotations.Nullable;
@@ -184,11 +179,11 @@ public class GatewayBlockEntity extends BlockEntity {
     }
 
 
-    public RegistryKey<World> GetExitDimension() {
+    public RegistryKey<World> getExitDimension() {
         return exitDimension;
     }
 
-    public BlockPos getExitBlock() {
+    public BlockPos getExitBlockPos() {
         return exitPortalPos;
     }
 

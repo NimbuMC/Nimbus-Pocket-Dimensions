@@ -1,5 +1,5 @@
 {
-	"parent": "pocketdimensions:block/gateway_top",
+	"parent": "pocketdimensions:block/gateway_top_exit",
 	"texture_size": [128, 128],
 	"textures": {
 		"0": "pocketdimensions:block/warped_gateway",

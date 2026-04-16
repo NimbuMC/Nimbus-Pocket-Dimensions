@@ -248,10 +248,10 @@ public class GatewayBlock extends BlockWithEntity implements Portal {
         ServerWorld serverWorld = null;
         if (world.getBlockEntity(pos) instanceof GatewayBlockEntity gatewayBlockEntity) {
             PocketDimensions.LOGGER.info("FoundBlockEntity");
-            RegistryKey<World> registryKey = gatewayBlockEntity.GetExitDimension();
+            RegistryKey<World> registryKey = gatewayBlockEntity.getExitDimension();
 
             serverWorld = world.getServer().getWorld(registryKey);
-            exitBlock = gatewayBlockEntity.getExitBlock();
+            exitBlock = gatewayBlockEntity.getExitBlockPos();
             BlockState blockState = serverWorld.getBlockState(exitBlock);
 
             Direction exitDirection = Direction.NORTH;
@@ -261,7 +261,7 @@ public class GatewayBlock extends BlockWithEntity implements Portal {
             }
 
             if (registryKey != null) {
-                PocketDimensions.LOGGER.info("exitDimension of " + gatewayBlockEntity.GetExitDimension());
+                PocketDimensions.LOGGER.info("exitDimension of " + gatewayBlockEntity.getExitDimension());
                 exitPos = gatewayBlockEntity.getExitPosition(exitDirection);
                 PocketDimensions.LOGGER.info("exitPos of " + exitPos);
             }
