@@ -1,6 +1,6 @@
 {
-  "vertex": "pocketdimensions:farViewBorder",
-  "fragment": "pocketdimensions:farViewBorder",
+  "vertex": "pocketdimensions:far_view_border",
+  "fragment": "pocketdimensions:far_view_border",
   "attributes": [
     "Position",
     "Normal",

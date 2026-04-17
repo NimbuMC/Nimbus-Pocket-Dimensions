@@ -3,7 +3,7 @@
 	"id": "pocketdimensions",
 	"version": "${version}",
 	"name": "Pocket Dimensions",
-	"description": ".",
+	"description": "A mod that adds simple, customizable pocket dimensions that can be accessed from anywhere.",
 	"authors": [
 		"Nimbu"
 	],
@@ -38,7 +38,8 @@
 		"fabric-api": "*",
 		"fabric-key-binding-api-v1": "*",
 		"cardinal-components-base": "*",
-		"cardinal-components-entity": ">=6.1.0"
+		"cardinal-components-entity": ">=6.1.0",
+		"dimlib": ">=1.1.0"
 	},
 	"custom": {
 		"cardinal-components": [
