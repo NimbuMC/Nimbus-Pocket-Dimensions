@@ -27,18 +27,10 @@ public class DimensionCustomizerScreenHandler extends ScreenHandler {
     }
 
 
-    public void setBiomeColours(int fogR, int fogG, int fogB,
-                             int waterR, int waterG, int waterB,
-                             int waterFogR, int waterFogG, int waterFogB,
-                             int foliageR, int foliageG, int foliageB,
-                             int grassR, int grassG, int grassB) {
+    public void setBiomeColours(int fogColour, int skyColour, int waterColour, int waterFogColour, int foliageColour, int grassColour) {
 
-        int fogColour = (fogR << 16) | (fogG << 8) | fogB;
-        int waterColour = (waterR << 16) | (waterG << 8) | waterB;
-        int waterFogColour = (waterFogR << 16) | (waterFogG << 8) | waterFogB;
-        int foliageColour = (foliageR << 16) | (foliageG << 8) | foliageB;
-        int grassColour = (grassR << 16) | (grassG << 8) | grassB;
         ClientPocketDimensionPersistentState.getDynamicBiomeEffects().setFogColor(fogColour);
+        ClientPocketDimensionPersistentState.getDynamicBiomeEffects().setSkyColor(skyColour);
         ClientPocketDimensionPersistentState.getDynamicBiomeEffects().setWaterColor(waterColour);
         ClientPocketDimensionPersistentState.getDynamicBiomeEffects().setWaterFogColor(waterFogColour);
         ClientPocketDimensionPersistentState.getDynamicBiomeEffects().setFoliageColor(Optional.of(foliageColour));
@@ -58,11 +50,11 @@ public class DimensionCustomizerScreenHandler extends ScreenHandler {
         ClientPlayNetworking.send(new UpdateBiomePacket(effects));
     }
 
-    public int[] getFogColour() {
+    public int[] getSkyColour() {
         DynamicBiomeEffects fx = ClientPocketDimensionPersistentState.getDynamicBiomeEffects();
-        int R = ((fx.getFogColor() >> 16) & 0xFF);
-        int G = ((fx.getFogColor() >> 8) & 0xFF);
-        int B = (fx.getFogColor() & 0xFF);
+        int R = ((fx.getSkyColor() >> 16) & 0xFF);
+        int G = ((fx.getSkyColor() >> 8) & 0xFF);
+        int B = (fx.getSkyColor() & 0xFF);
         return new int[]{R, G, B};
     }
 

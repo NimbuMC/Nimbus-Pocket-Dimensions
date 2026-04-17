@@ -54,33 +54,6 @@ import java.util.Optional;
         }
     }
 
-//    @Inject(method = "getFoliageColor", at = @At("HEAD"), cancellable = true)
-//    public void getDynamicBiomeFoliageColor(CallbackInfoReturnable<Optional<Integer>> cir)
-//    {
-//        if(ClientPocketDimensionPersistentState.isClientInPocketDimension())
-//        {
-//            cir.setReturnValue(ClientPocketDimensionPersistentState.getDynamicBiomeEffects().getFoliageColor());
-//        }
-//    }
-//
-//    @Inject(method = "getGrassColor", at = @At("HEAD"), cancellable = true)
-//    public void getDynamicBiomeGrassColor(CallbackInfoReturnable<Optional<Integer>> cir)
-//    {
-//        if(ClientPocketDimensionPersistentState.isClientInPocketDimension())
-//        {
-//            cir.setReturnValue(ClientPocketDimensionPersistentState.getDynamicBiomeEffects().getGrassColor());
-//        }
-//    }
-//
-//    @Inject(method = "getGrassColorModifier", at = @At("HEAD"), cancellable = true)
-//    public void getDynamicBiomeGrassColorModifier(CallbackInfoReturnable<BiomeEffects.GrassColorModifier> cir)
-//    {
-//        if(ClientPocketDimensionPersistentState.isClientInPocketDimension())
-//        {
-//            cir.setReturnValue(BiomeEffects.GrassColorModifier.NONE);
-//        }
-//    }
-
     @Inject(method = "getParticleConfig", at = @At("HEAD"), cancellable = true)
     public void getDynamicBiomeParticleConfig(CallbackInfoReturnable<Optional<BiomeParticleConfig>> cir)
     {

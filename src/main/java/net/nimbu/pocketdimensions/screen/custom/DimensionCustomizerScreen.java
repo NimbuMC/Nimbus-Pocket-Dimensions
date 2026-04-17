@@ -11,17 +11,14 @@ import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.render.LightmapTextureManager;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.state.property.Properties;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.RotationAxis;
 import net.nimbu.pocketdimensions.PocketDimensions;
 import net.nimbu.pocketdimensions.block.ModBlocks;
 import net.nimbu.pocketdimensions.component.ModComponentInitializer;
-import net.nimbu.pocketdimensions.component.PlayerGatewayComponent;
 import net.nimbu.pocketdimensions.network.GatewayMaterialPayload;
 import net.nimbu.pocketdimensions.screen.widgets.InvisibleButton;
 import net.nimbu.pocketdimensions.screen.widgets.RGBSliderGroup;
@@ -43,7 +40,7 @@ public class DimensionCustomizerScreen extends HandledScreen<DimensionCustomizer
     private RGBSliderGroup grassSliders;
     private RGBSliderGroup leavesSliders;
     private RGBSliderGroup waterSliders;
-    private RGBSliderGroup fogSliders;
+    private RGBSliderGroup skySliders;
     private Slider doorSlider;
 
     public DimensionCustomizerScreen(DimensionCustomizerScreenHandler handler, PlayerInventory inventory, Text title) {
@@ -63,8 +60,8 @@ public class DimensionCustomizerScreen extends HandledScreen<DimensionCustomizer
         leavesSliders.forEachChild(this::addDrawableChild);
         waterSliders = new RGBSliderGroup(x + backgroundWidth - 101, y + 114, 89, 46, 5, 3, handler.getWaterColour());
         waterSliders.forEachChild(this::addDrawableChild);
-        fogSliders = new RGBSliderGroup(x + backgroundWidth - 101, y + 114, 89, 46, 5, 3, handler.getFogColour());
-        fogSliders.forEachChild(this::addDrawableChild);
+        skySliders = new RGBSliderGroup(x + backgroundWidth - 101, y + 114, 89, 46, 5, 3, handler.getSkyColour());
+        skySliders.forEachChild(this::addDrawableChild);
         doorSlider = new Slider(x + backgroundWidth - 113, y + 130, 68, 46, Text.of("Door Material"), ModComponentInitializer.PLAYER_GATEWAY_KEY.get(player).getGatewayMaterial(), 10);
         doorSlider.forEachChild(this::addDrawableChild);
 
@@ -75,7 +72,7 @@ public class DimensionCustomizerScreen extends HandledScreen<DimensionCustomizer
                     grassSliders.setVisibility(true);
                     leavesSliders.setVisibility(false);
                     waterSliders.setVisibility(false);
-                    fogSliders.setVisibility(false);
+                    skySliders.setVisibility(false);
                     doorSlider.setVisibility(false);
                 }
         ).dimensions(x+1, y + 7, 46, 17).build();
@@ -87,7 +84,7 @@ public class DimensionCustomizerScreen extends HandledScreen<DimensionCustomizer
                     grassSliders.setVisibility(false);
                     leavesSliders.setVisibility(true);
                     waterSliders.setVisibility(false);
-                    fogSliders.setVisibility(false);
+                    skySliders.setVisibility(false);
                     doorSlider.setVisibility(false);
                 }
         ).dimensions(x + 1, y + 24, 46, 17).build();
@@ -99,23 +96,23 @@ public class DimensionCustomizerScreen extends HandledScreen<DimensionCustomizer
                     grassSliders.setVisibility(false);
                     leavesSliders.setVisibility(false);
                     waterSliders.setVisibility(true);
-                    fogSliders.setVisibility(false);
+                    skySliders.setVisibility(false);
                     doorSlider.setVisibility(false);
                 }
         ).dimensions(x + 1, y + 41, 46, 17).build();
         addDrawableChild(waterMenuButton);
 
-        InvisibleButton fogMenuButton = InvisibleButton.builder(
+        InvisibleButton skyMenuButton = InvisibleButton.builder(
                 Text.literal("Fog colour"),
                 button -> {
                     grassSliders.setVisibility(false);
                     leavesSliders.setVisibility(false);
                     waterSliders.setVisibility(false);
-                    fogSliders.setVisibility(true);
+                    skySliders.setVisibility(true);
                     doorSlider.setVisibility(false);
                 }
         ).dimensions(x + 1, y + 75, 46, 17).build();
-        addDrawableChild(fogMenuButton);
+        addDrawableChild(skyMenuButton);
 
         InvisibleButton doorMenuButton = InvisibleButton.builder(
                 Text.literal("Door material"),
@@ -123,7 +120,7 @@ public class DimensionCustomizerScreen extends HandledScreen<DimensionCustomizer
                     grassSliders.setVisibility(false);
                     leavesSliders.setVisibility(false);
                     waterSliders.setVisibility(false);
-                    fogSliders.setVisibility(false);
+                    skySliders.setVisibility(false);
                     doorSlider.setVisibility(true);
                 }
         ).dimensions(x + 1, y + 126, 46, 17).build();
@@ -132,7 +129,7 @@ public class DimensionCustomizerScreen extends HandledScreen<DimensionCustomizer
         grassSliders.setVisibility(true);
         leavesSliders.setVisibility(false);
         waterSliders.setVisibility(false);
-        fogSliders.setVisibility(false);
+        skySliders.setVisibility(false);
         doorSlider.setVisibility(false);
     }
 
@@ -142,7 +139,7 @@ public class DimensionCustomizerScreen extends HandledScreen<DimensionCustomizer
 
 
 
-        int[] fogColour = fogSliders.getColour();
+        int[] skyColour = skySliders.getColour();
         int[] waterColour = waterSliders.getColour();
         int[] leavesColour = leavesSliders.getColour();
         int[] grassColour = grassSliders.getColour();
@@ -151,8 +148,8 @@ public class DimensionCustomizerScreen extends HandledScreen<DimensionCustomizer
             renderBlock(context, Blocks.DIRT.getDefaultState(),51, 255, 255, 255);
             renderBlock(context, ModBlocks.GUI_GRASS.getDefaultState(), 51, grassColour[0], grassColour[1], grassColour[2]);
         }
-        else if(fogSliders.getVisibility()) {
-            renderBlock(context, Blocks.WHITE_STAINED_GLASS.getDefaultState(), 51, fogColour[0], fogColour[1], fogColour[2]);
+        else if(skySliders.getVisibility()) {
+            renderBlock(context, Blocks.WHITE_STAINED_GLASS.getDefaultState(), 51, skyColour[0], skyColour[1], skyColour[2]);
         }
         else if(waterSliders.getVisibility()) {
             renderBlock(context, ModBlocks.GUI_WATER.getDefaultState(), 51, waterColour[0], waterColour[1], waterColour[2]);
@@ -168,7 +165,7 @@ public class DimensionCustomizerScreen extends HandledScreen<DimensionCustomizer
                 case 3: blockType=Blocks.BIRCH_PLANKS; break;
                 case 4: blockType=Blocks.JUNGLE_PLANKS; break;
                 case 5: blockType=Blocks.ACACIA_PLANKS; break;
-                case 6: blockType=Blocks.DARK_OAK_PLANKS; break;
+                //case 6: blockType=Blocks.DARK_OAK_PLANKS; break;
                 case 7: blockType=Blocks.MANGROVE_PLANKS; break;
                 case 8: blockType=Blocks.CHERRY_PLANKS; break;
                 case 9: blockType=Blocks.CRIMSON_PLANKS; break;
@@ -258,7 +255,7 @@ public class DimensionCustomizerScreen extends HandledScreen<DimensionCustomizer
         if(grassSliders.getVisibility()){context.drawTexture(BACKGROUND_0, x,y,0,0, 256, 256);}
         if(leavesSliders.getVisibility()){context.drawTexture(BACKGROUND_1, x,y,0,0, 256, 256);}
         if(waterSliders.getVisibility()){context.drawTexture(BACKGROUND_2, x,y,0,0, 256, 256);}
-        if(fogSliders.getVisibility()){context.drawTexture(BACKGROUND_4, x,y,0,0, 256, 256);}
+        if(skySliders.getVisibility()){context.drawTexture(BACKGROUND_4, x,y,0,0, 256, 256);}
         if(doorSlider.getVisibility()){context.drawTexture(BACKGROUND_7, x,y,0,0, 256, 256);}
 
     }
@@ -270,16 +267,23 @@ public class DimensionCustomizerScreen extends HandledScreen<DimensionCustomizer
     }
 
     private void applyChanges() {
-        int[] fogColour = fogSliders.getColour();
+        int[] fogColour = skySliders.getColour();
         int[] waterColour = waterSliders.getColour();
         int[] foliageColour = leavesSliders.getColour();
         int[] grassColour = grassSliders.getColour();
+
+        int lighten = 40; //lighten fog uniformly for all colours
+        int fogHex = (Math.min(255, fogColour[0] + lighten) << 16)
+                | (Math.min(255, fogColour[1] + lighten) << 8)
+                |  (Math.min(255, fogColour[2] + lighten));
+        int skyHex = (fogColour[0] << 16) | (fogColour[1] << 8) | fogColour[2];
+        int waterHex = (waterColour[0] << 16) | (waterColour[1] << 8) | waterColour[2];
+        int waterFogHex = (waterColour[0] / 10 << 16) | (waterColour[1] / 10 << 8) | waterColour[2] / 10;
+        int foliageHex = (foliageColour[0] << 16) | (foliageColour[1] << 8) | foliageColour[2];
+        int grassHex = (grassColour[0] << 16) | (grassColour[1] << 8) | grassColour[2];
+
         handler.setBiomeColours(
-                fogColour[0], fogColour[1], fogColour[2],
-                waterColour[0], waterColour[1], waterColour[2],
-                waterColour[0] / 10, waterColour[1] / 10, waterColour[2] / 10,
-                foliageColour[0], foliageColour[1], foliageColour[2],
-                grassColour[0], grassColour[1], grassColour[2]);
+                fogHex, skyHex, waterHex, waterFogHex, foliageHex, grassHex);
 
         ClientPlayNetworking.send(
                 new GatewayMaterialPayload(doorSlider.getValue())

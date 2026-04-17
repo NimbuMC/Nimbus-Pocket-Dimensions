@@ -6,9 +6,12 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.TypedActionResult;
@@ -18,6 +21,8 @@ import net.minecraft.world.World;
 import net.nimbu.pocketdimensions.PocketDimensions;
 import net.nimbu.pocketdimensions.network.ClientPocketDimensionPersistentState;
 import net.nimbu.pocketdimensions.renderer.PocketDimensionBorderRenderer;
+
+import java.util.List;
 
 import static net.nimbu.pocketdimensions.renderer.PocketDimensionBorderRenderer.BorderHeight;
 import static net.nimbu.pocketdimensions.renderer.PocketDimensionBorderRenderer.BorderLength;
@@ -163,5 +168,8 @@ public class DimensionExpanderItem extends Item {
 
     private double fract(double k){return k - Math.floor(k);}
 
-
+    @Override
+    public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
+        tooltip.add(Text.literal("Expands the size of a pocket dimension").formatted(Formatting.GRAY));
+    }
 }
