@@ -33,7 +33,7 @@ public class PocketDimensionBorderRenderer {
         });
         CoreShaderRegistrationCallback.EVENT.register(ctx -> {
             ctx.register(
-                    Identifier.of(PocketDimensions.MOD_ID, "farViewBorder"),
+                    Identifier.of(PocketDimensions.MOD_ID, "far_view_border"),
                     VertexFormats.POSITION_COLOR_TEXTURE_LIGHT_NORMAL,
                     shader -> FAR_BORDER_SHADER = shader
             );

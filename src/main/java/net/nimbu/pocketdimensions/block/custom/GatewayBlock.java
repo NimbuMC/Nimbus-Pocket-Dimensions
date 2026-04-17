@@ -1,6 +1,7 @@
 package net.nimbu.pocketdimensions.block.custom;
 
 import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
@@ -42,7 +43,12 @@ import net.nimbu.pocketdimensions.block.entity.custom.GatewayBlockEntity;
 import org.jetbrains.annotations.Nullable;
 
 public class GatewayBlock extends BlockWithEntity implements Portal {
-    public static final MapCodec<GatewayBlock> CODEC = createCodec(GatewayBlock::new);
+    public static final MapCodec<GatewayBlock> CODEC = RecordCodecBuilder.mapCodec(instance ->
+            instance.group(
+                    createSettingsCodec(),
+                    BlockSetType.CODEC.fieldOf("block_set_type").forGetter(block -> block.blockSetType)
+            ).apply(instance, GatewayBlock::new)
+    );
     public static final DirectionProperty FACING = Properties.HORIZONTAL_FACING;
     public static final BooleanProperty OPEN = Properties.OPEN;
     public static final EnumProperty<DoubleBlockHalf> HALF = Properties.DOUBLE_BLOCK_HALF;
@@ -53,8 +59,10 @@ public class GatewayBlock extends BlockWithEntity implements Portal {
     private static final VoxelShape Z_SHAPE = Block.createCuboidShape(
             6.0, 0.0, 0.0,
             10.0, 16.0, 16.0);
+    private final BlockSetType blockSetType;
 
-    public GatewayBlock(Settings settings) {
+
+    public GatewayBlock(Settings settings, BlockSetType type) {
         super(settings);
         this.setDefaultState(
                 this.stateManager
@@ -65,6 +73,7 @@ public class GatewayBlock extends BlockWithEntity implements Portal {
                         .with(EXIT, false) //if it leads back to the entrance portal
         );
 
+        this.blockSetType=type;
     }
 
     @Override
@@ -92,9 +101,7 @@ public class GatewayBlock extends BlockWithEntity implements Portal {
             state = state.cycle(OPEN);
             world.setBlockState(pos, state, Block.NOTIFY_LISTENERS | Block.REDRAW_ON_MAIN_THREAD);
             world.playSound(null, pos, SoundEvents.BLOCK_CHERRY_WOOD_DOOR_OPEN, SoundCategory.BLOCKS);
-            //TODO: do a proper sound system, same way doors are done
-            //this.playOpenCloseSound(player, world, pos, (Boolean)state.get(OPEN));
-            //world.emitGameEvent(player, this.isOpen(state) ? GameEvent.BLOCK_OPEN : GameEvent.BLOCK_CLOSE, pos);
+            this.playOpenCloseSound(player, world, pos, state.get(OPEN));
             return ActionResult.success(world.isClient);
         }
         return ActionResult.PASS;
@@ -417,5 +424,9 @@ public class GatewayBlock extends BlockWithEntity implements Portal {
         double z1 = (minX - 8) * sin + (minZ - 8) * cos + 8;
         double z2 = (maxX - 8) * sin + (maxZ - 8) * cos + 8;
         return Block.createCuboidShape(Math.min(x1, x2), minY, Math.min(z1, z2), Math.max(x1, x2), maxY, Math.max(z1, z2));
+    }
+
+    private void playOpenCloseSound(@Nullable Entity entity, World world, BlockPos pos, boolean open) {
+        world.playSound(entity, pos, open ? this.blockSetType.doorOpen() : this.blockSetType.doorClose(), SoundCategory.BLOCKS, 1.0F, world.getRandom().nextFloat() * 0.1F + 0.9F);
     }
 }

@@ -26,7 +26,6 @@ import net.nimbu.pocketdimensions.screen.widgets.Slider;
 
 public class DimensionCustomizerScreen extends HandledScreen<DimensionCustomizerScreenHandler> {
 
-    public static final Identifier SLIDER_BAR = Identifier.of(PocketDimensions.MOD_ID, "textures/gui/widgets/slider_bar.png");
     public static final Identifier SLIDER_KNOB = Identifier.of(PocketDimensions.MOD_ID, "textures/gui/widgets/slider_knob.png");
     public static final Identifier BACKGROUND = Identifier.of(PocketDimensions.MOD_ID, "textures/gui/pocket_dimension_customizer/pocket_dimension_customizer.png");
     public static final Identifier BACKGROUND_0 = Identifier.of(PocketDimensions.MOD_ID, "textures/gui/pocket_dimension_customizer/pocket_dimension_customizer_0.png");
@@ -34,9 +33,6 @@ public class DimensionCustomizerScreen extends HandledScreen<DimensionCustomizer
     public static final Identifier BACKGROUND_2 = Identifier.of(PocketDimensions.MOD_ID, "textures/gui/pocket_dimension_customizer/pocket_dimension_customizer_2.png");
     public static final Identifier BACKGROUND_3 = Identifier.of(PocketDimensions.MOD_ID, "textures/gui/pocket_dimension_customizer/pocket_dimension_customizer_3.png");
     public static final Identifier BACKGROUND_4 = Identifier.of(PocketDimensions.MOD_ID, "textures/gui/pocket_dimension_customizer/pocket_dimension_customizer_4.png");
-    public static final Identifier BACKGROUND_5 = Identifier.of(PocketDimensions.MOD_ID, "textures/gui/pocket_dimension_customizer/pocket_dimension_customizer_5.png");
-    public static final Identifier BACKGROUND_6 = Identifier.of(PocketDimensions.MOD_ID, "textures/gui/pocket_dimension_customizer/pocket_dimension_customizer_6.png");
-    public static final Identifier BACKGROUND_7 = Identifier.of(PocketDimensions.MOD_ID, "textures/gui/pocket_dimension_customizer/pocket_dimension_customizer_7.png");
     private RGBSliderGroup grassSliders;
     private RGBSliderGroup leavesSliders;
     private RGBSliderGroup waterSliders;
@@ -103,7 +99,7 @@ public class DimensionCustomizerScreen extends HandledScreen<DimensionCustomizer
         addDrawableChild(waterMenuButton);
 
         InvisibleButton skyMenuButton = InvisibleButton.builder(
-                Text.literal("Fog colour"),
+                Text.literal("Sky colour"),
                 button -> {
                     grassSliders.setVisibility(false);
                     leavesSliders.setVisibility(false);
@@ -111,7 +107,7 @@ public class DimensionCustomizerScreen extends HandledScreen<DimensionCustomizer
                     skySliders.setVisibility(true);
                     doorSlider.setVisibility(false);
                 }
-        ).dimensions(x + 1, y + 75, 46, 17).build();
+        ).dimensions(x + 1, y + 58, 46, 17).build();
         addDrawableChild(skyMenuButton);
 
         InvisibleButton doorMenuButton = InvisibleButton.builder(
@@ -123,7 +119,7 @@ public class DimensionCustomizerScreen extends HandledScreen<DimensionCustomizer
                     skySliders.setVisibility(false);
                     doorSlider.setVisibility(true);
                 }
-        ).dimensions(x + 1, y + 126, 46, 17).build();
+        ).dimensions(x + 1, y + 75, 46, 17).build();
         addDrawableChild(doorMenuButton);
 
         grassSliders.setVisibility(true);
@@ -232,7 +228,7 @@ public class DimensionCustomizerScreen extends HandledScreen<DimensionCustomizer
                 OverlayTexture.DEFAULT_UV
         );
 
-        context.draw(); // flush
+        context.draw(); //flush
 
         RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
         RenderSystem.disableBlend();
@@ -255,8 +251,8 @@ public class DimensionCustomizerScreen extends HandledScreen<DimensionCustomizer
         if(grassSliders.getVisibility()){context.drawTexture(BACKGROUND_0, x,y,0,0, 256, 256);}
         if(leavesSliders.getVisibility()){context.drawTexture(BACKGROUND_1, x,y,0,0, 256, 256);}
         if(waterSliders.getVisibility()){context.drawTexture(BACKGROUND_2, x,y,0,0, 256, 256);}
-        if(skySliders.getVisibility()){context.drawTexture(BACKGROUND_4, x,y,0,0, 256, 256);}
-        if(doorSlider.getVisibility()){context.drawTexture(BACKGROUND_7, x,y,0,0, 256, 256);}
+        if(skySliders.getVisibility()){context.drawTexture(BACKGROUND_3, x,y,0,0, 256, 256);}
+        if(doorSlider.getVisibility()){context.drawTexture(BACKGROUND_4, x,y,0,0, 256, 256);}
 
     }
 
