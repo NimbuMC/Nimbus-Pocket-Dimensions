@@ -39,12 +39,12 @@ public class ModRecipeProvider extends FabricRecipeProvider {
                 .criterion(hasItem(Items.END_CRYSTAL), conditionsFromItem(Items.END_CRYSTAL)) //adds criteria to learn crafting recipe
                 .offerTo(recipeExporter);
 
-        ShapelessRecipeJsonBuilder.create(RecipeCategory.MISC, ModItems.EXPANSION_GEM)
-                .input(Items.ENDER_PEARL)
-                .input(Items.DIAMOND)
-                .input(Items.AMETHYST_SHARD)
-                .criterion(hasItem(Items.ENDER_PEARL), conditionsFromItem(Items.ENDER_PEARL))
-                .offerTo(recipeExporter);
+//        ShapelessRecipeJsonBuilder.create(RecipeCategory.MISC, ModItems.EXPANSION_GEM)
+//                .input(Items.ENDER_PEARL)
+//                .input(Items.DIAMOND)
+//                .input(Items.AMETHYST_SHARD)
+//                .criterion(hasItem(Items.ENDER_PEARL), conditionsFromItem(Items.ENDER_PEARL))
+//                .offerTo(recipeExporter);
 
 
 //        //========================================

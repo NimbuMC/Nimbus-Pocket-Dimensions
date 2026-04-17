@@ -16,23 +16,25 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(WorldRenderer.class)
 public abstract class SkyRenderMixin {
 
-    @Inject(
-            method = "renderSky",
-            at = @At("HEAD"),
-            cancellable = true
-    )
-    private void renderSkybox(
-            Matrix4f matrix4f, Matrix4f projectionMatrix, float tickDelta, Camera camera, boolean thickFog, Runnable fogCallback, CallbackInfo ci
-    ) {
-        MinecraftClient client = MinecraftClient.getInstance();
-        ClientWorld world = client.world;
-        if (world == null) return;
+    //Optional Skybox control:
 
-        if (ClientPocketDimensionPersistentState.isClientInPocketDimension()) {
-            MatrixStack matrixStack = new MatrixStack();
-            matrixStack.multiplyPositionMatrix(matrix4f);
-            DynamicSkyRenderer.render(matrixStack, ClientPocketDimensionPersistentState.getSkybox());
-            ci.cancel();
-        }
-    }
+//    @Inject(
+//            method = "renderSky",
+//            at = @At("HEAD"),
+//            cancellable = true
+//    )
+//    private void renderSkybox(
+//            Matrix4f matrix4f, Matrix4f projectionMatrix, float tickDelta, Camera camera, boolean thickFog, Runnable fogCallback, CallbackInfo ci
+//    ) {
+//        MinecraftClient client = MinecraftClient.getInstance();
+//        ClientWorld world = client.world;
+//        if (world == null) return;
+//
+//        if (ClientPocketDimensionPersistentState.isClientInPocketDimension()) {
+//            MatrixStack matrixStack = new MatrixStack();
+//            matrixStack.multiplyPositionMatrix(matrix4f);
+//            DynamicSkyRenderer.render(matrixStack, ClientPocketDimensionPersistentState.getSkybox());
+//            ci.cancel();
+//        }
+//    }
 }

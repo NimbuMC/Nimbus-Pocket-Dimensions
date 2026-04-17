@@ -8,10 +8,6 @@
       "features": false,
       "layers": [
         {
-          "height": 0,
-          "block": "minecraft:gold_block"
-        },
-        {
           "height": 128,
           "block": "minecraft:barrier"
         }
