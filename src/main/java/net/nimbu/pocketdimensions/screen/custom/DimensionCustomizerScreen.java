@@ -58,7 +58,7 @@ public class DimensionCustomizerScreen extends HandledScreen<DimensionCustomizer
         waterSliders.forEachChild(this::addDrawableChild);
         skySliders = new RGBSliderGroup(x + backgroundWidth - 101, y + 114, 89, 46, 5, 3, handler.getSkyColour());
         skySliders.forEachChild(this::addDrawableChild);
-        doorSlider = new Slider(x + backgroundWidth - 113, y + 130, 68, 46, Text.of("Door Material"), ModComponentInitializer.PLAYER_GATEWAY_KEY.get(player).getGatewayMaterial(), 10);
+        doorSlider = new Slider(x + backgroundWidth - 113, y + 130, 68, 46, Text.of("Door Material"), ModComponentInitializer.PLAYER_GATEWAY_KEY.get(player).getGatewayMaterial(), 11);
         doorSlider.forEachChild(this::addDrawableChild);
 
 
@@ -166,6 +166,7 @@ public class DimensionCustomizerScreen extends HandledScreen<DimensionCustomizer
                 case 8: blockType=Blocks.CHERRY_PLANKS; break;
                 case 9: blockType=Blocks.CRIMSON_PLANKS; break;
                 case 10: blockType=Blocks.WARPED_PLANKS; break;
+                case 11: blockType=Blocks.STRIPPED_BAMBOO_BLOCK; break;
                 default: blockType=Blocks.DARK_OAK_PLANKS; break;
             }
             renderBlock(context, blockType.getDefaultState(), 51, 255, 255, 255);

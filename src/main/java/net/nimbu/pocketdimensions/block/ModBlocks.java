@@ -2,6 +2,7 @@ package net.nimbu.pocketdimensions.block;
 
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.block.*;
+import net.minecraft.block.enums.NoteBlockInstrument;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroups;
@@ -47,11 +48,13 @@ public class ModBlocks {
     public static final Block WARPED_GATEWAY = registerBlock("warped_gateway",
             new GatewayBlock(AbstractBlock.Settings.create().nonOpaque(), BlockSetType.WARPED), new Item.Settings());
 
-    //Bamboo
-    //-------
+    public static final Block BAMBOO_GATEWAY = registerBlock("bamboo_gateway",
+            new GatewayBlock(AbstractBlock.Settings.create().nonOpaque(), BlockSetType.BAMBOO), new Item.Settings());
 
     public static final Block DIMENSION_CUSTOMIZER = registerBlock("dimension_customizer",
-            new PocketDimensionCustomizerBlock(AbstractBlock.Settings.create().nonOpaque().luminance(state -> 10)), new Item.Settings().rarity(Rarity.RARE));
+            new PocketDimensionCustomizerBlock(AbstractBlock.Settings.create()
+                    .nonOpaque().luminance(state -> 10).mapColor(MapColor.STONE_GRAY).instrument(NoteBlockInstrument.BASEDRUM).requiresTool().strength(1.5F, 6.0F)),
+            new Item.Settings().rarity(Rarity.RARE));
 
     public static final Block GUI_OAK_LEAVES = registerGuiBlock("gui_oak_leaves",
             new Block(AbstractBlock.Settings.create().nonOpaque()));

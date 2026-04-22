@@ -58,10 +58,12 @@ public class GatewayProjectileEntity extends ProjectileEntity {
                 BlockPos bottomHalf = this.getBlockPos();
                 BlockPos topHalf = bottomHalf.up();
                 if ((world.getBlockState(bottomHalf).isOf(Blocks.AIR) ||
+                        world.getBlockState(bottomHalf).isOf(Blocks.CAVE_AIR) ||
                         world.getBlockState(bottomHalf).isOf(Blocks.SNOW) ||
                         world.getBlockState(bottomHalf).isOf(Blocks.TALL_GRASS) ||
                         world.getBlockState(bottomHalf).isOf(Blocks.SHORT_GRASS)) &&
                         (world.getBlockState(topHalf).isOf(Blocks.AIR) ||
+                        world.getBlockState(bottomHalf).isOf(Blocks.CAVE_AIR) ||
                         world.getBlockState(bottomHalf).isOf(Blocks.TALL_GRASS))) {
 
                     //Find gateway orientation
@@ -89,6 +91,7 @@ public class GatewayProjectileEntity extends ProjectileEntity {
                         case 8: doortype=ModBlocks.CHERRY_GATEWAY; break;
                         case 9: doortype=ModBlocks.CRIMSON_GATEWAY; break;
                         case 10: doortype=ModBlocks.WARPED_GATEWAY; break;
+                        case 11: doortype=ModBlocks.BAMBOO_GATEWAY; break;
                         default: doortype=ModBlocks.DARK_OAK_GATEWAY; break;
                     }
                     world.setBlockState(bottomHalf, doortype.getDefaultState().with(FACING, direction));

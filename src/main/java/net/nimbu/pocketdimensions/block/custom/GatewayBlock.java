@@ -63,7 +63,7 @@ public class GatewayBlock extends BlockWithEntity implements Portal {
 
 
     public GatewayBlock(Settings settings, BlockSetType type) {
-        super(settings);
+        super(settings.strength(-1.0F, 3600000.0F).dropsNothing());
         this.setDefaultState(
                 this.stateManager
                         .getDefaultState()
