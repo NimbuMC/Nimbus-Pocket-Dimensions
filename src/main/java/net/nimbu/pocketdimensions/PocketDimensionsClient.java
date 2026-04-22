@@ -22,8 +22,6 @@ import net.nimbu.pocketdimensions.screen.ModScreenHandlers;
 import net.nimbu.pocketdimensions.screen.custom.DimensionCustomizerScreen;
 
 public class PocketDimensionsClient implements ClientModInitializer {
-    public static KeyBinding openSpellWheel;
-
     @Override
     public void onInitializeClient() {
         PocketDimClientNetworking.register();
@@ -46,7 +44,7 @@ public class PocketDimensionsClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.JUNGLE_GATEWAY, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.ACACIA_GATEWAY, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.CHERRY_GATEWAY, RenderLayer.getCutout());
-
+        BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.BAMBOO_GATEWAY, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.GUI_WATER, RenderLayer.getTranslucent());
 
     }

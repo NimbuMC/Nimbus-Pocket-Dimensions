@@ -41,18 +41,18 @@ public class DimensionExpanderItem extends Item {
     public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
         super.inventoryTick(stack, world, entity, slot, selected);
 
-        if (!(entity instanceof PlayerEntity player)) return;
+        if(world.isClient) {
 
-        if (player.getMainHandStack() == stack ||
-                player.getOffHandStack() == stack) {
+            if (!(entity instanceof PlayerEntity player)) return;
 
-            if (!world.isClient) {
-                PocketDimensionBorderRenderer.expansionModeActive = true;
-                renderReticle(player);
+            if (player.getMainHandStack() == stack ||
+                    player.getOffHandStack() == stack) {
+
+                    PocketDimensionBorderRenderer.expansionModeActive = true;
+                    renderReticle(player);
+            } else {
+                cancelRenderReticle();
             }
-        }
-        else{
-            cancelRenderReticle();
         }
     }
 

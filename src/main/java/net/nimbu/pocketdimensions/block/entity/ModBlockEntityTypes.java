@@ -23,7 +23,8 @@ public class ModBlockEntityTypes {
                             ModBlocks.MANGROVE_GATEWAY,
                             ModBlocks.CHERRY_GATEWAY,
                             ModBlocks.CRIMSON_GATEWAY,
-                            ModBlocks.WARPED_GATEWAY
+                            ModBlocks.WARPED_GATEWAY,
+                            ModBlocks.BAMBOO_GATEWAY
                     ).build());
 
     public static BlockEntityType<PocketDimensionCustomizerBlockEntity> POCKET_DIMENSION_CUSTOMIZER_BLOCK_ENTITY =

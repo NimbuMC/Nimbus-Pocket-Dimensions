@@ -139,6 +139,7 @@ public class PocketDimensions implements ModInitializer {
 								case 8: gatewayType=ModBlocks.CHERRY_GATEWAY; break;
 								case 9: gatewayType=ModBlocks.CRIMSON_GATEWAY; break;
 								case 10: gatewayType=ModBlocks.WARPED_GATEWAY; break;
+								case 11: gatewayType=ModBlocks.BAMBOO_GATEWAY; break;
 								default: gatewayType=ModBlocks.DARK_OAK_GATEWAY; break;
 							}
 
