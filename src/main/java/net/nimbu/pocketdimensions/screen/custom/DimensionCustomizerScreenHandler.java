@@ -27,28 +27,28 @@ public class DimensionCustomizerScreenHandler extends ScreenHandler {
     }
 
 
-    public void setBiomeColours(int fogColour, int skyColour, int waterColour, int waterFogColour, int foliageColour, int grassColour) {
+//    public void setBiomeColours(int fogColour, int skyColour, int waterColour, int waterFogColour, int foliageColour, int grassColour) {
+//
+//        ClientPocketDimensionPersistentState.getDynamicBiomeEffects().setFogColor(fogColour);
+//        ClientPocketDimensionPersistentState.getDynamicBiomeEffects().setSkyColor(skyColour);
+//        ClientPocketDimensionPersistentState.getDynamicBiomeEffects().setWaterColor(waterColour);
+//        ClientPocketDimensionPersistentState.getDynamicBiomeEffects().setWaterFogColor(waterFogColour);
+//        ClientPocketDimensionPersistentState.getDynamicBiomeEffects().setFoliageColor(Optional.of(foliageColour));
+//        ClientPocketDimensionPersistentState.getDynamicBiomeEffects().setGrassColor(Optional.of(grassColour));
+//
+//        sendDynamicBiome(ClientPocketDimensionPersistentState.getDynamicBiomeEffects());
+//    }
 
-        ClientPocketDimensionPersistentState.getDynamicBiomeEffects().setFogColor(fogColour);
-        ClientPocketDimensionPersistentState.getDynamicBiomeEffects().setSkyColor(skyColour);
-        ClientPocketDimensionPersistentState.getDynamicBiomeEffects().setWaterColor(waterColour);
-        ClientPocketDimensionPersistentState.getDynamicBiomeEffects().setWaterFogColor(waterFogColour);
-        ClientPocketDimensionPersistentState.getDynamicBiomeEffects().setFoliageColor(Optional.of(foliageColour));
-        ClientPocketDimensionPersistentState.getDynamicBiomeEffects().setGrassColor(Optional.of(grassColour));
 
-        sendDynamicBiome(ClientPocketDimensionPersistentState.getDynamicBiomeEffects());
-    }
-
-
-    public static void sendDynamicBiome(DynamicBiomeEffects effects) {
-        //todo add the check for the same dimension using clientpersistentstate (find a way to get a serverworld here)
-        MinecraftClient client = MinecraftClient.getInstance();
-
-        if (client.world != null) {
-            client.worldRenderer.reload();
-        }
-        ClientPlayNetworking.send(new UpdateBiomePacket(effects));
-    }
+//    public static void sendDynamicBiome(DynamicBiomeEffects effects) {
+//        //todo add the check for the same dimension using clientpersistentstate (find a way to get a serverworld here)
+//        MinecraftClient client = MinecraftClient.getInstance();
+//        ClientPlayNetworking.send(new UpdateBiomePacket(effects));
+//
+////        if (client.world != null) {
+////            client.execute(client.worldRenderer::reload);
+////        }
+//    }
 
     public int[] getSkyColour() {
         DynamicBiomeEffects fx = ClientPocketDimensionPersistentState.getDynamicBiomeEffects();
