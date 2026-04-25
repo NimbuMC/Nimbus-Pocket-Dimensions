@@ -177,8 +177,10 @@ public class PocketDimensions implements ModInitializer {
 
 							//set the outside-pocket dimension gateway
 							entranceGatewayEntity.setExitPosition(previousEntranceGatewayBlockEntity.getExitBlockPos(), previousEntranceGatewayBlockEntity.getExitDimension()); //replace exit position when creating gateway
-						}
 
+
+						}
+						ServerPlayNetworking.send(player, new ReloadRendererPayload());
 					});
 
 				}

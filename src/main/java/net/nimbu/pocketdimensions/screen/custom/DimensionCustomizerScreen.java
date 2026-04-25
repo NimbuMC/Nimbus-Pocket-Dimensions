@@ -19,10 +19,15 @@ import net.minecraft.util.math.RotationAxis;
 import net.nimbu.pocketdimensions.PocketDimensions;
 import net.nimbu.pocketdimensions.block.ModBlocks;
 import net.nimbu.pocketdimensions.component.ModComponentInitializer;
+import net.nimbu.pocketdimensions.network.ClientPocketDimensionPersistentState;
 import net.nimbu.pocketdimensions.network.GatewayMaterialPayload;
+import net.nimbu.pocketdimensions.network.UpdateBiomePacket;
 import net.nimbu.pocketdimensions.screen.widgets.InvisibleButton;
 import net.nimbu.pocketdimensions.screen.widgets.RGBSliderGroup;
 import net.nimbu.pocketdimensions.screen.widgets.Slider;
+import net.nimbu.pocketdimensions.worldgen.biome.DynamicBiomeEffects;
+
+import java.util.Optional;
 
 public class DimensionCustomizerScreen extends HandledScreen<DimensionCustomizerScreenHandler> {
 
@@ -279,8 +284,13 @@ public class DimensionCustomizerScreen extends HandledScreen<DimensionCustomizer
         int foliageHex = (foliageColour[0] << 16) | (foliageColour[1] << 8) | foliageColour[2];
         int grassHex = (grassColour[0] << 16) | (grassColour[1] << 8) | grassColour[2];
 
-        handler.setBiomeColours(
-                fogHex, skyHex, waterHex, waterFogHex, foliageHex, grassHex);
+        ClientPocketDimensionPersistentState.getDynamicBiomeEffects().setFogColor(fogHex);
+        ClientPocketDimensionPersistentState.getDynamicBiomeEffects().setSkyColor(skyHex);
+        ClientPocketDimensionPersistentState.getDynamicBiomeEffects().setWaterColor(waterHex);
+        ClientPocketDimensionPersistentState.getDynamicBiomeEffects().setWaterFogColor(waterFogHex);
+        ClientPocketDimensionPersistentState.getDynamicBiomeEffects().setFoliageColor(Optional.of(foliageHex));
+        ClientPocketDimensionPersistentState.getDynamicBiomeEffects().setGrassColor(Optional.of(grassHex));
+        ClientPlayNetworking.send(new UpdateBiomePacket(ClientPocketDimensionPersistentState.getDynamicBiomeEffects()));
 
         ClientPlayNetworking.send(
                 new GatewayMaterialPayload(doorSlider.getValue())
