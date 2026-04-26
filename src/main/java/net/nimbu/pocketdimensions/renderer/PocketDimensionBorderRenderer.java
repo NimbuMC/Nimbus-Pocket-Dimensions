@@ -51,7 +51,7 @@ public class PocketDimensionBorderRenderer {
     public static BlockPos expansionModePosition = null;
     public static boolean expansionValid = true;
 
-    public static final Identifier BORDER_TEXTURE = Identifier.of(PocketDimensions.MOD_ID, "textures/block/near_border.png");
+    public static final Identifier BORDER_TEXTURE = Identifier.of(PocketDimensions.MOD_ID, "textures/shader/near_border.png");
     private static ShaderProgram BORDER_SHADER;
     private static ShaderProgram FAR_BORDER_SHADER;
     private static final RenderLayer BORDER_RENDER_LAYER = RenderLayer.of(
