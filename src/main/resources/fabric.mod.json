@@ -8,10 +8,10 @@
 		"Nimbu"
 	],
 	"contact": {
-		"homepage": "https://fabricmc.net/",
+		"homepage": "https://modrinth.com/mod/nimbus-pocket-dimensions",
 		"sources": "https://github.com/NimbuMC/Fabric-Pocket-Dimensions-1.21"
 	},
-	"license": "CC0-1.0",
+	"license": "Apache-2.0",
 	"icon": "assets/pocketdimensions/icon.png",
 	"environment": "*",
 	"entrypoints": {
