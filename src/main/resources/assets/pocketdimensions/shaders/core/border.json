@@ -5,9 +5,12 @@
     "Position",
     "Normal",
     "Color",
-    "UV0"
+    "UV0",
+    "UV2"
   ],
-  "samplers": [],
+  "samplers": [
+    { "name": "Sampler0" }
+  ],
   "uniforms": [
     {
       "name": "ModelViewMat",
