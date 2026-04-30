@@ -3,6 +3,7 @@ package net.nimbu.pocketdimensions.entity.custom;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.enums.DoubleBlockHalf;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -57,14 +58,15 @@ public class GatewayProjectileEntity extends ProjectileEntity {
 
                 BlockPos bottomHalf = this.getBlockPos();
                 BlockPos topHalf = bottomHalf.up();
-                if ((world.getBlockState(bottomHalf).isOf(Blocks.AIR) ||
+                if (!(world.getBlockEntity(bottomHalf.down()) instanceof GatewayBlockEntity) && //if not on top of a gateway
+                        (world.getBlockState(bottomHalf).isOf(Blocks.AIR) ||
                         world.getBlockState(bottomHalf).isOf(Blocks.CAVE_AIR) ||
                         world.getBlockState(bottomHalf).isOf(Blocks.SNOW) ||
                         world.getBlockState(bottomHalf).isOf(Blocks.TALL_GRASS) ||
                         world.getBlockState(bottomHalf).isOf(Blocks.SHORT_GRASS)) &&
                         (world.getBlockState(topHalf).isOf(Blocks.AIR) ||
-                        world.getBlockState(bottomHalf).isOf(Blocks.CAVE_AIR) ||
-                        world.getBlockState(bottomHalf).isOf(Blocks.TALL_GRASS))) {
+                        world.getBlockState(topHalf).isOf(Blocks.CAVE_AIR) ||
+                        world.getBlockState(topHalf).isOf(Blocks.TALL_GRASS))) {
 
                     //Find gateway orientation
                     float yaw = this.getYaw();
@@ -134,7 +136,16 @@ public class GatewayProjectileEntity extends ProjectileEntity {
                     ((ServerWorld) world).spawnParticles(ModParticleTypes.GATEWAY_PROJECTILE_PARTICLE,
                             pos.getX(), pos.getY(), pos.getZ(), 50, 0.5, 1, 0.5, 0.5);
                 }
-                else{
+                else{  //if projectile does not land on an empty position
+
+                    if (world.getBlockEntity(bottomHalf) instanceof GatewayBlockEntity previousPocketDimensionGatewayEntity) {
+                        world.setBlockState(bottomHalf, Blocks.AIR.getDefaultState());
+                    }
+                    else if (world.getBlockEntity(bottomHalf.down()) instanceof GatewayBlockEntity previousPocketDimensionGatewayEntity) {
+                        world.setBlockState(bottomHalf, Blocks.AIR.getDefaultState());
+                    }
+
+
                     world.playSound(null, this.getX(), this.getY(), this.getZ(),
                             SoundEvents.BLOCK_TRIAL_SPAWNER_PLACE,
                             SoundCategory.NEUTRAL,
@@ -142,7 +153,7 @@ public class GatewayProjectileEntity extends ProjectileEntity {
                             1.4f);
                 }
             }
-            else{
+            else{ //if in pocket dimension already
                 world.playSound(null, this.getX(), this.getY(), this.getZ(),
                         SoundEvents.BLOCK_TRIAL_SPAWNER_PLACE,
                         SoundCategory.NEUTRAL,
