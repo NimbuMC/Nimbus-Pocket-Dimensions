@@ -45,15 +45,12 @@ public class GatewayProjectileEntity extends ProjectileEntity {
         exitDimensionID = exitDimension;
     }
 
-    private void createPortal(World world, BlockPos bottomHalf){
+    private void createPortal(World world, BlockPos bottomHalf, PlayerGatewayComponent comp){
 
 
-        if(!world.isClient()) {
+
+
             if (!world.getDimensionEntry().matchesKey(ModDimensions.POCKET_DIM_TYPE)){
-
-                Entity owner = this.getOwner();
-                if (!(owner instanceof PlayerEntity)) return; //ensures cannot create portal if not player
-                PlayerGatewayComponent comp = ModComponentInitializer.PLAYER_GATEWAY_KEY.get(owner);
 
                 BlockPos topHalf = bottomHalf.up();
                 if (!(world.getBlockEntity(bottomHalf.down()) instanceof GatewayBlockEntity) && //if not on top of a gateway
@@ -136,13 +133,14 @@ public class GatewayProjectileEntity extends ProjectileEntity {
                 }
                 else{  //if projectile does not land on an empty position
 
-                    if (world.getBlockEntity(bottomHalf) instanceof GatewayBlockEntity previousPocketDimensionGatewayEntity) {
-                        world.setBlockState(bottomHalf, Blocks.AIR.getDefaultState());
-                    }
-                    else if (world.getBlockEntity(bottomHalf.down()) instanceof GatewayBlockEntity previousPocketDimensionGatewayEntity) {
-                        world.setBlockState(bottomHalf, Blocks.AIR.getDefaultState());
-                    }
-
+//                    if (world.getBlockEntity(bottomHalf) instanceof GatewayBlockEntity previousPocketDimensionGatewayEntity) {
+//                        world.setBlockState(bottomHalf, Blocks.AIR.getDefaultState());
+//                    }
+//                    else if (world.getBlockEntity(bottomHalf.down()) instanceof GatewayBlockEntity previousPocketDimensionGatewayEntity) {
+//                        world.setBlockState(bottomHalf, Blocks.AIR.getDefaultState());
+//                    }
+//
+//                    comp.setGatewayPos(null);
 
                     world.playSound(null, this.getX(), this.getY(), this.getZ(),
                             SoundEvents.BLOCK_TRIAL_SPAWNER_PLACE,
@@ -158,7 +156,7 @@ public class GatewayProjectileEntity extends ProjectileEntity {
                         1f,
                         1.4f);
             }
-        }
+
 
 
     }
@@ -219,31 +217,61 @@ public class GatewayProjectileEntity extends ProjectileEntity {
 
     @Override
     protected void onBlockHit(BlockHitResult blockHitResult) {
-        BlockPos blockPos = blockHitResult.getBlockPos();
-        Direction direction =blockHitResult.getSide();
+        World world = this.getWorld();
+        if (world.isClient()) return;
 
-        switch (direction){
-            case UP:
-                blockPos = blockPos.up();
-                break;
-            case DOWN:
-                blockPos = blockPos.down();
-                break;
-            case NORTH:
-                blockPos = blockPos.north();
-                break;
-            case SOUTH:
-                blockPos = blockPos.south();
-                break;
-            case EAST:
-                blockPos = blockPos.east();
-                break;
-            case WEST:
-                blockPos = blockPos.west();
-                break;
+        BlockPos blockPos = blockHitResult.getBlockPos();
+        Direction direction = blockHitResult.getSide();
+        System.out.println("Blockpos: " + blockPos);
+        System.out.println("Direction: " + direction);
+
+        Entity owner = this.getOwner();
+        if (!(owner instanceof PlayerEntity)) return; //ensures cannot create portal if not player
+        PlayerGatewayComponent comp = ModComponentInitializer.PLAYER_GATEWAY_KEY.get(owner);
+
+        //check if hitting a gateway
+        BlockEntity blockEntity = world.getBlockEntity(blockPos);
+        if (!(blockEntity instanceof GatewayBlockEntity)) {
+            blockEntity = world.getBlockEntity(blockPos.down());
+            System.out.println("Gateway entity NOT found for top half.");
+        }
+        if ((blockEntity instanceof GatewayBlockEntity gatewayBlockEntity) && (exitDimensionID==gatewayBlockEntity.getExitDimension())) {
+            System.out.println("Lower gateway entity found.");
+
+            world.setBlockState(blockPos, Blocks.AIR.getDefaultState());
+            comp.setGatewayPos(null);
+            world.playSound(null, this.getX(), this.getY(), this.getZ(),
+                    SoundEvents.BLOCK_TRIAL_SPAWNER_PLACE,
+                    SoundCategory.NEUTRAL,
+                    1f,
+                    1.4f);
+        }
+        else {
+            switch (direction) {
+                case UP:
+                    blockPos = blockPos.up();
+                    break;
+                case DOWN:
+                    blockPos = blockPos.down();
+                    break;
+                case NORTH:
+                    blockPos = blockPos.north();
+                    break;
+                case SOUTH:
+                    blockPos = blockPos.south();
+                    break;
+                case EAST:
+                    blockPos = blockPos.east();
+                    break;
+                case WEST:
+                    blockPos = blockPos.west();
+                    break;
+            }
+            System.out.println("Blockpos: " + blockPos);
+
+            createPortal(this.getWorld(), blockPos, comp);
         }
 
-        createPortal(this.getWorld(), blockPos);
         super.onBlockHit(blockHitResult);
         this.discard();
     }
