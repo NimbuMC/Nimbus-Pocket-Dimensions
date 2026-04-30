@@ -45,7 +45,7 @@ public class GatewayProjectileEntity extends ProjectileEntity {
         exitDimensionID = exitDimension;
     }
 
-    private void createPortal(World world){
+    private void createPortal(World world, BlockPos bottomHalf){
 
 
         if(!world.isClient()) {
@@ -55,8 +55,6 @@ public class GatewayProjectileEntity extends ProjectileEntity {
                 if (!(owner instanceof PlayerEntity)) return; //ensures cannot create portal if not player
                 PlayerGatewayComponent comp = ModComponentInitializer.PLAYER_GATEWAY_KEY.get(owner);
 
-
-                BlockPos bottomHalf = this.getBlockPos();
                 BlockPos topHalf = bottomHalf.up();
                 if (!(world.getBlockEntity(bottomHalf.down()) instanceof GatewayBlockEntity) && //if not on top of a gateway
                         (world.getBlockState(bottomHalf).isOf(Blocks.AIR) ||
@@ -221,8 +219,31 @@ public class GatewayProjectileEntity extends ProjectileEntity {
 
     @Override
     protected void onBlockHit(BlockHitResult blockHitResult) {
+        BlockPos blockPos = blockHitResult.getBlockPos();
+        Direction direction =blockHitResult.getSide();
 
-        createPortal(this.getWorld());
+        switch (direction){
+            case UP:
+                blockPos = blockPos.up();
+                break;
+            case DOWN:
+                blockPos = blockPos.down();
+                break;
+            case NORTH:
+                blockPos = blockPos.north();
+                break;
+            case SOUTH:
+                blockPos = blockPos.south();
+                break;
+            case EAST:
+                blockPos = blockPos.east();
+                break;
+            case WEST:
+                blockPos = blockPos.west();
+                break;
+        }
+
+        createPortal(this.getWorld(), blockPos);
         super.onBlockHit(blockHitResult);
         this.discard();
     }
