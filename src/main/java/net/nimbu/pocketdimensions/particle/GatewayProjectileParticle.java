@@ -11,7 +11,7 @@ public class GatewayProjectileParticle extends SpriteBillboardParticle {
         super(clientWorld, x, y, z, xSpeed, ySpeed, zSpeed);
 
         this.velocityMultiplier=0.8f;
-        this.maxAge=5;
+        this.maxAge=8;
         this.setSpriteForAge(spriteProvider);
     }
 

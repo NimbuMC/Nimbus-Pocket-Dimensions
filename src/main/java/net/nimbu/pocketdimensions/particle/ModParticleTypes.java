@@ -14,7 +14,6 @@ public class ModParticleTypes {
 
 
 
-
     private static SimpleParticleType registerParticle(String name, SimpleParticleType simpleParticleType){
         return Registry.register(Registries.PARTICLE_TYPE, Identifier.of(PocketDimensions.MOD_ID, name), simpleParticleType);
     }
