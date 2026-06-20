@@ -25,7 +25,6 @@ import net.nimbu.pocketdimensions.network.UpdateBiomePacket;
 import net.nimbu.pocketdimensions.screen.widgets.InvisibleButton;
 import net.nimbu.pocketdimensions.screen.widgets.RGBSliderGroup;
 import net.nimbu.pocketdimensions.screen.widgets.Slider;
-import net.nimbu.pocketdimensions.worldgen.biome.DynamicBiomeEffects;
 
 import java.util.Optional;
 
@@ -295,5 +294,14 @@ public class DimensionCustomizerScreen extends HandledScreen<DimensionCustomizer
         ClientPlayNetworking.send(
                 new GatewayMaterialPayload(doorSlider.getValue())
         );
+
+
+        MinecraftClient client = MinecraftClient.getInstance();
+
+        if (client.world != null) {
+            client.worldRenderer.reload();
+        }
+
+
     }
 }

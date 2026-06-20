@@ -9,7 +9,6 @@ import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
-import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
 import net.nimbu.pocketdimensions.block.ModBlocks;
@@ -18,7 +17,8 @@ import net.nimbu.pocketdimensions.block.entity.renderer.PocketDimensionCustomize
 import net.nimbu.pocketdimensions.entity.ModEntities;
 import net.nimbu.pocketdimensions.entity.client.*;
 import net.nimbu.pocketdimensions.network.PocketDimClientNetworking;
-import net.nimbu.pocketdimensions.network.ReloadRendererPayload;
+//import net.nimbu.pocketdimensions.network.ReloadChunksRequestPayload;
+//import net.nimbu.pocketdimensions.network.ReloadChunksS2CPayload;
 import net.nimbu.pocketdimensions.particle.GatewayProjectileParticle;
 import net.nimbu.pocketdimensions.particle.ModParticleTypes;
 import net.nimbu.pocketdimensions.renderer.PocketDimensionBorderRenderer;
@@ -55,23 +55,37 @@ public class PocketDimensionsClient implements ClientModInitializer {
 
         //For reloading the renderer after server things are done
         //needed as gateways need more time before reload and are buggy
-        PayloadTypeRegistry.playS2C().register(
-                ReloadRendererPayload.ID,
-                ReloadRendererPayload.CODEC
-        );
-        ClientPlayNetworking.registerGlobalReceiver(
-                ReloadRendererPayload.ID,
-                (payload, context) -> {
+//        PayloadTypeRegistry.playS2C().register(
+//                ReloadChunksRequestPayload.ID,
+//                ReloadChunksRequestPayload.CODEC
+//        );
+//        ClientPlayNetworking.registerGlobalReceiver(
+//                ReloadChunksRequestPayload.ID,
+//                (payload, context) -> {
+//
+//                    context.client().execute(() -> {
+//                        MinecraftClient client = MinecraftClient.getInstance();
+//
+//                        if (client.world != null) {
+//                            client.worldRenderer.reload();
+//                        }
+//                    });
+//                }
+//        );
 
-                    context.client().execute(() -> {
-                        MinecraftClient client = MinecraftClient.getInstance();
-
-                        if (client.world != null) {
-                            client.worldRenderer.reload();
-                        }
-                    });
-                }
-        );
+//        PayloadTypeRegistry.playS2C().register(
+//                ReloadChunksS2CPayload.ID,
+//                ReloadChunksS2CPayload.CODEC
+//        );
+//        ClientPlayNetworking.registerGlobalReceiver(
+//                ReloadChunksS2CPayload.ID,
+//                (payload, context) -> {
+//
+//                    context.client().execute(() -> {
+//                        context.client().worldRenderer.reload();
+//                    });
+//                }
+//        );
     }
 
 

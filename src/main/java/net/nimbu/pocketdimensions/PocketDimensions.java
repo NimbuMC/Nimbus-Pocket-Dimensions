@@ -8,12 +8,10 @@ import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.enums.DoubleBlockHalf;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.nimbu.pocketdimensions.block.ModBlocks;
@@ -31,6 +29,7 @@ import net.nimbu.pocketdimensions.network.PocketDimensionSync;
 import net.nimbu.pocketdimensions.network.RoomSyncPayload;
 import net.nimbu.pocketdimensions.network.SingularRoomPayload;
 import net.nimbu.pocketdimensions.particle.ModParticleTypes;
+import net.nimbu.pocketdimensions.screen.ModScreenHandlers;
 import net.nimbu.pocketdimensions.sound.ModSoundEvents;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -67,14 +66,13 @@ public class PocketDimensions implements ModInitializer {
 		ModItems.registerModItems();
 		ModBlocks.registerModBlocks();
 		ModBlockEntityTypes.registerBlockEntities();
-		//ModDataComponentTypes.registerDataComponentTypes();
 		ModEntities.registerModEntities();
 		ModSoundEvents.registerSounds();
 		ModParticleTypes.registerParticles();
 		UpdateBiomeNetworkHandler.register();
 
 
-
+		ModScreenHandlers.registerScreenHandlers();
 
 		ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {
 			ServerPlayerEntity player = handler.getPlayer();
@@ -180,11 +178,28 @@ public class PocketDimensions implements ModInitializer {
 
 
 						}
-						ServerPlayNetworking.send(player, new ReloadRendererPayload());
+						//ServerPlayNetworking.send(player, new ReloadRendererPayload());
 					});
 
 				}
 		);
+
+//		PayloadTypeRegistry.playC2S().register(
+//				ReloadChunksRequestPayload.ID,
+//				ReloadChunksRequestPayload.CODEC
+//		);
+//		ServerPlayNetworking.registerGlobalReceiver(
+//				ReloadChunksRequestPayload.ID,
+//				(payload, context) -> {
+//
+//					ServerPlayerEntity sender = context.player();
+//					ServerWorld world = sender.getServerWorld();
+//
+//					for (ServerPlayerEntity player : world.getPlayers()) {
+//						ServerPlayNetworking.send(player, new ReloadChunksS2CPayload());
+//					}
+//				}
+//		);
 	}
 
 	private static void placeGateway(ServerWorld world, BlockPos pos, BlockState baseState) {

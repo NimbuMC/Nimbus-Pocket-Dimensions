@@ -26,30 +26,6 @@ public class DimensionCustomizerScreenHandler extends ScreenHandler {
         super(ModScreenHandlers.POCKET_DIM_BIOME_SCREEN_HANDLER, syncId);
     }
 
-
-//    public void setBiomeColours(int fogColour, int skyColour, int waterColour, int waterFogColour, int foliageColour, int grassColour) {
-//
-//        ClientPocketDimensionPersistentState.getDynamicBiomeEffects().setFogColor(fogColour);
-//        ClientPocketDimensionPersistentState.getDynamicBiomeEffects().setSkyColor(skyColour);
-//        ClientPocketDimensionPersistentState.getDynamicBiomeEffects().setWaterColor(waterColour);
-//        ClientPocketDimensionPersistentState.getDynamicBiomeEffects().setWaterFogColor(waterFogColour);
-//        ClientPocketDimensionPersistentState.getDynamicBiomeEffects().setFoliageColor(Optional.of(foliageColour));
-//        ClientPocketDimensionPersistentState.getDynamicBiomeEffects().setGrassColor(Optional.of(grassColour));
-//
-//        sendDynamicBiome(ClientPocketDimensionPersistentState.getDynamicBiomeEffects());
-//    }
-
-
-//    public static void sendDynamicBiome(DynamicBiomeEffects effects) {
-//        //todo add the check for the same dimension using clientpersistentstate (find a way to get a serverworld here)
-//        MinecraftClient client = MinecraftClient.getInstance();
-//        ClientPlayNetworking.send(new UpdateBiomePacket(effects));
-//
-////        if (client.world != null) {
-////            client.execute(client.worldRenderer::reload);
-////        }
-//    }
-
     public int[] getSkyColour() {
         DynamicBiomeEffects fx = ClientPocketDimensionPersistentState.getDynamicBiomeEffects();
         int R = ((fx.getSkyColor() >> 16) & 0xFF);
