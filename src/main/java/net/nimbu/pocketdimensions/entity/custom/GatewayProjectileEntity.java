@@ -46,10 +46,6 @@ public class GatewayProjectileEntity extends ProjectileEntity {
     }
 
     private void createPortal(World world, BlockPos bottomHalf, PlayerGatewayComponent comp){
-
-
-
-
             if (!world.getDimensionEntry().matchesKey(ModDimensions.POCKET_DIM_TYPE)){
 
                 BlockPos topHalf = bottomHalf.up();

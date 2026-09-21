@@ -40,6 +40,24 @@ public class PocketDimensionPersistentState extends PersistentState {
 
     public boolean isRoomUnlocked(BlockPos pos) { return unlockedRooms.contains(pos); }
 
+    public static final int[][] neighbourPositions = new int[][]{
+            {1,0,0},
+            {-1,0,0},
+            {0,1,0},
+            {0,-1,0},
+            {0,0,1},
+            {0,0,-1},
+    };
+
+    public boolean hasAdjacents(BlockPos pos) {
+        Set<BlockPos> state = getUnlockedRooms();
+        for (int i = 0; i < 6; i++) {
+            if(state.contains(pos.add(neighbourPositions[i][0], neighbourPositions[i][1], neighbourPositions[i][2]))) return true;
+        }
+        return false;
+    }
+
+
     public Set<BlockPos> getUnlockedRooms() { return Set.copyOf(unlockedRooms); }
     public DynamicBiomeEffects getDynamicBiomeEffects(){ return dynamicBiomeEffects; }
     public void setDynamicBiomeEffects(DynamicBiomeEffects newBiomeEffects){ dynamicBiomeEffects = newBiomeEffects; }

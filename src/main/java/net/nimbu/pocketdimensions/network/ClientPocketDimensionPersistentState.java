@@ -1,5 +1,6 @@
 package net.nimbu.pocketdimensions.network;
 
+import com.jcraft.jorbis.Block;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
@@ -40,11 +41,14 @@ public final class ClientPocketDimensionPersistentState {
 
     public static void setRooms(Set<BlockPos> rooms) {
         ROOMS.clear();
+        ROOMS.add(new BlockPos(0,14,0));
         ROOMS.addAll(rooms);
         PocketDimensions.LOGGER.info(
                 "Client received {} rooms",
                 rooms.size()
         );
+
+        rooms.forEach(x -> PocketDimensions.LOGGER.info("Client received room " + x));
     }
 
     public static void updateDimensionBiome(DynamicBiomeEffects newEffects, ServerWorld world)

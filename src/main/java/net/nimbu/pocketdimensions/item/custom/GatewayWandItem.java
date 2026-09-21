@@ -17,6 +17,8 @@ import net.nimbu.pocketdimensions.component.PlayerGatewayComponent;
 import net.nimbu.pocketdimensions.dimensions.DimensionalInstancer;
 import net.nimbu.pocketdimensions.entity.ModEntities;
 import net.nimbu.pocketdimensions.entity.custom.GatewayProjectileEntity;
+import net.nimbu.pocketdimensions.network.ClientPocketDimensionPersistentState;
+import net.nimbu.pocketdimensions.persistentstates.PocketDimensionPersistentState;
 
 public class GatewayWandItem extends Item {
     public GatewayWandItem(Settings settings) {
@@ -41,6 +43,7 @@ public class GatewayWandItem extends Item {
             GatewayProjectileEntity spellPortal = new GatewayProjectileEntity(ModEntities.SPELL_PORTAL, world);
             spellPortal.setPosition(new Vec3d(user.getX(), user.getY() + 1.5, user.getZ()));
             spellPortal.setVelocity(user, user.getPitch() - 30, user.getYaw(), 0.0f, 0.45f, 0f);
+            PocketDimensionPersistentState.get(targetDimension).addRoom(new BlockPos(0,14,0));
             spellPortal.setExitDimension(targetDimension.getRegistryKey());
             spellPortal.setOwner(user);
             world.spawnEntity(spellPortal);

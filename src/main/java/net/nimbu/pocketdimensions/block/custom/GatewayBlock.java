@@ -29,16 +29,15 @@ import net.minecraft.util.BlockMirror;
 import net.minecraft.util.BlockRotation;
 import net.minecraft.util.function.BooleanBiFunction;
 import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Box;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.*;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.*;
+import net.minecraft.world.chunk.ChunkStatus;
 import net.minecraft.world.event.listener.GameEventListener;
 import net.nimbu.pocketdimensions.PocketDimensions;
+import net.nimbu.pocketdimensions.block.ModBlocks;
 import net.nimbu.pocketdimensions.block.entity.ModBlockEntityTypes;
 import net.nimbu.pocketdimensions.block.entity.custom.GatewayBlockEntity;
 import org.jetbrains.annotations.Nullable;
@@ -260,28 +259,38 @@ public class GatewayBlock extends BlockWithEntity implements Portal {
 
             serverWorld = world.getServer().getWorld(registryKey);
             exitBlock = gatewayBlockEntity.getExitBlockPos();
-            BlockState blockState = serverWorld.getBlockState(exitBlock);
+            if (exitBlock != null && serverWorld != null) {
+                ChunkPos chunkPos = new ChunkPos(exitBlock);
+                serverWorld.getChunk(
+                        chunkPos.x,
+                        chunkPos.z,
+                        ChunkStatus.FULL,
+                        true
+                );
+                BlockState blockState = serverWorld.getBlockState(exitBlock);
 
-            Direction exitDirection = Direction.NORTH;
-
-            if (blockState.getBlock() instanceof GatewayBlock) { //i dont know why this is necessary... because you the exit position gets moved to the portal anyways
-                exitDirection = blockState.get(GatewayBlock.FACING);
-            }
-
-            if (registryKey != null) {
-                PocketDimensions.LOGGER.info("exitDimension of " + gatewayBlockEntity.getExitDimension());
-                exitPos = gatewayBlockEntity.getExitPosition(exitDirection);
-                PocketDimensions.LOGGER.info("exitPos of " + exitPos);
-            }
+                Direction exitDirection = Direction.NORTH;
 
 
-            if (exitPos == null) return null;
-            else {
-                assert serverWorld != null;
-                return new TeleportTarget(serverWorld, exitPos, getTeleportVelocity(entity),
-                        entity.getYaw() + exitDirection.asRotation() -
-                                world.getBlockState(pos).get(GatewayBlock.FACING).asRotation() + 180,
-                        entity.getPitch(), TeleportTarget.ADD_PORTAL_CHUNK_TICKET);
+                if (blockState.getBlock() instanceof GatewayBlock) { //i dont know why this is necessary... because you the exit position gets moved to the portal anyways
+                    exitDirection = blockState.get(GatewayBlock.FACING);
+                }
+
+                if (registryKey != null) {
+                    PocketDimensions.LOGGER.info("exitDimension of " + gatewayBlockEntity.getExitDimension());
+                    exitPos = gatewayBlockEntity.getExitPosition(exitDirection);
+                    PocketDimensions.LOGGER.info("exitPos of " + exitPos);
+                }
+
+
+                if (exitPos == null) return null;
+                else {
+                    assert serverWorld != null;
+                    return new TeleportTarget(serverWorld, exitPos, getTeleportVelocity(entity),
+                            entity.getYaw() + exitDirection.asRotation() -
+                                    world.getBlockState(pos).get(GatewayBlock.FACING).asRotation() + 180,
+                            entity.getPitch(), TeleportTarget.SEND_TRAVEL_THROUGH_PORTAL_PACKET);
+                }
             }
         }
         return null;

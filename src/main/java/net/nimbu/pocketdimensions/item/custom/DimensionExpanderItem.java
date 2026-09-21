@@ -1,8 +1,11 @@
 package net.nimbu.pocketdimensions.item.custom;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.attribute.EntityAttributeInstance;
+import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -13,19 +16,25 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.TypedActionResult;
+import net.minecraft.util.hit.BlockHitResult;
+import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.Vec3i;
+import net.minecraft.world.RaycastContext;
 import net.minecraft.world.World;
 import net.nimbu.pocketdimensions.PocketDimensions;
 import net.nimbu.pocketdimensions.network.ClientPocketDimensionPersistentState;
+import net.nimbu.pocketdimensions.persistentstates.PocketDimensionPersistentState;
 import net.nimbu.pocketdimensions.renderer.PocketDimensionBorderRenderer;
+import org.joml.Vector3f;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 
-import static net.nimbu.pocketdimensions.renderer.PocketDimensionBorderRenderer.BorderHeight;
-import static net.nimbu.pocketdimensions.renderer.PocketDimensionBorderRenderer.BorderLength;
+import static net.nimbu.pocketdimensions.renderer.PocketDimensionBorderRenderer.*;
 
 public class DimensionExpanderItem extends Item {
 
@@ -41,15 +50,13 @@ public class DimensionExpanderItem extends Item {
     public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
         super.inventoryTick(stack, world, entity, slot, selected);
 
-        if(world.isClient) {
+        if (world.isClient) {
 
             if (!(entity instanceof PlayerEntity player)) return;
 
-            if (player.getMainHandStack() == stack ||
-                    player.getOffHandStack() == stack) {
-
-                    PocketDimensionBorderRenderer.expansionModeActive = true;
-                    renderReticle(player);
+            if (player.getMainHandStack() == stack) {
+                PocketDimensionBorderRenderer.expansionModeActive = true;
+                renderReticle(player);
             } else {
                 cancelRenderReticle();
             }
@@ -59,114 +66,179 @@ public class DimensionExpanderItem extends Item {
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
         ItemStack item = user.getStackInHand(hand);
-
         if (!world.isClient) {
-            BlockPos pos = raycastRoomFace(user);
+            BlockPos pos = serverGridBasedRaycast((ServerWorld) world, user);
             PocketDimensions.LOGGER.info("Tried to expand pocket dimension at position " + pos);
             if (pos != null) {
-                if (ClientPocketDimensionPersistentState.hasAdjacents(pos)) {
+                if (PocketDimensionPersistentState.get((ServerWorld) world).hasAdjacents(pos)) {
+                    PocketDimensions.LOGGER.info("Adjacent exists for " + pos);
                     if (pos.getY() > -1 && pos.getY() < 30) {
-                        ClientPocketDimensionPersistentState.addRoom((ServerWorld) world, pos);
-                        BlockState state = Blocks.AIR.getDefaultState();
-                        for (int x = 0; x < BorderLength; x++) {
-                            for (int y = 0; y < BorderHeight; y++) {
-                                for (int z = 0; z < BorderLength; z++) {
-                                    world.setBlockState(new BlockPos(
-                                                    x + BorderLength * pos.getX(),
-                                                    y + BorderHeight * pos.getY() + 7,
-                                                    z + BorderLength * pos.getZ())
-                                            , state);
+                        if (!PocketDimensionPersistentState.get((ServerWorld) world).isRoomUnlocked(pos)) {
+                            ClientPocketDimensionPersistentState.addRoom((ServerWorld) world, pos);
+                            BlockState state = Blocks.AIR.getDefaultState();
+                            for (int x = 0; x < BorderLength; x++) {
+                                for (int y = 0; y < BorderHeight; y++) {
+                                    for (int z = 0; z < BorderLength; z++) {
+                                        BlockPos clearPos = new BlockPos(
+                                                x + BorderLength * pos.getX(),
+                                                y + BorderHeight * pos.getY() + 7,
+                                                z + BorderLength * pos.getZ());
+                                        if (world.getBlockState(clearPos) == Blocks.BARRIER.getDefaultState()) {
+                                            world.setBlockState(clearPos, state);
+                                        }
+                                    }
                                 }
                             }
+
+                            world.playSound(null, user.getX(), user.getY(), user.getZ(),
+                                    SoundEvents.BLOCK_BEACON_ACTIVATE,
+                                    SoundCategory.NEUTRAL,
+                                    1f,
+                                    1.5f);
+                            if (!user.isCreative()) {
+                                item.decrement(1);
+                            }
+                            renderReticle(user);
                         }
                     }
                 }
             }
-            if (!user.isCreative()) {
-                item.decrement(1);
-            }
             if (item.isEmpty()) {
                 PocketDimensionBorderRenderer.expansionModeActive = false;
             }
-            world.playSound(null, user.getX(), user.getY(), user.getZ(),
-                    SoundEvents.BLOCK_BEACON_ACTIVATE,
-                    SoundCategory.NEUTRAL,
-                    1f,
-                    1.5f);
         }
 
         return TypedActionResult.success(item);
-
-
     }
 
     public void renderReticle(PlayerEntity user) {
-            if (raycastCooldown-- <= 0) {
-                BlockPos hit = raycastRoomFace(user);
-                if(hit != null) {
-                    if (hit.getY() < 0 || hit.getY() > 29 || !ClientPocketDimensionPersistentState.hasAdjacents(hit))
-                        PocketDimensionBorderRenderer.expansionValid = false;
-                    else PocketDimensionBorderRenderer.expansionValid = true;
-                    PocketDimensionBorderRenderer.expansionModePosition = hit;
-                    raycastCooldown = 4;
-                }
+        if (raycastCooldown-- <= 0) {
+
+            BlockPos hit = clientGridBasedRaycast(user);
+
+            if (hit != null) {
+                PocketDimensionBorderRenderer.expansionValid = hit.getY() >= 0 && hit.getY() <= 29 && ClientPocketDimensionPersistentState.hasAdjacents(hit);
+                PocketDimensionBorderRenderer.expansionModePosition = hit;
+                raycastCooldown = 4;
+            } else expansionValid = false;
+        }
+    }
+
+
+    private BlockPos clientGridBasedRaycast(PlayerEntity user) {
+        Vec3d start = globalCoordToGridCoords(user.getCameraPosVec(0f));
+        Vec3d end = globalCoordToGridCoords(user.getCameraPosVec(0f).add(user.getRotationVec(0f).multiply(20)));
+
+        double dx = end.x - start.x, dy = end.y - start.y, dz = end.z - start.z;
+        int x = (int) Math.floor(start.x), y = (int) Math.floor(start.y), z = (int) Math.floor(start.z);
+        int endX = (int) Math.floor(end.x), endY = (int) Math.floor(end.y), endZ = (int) Math.floor(end.z);
+        int stepX = (int) Math.signum(dx), stepY = (int) Math.signum(dy), stepZ = (int) Math.signum(dz);
+
+        double tDeltaX = dx == 0 ? Double.POSITIVE_INFINITY : Math.abs(1.0 / dx);
+        double tDeltaY = dy == 0 ? Double.POSITIVE_INFINITY : Math.abs(1.0 / dy);
+        double tDeltaZ = dz == 0 ? Double.POSITIVE_INFINITY : Math.abs(1.0 / dz);
+
+        double tMaxX;
+        double tMaxY;
+        double tMaxZ;
+
+        if (dx > 0) tMaxX = ((x + 1.0) - start.x) / dx;
+        else if (dx < 0) tMaxX = (start.x - x) / -dx;
+        else tMaxX = Double.POSITIVE_INFINITY;
+
+        if (dy > 0) tMaxY = ((y + 1.0) - start.y) / dy;
+        else if (dy < 0) tMaxY = (start.y - y) / -dy;
+        else tMaxY = Double.POSITIVE_INFINITY;
+
+        if (dz > 0) tMaxZ = ((z + 1.0) - start.z) / dz;
+        else if (dz < 0) tMaxZ = (start.z - z) / -dz;
+        else tMaxZ = Double.POSITIVE_INFINITY;
+
+        while (x != endX || y != endY || z != endZ) {
+            double nextT = Math.min(tMaxX, Math.min(tMaxY, tMaxZ));
+
+            if (tMaxX == nextT) {
+                x += stepX;
+                tMaxX += tDeltaX;
             }
-            PocketDimensionBorderRenderer.expansionModeActive = true;
+
+            if (tMaxY == nextT) {
+                y += stepY;
+                tMaxY += tDeltaY;
+            }
+
+            if (tMaxZ == nextT) {
+                z += stepZ;
+                tMaxZ += tDeltaZ;
+            }
+
+            BlockPos pos = new BlockPos(x, y, z);
+            if (!ClientPocketDimensionPersistentState.hasRoom(pos)) return pos;
+        }
+        return null;
+    }
+
+    private BlockPos serverGridBasedRaycast(ServerWorld world, PlayerEntity user) {
+        Vec3d start = globalCoordToGridCoords(user.getCameraPosVec(0f));
+        Vec3d end = globalCoordToGridCoords(user.getCameraPosVec(0f).add(user.getRotationVec(0f).multiply(20)));
+
+        double dx = end.x - start.x, dy = end.y - start.y, dz = end.z - start.z;
+        int x = (int) Math.floor(start.x), y = (int) Math.floor(start.y), z = (int) Math.floor(start.z);
+        int endX = (int) Math.floor(end.x), endY = (int) Math.floor(end.y), endZ = (int) Math.floor(end.z);
+        int stepX = (int) Math.signum(dx), stepY = (int) Math.signum(dy), stepZ = (int) Math.signum(dz);
+
+        double tDeltaX = dx == 0 ? Double.POSITIVE_INFINITY : Math.abs(1.0 / dx);
+        double tDeltaY = dy == 0 ? Double.POSITIVE_INFINITY : Math.abs(1.0 / dy);
+        double tDeltaZ = dz == 0 ? Double.POSITIVE_INFINITY : Math.abs(1.0 / dz);
+
+        double tMaxX;
+        double tMaxY;
+        double tMaxZ;
+
+        if (dx > 0) tMaxX = ((x + 1.0) - start.x) / dx;
+        else if (dx < 0) tMaxX = (start.x - x) / -dx;
+        else tMaxX = Double.POSITIVE_INFINITY;
+
+        if (dy > 0) tMaxY = ((y + 1.0) - start.y) / dy;
+        else if (dy < 0) tMaxY = (start.y - y) / -dy;
+        else tMaxY = Double.POSITIVE_INFINITY;
+
+        if (dz > 0) tMaxZ = ((z + 1.0) - start.z) / dz;
+        else if (dz < 0) tMaxZ = (start.z - z) / -dz;
+        else tMaxZ = Double.POSITIVE_INFINITY;
+
+        while (x != endX || y != endY || z != endZ) {
+            double nextT = Math.min(tMaxX, Math.min(tMaxY, tMaxZ));
+
+            if (tMaxX == nextT) {
+                x += stepX;
+                tMaxX += tDeltaX;
+            }
+
+            if (tMaxY == nextT) {
+                y += stepY;
+                tMaxY += tDeltaY;
+            }
+
+            if (tMaxZ == nextT) {
+                z += stepZ;
+                tMaxZ += tDeltaZ;
+            }
+
+            BlockPos pos = new BlockPos(x, y, z);
+            if (!PocketDimensionPersistentState.get(world).isRoomUnlocked(pos)) return pos;
+        }
+        return null;
+    }
+
+    private Vec3d globalCoordToGridCoords(Vec3d global) {
+        return new Vec3d(global.getX() / BorderLength, (global.getY() - 7) / BorderHeight, global.getZ() / BorderLength);
     }
 
     public void cancelRenderReticle() {
         PocketDimensionBorderRenderer.expansionValid = false;
         PocketDimensionBorderRenderer.expansionModeActive = false;
     }
-
-    private BlockPos raycastRoomFace(PlayerEntity user) {
-        Vec3d camWorld = user.getCameraPosVec(1.0f);
-        Vec3d dirWorld = user.getRotationVec(1.0f).normalize();
-
-        Vec3d cam = new Vec3d(
-                camWorld.x / BorderLength,
-                (camWorld.y - 7) / BorderHeight,
-                camWorld.z / BorderLength
-        );
-
-        Vec3d dir = new Vec3d(
-                dirWorld.x / BorderLength,
-                dirWorld.y / BorderHeight,
-                dirWorld.z / BorderLength
-        ).normalize();
-
-        int stepX = dir.x > 0 ? 1 : -1;
-        int stepY = dir.y > 0 ? 1 : -1;
-        int stepZ = dir.z > 0 ? 1 : -1;
-
-        double maxDistance = 4;
-        double currentDistance = 0;
-        Vec3d currentRayPos = cam.add(0,0,0);
-
-        BlockPos outPos = null;
-
-        do {
-            double xRemaining = Math.abs(stepX * (1 - fract(cam.x)));
-            double yRemaining = Math.abs(stepY * (1 - fract(cam.y)));
-            double zRemaining = Math.abs(stepZ * (1 - fract(cam.z)));
-
-            double tDeltaX = dir.x == 0 ? Double.POSITIVE_INFINITY : Math.abs(xRemaining / dir.x);
-            double tDeltaY = dir.y == 0 ? Double.POSITIVE_INFINITY : Math.abs(yRemaining / dir.y);
-            double tDeltaZ = dir.z == 0 ? Double.POSITIVE_INFINITY : Math.abs(zRemaining / dir.z);
-
-            double dist = Math.min(Math.min(tDeltaX, tDeltaY), tDeltaZ);
-            currentRayPos = currentRayPos.add(dir.multiply(dist));
-            currentDistance += dist;
-            outPos = new BlockPos(
-                    (int)Math.round(currentRayPos.x - 0.5),
-                    (int)Math.round(currentRayPos.y - 0.5),
-                    (int)Math.round(currentRayPos.z - 0.5));
-
-        } while (currentDistance < maxDistance && ClientPocketDimensionPersistentState.hasRoom(outPos));
-        return !ClientPocketDimensionPersistentState.hasRoom(outPos) ? outPos : null;
-    }
-
-    private double fract(double k){return k - Math.floor(k);}
 
     @Override
     public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
